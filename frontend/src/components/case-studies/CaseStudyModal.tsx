@@ -40,6 +40,11 @@ function InfoSection({
   );
 }
 
+function extractUrl(text: string): string | null {
+    const match = text.match(/https?:\/\/\S+/i);
+    return match ? match[0] : null;
+  }  
+  
 export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudyModalProps) {
   if (!isOpen || !caseStudy) return null;
 
@@ -183,6 +188,48 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
               </div>
             )}
 
+            {caseStudy.summary && typeof caseStudy.summary === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Summary</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.summary}</p>
+              </div>
+            )}
+
+            {caseStudy.issue && typeof caseStudy.issue === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Issue</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.issue}</p>
+              </div>
+            )}
+
+            {caseStudy.introduction && typeof caseStudy.introduction === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Introduction</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.introduction}</p>
+              </div>
+            )}
+
+            {caseStudy.goal && typeof caseStudy.goal === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Goal</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.goal}</p>
+              </div>
+            )}
+
+            {caseStudy.findings_implications && typeof caseStudy.findings_implications === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Findings and Implications</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.findings_implications}</p>
+              </div>
+            )}
+
+            {caseStudy.relation_sdgs_values && typeof caseStudy.relation_sdgs_values === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Relation to SDGs and Values</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.relation_sdgs_values}</p>
+              </div>
+            )}
+
             {caseStudy.evaluation && typeof caseStudy.evaluation === 'object' && (() => {
               const entries = Object.entries(caseStudy.evaluation as Record<string, any>)
                 .filter(([_, value]) => value && typeof value === 'object')
@@ -262,16 +309,47 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
               </div>
             )}
 
-            {(() => {
-              const relationText = caseStudy.relation_sdgs_values;
-              if (!relationText || typeof relationText !== 'string') return null as React.ReactNode;
-              return (
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Relation to SDGs & Values</h3>
-                  <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{relationText}</p>
+            {Array.isArray(caseStudy.references) && caseStudy.references.length > 0 && (
+            <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">References</h3>
+
+                <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                <ul className="space-y-2">
+                    {caseStudy.references.map((ref, idx) => {
+                    const url = extractUrl(ref);
+                    const before = url ? ref.split(url)[0] : ref;
+                    const after = url ? ref.split(url)[1] : "";
+
+                    return (
+                        <li
+                        key={idx}
+                        className="text-sm text-gray-700 leading-relaxed flex gap-2"
+                        >
+                        <span className="text-emerald-600 font-semibold">
+                            [{idx + 1}]
+                        </span>
+
+                        <span>
+                            {before}
+                            {url && (
+                            <a
+                                href={url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-emerald-700 underline hover:text-emerald-800 break-all"
+                            >
+                                {url}
+                            </a>
+                            )}
+                            {after}
+                        </span>
+                        </li>
+                    );
+                    })}
+                </ul>
                 </div>
-              ) as React.ReactNode;
-            })()}
+            </div>
+            )}
           </div>
         </div>
       </div>

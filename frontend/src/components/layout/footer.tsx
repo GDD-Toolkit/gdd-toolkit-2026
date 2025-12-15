@@ -48,8 +48,7 @@ export default function Footer() {
           <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between text-sm text-white/60">
             <span>© {new Date().getFullYear()} Development Ethics Toolkit</span>
             <nav className="flex gap-4">
-              <a href="/privacy" className="hover:text-emerald-400">Privacy</a>
-              <a href="/terms" className="hover:text-emerald-400">Terms</a>
+              <a href="/Privacy_Statement.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400">Privacy Policy</a>
             </nav>
           </div>
         </div>

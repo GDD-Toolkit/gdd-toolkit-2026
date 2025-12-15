@@ -1,16 +1,24 @@
 import { motion } from "framer-motion";
 import ToolsCarousel, { type ToolSlide } from "@/components/ToolsCarousel";
-import { Compass, BookOpen, Users, ClipboardList, BarChart } from "lucide-react";
+import { Compass, Users, ClipboardList, BarChart, Brain, Gauge } from "lucide-react";
 
 const toolSlides: ToolSlide[] = [
-  {
-    id: "project-planning",
-    label: "Planning Tool",
-    title: "Project Planning",
-    subtitle: "Milestones, roles, and accountability checklists",
-    href: "/project-planning",
-    icon: <ClipboardList className="h-8 w-8 text-emerald-200" />,
-  },
+    {
+        id: "ai-business-ethics-canvas",
+        label: "Interactive Tool",
+        title: "AI Business Ethics Canvas",
+        subtitle: "Generate an ethical project proposal. AI trained using case studies.",
+        href: "https://main.dn6y4rvhmhz3f.amplifyapp.com/",
+        icon: <Brain className="h-8 w-8 text-emerald-200" />,
+      },
+      {
+        id: "ai-ethics-dashboard",
+        label: "Educational Tool",
+        title: "AI Ethics Dashboard",
+        subtitle: "Explore the ethics of popular AI tools for development work.",
+        href: "https://main.dc0y8ib3ovhbx.amplifyapp.com/",
+        icon: <Gauge className="h-8 w-8 text-emerald-200" />,
+      },
   {
     id: "ethics-of-innovation",
     label: "Interactive Tool",
@@ -20,20 +28,20 @@ const toolSlides: ToolSlide[] = [
     icon: <Compass className="h-8 w-8 text-emerald-200" />,
   },
   {
-    id: "worthwhile-development",
-    label: "Framework",
-    title: "Worthwhile Development",
-    subtitle: "Guides, cases, and frameworks",
-    href: "/worthwhile-development",
-    icon: <BookOpen className="h-8 w-8 text-emerald-200" />,
-  },
-  {
     id: "human-centered-design",
     label: "Design Tool",
     title: "Human Centered Design",
     subtitle: "Real projects, real impact",
     href: "/human-centered-design",
     icon: <Users className="h-8 w-8 text-emerald-200" />,
+  },
+  {
+    id: "project-planning",
+    label: "Planning Tool",
+    title: "Project Planning",
+    subtitle: "Milestones, roles, and accountability checklists",
+    href: "/project-planning",
+    icon: <ClipboardList className="h-8 w-8 text-emerald-200" />,
   },
   {
     id: "project-evaluation",

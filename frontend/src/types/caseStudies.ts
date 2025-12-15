@@ -15,6 +15,14 @@ export type CaseStudy = {
   values?: string[];
   relation_sdgs_values?: string;
   summary?: string;
+  findings_implications?: string;
+  references?: string;
+  goal?: string;
+  introduction?: string;
+  issue?: string;
+  methods?: string;
+  sdgs: number[];
+
   // Additional fields that might exist
   [key: string]: unknown;
 };

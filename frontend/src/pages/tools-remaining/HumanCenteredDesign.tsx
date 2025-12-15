@@ -87,6 +87,27 @@ export default function HumanCenteredDesign() {
            The conceptualization of development ethics prompts us to ask whether or not our design decisions directly address the needs of the user or only our own presumptions. 
            Human-centered design facilitates it to ask such questions by prioritizing empathy, feedback, and collaboration among designers and their potential beneficiaries in the entire process of development. 
            One approach that effectively ensures that the toolkit is meaningful and useful as well as accessible by design to the user is Stanford’s iterative 5-step D.School Model: Empathize, Define, Ideate, Prototype, Test.
+           <br></br><br></br>
+           Let’s use an example: someone attempting to make a product that stores weights. 
+           <br></br>
+
+Step one: through our kit (and the d.school) model, is to empathize with your target audience. Interview potential buyers, and find out what they want the most. 
+<br></br>
+Step two: From those responses, imagine the kinds of people who would be interested in weight storage. Create a persona for them and imagine what kind of thugs they’d want and be interested in. Would they prefer the convenience of being able to move it around? A sturdier design? 
+<br></br>
+Step three: ideate solutions to their theorized problems. Try to find a design in the middle of the road that still lets you appeal to both sides. 
+<br></br>
+Step four: Develop that prototype that adheres to the ideas of human-centered design; make sure it’s human-friendly, easy to assemble, and doesn’t run the risk of any issues (faulty parts, a chance of breaking, etc.) 
+<br></br>
+Step five: Present the high-quality prototype, and make sure test audiences know you want feedback. Listen to all criticism and find out what could be improved for human-centered design. 
+<br></br><br></br>
+“The Field Guide to Human-Centered Design” (IDEO.org) emphasizes that human-centered design involves deep empathy with the people you are designing for. If you don’t have that, you’ll struggle to make a great design. Talk with them, and learn what they need. 
+<br></br>
+<br></br>
+Design with your audience, not necessarily for them. 
+
+          
+          
           </motion.p>
         </section>
         <div className="white-Box">
@@ -100,6 +121,8 @@ export default function HumanCenteredDesign() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, ease: easeOut }}
           >
+            The d.School model, also known as the Design Thinking model, is a training tool to teach users about Design Thinking. It is a process that focuses on problem-solving. It is divided into five categories: Empathize, Define, Ideate, Prototype, and Test. The Global Development and Design FIRE stream has worked closely with this model, as has the Human-Centered Design module team. The learning objectives for the d.school model focus on different tools to improve design thinking, such as human-centered design and accessibility, develop user understanding and perspective, generate solutions, test ideas, and more. The practical applications for the d.school model include active problem-solving, collaboration, and project management. Learning is being evaluated through project-based learning. More specifically, it is shown by demonstrating the five skills through feedback and flexibility. 
+            <br></br><br></br>
            Learn more in depth about each step of Stanford's iterative d.school model by clicking on their respective capsules!
           </motion.p>
         </div>

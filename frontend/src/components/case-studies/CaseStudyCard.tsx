@@ -40,15 +40,6 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
   const hasValidImage = rawImage && typeof rawImage === 'string' && rawImage.trim().length > 0;
   const imgUrl = hasValidImage ? s3UriToHttps(rawImage) : null;
 
-  // Truncate description to ~200-250 characters
-  const truncateText = (text: string | undefined, maxLength: number = 220): string => {
-    if (!text) return "";
-    if (text.length <= maxLength) return text;
-    return text.slice(0, maxLength).trim() + "...";
-  };
-
-  const truncatedDescription = truncateText(caseStudy.description);
-
   return (
     <>
       <div 
@@ -75,6 +66,11 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
 
         {/* Content */}
         <div className="p-5 flex-1 flex flex-col">
+          {/* Title */}
+          <h3 className="text-lg font-semibold mb-3 text-gray-900 line-clamp-2">
+            {caseStudy.name}
+          </h3>
+
           {/* Segment Label */}
           {caseStudy.segment && (
             <div className="mb-2">
@@ -90,12 +86,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
             </div>
           )}
 
-          {/* Title */}
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 line-clamp-2">
-            {caseStudy.name}
-          </h3>
-
-          {/* Tags - Values and Regions */}
+          {/* Tags - Values, Regions, SDGs */}
           <div className="flex flex-wrap gap-2 mb-3">
             {caseStudy.values?.map((value, idx) => (
               <span
@@ -113,12 +104,25 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
                 {region}
               </span>
             ))}
+            {/* SDG Tags */}
+            {caseStudy.sdgs?.map((sdg, idx) => (
+                <span
+                key={`sdg-${idx}`}
+                className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-orange-100 text-orange-700"
+                >
+                SDG {sdg}
+                </span>
+            ))}
           </div>
 
-          {/* Description */}
-          <p className="text-sm text-gray-600 mb-4 flex-1 line-clamp-3">
-            {truncatedDescription}
-          </p>
+          {/* Description (scrollable) */}
+            <div className="text-sm text-gray-600 mb-4 flex-1 max-h-28 overflow-y-auto pr-1">
+            <p className="leading-relaxed">
+                {caseStudy.description} {/* Projects */}
+                {caseStudy.summary} {/* Maldevelopment */}
+                {caseStudy.issue} {/* Policies */}
+            </p>
+            </div>
 
           {/* View Details Button */}
           <div className="flex justify-end">

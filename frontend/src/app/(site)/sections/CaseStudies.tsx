@@ -1,4 +1,4 @@
-import { SlideInLeft, SlideInRight, StaggerChildren, FadeIn } from "@/components/animations/Reveal";
+import { SlideInLeft, SlideInRight } from "@/components/animations/Reveal";
 import { motion } from "framer-motion";
 
 export default function CaseStudies() {
@@ -53,30 +53,6 @@ export default function CaseStudies() {
                 </div>
               </a>
             </SlideInRight>
-
-            {/* List rail */}
-            <StaggerChildren>
-              <div className="rounded-2xl bg-white/70 backdrop-blur divide-y divide-gray-200 shadow-sm">
-                <FadeIn>
-                  <a href="/case-studies?id=6bb6b259-0cbd-4cf7-9597-cd2c9dc0e10d" className="flex items-center justify-between px-5 py-4 hover:translate-x-0.5 transition-transform focus:outline-none focus:ring-2 focus:ring-emerald-600/60">
-                    <span className="font-medium text-gray-900">Mental health in South Korea</span>
-                    <span aria-hidden="true" className="text-gray-400">→</span>
-                  </a>
-                </FadeIn>
-                <FadeIn>
-                  <a href="/case-studies?id=317ea7a0-ea88-444f-8601-b351dd7a8744" className="flex items-center justify-between px-5 py-4 hover:translate-x-0.5 transition-transform focus:outline-none focus:ring-2 focus:ring-emerald-600/60">
-                    <span className="font-medium text-gray-900">ZHUN housing project</span>
-                    <span aria-hidden="true" className="text-gray-400">→</span>
-                  </a>
-                </FadeIn>
-                <FadeIn>
-                  <a href="/case-studies?id=c167ea2e-4172-4571-8081-42b0b3db0557" className="flex items-center justify-between px-5 py-4 hover:translate-x-0.5 transition-transform focus:outline-none focus:ring-2 focus:ring-emerald-600/60">
-                    <span className="font-medium text-gray-900">Health Service improvement</span>
-                    <span aria-hidden="true" className="text-gray-400">→</span>
-                  </a>
-                </FadeIn>
-              </div>
-            </StaggerChildren>
           </div>
         </div>
 
