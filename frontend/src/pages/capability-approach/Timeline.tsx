@@ -38,7 +38,7 @@ const Timeline: React.FC = () => {
   return (
     <section className="max-w-7xl mt-65 mb-20 mx-auto px-4 py-24">
       <div className="relative flex justify-between items-center">
-        <div className="absolute top-1/2 inset-x-[-40%] h-1 bg-gradient-to-r from-transparent via-green-500 via-blue-500 via-green-500 to-transparent -translate-y-1/2 rounded-full" />
+        <div className="absolute top-1/2 inset-x-[-40%] h-1 bg-gradient-to-r from-transparent via-[#A07CFF] via-[#6D83F2] via-[#A07CFF] to-transparent -translate-y-1/2 rounded-full" />
           {events.map((event, index) => (
             <motion.div
               key={index}
@@ -49,7 +49,7 @@ const Timeline: React.FC = () => {
               viewport={{ once: true }}
             >
             <motion.div
-              className="z-20 w-8 h-8 bg-gradient-to-br from-blue-600 to-green-500 rounded-full border-4 border-white shadow-lg"
+              className="z-20 w-8 h-8 bg-gradient-to-br from-[#6D83F2] to-[#A07CFF] rounded-full border-4 border-white shadow-lg"
               whileHover={{ scale: 1.2 }}
               transition={{ type: "spring", stiffness: 300 }}
             />
@@ -62,7 +62,7 @@ const Timeline: React.FC = () => {
               <p className="text-black-600 text-sm mt-2 leading-relaxed">{event.description}</p>
             </div>
             <div
-              className={`absolute w-1 bg-gradient-to-b from-green-500 to-blue-600 ${
+              className={`absolute w-1 bg-gradient-to-b from-[#A07CFF] to-[#6D83F2] ${
               index % 2 === 0
               ? "h-3 bottom-[100%]"
               : "h-3 top-[100%]"

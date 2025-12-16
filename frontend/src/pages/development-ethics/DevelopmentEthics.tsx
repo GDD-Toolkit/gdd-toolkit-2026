@@ -427,7 +427,7 @@ const DevelopmentEthics: React.FC = () => {
                     href="https://doi.org/10.1111/gec3.12029"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-emerald-700 underline"
+                    className="text-[#5B6FE0] underline"
                 >
                     https://doi.org/10.1111/gec3.12029
                 </a>
@@ -444,7 +444,7 @@ const DevelopmentEthics: React.FC = () => {
                     href="https://papyrus.bib.umontreal.ca/xmlui/handle/1866/3377"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-emerald-700 underline"
+                    className="text-[#5B6FE0] underline"
                 >
                     https://papyrus.bib.umontreal.ca/xmlui/handle/1866/3377
                 </a>
@@ -461,7 +461,7 @@ const DevelopmentEthics: React.FC = () => {
                     href="https://doi.org/10.1108/03068299710193543"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-emerald-700 underline"
+                    className="text-[#5B6FE0] underline"
                 >
                     https://doi.org/10.1108/03068299710193543
                 </a>

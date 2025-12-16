@@ -7,7 +7,7 @@ export default function CaseStudies() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         {/* Heading */}
         <div className="max-w-2xl">
-          <h2 id="case-title" className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h2 id="case-title" className="text-3xl sm:text-4xl font-bold tracking-tight text-[#A07CFF]">
             Learn From Real Projects
           </h2>
           <p className="mt-3 text-gray-300">
@@ -33,7 +33,16 @@ export default function CaseStudies() {
           <div className="col-span-12 md:col-span-7">
             <motion.a
               href="/case-studies"
-              className="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-white font-medium shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-600/60"
+              className="
+            mt-4 inline-flex items-center gap-2 rounded-full
+            bg-gradient-to-r from-[#A07CFF] to-[#6D83F2]
+            px-6 py-3 text-white font-medium
+            shadow-sm cursor-pointer
+
+            transition-all duration-300 ease-out
+            hover:brightness-85 hover:saturate-70
+            focus:outline-none focus:ring-2 focus:ring-[#6D83F2]
+            focus:ring-offset-2"
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
             >

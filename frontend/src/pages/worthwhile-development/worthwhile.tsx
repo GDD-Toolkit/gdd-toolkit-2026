@@ -18,27 +18,36 @@ const floating = {
 
 // Add keyframes to global style
 const FloatingKeyframes = () => (
-  <style>{`
+    <style>{`
     @keyframes floating {
       0% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
+  
     .gradient-text {
-      background: linear-gradient(90deg, #059669, #14b8a6, #059669);
+      background: linear-gradient(
+        90deg,
+        #A07CFF,
+        #6D83F2,
+        #A07CFF
+      );
       background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: gradient-sweep 5s linear infinite;
     }
+  
     @keyframes gradient-sweep {
       0% { background-position: 0% 50%; }
       100% { background-position: 100% 50%; }
     }
+  
     .underline-grow {
       position: relative;
       overflow: hidden;
     }
+  
     .underline-grow::after {
       content: "";
       position: absolute;
@@ -46,18 +55,22 @@ const FloatingKeyframes = () => (
       bottom: 0;
       width: 0;
       height: 3px;
-      background: linear-gradient(90deg, #059669, #14b8a6);
-      transition: width 0.5s cubic-bezier(.4,0,.2,1), left 0.5s cubic-bezier(.4,0,.2,1);
+      background: linear-gradient(90deg, #A07CFF, #6D83F2);
+      transition: width 0.5s cubic-bezier(.4,0,.2,1),
+                  left 0.5s cubic-bezier(.4,0,.2,1);
       border-radius: 2px;
       transform: translateX(-50%);
     }
+  
     .underline-grow.visible::after {
       width: 80%;
       left: 10%;
     }
+  
     .pulse-glow {
       position: relative;
     }
+  
     .pulse-glow::before {
       content: "";
       position: absolute;
@@ -65,26 +78,38 @@ const FloatingKeyframes = () => (
       top: 50%;
       width: 120%;
       height: 60px;
-      background: radial-gradient(circle, #a7f3d0 0%, transparent 70%);
+      background: radial-gradient(
+        circle,
+        rgba(160,124,255,0.35) 0%,
+        transparent 70%
+      );
       transform: translate(-50%, -50%);
-      filter: blur(12px);
+      filter: blur(14px);
       animation: pulse-glow 2.5s ease-in-out infinite;
       z-index: 0;
     }
+  
     @keyframes pulse-glow {
-      0%, 100% { opacity: 0.7; }
+      0%, 100% { opacity: 0.65; }
       50% { opacity: 1; }
     }
+  
     .gradient-bg {
-      background: linear-gradient(90deg, #d1fae5, #a7f3d0, #d1fae5);
+      background: linear-gradient(
+        90deg,
+        rgba(160,124,255,0.12),
+        rgba(109,131,242,0.18),
+        rgba(160,124,255,0.12)
+      );
       background-size: 200% 200%;
       animation: gradient-bg-shift 8s linear infinite;
     }
+  
     @keyframes gradient-bg-shift {
       0% { background-position: 0% 50%; }
       100% { background-position: 100% 50%; }
     }
-  `}</style>
+  `}</style>  
 );
 
 const goals = [
@@ -188,7 +213,7 @@ export default function Worthwhile() {
     <div className="w-full bg-white text-gray-900 relative">
       <FloatingKeyframes />
       {/* ===== Header ===== */}
-      <section className="w-full bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-600 py-14 text-center text-white">
+      <section className="w-full bg-gradient-to-r from-[#A07CFF] to-[#6D83F2] py-14 text-center text-white">
         <motion.h1
           className="text-4xl md:text-5xl font-extrabold tracking-tight text-white"
           initial="hidden"
@@ -214,7 +239,7 @@ export default function Worthwhile() {
         <div className="relative -mt-8 rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100 md:p-8">
           <h2
             ref={sevenGoalsRef}
-            className="text-2xl md:text-3xl font-semibold text-emerald-800 text-center"
+            className="text-2xl md:text-3xl font-semibold text-[#6D83F2] text-center"
           >
             The Seven Values
           </h2>
@@ -239,9 +264,16 @@ export default function Worthwhile() {
               animate={cardsInView ? "visible" : "hidden"}
               variants={cardVariants}
               transition={{ delay: idx * 0.09 + 0.1, duration: 0.45, ease: easeOut }}
-              className={`rounded-2xl border border-gray-200 bg-white p-8 shadow-sm hover:shadow-emerald-200 hover:scale-105 transition-all duration-300 flex flex-col items-center text-center
+              className={`rounded-2xl border border-gray-200 bg-white p-8 shadow-sm
+                hover:shadow-[0_10px_30px_rgba(160,124,255,0.25)]
+                hover:scale-105 transition-all duration-300
+                flex flex-col items-center text-center
                 ${idx === 6 ? "md:col-span-2 md:mx-auto md:w-1/2" : ""}`}
-              whileHover={{ scale: 1.05, boxShadow: "0 0 0 4px #a7f3d0" }}
+                whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 0 0 4px rgba(160,124,255,0.25)"
+                  }}
+                  
             >
               <motion.div
                 initial="hidden"
@@ -249,9 +281,10 @@ export default function Worthwhile() {
                 variants={iconVariants}
                 transition={{ delay: idx * 0.09 + 0.18, duration: 0.4, ease: easeOut }}
                 style={floating}
-                className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50 mb-6 relative"
-              >
-                <Icon className="h-10 w-10 text-emerald-700" aria-hidden="true" />
+                className="flex h-20 w-20 items-center justify-center rounded-full
+                bg-[#F1EEFF] mb-6 relative"
+                >
+                <Icon className="h-10 w-10 text-[#5B5FEF]" />
               </motion.div>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
                 {title}
@@ -271,7 +304,9 @@ export default function Worthwhile() {
           initial="hidden"
           animate={calloutInView ? "visible" : "hidden"}
           variants={calloutVariants}
-          className="max-w-3xl rounded-2xl gradient-bg border border-emerald-100 p-8 text-center shadow-sm mx-auto"
+          className="max-w-3xl rounded-2xl gradient-bg
+            border border-[#E4E0FF]
+            p-8 text-center shadow-sm mx-auto"
         >
           <h4 className="text-black font-semibold text-lg mb-3 relative z-10">
             Applying These Principles
@@ -288,7 +323,10 @@ export default function Worthwhile() {
       {showScroll && (
         <button
           aria-label="Scroll to top"
-          className="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full p-3 shadow-lg transition duration-300 flex items-center justify-center"
+          className="fixed bottom-6 right-6 z-50
+            bg-[#6D83F2] hover:bg-[#5B5FEF]
+            text-white rounded-full p-3 shadow-lg
+            transition duration-300 flex items-center justify-center"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           <ArrowUp className="w-5 h-5" />

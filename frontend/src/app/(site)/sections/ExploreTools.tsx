@@ -9,7 +9,7 @@ const toolSlides: ToolSlide[] = [
         title: "AI Business Ethics Canvas",
         subtitle: "Generate an ethical project proposal. AI trained using case studies.",
         href: "https://main.dn6y4rvhmhz3f.amplifyapp.com/",
-        icon: <Brain className="h-8 w-8 text-emerald-200" />,
+        icon: <Brain className="h-8 w-8 text-[#A07CFF]" />,
       },
       {
         id: "ai-ethics-dashboard",
@@ -17,7 +17,7 @@ const toolSlides: ToolSlide[] = [
         title: "AI Ethics Dashboard",
         subtitle: "Explore the ethics of popular AI tools for development work.",
         href: "https://main.dc0y8ib3ovhbx.amplifyapp.com/",
-        icon: <Gauge className="h-8 w-8 text-emerald-200" />,
+        icon: <Gauge className="h-8 w-8 text-[#A07CFF]" />,
       },
   {
     id: "ethics-of-innovation",
@@ -25,7 +25,7 @@ const toolSlides: ToolSlide[] = [
     title: "Ethics of Innovation",
     subtitle: "Interactive Global Development Explorer",
     href: "/ethics-of-innovation",
-    icon: <Compass className="h-8 w-8 text-emerald-200" />,
+    icon: <Compass className="h-8 w-8 text-[#A07CFF]" />,
   },
   {
     id: "human-centered-design",
@@ -33,7 +33,7 @@ const toolSlides: ToolSlide[] = [
     title: "Human Centered Design",
     subtitle: "Real projects, real impact",
     href: "/human-centered-design",
-    icon: <Users className="h-8 w-8 text-emerald-200" />,
+    icon: <Users className="h-8 w-8 text-[#A07CFF]" />,
   },
   {
     id: "project-planning",
@@ -41,7 +41,7 @@ const toolSlides: ToolSlide[] = [
     title: "Project Planning",
     subtitle: "Milestones, roles, and accountability checklists",
     href: "/project-planning",
-    icon: <ClipboardList className="h-8 w-8 text-emerald-200" />,
+    icon: <ClipboardList className="h-8 w-8 text-[#A07CFF]" />,
   },
   {
     id: "project-evaluation",
@@ -49,7 +49,7 @@ const toolSlides: ToolSlide[] = [
     title: "Project Evaluation",
     subtitle: "Measurable indicators for outcomes and unintended effects",
     href: "/project-evaluation",
-    icon: <BarChart className="h-8 w-8 text-emerald-200" />,
+    icon: <BarChart className="h-8 w-8 text-[#A07CFF]" />,
   },
 ];
 
@@ -73,7 +73,7 @@ export default function ExploreTools() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-xs font-medium uppercase tracking-[0.2em] text-emerald-400/70 mb-2"
+            className="text-xs font-medium uppercase tracking-[0.2em] text-[#A07CFF]/100 mb-2"
           >
             Toolkit
           </motion.div>
@@ -85,7 +85,7 @@ export default function ExploreTools() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-emerald-300"
+            className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-[#A07CFF]"
           >
             Explore Our Tools
           </motion.h2>

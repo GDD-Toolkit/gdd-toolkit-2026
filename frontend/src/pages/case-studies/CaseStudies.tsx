@@ -107,10 +107,10 @@ export default function CaseStudies() {
     variant: "values" | "regions" | "sdgs";
   }) {
     const styles = {
-      values: "bg-sky-100 text-sky-700",
-      regions: "bg-slate-100 text-slate-700",
-      sdgs: "bg-orange-100 text-orange-700",
-    };
+        values: "bg-sky-100 text-sky-700",
+        regions: "bg-slate-100 text-slate-700",
+        sdgs: "bg-orange-100 text-orange-700",
+      };      
 
     return (
       <div className="flex flex-wrap gap-2 ml-3">
@@ -170,7 +170,7 @@ export default function CaseStudies() {
     if (loading) {
       return (
         <div className="text-center py-12">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-sky-600"></div>
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#6D83F2]"></div>
           <p className="mt-4 text-gray-600">Loading case studies...</p>
         </div>
       );
@@ -194,7 +194,7 @@ export default function CaseStudies() {
     return (
     <div className="min-h-screen bg-gray-50">
       {/* Page Header */}
-      <header className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-12">
+      <header className="bg-gradient-to-r from-[#A07CFF] to-[#6D83F2] text-white py-12">
         <div className="max-w-6xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-bold text-center">Case Studies</h1>
         </div>
@@ -214,7 +214,7 @@ export default function CaseStudies() {
                         href="/projectevaloldinternal.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-emerald-600 font-semibold underline hover:text-emerald-700 transition-colors"
+                        className="!text-[#6D83F2] font-semibold underline !hover:text-[#5f72d8] transition-colors"
                     >
                         case study evaluation methodology
                     </a> for more details.
@@ -252,10 +252,10 @@ export default function CaseStudies() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full max-w-xl rounded-full px-4 py-2 shadow-sm
-              border border-emerald-700
-              text-emerald-700
-              placeholder-emerald-700
-              focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            border border-[#6D83F2]
+            text-[#6D83F2]
+            placeholder-[#6D83F2]
+            focus:ring-[#A07CFF]"            
           />
         </div>
 
@@ -263,13 +263,13 @@ export default function CaseStudies() {
         <div className="max-w-5xl mx-auto space-y-4 mb-8">
           {/* Values */}
           <div className="flex items-center flex-wrap gap-3">
-            <label className="w-20 text-sm font-medium text-emerald-700">
+            <label className="w-20 text-sm font-medium text-[#6D83F2]">
               Values
             </label>
             <select
               className="w-48 rounded-full px-3 py-1.5 text-sm
-                border border-emerald-700 text-emerald-700
-                focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              border border-[#6D83F2] text-[#6D83F2]
+              focus:ring-[#A07CFF]"
               onChange={(e) => {
                 const v = e.target.value;
                 if (v && !selectedValues.includes(v)) {
@@ -294,13 +294,13 @@ export default function CaseStudies() {
 
           {/* Regions */}
           <div className="flex items-center flex-wrap gap-3">
-            <label className="w-20 text-sm font-medium text-emerald-700">
+            <label className="w-20 text-sm font-medium text-[#6D83F2]">
               Regions
             </label>
             <select
               className="w-48 rounded-full px-3 py-1.5 text-sm
-                border border-emerald-700 text-emerald-700
-                focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              border border-[#6D83F2] text-[#6D83F2]
+              focus:ring-[#A07CFF]"
               onChange={(e) => {
                 const r = e.target.value;
                 if (r && !selectedRegions.includes(r)) {
@@ -325,13 +325,13 @@ export default function CaseStudies() {
 
           {/* SDGs */}
           <div className="flex items-center flex-wrap gap-3">
-            <label className="w-20 text-sm font-medium text-emerald-700">
+            <label className="w-20 text-sm font-medium text-[#6D83F2]">
               SDGs
             </label>
             <select
               className="w-48 rounded-full px-3 py-1.5 text-sm
-                border border-emerald-700 text-emerald-700
-                focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              border border-[#6D83F2] text-[#6D83F2]
+              focus:ring-[#A07CFF]"
               onChange={(e) => {
                 const s = Number(e.target.value);
                 if (s && !selectedSdgs.includes(s)) {

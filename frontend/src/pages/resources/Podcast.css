@@ -17,7 +17,7 @@
 /* === Mission Banner === */
 .mission-banner {
     width: 100%;
-    background: linear-gradient(to right, #047857, #059669, #0d9488);
+    background: linear-gradient(to right, #A07CFF, #6D83F2);
     text-align: center;
     padding: 3.5rem 1rem;
 }
@@ -78,7 +78,7 @@
 .principles-summary-title {
     font-size: 1.875rem;
     font-weight: 600;
-    color: #065f46;
+    color: #5B6FE0;
     margin-bottom: 0.5rem;
     text-align: center;
 }
@@ -134,7 +134,7 @@
     padding: 0.4rem 0.6rem;
     border: 1px solid #d1d5db;
     border-radius: 0.4rem;
-    color:#059669;
+    color:#6D83F2;
 }
 
 /* === Episode List === */

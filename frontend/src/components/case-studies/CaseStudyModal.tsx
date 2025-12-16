@@ -97,7 +97,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
         onClick={(e) => e.stopPropagation()}
       >
         {/* Green Header */}
-        <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-6 px-6 relative">
+        <div className="bg-gradient-to-r from-[#A07CFF] to-[#6D83F2] text-white py-6 px-6 relative">
           <button
             onClick={onClose}
             className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5"
@@ -287,7 +287,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
                               <ul className="space-y-1.5">
                                 {indicators.map((indicator, idx) => (
                                   <li key={idx} className="text-xs text-gray-600 flex items-start gap-2">
-                                    <span className="text-emerald-600 mt-1">•</span>
+                                    <span className="text-[#6D83F2] mt-1">•</span>
                                     <span>{indicator}</span>
                                   </li>
                                 ))}
@@ -325,7 +325,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
                         key={idx}
                         className="text-sm text-gray-700 leading-relaxed flex gap-2"
                         >
-                        <span className="text-emerald-600 font-semibold">
+                        <span className="text-[#6D83F2] font-semibold">
                             [{idx + 1}]
                         </span>
 

@@ -123,7 +123,7 @@ export default function Navbar() {
       transition={{ delay: 0.33, duration: 0.4, ease: 'easeOut' }}
     >
       {/* Subtle gradient accent at top */}
-      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-slate-700 via-emerald-600 to-slate-700" />
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#A07CFF] via-[#6D83F2] to-[#A07CFF]" />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -155,14 +155,14 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04, duration: 0.3 }}
                   >
-                    <Button className="group">
+                    <Button className="group hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]">
                       <span className="relative z-10">{m.label}</span>
                       <motion.span
                         className="relative z-10"
                         animate={{ rotate: open === i ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <ChevronDown className="w-3.5 h-3.5 text-slate-500 group-hover:text-emerald-600" />
+                        <ChevronDown className="w-3.5 h-3.5 text-slate-500 group-hover:text-[#6D83F2]" />
                       </motion.span>
                     </Button>
                   </motion.div>
@@ -185,7 +185,7 @@ export default function Navbar() {
                             <motion.a
                               key={it.href}
                               href={it.href}
-                              className="relative block px-5 py-3 text-sm text-slate-700 hover:text-slate-900 hover:bg-slate-50/80 transition-colors duration-150 group/item"
+                              className="relative block px-5 py-3 text-sm text-slate-700 hover:bg-[#A07CFF]/10 hover:!text-[#6D83F2] transition-colors duration-150 group/item"
                               variants={itemVariants}
                               initial="hidden"
                               animate="visible"
@@ -194,7 +194,7 @@ export default function Navbar() {
                             >
                               <span className="flex items-center gap-3">
                                 <motion.span
-                                  className="w-1 h-1 rounded-full bg-emerald-600"
+                                  className="w-1 h-1 rounded-full bg-[#A07CFF]/10"
                                   initial={{ opacity: 0, scale: 0 }}
                                   whileHover={{ opacity: 1, scale: 1 }}
                                   transition={{ duration: 0.2 }}
@@ -202,7 +202,7 @@ export default function Navbar() {
                                 <span className="flex-1">{it.label}</span>
                               </span>
                               <motion.div
-                                className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600"
+                                className="absolute left-0 top-0 bottom-0 w-1 bg-[#A07CFF]/10"
                                 initial={{ scaleY: 0 }}
                                 whileHover={{ scaleY: 1 }}
                                 transition={{ duration: 0.2 }}
@@ -219,7 +219,7 @@ export default function Navbar() {
                 <motion.a
                   key={m.label}
                   href={m.href}
-                  className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 px-5 py-2.5 bg-white !text-slate-800 border border-gray-200 shadow-sm hover:bg-emerald-50 hover:border-emerald-500 hover:!text-emerald-700 hover:shadow-md cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 px-5 py-2.5 bg-white !text-slate-800 border border-gray-200 shadow-sm hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2] hover:shadow-md cursor-pointer"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   initial={{ opacity: 0, y: -10 }}
@@ -233,7 +233,7 @@ export default function Navbar() {
 
             {/* Triangle alert icon */}
             <div className="relative ml-4">
-              <Button size="icon" variant="default" onClick={() => setShowMessage(v => !v)} aria-label="Prerelease info">
+              <Button size="icon" variant="default" onClick={() => setShowMessage(v => !v)} aria-label="Prerelease info" className='hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]'>
                 <AlertTriangle className="w-5 h-5 text-red-600" />
               </Button>
 
@@ -329,7 +329,7 @@ export default function Navbar() {
                                   window.location.href = it.href
                                 }}
                               >
-                                <span className="w-1 h-1 rounded-full bg-emerald-600 mr-2" />
+                                <span className="w-1 h-1 rounded-full bg-[#A07CFF]/10 mr-2" />
                                 {it.label}
                               </Button>
                             </motion.li>

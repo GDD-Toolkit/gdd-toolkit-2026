@@ -148,7 +148,7 @@ export default function HomePage() {
                     initial={{ scale: 0.9 }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-600 text-white shadow-lg hover:bg-emerald-700 transition-colors focus:outline-none focus:ring-4 focus:ring-emerald-500/50"
+                    className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-[#A07CFF] to-[#6D83F2] text-white shadow-lg hover:brightness-85 hover:saturate-70 transition-colors focus:outline-none focus:ring-4 focus:ring-emerald-500/50"
                   >
                     <Play className="w-10 h-10 ml-1" fill="currentColor" />
                   </motion.button>

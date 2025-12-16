@@ -133,3 +133,74 @@
     font-weight: 600;
     color: #374151;
 }
+
+/* === Modal Overlay === */
+.tool-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 9999;
+}
+
+/* === Modal Box === */
+.tool-modal {
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    color: #374151;
+}
+
+/* === Header === */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(to right, #A07CFF, #8b7df5, #6D83F2);
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+}
+
+.modal-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* === Sections === */
+.modal-section h3,
+.modal-card h3 {
+    font-size: 1.25rem;
+    color: #6D83F2;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Resource links */
+.bullet-list a {
+    color: #6D83F2;
+    text-decoration: none;
+}
+
+.bullet-list a:hover {
+    text-decoration: underline;
+}
+
+/* === Keywords Badge === */
+.keyword-badge {
+    padding: 0.35rem 0.65rem;
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+}

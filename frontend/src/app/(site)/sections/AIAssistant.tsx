@@ -18,7 +18,7 @@ export default function AIAssistant() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-emerald-700"
+          className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-[#6D83F2]"
         >
           Use our new AI assistant
         </motion.h2>
@@ -34,19 +34,29 @@ export default function AIAssistant() {
         </motion.p>
 
         <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          viewport={{ once: true }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => {
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        viewport={{ once: true }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() => {
             window.location.href = "https://main.dn6y4rvhmhz3f.amplifyapp.com/";
-          }}           
-          className="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-white font-medium shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-colors cursor-pointer"
+        }}
+        className="
+            mt-4 inline-flex items-center gap-2 rounded-full
+            bg-gradient-to-r from-[#A07CFF] to-[#6D83F2]
+            px-6 py-3 text-white font-medium
+            shadow-sm cursor-pointer
+
+            transition-all duration-300 ease-out
+            hover:brightness-85 hover:saturate-70
+            focus:outline-none focus:ring-2 focus:ring-[#6D83F2]
+            focus:ring-offset-2
+        "
         >
-          Get Started
-          <span aria-hidden="true">→</span>
+        Get Started
+        <span aria-hidden="true">→</span>
         </motion.button>
       </div>
     </motion.section>

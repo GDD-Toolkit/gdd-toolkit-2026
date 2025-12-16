@@ -7,7 +7,7 @@
 
 .mission-banner {
     width: 100%;
-    background: linear-gradient(to right, #047857, #059669, #0d9488);
+    background: linear-gradient(to right, #A07CFF, #6D83F2);
     text-align: center;
     padding: 3.5rem 1rem;
 }
@@ -50,10 +50,10 @@
 
 .page-title {
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0;
   text-align: center;
-  color: #065f46;
+  color: #5B6FE0;
 }
 
 .page-subtitle {
@@ -111,7 +111,7 @@
 }
 
 .card-title {
-  color: #0369a1;
+  color: #6D83F2;
   font-size: 18px;
   font-weight: 600;
 }
@@ -128,8 +128,8 @@
 
 .card-amount {
   display: inline-block;
-  background: #d1fae5;
-  color: #065f46;
+  background: rgba(160, 124, 255, 0.08);
+  color: #A07CFF;
   padding: 4px 10px;
   font-size: 13px;
   border-radius: 20px;

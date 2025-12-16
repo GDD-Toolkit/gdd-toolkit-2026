@@ -14,29 +14,11 @@
     justify-content: center; /* centers the title */
     position: relative;
 }
-
-.back-button {
-    position: absolute;
-    left: 1.5rem;
-    background-color: #047857;
-    color: #ffffff;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.back-button:hover {
-    background-color: #065f46;
-}
   
   /* === Mission Banner === */
   .mission-banner {
     width: 100%;
-    background: linear-gradient(to right, #047857, #059669, #0d9488);
+    background: linear-gradient(to right, #A07CFF, #6D83F2);
     text-align: center;
     padding: 3.5rem 1rem;
   }
@@ -87,7 +69,7 @@
   .simulation-title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #065f46;
+    color: #6D83F2;
     text-align: center;
   }
   
@@ -113,14 +95,14 @@
   }
   
   .simulation-text a {
-    color: #047857;
+    color: #6D83F2;
     font-weight: 600;
     text-decoration: none;
     transition: color 0.2s ease-in-out;
   }
   
   .simulation-text a:hover {
-    color: #065f46;
+    color: #5B6FE0;
     text-decoration: underline;
   }
 
@@ -154,13 +136,13 @@
   }
   
   .checklist-item:hover {
-    background-color: #f0fdf4;
-    border-color: #a7f3d0;
+    background-color: rgba(160, 124, 255, 0.08);
+    border-color: rgba(160, 124, 255, 0.35);
   }
   
   /* === Checkmark Icon === */
   .checkmark {
-    color: #047857;
+    color: #6D83F2;
     font-weight: 700;
     margin-right: 0.75rem;
     flex-shrink: 0;
@@ -170,7 +152,7 @@
   
   /* === Strong Text Styling === */
   .checklist-item strong {
-    color: #047857;
+    color: #6D83F2;
     font-weight: 600;
   }
   
@@ -245,7 +227,7 @@
     left: 0;
     top: 0;
     font-weight: 700;
-    color: #047857;
+    color: #6D83F2;
     font-size: 1.05rem;
 }
 

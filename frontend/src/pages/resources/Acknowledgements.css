@@ -36,7 +36,7 @@
   /* === Mission Banner === */
   .mission-banner {
     width: 100%;
-    background: linear-gradient(to right, #047857, #059669, #0d9488);
+    background: linear-gradient(to right, #A07CFF, #6D83F2);
     text-align: center;
     padding: 3.5rem 1rem;
   }
@@ -113,14 +113,14 @@
   }
   
   .simulation-text a {
-    color: #047857;
+    color: #6D83F2;
     font-weight: 600;
     text-decoration: none;
     transition: color 0.2s ease-in-out;
   }
   
   .simulation-text a:hover {
-    color: #065f46;
+    color: #6D83F2;
     text-decoration: underline;
   }
 
@@ -144,7 +144,7 @@
     border-radius: 0.5rem;
     border: 1px solid #d1d5db;
     background: #f3f4f6;
-    color: #065f46;
+    color: #6D83F2;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s ease;
@@ -152,8 +152,8 @@
 
 .cohort-button:hover,
 .cohort-button.active {
-    background: #d1fae5;
-    border-color: #059669;
+    background: rgba(160, 124, 255, 0.08);
+    border-color: #6D83F2;
 }
 
 /* === Cohort Modules (Right) === */
@@ -178,7 +178,7 @@
 
 .module-name {
     font-weight: 600;
-    color: #065f46;
+    color: #6D83F2;
     margin-bottom: 0.5rem;
 }
 

@@ -11,7 +11,7 @@ export default function CapabilityApproach() {
   return (
     <div className="w-full bg-white text-gray-900 relative">
       {/*Header*/}
-      <section className="w-full bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-600 py-14 text-center text-white">
+      <section className="w-full bg-gradient-to-r from-[#A07CFF] to-[#6D83F2] py-14 text-center text-white">
         <motion.h1
           className="text-4xl md:text-5xl font-extrabold tracking-tight text-white"
           initial="hidden"
@@ -34,12 +34,12 @@ export default function CapabilityApproach() {
     {/*Pioneers Grids + Info*/}
     <div className="max-w-6xl mx-auto px-4 py-20 space-y-16">
       <div className = "relative -mt-8 rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100 md:p-8">
-        <h2 className = "text-4xl text-center text-emerald-800 font-semibold"> Pioneers Of This Approach</h2>
+        <h2 className = "text-4xl text-center text-[#6D83F2] font-semibold"> Pioneers Of This Approach</h2>
       </div>
         <section>
           <div className="grid grid-cols-2 gap-6 mt-8">
             <div className="relative -mt-8 rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100 md:p-8">
-              <h2 className="text-2xl font-semibold mb-4 text-emerald-800 text-center">
+              <h2 className="text-2xl font-semibold mb-4 text-[#6D83F2] text-center">
                 Amartya Sen
               </h2>
                 <img
@@ -54,7 +54,7 @@ export default function CapabilityApproach() {
                 </ul>
             </div>
             <div className = "relative -mt-8 rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100 md:p-8">
-              <h2 className="text-2xl font-semibold mb-4 text-emerald-800 text-center">
+              <h2 className="text-2xl font-semibold mb-4 text-[#6D83F2] text-center">
                 Martha Nussbaum
               </h2>
                 <img
@@ -74,7 +74,7 @@ export default function CapabilityApproach() {
       {/*Video*/}
       <section>
         <div className="relative -mt-1 rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100 md:p-8">
-          <h2 className = "text-3xl text-center text-emerald-800 font-semibold">
+          <h2 className = "text-3xl text-center text-[#6D83F2] font-semibold">
             Capability Approach Explained By The Training & Knowledge Module Team
           </h2>
           <h3 className="text-gray mt-4 text-center">
@@ -98,7 +98,7 @@ export default function CapabilityApproach() {
       <section className="relative mt-40 rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100 md:p-8">
        {
         <section>
-        <h2 className="text-4xl font-semibold mb-4 text-center text-emerald-800">
+        <h2 className="text-4xl font-semibold mb-4 text-center text-[#6D83F2]">
           The Human Rights Based Approach
         </h2>
         <h3 className = "text-black text-center"> This approach to global development, a subset to the Capability Approach, aims to ensure that human rights are considered and respected when a country undergoes development.

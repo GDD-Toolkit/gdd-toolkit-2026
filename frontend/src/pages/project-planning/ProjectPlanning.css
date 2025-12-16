@@ -221,3 +221,158 @@
     font-weight: 600;
     color: #374151;
 }
+
+/* === General Page Styles === */
+.page-container {
+    font-family: "Inter", sans-serif;
+    background-color: #fff;
+    color: #fff;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.back-button {
+    position: absolute;
+    left: 1.5rem;
+    background-color: #6D83F2;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: #5f72d8;
+}
+
+/* === Mission Banner === */
+.mission-banner {
+    width: 100%;
+    background: linear-gradient(to right, #A07CFF, #8b7df5, #6D83F2);
+    text-align: center;
+    padding: 3.5rem 1rem;
+}
+
+.mission-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .mission-title {
+        font-size: 3.2rem;
+    }
+}
+
+/* === Content Section === */
+.content-section {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.content-section + .content-section {
+    margin-top: 3rem;
+}
+
+/* === Content Card === */
+.content-card {
+    position: relative;
+    margin-top: -2rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f3f4f6;
+}
+
+@media (min-width: 768px) {
+    .content-card {
+        padding: 2rem;
+    }
+}
+
+/* === Simulation Title === */
+.simulation-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #6D83F2;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .simulation-title {
+        font-size: 1.875rem;
+    }
+}
+
+/* === Simulation Text === */
+.simulation-text {
+    margin-top: 0.75rem;
+    color: #374151;
+    line-height: 1.7;
+    font-size: 0.9375rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .simulation-text {
+        font-size: 1rem;
+    }
+}
+
+.simulation-text a {
+    color: #6D83F2;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.simulation-text a:hover {
+    color: #5f72d8;
+    text-decoration: underline;
+}
+
+/* === Search Bar === */
+.planning-search-bar {
+    width: 70%;
+    max-width: 500px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: 0.2s ease;
+    color: #6D83F2;
+}
+
+.planning-search-bar:focus {
+    outline: none;
+    border-color: #6D83F2;
+    box-shadow: 0 0 0 3px rgba(160,124,255,0.25);
+}
+
+.planning-search-bar::placeholder {
+    color: #6D83F2;
+    opacity: 1;
+}
+
+/* === Tools Grid === */
+.tool-name {
+    color: #6D83F2;
+}

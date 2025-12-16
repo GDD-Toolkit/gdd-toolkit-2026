@@ -6,9 +6,9 @@
     min-height: 100vh;
     margin: 0;
     padding: 0;
-  }
+}
 
-  .header-flex {
+.header-flex {
     display: flex;
     align-items: center;
     justify-content: center; /* centers the title */
@@ -18,7 +18,7 @@
 .back-button {
     position: absolute;
     left: 1.5rem;
-    background-color: #047857;
+    background-color: #6D83F2;
     color: #ffffff;
     border: none;
     border-radius: 0.5rem;
@@ -30,44 +30,44 @@
 }
 
 .back-button:hover {
-    background-color: #065f46;
+    background-color: #5B6FE0;
 }
-  
-  /* === Mission Banner === */
-  .mission-banner {
+
+/* === Mission Banner === */
+.mission-banner {
     width: 100%;
-    background: linear-gradient(to right, #047857, #059669, #0d9488);
+    background: linear-gradient(to right, #A07CFF, #8E86FF, #6D83F2);
     text-align: center;
     padding: 3.5rem 1rem;
-  }
-  
-  .mission-title {
+}
+
+.mission-title {
     font-size: 2.5rem;
     font-weight: 800;
     letter-spacing: -0.02em;
     color: #ffffff;
     margin: 0;
-  }
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
     .mission-title {
-      font-size: 3.2rem;
+        font-size: 3.2rem;
     }
-  }
-  
-  /* === Content Section === */
-  .content-section {
+}
+
+/* === Content Section === */
+.content-section {
     max-width: 72rem;
     margin: 0 auto;
     padding: 0 1.5rem;
-  }
-  
-  .content-section + .content-section {
+}
+
+.content-section + .content-section {
     margin-top: 3rem;
-  }
-  
-  /* === Content Card === */
-  .content-card {
+}
+
+/* === Content Card === */
+.content-card {
     position: relative;
     margin-top: -2rem;
     background-color: #ffffff;
@@ -75,69 +75,69 @@
     padding: 1.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: 1px solid #f3f4f6;
-  }
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
     .content-card {
-      padding: 2rem;
+        padding: 2rem;
     }
-  }
-  
-  /* === Simulation Title === */
-  .simulation-title {
+}
+
+/* === Simulation Title === */
+.simulation-title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #065f46;
+    color: #5B6FE0;
     text-align: center;
-  }
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
     .simulation-title {
-      font-size: 1.875rem;
+        font-size: 1.875rem;
     }
-  }
-  
-  /* === Simulation Text === */
-  .simulation-text {
+}
+
+/* === Simulation Text === */
+.simulation-text {
     margin-top: 0.75rem;
     color: #374151;
     line-height: 1.7;
     font-size: 0.9375rem;
     text-align: center;
-  }
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
     .simulation-text {
-      font-size: 1rem;
+        font-size: 1rem;
     }
-  }
-  
-  .simulation-text a {
-    color: #047857;
+}
+
+.simulation-text a {
+    color: #6D83F2;
     font-weight: 600;
     text-decoration: none;
     transition: color 0.2s ease-in-out;
-  }
-  
-  .simulation-text a:hover {
-    color: #065f46;
+}
+
+.simulation-text a:hover {
+    color: #5B6FE0;
     text-decoration: underline;
-  }
-  
-  /* === Principles Section === */
-  .principles-section {
+}
+
+/* === Principles Section === */
+.principles-section {
     max-width: 80rem;
     margin: 3rem auto;
     padding: 0 1.5rem;
-  }
-  
-  .principles-grid {
+}
+
+.principles-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
-  }
-  
-  /* === Principle Card === */
+}
+
+/* === Principle Card === */
 .principle-card {
     position: relative;
     display: flex;
@@ -151,62 +151,62 @@
     overflow: hidden;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     height: 130px;
-  }
-  
-  .principle-card:hover {
+}
+
+.principle-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* === Principle Image === */
-  .principle-image-wrapper {
+}
+
+/* === Principle Image === */
+.principle-image-wrapper {
     flex-shrink: 0;
     width: 120px;
     height: 100%;
     overflow: hidden;
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
-  }
-  
-  .principle-image {
+}
+
+.principle-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.4s ease;
-  }
-  
-  .principle-card:hover .principle-image {
+}
+
+.principle-card:hover .principle-image {
     transform: scale(1.1);
-  }
-  
-  /* === Principle Info === */
-  .principle-info {
+}
+
+/* === Principle Info === */
+.principle-info {
     padding: 1rem;
     flex-grow: 1;
     z-index: 2; /* keep above background, below overlay */
-  }
-  
-  .principle-title {
+}
+
+.principle-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #065f46;
+    color: #5B6FE0;
     margin: 0;
     transition: color 0.3s ease;
-  }
-  
-  .principle-card:hover .principle-title {
-    color: #047857;
-  }
-  
-  /* === Full-Card Hover Overlay === */
-  .principle-hover-text {
+}
+
+.principle-card:hover .principle-title {
+    color: #6D83F2;
+}
+
+/* === Full-Card Hover Overlay === */
+.principle-hover-text {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     padding: 1rem 1.25rem;
-    background-color: rgba(4, 120, 87, 0.97);
+    background-color: rgba(109, 131, 242, 0.97);
     color: #ffffff;
     font-size: 0.95rem;
     line-height: 1.5;
@@ -218,27 +218,25 @@
     justify-content: flex-start;
     text-align: left;
     overflow-y: auto;
-    z-index: 3; /* ensure it sits above everything */
+    z-index: 3;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
-  }
-  
-  /* Scrollbar (WebKit) */
-  .principle-hover-text::-webkit-scrollbar {
+}
+
+.principle-hover-text::-webkit-scrollbar {
     width: 6px;
-  }
-  .principle-hover-text::-webkit-scrollbar-thumb {
+}
+.principle-hover-text::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
-  }
-  .principle-hover-text::-webkit-scrollbar-thumb:hover {
+}
+.principle-hover-text::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.7);
-  }
-  
-  /* Hover Reveal (Full Overlay) */
-  .principle-card:hover .principle-hover-text {
+}
+
+.principle-card:hover .principle-hover-text {
     opacity: 1;
-  }  
+}
 
 /* === Principles Summary Section === */
 .principles-summary-flex {
@@ -249,160 +247,155 @@
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
-  }
-  
-  .principles-summary-text-wrapper {
+}
+
+.principles-summary-text-wrapper {
     flex: 1;
     padding: 1rem 1.5rem;
     text-align: left;
-  }
-  
-  .principles-summary-image-wrapper {
+}
+
+.principles-summary-image-wrapper {
     flex-shrink: 0;
     width: 25%;
     border-radius: 0.75rem;
     overflow: hidden;
-  }
-  
-  .principles-summary-image {
+}
+
+.principles-summary-image {
     width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
-  }
-  
-  /* --- Make title on top and content side-by-side --- */
-  .principles-summary-flex {
+}
+
+.principles-summary-flex {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
     .principles-summary-flex {
-      flex-direction: column;
-      text-align: left;
+        flex-direction: column;
+        text-align: left;
     }
-  
+
     .principles-summary-text-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
-  
-    /* Group image + text side-by-side under title */
+
     .principles-summary-content {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      gap: 2rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 2rem;
     }
-  }
-  
-  .principles-summary-title {
+}
+
+.principles-summary-title {
     font-size: 1.875rem;
     font-weight: 600;
-    color: #065f46;
+    color: #5B6FE0;
     margin-bottom: 0.5rem;
     text-align: center;
-  }
-  
-  .principles-summary-text {
+}
+
+.principles-summary-text {
     color: #374151;
     line-height: 1.75;
     font-size: 1rem;
     max-width: 50rem;
-  }
-  
-  .principles-summary-text strong {
-    color: #047857;
-  }
-  
-  .principles-summary-text a {
-    color: #047857;
+}
+
+.principles-summary-text strong {
+    color: #6D83F2;
+}
+
+.principles-summary-text a {
+    color: #6D83F2;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s ease-in-out;
-  }
-  
-  .principles-summary-text a:hover {
-    color: #065f46;
-    text-decoration: underline;
-  }  
+}
 
-  /* === Checklist Section === */
+.principles-summary-text a:hover {
+    color: #5B6FE0;
+    text-decoration: underline;
+}
+
+/* === Checklist Section === */
 .checklist-section {
     max-width: 72rem;
     margin: 3rem auto;
     padding: 0 1.5rem;
-  }
-  
-  .checklist {
+}
+
+.checklist {
     list-style: none;
     padding: 0;
     margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
-  
-  .checklist-item {
+}
+
+.checklist-item {
     display: flex;
     align-items: flex-start;
-    background-color: #f9fafb;
+    background-color: #F4F3FF;
     padding: 1rem 1.25rem;
     border-radius: 0.75rem;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #D6D3FF;
     color: #374151;
     line-height: 1.6;
     font-size: 1rem;
     transition: background-color 0.25s ease, border-color 0.25s ease;
-  }
-  
-  .checklist-item:hover {
-    background-color: #f0fdf4;
-    border-color: #a7f3d0;
-  }
-  
-  /* === Checkmark Icon === */
-  .checkmark {
-    color: #047857;
+}
+
+.checklist-item:hover {
+    background-color: #E6E2FF;
+    border-color: #BFB8FF;
+}
+
+.checkmark {
+    color: #6D83F2;
     font-weight: 700;
     margin-right: 0.75rem;
     flex-shrink: 0;
     font-size: 1.2rem;
     line-height: 1.2;
-  }
-  
-  /* === Strong Text Styling === */
-  .checklist-item strong {
-    color: #047857;
-    font-weight: 600;
-  }
-  
-  /* === Responsive Adjustments === */
-  @media (min-width: 768px) {
-    .checklist-item {
-      font-size: 1.05rem;
-      padding: 1.25rem 1.5rem;
-    }
-  }
+}
 
-  /* === YouTube Videos === */
+.checklist-item strong {
+    color: #5B6FE0;
+    font-weight: 600;
+}
+
+@media (min-width: 768px) {
+    .checklist-item {
+        font-size: 1.05rem;
+        padding: 1.25rem 1.5rem;
+    }
+}
+
+/* === YouTube Videos === */
 .case-video-wrapper {
     position: relative;
-    width: 70%;              /* smaller width (adjust to taste: 60–80%) */
-    padding-top: 39.375%;    /* maintain 16:9 ratio → 56.25% × 0.7 */
+    width: 70%;
+    padding-top: 39.375%;
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-    margin: 1.5rem auto;     /* centers horizontally */
-  }
-  
-  .case-video {
+    margin: 1.5rem auto;
+}
+
+.case-video {
     position: absolute;
     top: 0;
     left: 0;
@@ -411,6 +404,4 @@
     border: none;
     border-radius: 1rem;
     object-fit: cover;
-  }
-  
-  
+}
