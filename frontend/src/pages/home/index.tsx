@@ -42,7 +42,7 @@ export default function HomePage() {
       videoRef.current.currentTime = 1
     }
   }
-
+  
   // Animation starts after splash finishes (1.25s) with a slight delay
   const contentVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -157,7 +157,7 @@ export default function HomePage() {
             </div>
           </div>
         </motion.section>
-
+           
         {/* Optional spacing */}
         <div className="py-8" />
 
