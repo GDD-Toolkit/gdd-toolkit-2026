@@ -1,0 +1,162 @@
+{
+    "name": "DMEDI",
+    "type": ["Six Sigma", "Process Mapping"],
+    "time": ["Long-term"],
+    "image": "/assets/images/DMEDI.png",
+    "learning_obj": 
+    [
+        {
+          "text": "Understand the five phases of DMEDI and how they build on one another.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Translate stakeholder needs into measurable requirements.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Use data to explore and evaluate design alternatives.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Develop and pilot a new process or service that meets defined quality and performance standards.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Integrate DMEDI thinking into program design and innovation projects.",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "characteristics":
+    [
+        {
+          "text": "The DMEDI tool is a Six Sigma framework used to design or create new processes, products, or services that meet customer or stakeholder needs right from the start.",
+          "sub_bullets": []
+        },
+        {
+          "text": "It stands for Define, Measure, Explore, Develop, and Implement.",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "process":
+    [
+        {
+          "text": "Define customer/stakeholder needs and project goals.",
+          "sub_bullets": [
+            { "text": "Create a problem statement and project charter.", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Collect data to understand requirements and baseline conditions.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Identify key performance indicators.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Translate customer needs into measurable specifications (Critical to quality factors).",
+          "sub_bullets": []
+        },
+        {
+          "text": "Explore",
+          "sub_bullets": [
+            { "text": "Brainstorm and analyze multiple design alternatives.", "sub_bullets": [] },
+            { "text": "Use tools like process mapping, cause and effect analysis, or benchmarking to compare options.", "sub_bullets": [] },
+            { "text": "Narrow down to the best possible solutions using data.", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Develop",
+          "sub_bullets": [
+            { "text": "Build and test prototypes, mock-ups, or pilot projects.", "sub_bullets": [] },
+            { "text": "Use feedback loops to refine designs before scaling.", "sub_bullets": [] },
+            { "text": "Validate performance against target metrics.", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Implement",
+          "sub_bullets": [
+            { "text": "Finalize and launch the new design or process.", "sub_bullets": [] },
+            { "text": "Create standard operating procedures.", "sub_bullets": [] },
+            { "text": "Set up monitoring and control plans to ensure sustainability.", "sub_bullets": [] }
+          ]
+        }
+      ]
+    ,
+    "benefits":
+    [
+        { "text": "Structured innovation: provides a clear roadmap for creating new solutions.", "sub_bullets": [] },
+        { "text": "Customer-focused: Ensures outcomes align with real needs.", "sub_bullets": [] },
+        { "text": "Data-driven: Decisions are based on evidence, not assumptions.", "sub_bullets": [] },
+        { "text": "Risk reduction: Problems are identified early.", "sub_bullets": [] },
+        { "text": "Scalability: Creates solutions that can be replicated and sustained.", "sub_bullets": [] },
+        { "text": "Encourages input from multiple disciplines for stronger results.", "sub_bullets": [] },
+        {
+          "text": "Worthwhile development strengthens DMEDI by keeping each step focusing on improvements that deliver meaningful, lasting value.",
+          "sub_bullets": []
+        }
+      ]      
+    ,
+    "drawbacks":
+    [
+        { "text": "Rigidity / linear mindset", "sub_bullets": [] },
+        { "text": "Cross-functional dependency", "sub_bullets": [] },
+        { "text": "Time & Cost", "sub_bullets": [] },
+        { "text": "Overconfidence in data", "sub_bullets": [] }
+      ]
+    ,
+    "example":
+    [
+        { "text": "Customer Support Response Time", "sub_bullets": [] },
+        { "text": "Improve response time, and measure current average = 24 hours.", "sub_bullets": [] },
+        { "text": "Explore causes: backlog, no templates, staffing gaps.", "sub_bullets": [] },
+        { "text": "Develop workflow, templates, and auto-routing system.", "sub_bullets": [] },
+        { "text": "Implement rollout and reduce response time to 4 hours.", "sub_bullets": [] }
+      ]
+    ,
+    "resources":
+    [
+        {
+          "text": "Training",
+          "sub_bullets": [
+            { "text": "ASQ: Design for Six Sigma", "sub_bullets": [] },
+            { "text": "Coursera / Udemy: Six Sigma Design Courses", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Books",
+          "sub_bullets": [
+            { "text": "Design for Six Sigma: A Practitioner's Guide — Ashok Muthuswamy", "sub_bullets": [] },
+            { "text": "Implementing Design for Six Sigma — Erik M.", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Tools",
+          "sub_bullets": [
+            { "text": "Templates for project charters, CTQ matrices, and pilot testing plans.", "sub_bullets": [] },
+            { "text": "Software such as Minitab, SigmaXL, or Excel for data analysis.", "sub_bullets": [] }
+          ]
+        }
+      ]
+    ,
+    "use_case_video": "/assets/DMEDIexamplevideo.mp4",
+    "evaluation":
+    [
+        {
+          "text": "Pre- and post-training quizzes to assess conceptual understanding of DMEDI phases.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Hands-on project exercise: Participants complete a small DMEDI project.",
+          "sub_bullets": [
+            { "text": "Example: designing a new data collection process or workflow.", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Peer review presentations: Participants share their DMEDI outputs for group feedback.",
+          "sub_bullets": []
+        }
+      ]
+}

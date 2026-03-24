@@ -1,0 +1,177 @@
+{
+    "name": "SIPOC",
+    "type": ["Process Mapping"],
+    "time": ["Short-term"],
+    "image": "/assets/images/sipoc.png",
+    "learning_obj": 
+    [
+        {
+          "text": "Gain a comprehensive understanding of how to map out a process with SIPOC.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Identify key elements:",
+          "sub_bullets": [
+            { "text": "Suppliers", "sub_bullets": [] },
+            { "text": "Inputs", "sub_bullets": [] },
+            { "text": "Processes", "sub_bullets": [] },
+            { "text": "Outputs", "sub_bullets": [] },
+            { "text": "Customers", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Utilize this information to improve the efficiency and customer experience of the process.",
+          "sub_bullets": []
+        },
+        {
+          "text": "How SIPOC connects to worthwhile development.",
+          "sub_bullets": []
+        },
+        {
+          "text": "How SIPOC can be used in a worthwhile development project.",
+          "sub_bullets": []
+        }
+      ],
+    "characteristics": 
+    [
+        {
+          "text": "SIPOC maps out a process into:",
+          "sub_bullets": [
+            { "text": "Suppliers - The input sources for the process", "sub_bullets": [] },
+            { "text": "Inputs - The resources you need for the process to function", "sub_bullets": [] },
+            { "text": "Process - The high-level steps of the process", "sub_bullets": [] },
+            { "text": "Outputs - The results of the process", "sub_bullets": [] },
+            { "text": "Customers - The people who receive outputs or benefit from the process", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Aims to improve customer experience and the efficiency of the production process, facilitate root cause analysis, and support risk management.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Visualizes how suppliers receive materials or data from each other.",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "process":
+    [
+        {
+          "text": "Record suppliers, meaning anyone or any business who provides a resource used to make the product.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Record the inputs, which are resources used to make the process function and run the business.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Record the process in simple overarching steps.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Record the outputs, the products created, displayed in an intuitive order.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Track which different audiences and end users will consume or are projected to consume your products, listed in alignment with the outputs.",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "benefits": 
+    [
+        {
+          "text": "Identifies areas that may have unnecessary steps, reducing waste.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Can be used in multiple areas such as process improvement, new employee training, and understanding customer requests.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Improves communication within a project, ensuring partners know who is responsible for what.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Simplifies problem-solving to identify where issues may have originated.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Supports Worthwhile Development by tracking the impact of the project on people and the environment.",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "drawbacks":
+    [
+        {
+          "text": "As SIPOC provides a high-level overview, it can overlook essential details and oversimplify complex projects.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Potential to be misinterpreted if not properly explained.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Overlap of suppliers can cause confusion, wasting time, money, and resources.",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "example": 
+    [
+        {
+          "text": "Track suppliers of the business, such as farmers and producers of ingredients in a restaurant.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Track inputs, including ingredients such as flour, sugar, milk, and supplies needed to run the business.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Track the process of product creation using step-by-step stages such as cleaning, dicing, cooking, serving, and billing.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Record outputs such as food and drinks served to guests.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Track how each output will be received by the audience—in this case, guests ordering different menu items.",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "resources": 
+    [
+        {
+          "text": "https://dom.iowa.gov/state-government/lean-enterprise/tools/sipoc-template",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://asana.com/resources/sipoc-diagram",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://asq.org/quality-resources/sipoc",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "use_case_video": "/assets/Sipocexamplevideo.mp4",
+    "evaluation": 
+    [
+        {
+          "text": "Explain each of the five steps in SIPOC.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Sketch a quick SIPOC diagram for a hypothetical process such as running a laundromat.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Make a SIPOC graph for a specific part of your business goal.",
+          "sub_bullets": []
+        }
+      ]     
+}

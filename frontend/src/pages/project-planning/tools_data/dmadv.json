@@ -1,0 +1,192 @@
+{
+    "name": "DMADV",
+    "type": ["Six Sigma", "Process Mapping"],
+    "time": ["Long-term"],
+    "image": "/assets/images/DMADV.jpeg",
+    "learning_obj": [
+        {
+        "text": "Gain a comprehensive understanding of how to develop a service with DMADV.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Identify key steps:",
+        "sub_bullets": [
+        { "text": "Define", "sub_bullets": [] },
+        { "text": "Measure", "sub_bullets": [] },
+        { "text": "Analyze", "sub_bullets": [] },
+        { "text": "Design", "sub_bullets": [] },
+        { "text": "Verify", "sub_bullets": [] }
+        ]
+        },
+        {
+        "text": "Utilize this information to efficiently develop a service.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Use the DMADV process to enhance a pre-existing service.",
+        "sub_bullets": []
+        },
+        {
+        "text": "How DMADV can be used in a worthwhile development project.",
+        "sub_bullets": []
+        }
+        ]
+    ,
+    "characteristics":
+    [
+        {
+        "text": "DMADV maps out a process into:",
+        "sub_bullets": [
+        {
+        "text": "Define - identify the purpose of the project/service, make achievable goals and set the schedule.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Measure - measure the factors needed to ensure quality, the characteristics customers need.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Analyze - investigate the potential issues or problems that the project may face or create.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Design - after considering the drawbacks, a process will be designed, or mapped out.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Verify - confirm that the design will serve all needs, including investors; plan to turn the prototype into a sustainable process.",
+        "sub_bullets": []
+        }
+        ]
+        },
+        {
+        "text": "Aims to create a process to please customers, shareholders, and sustain long term success.",
+        "sub_bullets": []
+        }
+        ]
+    ,
+    "process":
+    [
+        {
+        "text": "Decide on the purpose of the service or process, and make achievable goals, with a usable schedule for the creation of the process.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Collect data for the process to discover its potential flaws, and identify Critical-to-Quality (CTQ) characteristics.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Analyze the data to discover what causes the flaws.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Make prototypes for new models of the process to correct for its flaws, and iterate until improvements are reliable.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Implement the improvements into the process, and ensure that the process can work reliably long term.",
+        "sub_bullets": []
+        }
+        ]
+    ,
+    "benefits":
+    [
+        {
+        "text": "Improves pre-existing processes, and can create new processes.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Can be used in different businesses, and since it includes testing and perfecting phases, is very reliable.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Is connected to Lean Six Sigma, which is a business-industry recognized method of organization.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Allows for comprehensive review and revision, which can ensure a high-quality project or process.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Can focus on Worthwhile Development, because it gives an opportunity to revise and perfect a process or project for its end users and business, providing opportunities to ensure ethicality and sustainability.",
+        "sub_bullets": []
+        }
+    ]        
+    ,
+    "drawbacks":
+    [
+        {
+        "text": "Can be confusing for new users, as the process involves revision and development phases.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Six Sigma (and DMADV as part of it) can be difficult for new users to adopt.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Could be time-consuming.",
+        "sub_bullets": []
+        }
+        ]
+    ,
+    "example":
+    [
+        {
+        "text": "Define - Decide on the purpose of the good or process, and make a schedule. Example: design a pair of professional high heels that offer good arch support.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Measure - Collect data by having a group of testers wear the current design and report back on comfort and fit.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Analyze - Use the collected data to identify weak points (e.g., sides and front pinch the foot).",
+        "sub_bullets": []
+        },
+        {
+        "text": "Design - Create and test prototypes (e.g., wider toe box and sides) and iterate with testers until acceptable.",
+        "sub_bullets": []
+        },
+        {
+        "text": "Verify - Implement the improved design, secure investment, and scale to manufacturing while maintaining the adjusted parameters for comfort.",
+        "sub_bullets": []
+        }
+        ]
+    ,
+    "resources":
+    [
+        {
+        "text": "https://www.sixsigmadaily.com/what-is-dmadv/",
+        "sub_bullets": []
+        },
+        {
+        "text": "https://www.6sigma.us/six-sigma-in-focus/dmadv-six-sigma/",
+        "sub_bullets": []
+        },
+        {
+        "text": "https://www.purdue.edu/leansixsigmaonline/blog/dmaic-vs-dmadv/",
+        "sub_bullets": []
+        },
+        {
+        "text": "https://www.qualitygurus.com/dmadv-project-examples/",
+        "sub_bullets": []
+        }
+        ]
+    ,
+    "use_case_video": "/assets/DMADVexamplevideo.mp4",
+    "evaluation":
+    [
+        {
+        "text": "Can you explain each of the five steps in DMADV?",
+        "sub_bullets": []
+        },
+        {
+        "text": "Quickly explain DMADV for a process of your own (very general is fine).",
+        "sub_bullets": []
+        },
+        {
+        "text": "What are CTQ characteristics? Define them carefully.",
+        "sub_bullets": []
+        }
+        ]
+}

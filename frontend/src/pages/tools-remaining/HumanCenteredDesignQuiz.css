@@ -1,0 +1,124 @@
+/* All Styling of the HCD Quiz */
+.semiBold {
+    font-weight: 600;
+}
+
+.large-SemiBold {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.small-Text {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.small-Grey-Text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.hide-Show-Text {
+  margin-left: 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.green-Correct {
+  border-color: #86efac;
+  background-color: #f0fdf4;
+}
+
+.red-Incorrect {
+  border-color: #fca5a5;
+  background-color: #fef2f2;
+}
+
+.default-Color {
+  border-color: #e5e7eb;
+}
+
+.default-Color:hover {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  background-color: #f9fafb;
+}
+
+.answers-Spacing {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem; 
+}
+
+.answers-Box-More-Styling {
+  min-width: 28px;
+  height: 1.75rem; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.answers-Box-Styling {
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  transition: all 0.2s;
+  outline: none;
+  box-shadow: 0 0 0 0 transparent; 
+}
+
+.answers-Box-Styling:focus {
+  box-shadow: 0 0 0 2px rgb(24, 24, 24), 0 0 0 4px rgba(255, 255, 255, 1);
+}
+
+.answers-Content {
+  flex: 1;
+  font-size: 0.875rem; 
+}
+
+.answers-List {
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.answers-List > * + * {
+  margin-top: 0.75rem;
+}
+
+.quiz-Question-Box {
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 0 0 transparent; 
+}
+
+.quiz-Question-Box:focus {
+  box-shadow: 0 0 0 2px #c7d2fe, 0 0 0 4px #fff;
+}
+
+.explanation-Box {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  border-color: #e5e7eb;
+}
+
+.entire-Quiz-Container {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.625rem;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}

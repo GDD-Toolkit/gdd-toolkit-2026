@@ -1,0 +1,190 @@
+{
+    "name": "Gap Analysis",
+    "type": ["Process Mapping"],
+    "time": ["Short-term"],
+    "image": "/assets/images/gapanalysis.png",
+    "learning_obj": 
+    [
+        {
+          "text": "Understand current vs. desired performance or outcomes.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Identify skills, processes, or resources that need improvement.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Develop targeted strategies to close those gaps.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Prioritize actions to achieve organizational or individual goals.",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "characteristics":
+    [
+        {
+          "text": "Compares 'what is' vs. 'what should be'.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Data-driven and evidence-based.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Can be qualitative or quantitative.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Focuses on root causes, not just symptoms.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Often used in training, organizational development, or process improvement.",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "process":
+    [
+        {
+          "text": "Identify the current state of your department.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Assess the current state.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Identify gaps.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Analyze root causes.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Develop an action plan.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Implement and monitor.",
+          "sub_bullets": []
+        }
+      ]
+      ,
+      "benefits":
+      [
+        {
+          "text": "Improves strategic planning.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Enhances efficiency.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Supports informed decision-making.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Improves accountability.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Supports continuous improvement — prioritizes only high-value gaps.",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "drawbacks":
+    [
+        {
+          "text": "Can be time-consuming.",
+          "sub_bullets": []
+        },
+        {
+          "text": "May rely on subjective judgments.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Implementation challenges.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Focuses on the present and future only.",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "example":
+    [
+        {
+          "text": "Goal: OEE 75% → 90%",
+          "sub_bullets": []
+        },
+        {
+          "text": "Gap: 15%",
+          "sub_bullets": []
+        },
+        {
+          "text": "Causes: Downtime, slow changeovers, low skills, material delays",
+          "sub_bullets": []
+        },
+        {
+          "text": "Actions: Maintenance plan, SMED, operator training, fix inventory",
+          "sub_bullets": []
+        },
+        {
+          "text": "Result: Higher productivity, fewer stoppages.",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "resources":
+    [
+        {
+          "text": "https://online.hbs.edu/blog/post/gap-analysis",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.runn.io/blog/resource-gap-analysis",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.atlassian.com/software/confluence/templates/gap-analysis",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://qualaroo.com/blog/gap-analysis/",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "use_case_video": "/assets/gapanalysisexamplevideo.mp4",
+    "evaluation":
+    [
+        {
+          "text": "Clarity of goals.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Data quality.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Action plan feasibility.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Implementation success.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Impact measurement.",
+          "sub_bullets": []
+        }
+      ]                                                
+}

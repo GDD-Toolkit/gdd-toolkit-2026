@@ -1,0 +1,186 @@
+{
+    "name": "DMAIC",
+    "type": ["Efficiency/Innovation"],
+    "time": ["Short-term"],
+    "image": "/assets/images/dmaic.png",
+    "learning_obj":
+    [
+        {
+          "text": "Clear Problem Definition:",
+          "sub_bullets": [{
+            "text": "Establish a precise understanding of the problem and the goals for improvement.",
+            "sub_bullets": []
+          }]
+        },
+        {
+          "text": "Data-Driven Insights:",
+          "sub_bullets": [{
+            "text": "Gather and analyze data to identify root causes and areas for improvement, leading to informed decision-making.",
+            "sub_bullets": []
+          }]
+        },
+        {
+          "text": "Process Improvement:",
+          "sub_bullets": [{
+            "text": "Develop and implement solutions that enhance efficiency, reduce defects, and optimize overall performance.",
+            "sub_bullets": []
+          }]
+        },
+        {
+          "text": "Sustained Control:",
+          "sub_bullets": [{
+            "text": "Create controls and monitoring systems to ensure that improvements are maintained over time and to prevent regression.",
+            "sub_bullets": []
+          }]
+        },
+        {
+          "text": "Stakeholder Engagement:",
+          "sub_bullets": [{
+            "text": "Foster collaboration among team members and stakeholders, ensuring that everyone is aligned with the project goals and solutions.",
+            "sub_bullets": []
+          }]
+        }
+      ],
+    "characteristics":
+    [
+        {
+          "text": "Data-Centric & Fact-Based",
+          "sub_bullets": [
+            { "text": "Focuses on data-driven decision-making to identify and solve problems", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Root Cause Focused",
+          "sub_bullets": [
+            { "text": "Prioritizes identifying and addressing the root causes of inefficiencies", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Continuous Improvement",
+          "sub_bullets": [
+            { "text": "Fosters a culture of ongoing process refinement and optimization.", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Customer-Focused",
+          "sub_bullets": [
+            { "text": "Ensures outcomes align with customer needs and expectations.", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Cost-Effective & Risk Mitigating",
+          "sub_bullets": [
+            { "text": "Aims to reduce costs while maintaining control over risks and process stability", "sub_bullets": [] }
+          ]
+        }
+      ],
+    "process":
+    [
+        {
+          "text": "Define",
+          "sub_bullets": [
+            { "text": "Define the current process that needs improvement based on voice of customers", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Measure",
+          "sub_bullets": [
+            { "text": "Collect data from the current process to understand the baseline performance of the process", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Analyze",
+          "sub_bullets": [
+            { "text": "Identify potential causes of the problem and validate them to obtain the root causes", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Improve",
+          "sub_bullets": [
+            { "text": "Generate solutions and formulate an implementation roadmap based on the identified solutions", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Control",
+          "sub_bullets": [
+            { "text": "Propose a set of control mechanisms to sustain the improvement changes", "sub_bullets": [] }
+          ]
+        }
+      ]
+    ,
+    "benefits":
+    [
+        {
+          "text": "Clearly defines and measures objectives to ensure focused efforts",
+          "sub_bullets": []
+        },
+        {
+          "text": "Provides a framework for data analysis that uncovers potential improvements",
+          "sub_bullets": []
+        },
+        {
+          "text": "Tracks and improves performance over time, promoting continuous progress",
+          "sub_bullets": []
+        },
+        {
+          "text": "Prevents resource waste by reducing inefficiencies",
+          "sub_bullets": []
+        }
+      ],
+    "drawbacks":
+    [
+        {
+          "text": "Requires lengthy training and skill development for all team members",
+          "sub_bullets": []
+        },
+        {
+          "text": "Needs full commitment from everyone involved",
+          "sub_bullets": []
+        },
+        {
+          "text": "Involves non-trivial implementation, which can be challenging",
+          "sub_bullets": []
+        },
+        {
+          "text": "Takes time to generate results, potentially delaying immediate improvements",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "example":
+    [
+        {
+          "text": "Continental Mabor, a tire manufacturing company in Portugal, used DMAIC to improve its rubber extrusion process for tire treads and sidewalls",
+          "sub_bullets": [
+            { "text": "Define: The company created a project charter, using tools like Gantt charts, to identify problems, establish objectives, and define the project scope", "sub_bullets": [] },
+            { "text": "Measure: A detailed data collection plan measured rejected material from the extrusion process over 30 weeks, identifying inefficiencies in the production process", "sub_bullets": [] },
+            { "text": "Analyze: Revealed issues with one machine in the sidewall extrusion process and material-feeding methods in the tread extrusion process", "sub_bullets": [] },
+            { "text": "Improve: Continental Mabor addressed these root causes by making machinery adjustments and changing operational methods, leading to significant process improvements", "sub_bullets": [] },
+            { "text": "Control: Post-implementation data showed a reduction of five tons of waste per day, resulting in savings of €165,000 annually", "sub_bullets": [] }
+            ],
+            "image": "/assets/images/dmaicex.png"
+        }
+      ],
+    "resources":
+    [
+        { "text": "https://asq.org/quality-resources/dmaic?srsltid=AfmBOor6WU-2oKjt_cVhIqKixkPm6m4empkRbr-1GAP7ggCggUI-WtqL", "sub_bullets": [] },
+        { "text": "https://goleansixsigma.com/dmaic-five-basic-phases-of-lean-six-sigma/?srsltid=AfmBOorxQ6qZUGMFM0fQBKaItGWbg1UlSteBJUUujyV1yNvwOrN1G23H", "sub_bullets": [] },
+        { "text": "https://www.purdue.edu/leansixsigmaonline/blog/dmaic-vs-dmadv/", "sub_bullets": [] }
+      ],
+    "slideshow": "https://docs.google.com/presentation/d/e/2PACX-1vQ5_a0fbudDzkum39lccPFAEwML47py6j-l-wiS8bbh9jKdN8T6ZkDCI07uuvBrZOGo3PhgGCV1-JS5/embed?start=true&loop=false&delayms=3000&slide=id.g1f7dd68b3db_0_5098",
+    "evaluation":
+    [
+        {
+          "text": "Define the acronym DMAIC.",
+          "sub_bullets": []
+        },
+        {
+          "text": "What are the benefits of DMAIC?",
+          "sub_bullets": []
+        },
+        {
+          "text": "Describe any example of your choice and its improvement with DMAIC.",
+          "sub_bullets": []
+        }
+      ]
+}

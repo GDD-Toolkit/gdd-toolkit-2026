@@ -1,0 +1,252 @@
+{
+    "name": "Journey Mapping",
+    "type": ["User-Centric"],
+    "time": [],
+    "image": "/assets/images/journeymapping.png",
+    "learning_obj":
+    [
+        {
+          "text": "Define journey mapping",
+          "sub_bullets": [
+            {
+              "text": "Understand what journey mapping is and its purpose within the project planning process.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Identify key changes in a customer journey",
+          "sub_bullets": [
+            {
+              "text": "Recognize the different stages a customer goes through from awareness to post-purchase.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Map customer emotions and pain points",
+          "sub_bullets": [
+            {
+              "text": "Analyze the emotional journey and pain points customers experience at each stage.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Gather data for journey mapping",
+          "sub_bullets": [
+            {
+              "text": "Learn to collect quantitative and qualitative data to inform accurate and empathetic journey maps.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Analyze journey mapping results",
+          "sub_bullets": [
+            {
+              "text": "Learn to interpret journey maps to identify areas for improvement in user experience and customer satisfaction.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ]
+      ,
+    "characteristics":
+    [
+        {
+          "text": "Visual Representation",
+          "sub_bullets": [
+            {
+              "text": "Maps out the entire customer experience or user journey in a visual format, highlighting touchpoints and interactions.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "User",
+          "sub_bullets": [
+            {
+              "text": "The person who is using the service being provided.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "User Thoughts",
+          "sub_bullets": [
+            {
+              "text": "The emotions and thought processes of the user throughout their experience.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Service Used / Scenario",
+          "sub_bullets": [
+            {
+              "text": "Describes what the user is using or the scenario they are going through.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Multiple Phases",
+          "sub_bullets": [
+            {
+              "text": "These describe the different steps the user goes through while trying to achieve their end goal.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ]
+      ,
+    "process":
+    [
+        {
+          "text": "To be Added",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "benefits":
+    [
+        {
+          "text": "Good connection with user base",
+          "sub_bullets": [
+            {
+              "text": "Depicts user thoughts and emotions clearly.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Effective at identifying optimization opportunities",
+          "sub_bullets": [
+            {
+              "text": "Helps pinpoint where processes can be shortened or improved.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ]
+      ,
+    "drawbacks":
+    [
+        {
+          "text": "May require cross-group support",
+          "sub_bullets": [
+            {
+              "text": "If an issue is identified outside the team's control, coordination becomes necessary.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Multiple maps may be required",
+          "sub_bullets": [
+            {
+              "text": "Different users may not follow the journey the same way, requiring separate maps.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ]
+      ,
+    "example":
+    [
+        {
+          "text": "Airbnb Journey Mapping",
+          "sub_bullets": [
+            {
+              "text": "Research and Data Gathering",
+              "sub_bullets": [
+                {
+                  "text": "Collected data through surveys, interviews, and platform analytics from both hosts and guests.",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "Mapping the Journey",
+              "sub_bullets": [
+                {
+                  "text": "Created detailed maps for the guest and host journeys, including steps from search to booking and listing to hosting.",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "Identifying Pain Points",
+              "sub_bullets": [
+                {
+                  "text": "Found problems like unclear pricing, booking management issues, and communication concerns.",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "Emotional Mapping",
+              "sub_bullets": [
+                {
+                  "text": "Highlighted feelings such as excitement about travel and anxiety about hosting.",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "Improvement",
+              "sub_bullets": [
+                {
+                  "text": "Introduced tools for better communication, transparent pricing, and easier booking management.",
+                  "sub_bullets": []
+                }
+              ]
+            }
+          ],
+          "image": "/assets/images/journeymappingex.png"
+        }
+      ]
+      ,
+    "resources":
+    [
+        {
+          "text": "https://www.nngroup.com/articles/journey-mapping-101/",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://usability.yale.edu/understanding-your-user/user-journey-maps",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://online.hbs.edu/blog/post/customer-journey-map",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "slideshow": "https://docs.google.com/presentation/d/e/2PACX-1vStSsr_wJMiMC_nBYRktHEQ7i7TpIOVcEF7ALMbZ_bW4F_CWECBIFmJll9yUf3UTngYKhYXOs41h9kZ/embed?start=true&loop=false&delayms=3000&slide=id.g2cf2bf27e8d_2_83",
+    "evaluation":
+    [
+        {
+          "text": "Define journey mapping.",
+          "sub_bullets": []
+        },
+        {
+          "text": "What are the benefits of journey mapping?",
+          "sub_bullets": []
+        },
+        {
+          "text": "What is the process of journey mapping?",
+          "sub_bullets": []
+        },
+        {
+          "text": "Choose an example business and complete a simple journey mapping process.",
+          "sub_bullets": []
+        }
+      ]
+      
+}

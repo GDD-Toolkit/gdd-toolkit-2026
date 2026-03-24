@@ -1,0 +1,256 @@
+{
+    "name": "Persona Approach",
+    "type": ["User-Centric"],
+    "time": [],
+    "image": "/assets/images/persona.png",
+    "learning_obj":
+    [
+        {
+          "text": "Identify Target Users",
+          "sub_bullets": [
+            {
+              "text": "Define methods for identifying stakeholders in order to develop representative personas.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Segment User Data",
+          "sub_bullets": [
+            {
+              "text": "Develop techniques for segmenting user data into categories that inform persona creation and distinguish user archetypes.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Create Realistic Personas",
+          "sub_bullets": [
+            {
+              "text": "Develop skills for crafting detailed personas, including demographics, motivations, emotions, experiences, etc.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Align Personas with Project Goals",
+          "sub_bullets": [
+            {
+              "text": "Ensure personas align with project objectives.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Measure Impact of Personas",
+          "sub_bullets": [
+            {
+              "text": "Assess the effectiveness of personas in enhancing project outcomes and achieving user satisfaction.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ],
+    "characteristics":
+    [
+        {
+          "text": "Project Management Book of Knowledge Definition",
+          "sub_bullets": [
+            {
+              "text": "Describes personas as 'An archetype user representing a set of similar end users described with their goals, motivations, and representative personal characteristics'.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Semi-Fictional User Personas",
+          "sub_bullets": [
+            {
+              "text": "Represent different areas of a target audience, user base, or stakeholder group.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Three Core Components of Personas",
+          "sub_bullets": [
+            {
+              "text": "Demographics (age, gender, occupation, etc.)",
+              "sub_bullets": []
+            },
+            {
+              "text": "Psychographics (motivations, goals, pain points)",
+              "sub_bullets": []
+            },
+            {
+              "text": "Behavioral Patterns (how they use the product, habits, preferences)",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ]
+      ,
+    "process":
+    [
+        {
+          "text": "To be Added",
+          "sub_bullets": []
+        }
+      ],
+    "benefits":
+    [
+        {
+          "text": "User-Centered Design",
+          "sub_bullets": [
+            {
+              "text": "Project goals and outcomes are aligned with the needs and preferences of the end users.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Resource Allocation",
+          "sub_bullets": [
+            {
+              "text": "Resources can be allocated more efficiently to areas that have the most impact on user satisfaction.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Enhanced Communication",
+          "sub_bullets": [
+            {
+              "text": "Provides a common language and understanding among team members.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ],
+    "drawbacks":
+    [
+        {
+          "text": "Complexity",
+          "sub_bullets": [
+            {
+              "text": "Creating and maintaining personas can be time-consuming and complex, especially for large and diverse user bases.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Stereotyping",
+          "sub_bullets": [
+            {
+              "text": "Oversimplification of user groups, which can result in overlooking unique individual needs.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Costly",
+          "sub_bullets": [
+            {
+              "text": "Conducting user research to develop accurate personas can be expensive.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ],
+    "example":
+    [
+        {
+          "text": "Spotify's Listening Personas",
+          "sub_bullets": [
+            {
+              "text": "Research and Data Gathering",
+              "sub_bullets": [
+                {
+                  "text": "Collected data on user behavior through analytics, surveys, and user feedback.",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "Define Personas",
+              "sub_bullets": [
+                {
+                  "text": "Created personas like 'Casual Listener,' 'Music Enthusiast,' and 'Party Host' based on distinct user patterns and needs.",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "Develop User Scenarios",
+              "sub_bullets": [
+                {
+                  "text": "Created scenarios for each persona detailing interactions with the app, features used, and goals.",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "Design and Prioritize Features",
+              "sub_bullets": [
+                {
+                  "text": "Tailored features like personalized recommendations, playlist creation tools, and social sharing to meet persona needs.",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "Test with Real Users",
+              "sub_bullets": [
+                {
+                  "text": "Conducted user testing and feedback sessions to validate the personas and design solutions.",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "Iterate and Improve",
+              "sub_bullets": [
+                {
+                  "text": "Continuously refined design based on ongoing data and feedback.",
+                  "sub_bullets": []
+                }
+              ]
+            }
+          ],
+            "image": "/assets/images/personaex.png"
+        }
+      ],
+    "resources":
+    [
+        {
+          "text": "https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them?srsltid=AfmBOoqiA73gjxo0H0MwdL06wNcBdIh5UCyNt9pju76PzHjgPuaIJe7Z",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.nngroup.com/articles/persona/",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://uxpressia.com/blog/how-to-create-persona-guide-examples",
+          "sub_bullets": []
+        }
+      ]
+      
+    ,
+    "slideshow": "https://docs.google.com/presentation/d/e/2PACX-1vQ7ucGFoTTWE2pQDMmq1nqYyQVS-FIoOOEUWFFDQQmbO6MOV4KOmovoiXHaNx0r6PuoApX-4lo6yUqy/embed?start=true&loop=false&delayms=3000&slide=id.p",
+    "evaluation":
+    [
+        {
+          "text": "Define persona approach.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Name at least three benefits of the persona approach.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Develop some personas for some customers for a business, e.g., a shoe brand.",
+          "sub_bullets": []
+        }
+      ]
+}

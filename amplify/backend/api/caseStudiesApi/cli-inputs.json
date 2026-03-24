@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "paths": {
+    "/casestudies": {
+      "name": "/casestudies",
+      "lambdaFunction": "getCaseStudies",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/policies": {
+      "name": "/policies",
+      "lambdaFunction": "getCaseStudies",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/maldevelopment": {
+      "name": "/maldevelopment",
+      "lambdaFunction": "getCaseStudies",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

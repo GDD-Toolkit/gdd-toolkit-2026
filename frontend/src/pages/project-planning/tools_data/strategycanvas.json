@@ -1,0 +1,106 @@
+{
+    "name": "Strategy Canvas",
+    "type": ["Decision Making"],
+    "time": ["Long-term"],
+    "image": "/assets/images/strategycanvas.png",
+    "learning_obj":
+    [
+        { "text": "Diagnose the competitive landscape", "sub_bullets": [] },
+        { "text": "Analyze your company’s position", "sub_bullets": [] },
+        { "text": "Identify strategic opportunities", "sub_bullets": [] },
+        { "text": "Design future strategy and drive action", "sub_bullets": [] }
+      ] 
+    ,
+    "characteristics": [
+    { "text": "It uses a dual-axis graph", "sub_bullets": [] },
+    { "text": "Visualizes current state", "sub_bullets": [] },
+    { "text": "Highlights competitive factors", "sub_bullets": [] },
+    { "text": "Reveals strategic profiles", "sub_bullets": [] },
+    { "text": "Promotes strategic analysis", "sub_bullets": [] },
+    { "text": "Action-oriented (call for action)", "sub_bullets": [] }
+  ]
+    ,
+    "process": [
+        { "text": "Identify the industry and competitors", "sub_bullets": [] },
+        { "text": "Determine key competitive factors", "sub_bullets": [] },
+        { "text": "Assess your current performance", "sub_bullets": [] },
+        { "text": "Assess competitors' performance", "sub_bullets": [] },
+        { "text": "Compare value curves", "sub_bullets": [] },
+        { "text": "Identify opportunities for breakthrough strategy", "sub_bullets": [] }
+      ]
+    ,
+    "benefits": [
+        { "text": "Provides a clear visual comparison", "sub_bullets": [] },
+        { "text": "Highlights differentiation opportunities", "sub_bullets": [] },
+        { "text": "Supports customer-centric strategy", "sub_bullets": [] },
+        { "text": "Encourages innovation", "sub_bullets": [] },
+        {
+          "text": "Worthwhile development guides the strategy canvas by highlighting which value factors deserve focus so effort goes toward what truly matters",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "drawbacks": [
+        { "text": "Subjective judgments", "sub_bullets": [] },
+        { "text": "May oversimplify complex markets", "sub_bullets": [] },
+        { "text": "Static snapshot", "sub_bullets": [] },
+        { "text": "Requires accurate competitor insights", "sub_bullets": [] },
+        { "text": "Not a full strategic plan", "sub_bullets": [] }
+      ]
+    ,
+    "example": [
+        {
+          "text": "Key factors compared",
+          "sub_bullets": [
+            {
+              "text": "Animal shows, star performers, fun chaotic atmosphere, ticket price, show arenas, artistic themes, acrobatics, theatre experience, music & storylines",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Traditional circuses performance",
+          "sub_bullets": [
+            {
+              "text": "Score high on animals, stars, chaos, low prices, multiple arenas",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Cirque du Soleil performance",
+          "sub_bullets": [
+            {
+              "text": "Scores high on artistry, acrobatics, theatre experience, music/storylines, and premium pricing; eliminated low-value factors",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Outcome",
+          "sub_bullets": [
+            {
+              "text": "The canvas reveals how Cirque shifted focus, removed costly elements, and created a new market space between circus and theatre",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ]
+    ,
+    "resources": [
+        { "text": "https://www.strategyzer.com/library/the-business-model-canvas", "sub_bullets": [] },
+        { "text": "https://www.productcompass.pm/p/product-strategy-canvas", "sub_bullets": [] },
+        { "text": "https://www.apptio.com/resources/ebooks/strategic-planning-for-enterprise-pmos/?utm_source=google&utm_campaign=agile-multi_ams-multi-en_high-intent_phrase&utm_medium=cpc&utm_term=strategic%20planning%20tool&utm_content=spm_strategic_planning_tool&gad_source=1&gad_campaignid=20933995603&gbraid=0AAAAAD3zgNMpE2EVHNGpQ0fiqmTIzqo0W&gclid=CjwKCAiA_orJBhBNEiwABkdmjHCgZVOzVBOa76C2_kqF4EsYulrZGK5hLctrvF4D6N0JhK-6qZOt5xoCudoQAvD_BwE", "sub_bullets": [] },
+        { "text": "https://managementconsulted.com/strategy-canvas/", "sub_bullets": [] }
+      ]
+    ,
+    "use_case_video": "/assets/strategycanvasexamplevideo.mp4"
+    ,
+    "evaluation":
+    [
+        { "text": "Factor relevance and data accuracy (ratings based on reliable research)", "sub_bullets": [] },
+        { "text": "Insightfulness of value curves (meaningful differentiation or industry patterns)", "sub_bullets": [] },
+        { "text": "ERRC grid quality", "sub_bullets": [] },
+        { "text": "Strategic outcomes (did applying the canvas enhance competitive positioning)", "sub_bullets": [] }
+      ]
+}

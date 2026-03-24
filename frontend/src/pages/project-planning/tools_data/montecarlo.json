@@ -1,0 +1,226 @@
+{
+    "name": "Monte Carlo",
+    "type": ["Decision Making"],
+    "time": ["Short-term", "Long-term"],
+    "image": "/assets/images/montecarlo.png",
+    "learning_obj":
+    [
+        {
+          "text": "Understand the basic concepts of Monte Carlo simulation and why it’s useful",
+          "sub_bullets": []
+        },
+        {
+          "text": "Set up a Monte Carlo model, running simulations with common tools (Excel, R, Python, or specialized software), and interpreting the outputs (mean, range, percentiles, probability of certain outcomes)",
+          "sub_bullets": []
+        },
+        {
+          "text": "Apply method to their own projects to make better decisions with uncertain variables",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "characteristics":
+    [
+        {
+          "text": "Probabilistic, not deterministic → Uses random sampling to explore a range of possible outcomes rather than a single estimate",
+          "sub_bullets": []
+        },
+        {
+          "text": "Iterative → Runs hundreds of simulated “trials” to build a distribution of results",
+          "sub_bullets": []
+        },
+        {
+          "text": "Flexible → Can be applied to timelines, budgets, outputs (e.g., number of beneficiaries), or other uncertain variables",
+          "sub_bullets": []
+        },
+        {
+          "text": "Scenario-based → Works well with best-case, worst-case, and most-likely inputs",
+          "sub_bullets": []
+        },
+        {
+          "text": "Graphical outputs → Usually visualized with an S-curve (cumulative probability graph) or histogram",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "process":
+    [
+        {
+          "text": "List tasks",
+          "sub_bullets": [
+            {
+              "text": "For each task, write down:",
+              "sub_bullets": [
+                { "text": "Optimistic cost/time (best case)", "sub_bullets": [] },
+                { "text": "Most likely cost/time", "sub_bullets": [] },
+                { "text": "Pessimistic cost/time (worst case)", "sub_bullets": [] }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Pick a distribution → Usually Triangular or PERT (uses those 3 estimates to model uncertainty)",
+          "sub_bullets": [
+            { "text": "Use random sampling formula", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Simulate many times (e.g., 1,000–10,000)",
+          "sub_bullets": [
+            {
+              "text": "Randomly pick a value for each task from its distribution",
+              "sub_bullets": [
+                { "text": "Total cost formula", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Add them up to get total project cost/time for that simulation",
+              "sub_bullets": [
+                { "text": "Sum formula", "sub_bullets": [] }
+              ]
+            },
+            { "text": "Repeat", "sub_bullets": [] }
+          ]
+        },
+        { "text": "Collect results → You get many total project values (like 1,000 possible outcomes)", "sub_bullets": [] },
+        {
+          "text": "Plot a cumulative probability graph (S-curve)",
+          "sub_bullets": [
+            {
+              "text": "Assessing project time",
+              "sub_bullets": [
+                { "text": "X-axis = total project days", "sub_bullets": [] },
+                { "text": "Y-axis = probability of finishing by that time", "sub_bullets": [] }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Interpret it",
+          "sub_bullets": [
+            { "text": "Find dates with 50%, 80%, 90% probability of completion", "sub_bullets": [] },
+            { "text": "Use this to set realistic deadlines and buffers", "sub_bullets": [] }
+          ]
+        },
+        {
+            "text": "Excel Formulas",
+            "image": "/assets/images/montecarloexcel.png",
+            "sub_bullets": []
+        }
+      ]
+    ,
+    "benefits":
+    [
+        {
+          "text": "Captures uncertainty realistically → Reflects real-world variability",
+          "sub_bullets": []
+        },
+        {
+          "text": "Improves decision-making → Helps practitioners understand probabilities and make informed, transparent commitments",
+          "sub_bullets": []
+        },
+        {
+          "text": "Versatile → Can be applied to scheduling, budgeting, and risk analysis",
+          "sub_bullets": []
+        },
+        {
+          "text": "Supports communication → Probability graphs are intuitive visuals to discuss plans with funders, partners, and other communities",
+          "sub_bullets": []
+        },
+        {
+          "text": "Focuses on Worthwhile development → Development decisions are sustainable and equitable by revealing which choices minimize environmental harm and reduce inequality under uncertain conditions",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "drawbacks":
+    [
+        {
+          "text": "Requires quality input data → Poor or unrealistic estimates can lead to misleading results",
+          "sub_bullets": []
+        },
+        {
+          "text": "Some statistical literacy needed → Users need basic understanding of Excel and statistics to set up and interpret correctly",
+          "sub_bullets": []
+        },
+        {
+          "text": "Can be time-consuming → Setting up sometimes takes time, especially for complex projects with many variables",
+          "sub_bullets": []
+        },
+        {
+          "text": "Tool access → May need Excel add-ins, statistical software, or programming knowledge",
+          "sub_bullets": []
+        },
+        {
+          "text": "Doesn’t eliminate uncertainty → It models uncertainty, but it doesn’t guarantee the future outcome",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "example":
+    [
+        {
+          "text": "An international NGO is planning to build a rural primary health clinic in a remote community. The goal is to provide basic healthcare services, including maternal health and vaccinations, to around 5,000 people in the area. The project budget is tight, and timelines are influenced by uncertain factors like weather, material supply, and regulatory approvals.",
+          "sub_bullets": [
+            {
+              "text": "Identify uncertain cost components",
+              "sub_bullets": [
+                { "text": "Construction materials", "sub_bullets": [] },
+                { "text": "Labor and contractor costs", "sub_bullets": [] },
+                { "text": "Logistics and transportation", "sub_bullets": [] },
+                { "text": "Regulatory and permitting costs", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Estimate ranges for each component",
+              "sub_bullets": [
+                {
+                  "text": "For example, for material costs:",
+                  "sub_bullets": [
+                    { "text": "Optimistic = $150,000", "sub_bullets": [] },
+                    { "text": "Most likely = $180,000", "sub_bullets": [] },
+                    { "text": "Pessimistic = $240,000", "sub_bullets": [] }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": "Repeat for each major cost category",
+              "sub_bullets": []
+            },
+            {
+              "text": "Run Monte Carlo simulation (1,000–10,000 iterations)",
+              "sub_bullets": [
+                { "text": "Randomly sample costs from each category’s distribution", "sub_bullets": [] },
+                { "text": "Sum to get a total project cost for each iteration", "sub_bullets": [] },
+                { "text": "Build a distribution curve of possible total costs", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Plot the probability density graph",
+              "sub_bullets": [
+                { "text": "Mark Base Cost, Management Reserve, and Final Cost", "sub_bullets": [] },
+                { "text": "Shade the contingency zone, budget risk, and business risk areas", "sub_bullets": [] }
+              ]
+            }
+          ]
+        }
+      ]
+    ,
+    "resources":
+    [
+        { "text": "https://www.nist.gov/services-resources/software/monte-carlo-tool", "sub_bullets": [] },
+        { "text": "https://support.microsoft.com/en-us/office/introduction-to-monte-carlo-simulation-in-excel-64c0ba99-752a-4fa8-bbd3-4450d8db16f1", "sub_bullets": [] },
+        { "text": "https://www.youtube.com/watch?v=7TqhmX92P6U", "sub_bullets": [] },
+        { "text": "https://www.youtube.com/watch?v=wKdmEXCvo9s", "sub_bullets": [] },
+        { "text": "https://www.youtube.com/watch?v=gGE6pByReAc", "sub_bullets": [] }
+      ]
+    ,
+    "use_case_video": "/assets/montecarloexamplevideo.mp4",
+    "evaluation":
+    [
+        { "text": "Can you run the simulation correctly on Excel?", "sub_bullets": [] },
+        { "text": "Can you plot a probability curve and assess the x and y intercepts?", "sub_bullets": [] },
+        { "text": "Can you interpret min/max and what that means for your project?", "sub_bullets": [] }
+      ]
+}

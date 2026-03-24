@@ -1,0 +1,383 @@
+{
+    "name": "Force Field Analysis",
+    "type": ["Decision Making"],
+    "time": ["Short-term", "Long-term"],
+    "image": "/assets/images/forceanalysis.png",
+    "learning_obj":
+    [
+        {
+          "text": "Identify forces that support or hinder a change",
+          "sub_bullets": []
+        },
+        {
+          "text": "Analyze the strength of each force to understand what is helping or blocking progress",
+          "sub_bullets": []
+        },
+        {
+          "text": "Visually map a change situation to make the dynamics easy for teams to understand",
+          "sub_bullets": []
+        },
+        {
+          "text": "Prioritize which forces to eliminate",
+          "sub_bullets": []
+        },
+        {
+          "text": "Develop targeted action plans based on the most influential forces",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "characteristics":
+    [
+        {
+          "text": "Visual diagram showing opposing forces acting against or for a change",
+          "sub_bullets": []
+        },
+        {
+          "text": "Focuses on balancing the forces instead of just one force",
+          "sub_bullets": []
+        },
+        {
+          "text": "Helps identify leverage points where small actions can reduce barriers or increase support",
+          "sub_bullets": []
+        },
+        {
+          "text": "Often used in change management and strategic planning",
+          "sub_bullets": []
+        },
+        {
+          "text": "Simple to learn and highly flexible, can be applied to nearly any change situation (managing people, introducing new software, working out a new policy)",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "process":
+    [
+        {
+          "text": "Clearly define the change",
+          "sub_bullets": [
+            { "text": "Write a simple statement of the proposed change or goal", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Draw the basic diagram",
+          "sub_bullets": [
+            { "text": "In the center, write the change goal", "sub_bullets": [] },
+            { "text": "On the left, label: Driving Forces (for change)", "sub_bullets": [] },
+            { "text": "On the right, label: Restraining Forces (against change)", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Brainstorm driving and restraining forces",
+          "sub_bullets": [
+            { "text": "List driving and restraining forces on each side of the change goal", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Rate the strength of each force",
+          "sub_bullets": [
+            { "text": "For each force, give a score, typically 1–5", "sub_bullets": [
+                { "text": "1 = weak influence", "sub_bullets": [] },
+                { "text": "5 = very strong influence", "sub_bullets": [] }
+              ]
+            },
+            { "text": "You can write the number next to each item or draw arrows with lengths representing the strength", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Analyze the balance of forces",
+          "sub_bullets": [
+            { "text": "Add up the total driving and total restraining strength", "sub_bullets": [] },
+            { "text": "Look for:",
+              "sub_bullets": [
+                { "text": "Which restraining forces are strongest?", "sub_bullets": [] },
+                { "text": "Which driving forces are weak but could be strengthened?", "sub_bullets": [] },
+                { "text": "Are there forces you can directly influence (e.g., training, communication) vs. those you can’t (e.g., national regulations)?", "sub_bullets": [] }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Plan actions to shift the balance",
+          "sub_bullets": [
+            {
+              "text": "Reduce restraining forces",
+              "sub_bullets": [
+                { "text": "Provide training, extra support, pilot programs", "sub_bullets": [] },
+                { "text": "Adjust timelines or expectations", "sub_bullets": [] },
+                { "text": "Clarify communication and address fears", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Increase driving forces",
+              "sub_bullets": [
+                { "text": "Secure leadership support", "sub_bullets": [] },
+                { "text": "Share data on benefits", "sub_bullets": [] },
+                { "text": "Align the change with incentives or performance goals", "sub_bullets": [] }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Re-score after planned actions (optional)",
+          "sub_bullets": [
+            { "text": "Imagine you implement your actions and re-rate the forces", "sub_bullets": [] },
+            { "text": "Check if the driving total now clearly exceeds the restraining total", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Decide whether and how to proceed",
+          "sub_bullets": [
+            { "text": "Go ahead now", "sub_bullets": [] },
+            { "text": "Delay and strengthen conditions", "sub_bullets": [] },
+            { "text": "Do not proceed (if restraining forces remain too strong)", "sub_bullets": [] }
+          ]
+        }
+      ]
+    ,
+    "benefits":
+    [
+        {
+          "text": "Simple and visual, easy to understand even for non-technical people",
+          "sub_bullets": []
+        },
+        {
+          "text": "Focuses on what you can influence so you can target actions where they matter most",
+          "sub_bullets": []
+        },
+        {
+          "text": "Supports better change planning since you don’t decide without a realistic path to success",
+          "sub_bullets": []
+        },
+        {
+          "text": "Flexible (works for organizational change, process changes, community projects, personal goals, etc.)",
+          "sub_bullets": []
+        },
+        {
+          "text": "Can focus on Worthwhile Development by giving an opportunity to include a driving or restricting force related to ethical well-being of others or environmental impacts",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "drawbacks":
+    [
+        {
+          "text": "Subjective ratings (1–5) depend on people’s perceptions and biases",
+          "sub_bullets": []
+        },
+        {
+          "text": "Can oversimplify reality and complex systems may not fit neatly into “for vs. against”",
+          "sub_bullets": []
+        },
+        {
+          "text": "Guides thinking but doesn’t replace detailed analysis (e.g., cost–benefit, Monte Carlo, etc.)",
+          "sub_bullets": []
+        },
+        {
+          "text": "Can be politically sensitive (listing restraining forces may point to specific departments or people)",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "example":
+    [
+        {
+          "text": "Clearly define the change",
+          "sub_bullets": [
+            {
+              "text": "Proposed change: Implement a telehealth service (video and phone consultations) so rural patients can access care without travelling long distances.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Draw force field layout",
+          "image":"/assets/images/forcefieldlayout.png",
+          "sub_bullets": [
+            {
+              "text": "In the middle",
+              "sub_bullets": [
+                {
+                  "text": "Implement telehealth service in 12 months",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "On the left",
+              "sub_bullets": [
+                {
+                  "text": "Driving forces (for the change)",
+                  "sub_bullets": []
+                }
+              ]
+            },
+            {
+              "text": "On the right",
+              "sub_bullets": [
+                {
+                  "text": "Restraining forces (against the change)",
+                  "sub_bullets": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Brainstorm driving and restraining forces",
+          "sub_bullets": [
+            {
+              "text": "Driving forces (for telehealth)",
+              "sub_bullets": [
+                { "text": "Patients spend hours travelling (need easier access)", "sub_bullets": [] },
+                { "text": "Donor interest in digital health innovation", "sub_bullets": [] },
+                { "text": "Doctors want flexibility for follow-up visits", "sub_bullets": [] },
+                { "text": "Potential to see more patients per day", "sub_bullets": [] },
+                { "text": "Better continuity of care for chronic patients", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Restraining forces (against telehealth)",
+              "sub_bullets": [
+                { "text": "Poor internet connectivity in some villages", "sub_bullets": [] },
+                { "text": "Staff lack digital/IT skills", "sub_bullets": [] },
+                { "text": "Upfront cost of equipment and software", "sub_bullets": [] },
+                { "text": "Some patients prefer in-person contact / low digital literacy", "sub_bullets": [] },
+                { "text": "Data privacy and security concerns", "sub_bullets": [] }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Rate the strength of each force (1-5)",
+          "image":"/assets/images/forcestrength.png",
+          "sub_bullets": [
+            {
+              "text": "Driving forces",
+              "sub_bullets": [
+                { "text": "Patients spend hours travelling 5", "sub_bullets": [] },
+                { "text": "Donor interest in digital health 4", "sub_bullets": [] },
+                { "text": "Doctors want flexibility 3", "sub_bullets": [] },
+                { "text": "Potential to see more patients per day 3", "sub_bullets": [] },
+                { "text": "Better continuity for chronic patients 4", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Restraining forces",
+              "sub_bullets": [
+                { "text": "Poor internet connectivity 4", "sub_bullets": [] },
+                { "text": "Staff lack digital skills 3", "sub_bullets": [] },
+                { "text": "Upfront cost of equipment/software 4", "sub_bullets": [] },
+                { "text": "Patient preference/inexperience 3", "sub_bullets": [] },
+                { "text": "Data privacy/security concerns 3", "sub_bullets": [] }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Analyze the balance of forces",
+          "sub_bullets": [
+            { "text": "Total driving strength: 5 + 4 + 3 + 3 + 4 = 19", "sub_bullets": [] },
+            { "text": "Total restraining strength: 4 + 3 + 4 + 3 + 3 = 17", "sub_bullets": [] },
+            { "text": "Telehealth might be feasible, but only if you directly address the big restraining forces", "sub_bullets": [] },
+            { "text": "Strongest driver is travel burden on patients; strongest restrainer is poor internet connectivity and upfront cost", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Plan actions to reduce restraining forces and/or boost driving forces",
+          "sub_bullets": [
+            {
+              "text": "Poor internet (4)",
+              "sub_bullets": [
+                { "text": "Partner with a telecom provider for stronger connection at the clinic", "sub_bullets": [] },
+                { "text": "Create local telehealth hubs in villages with better connectivity", "sub_bullets": [] },
+                { "text": "Use phone-only consultations where video isn’t possible", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Upfront cost (4)",
+              "sub_bullets": [
+                { "text": "Start with a small pilot (one room, one doctor) before scaling", "sub_bullets": [] },
+                { "text": "Use open-source or low-cost telehealth platforms initially", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Staff lack digital skills (3)",
+              "sub_bullets": [
+                { "text": "Run training workshops, starting with a small group", "sub_bullets": [] },
+                { "text": "Assign a master nurse/doctor to help others", "sub_bullets": [] },
+                { "text": "Provide simple step-by-steps and cheat sheets", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Patient preference/digital literacy (3)",
+              "sub_bullets": [
+                { "text": "Start with follow-up visits for patients who already know the doctor", "sub_bullets": [] },
+                { "text": "Use community health workers to help patients connect", "sub_bullets": [] },
+                { "text": "Explain telehealth as extra, not replacing in-person completely", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Privacy/security concerns (3)",
+              "sub_bullets": [
+                { "text": "Choose a platform with strong encryption and compliance", "sub_bullets": [] },
+                { "text": "Create clear privacy guidelines and consent forms", "sub_bullets": [] },
+                { "text": "Train staff on how to avoid privacy breaches", "sub_bullets": [] }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Re-score after planned actions (optional)",
+          "sub_bullets": [
+            {
+              "text": "New restraining forces",
+              "sub_bullets": [
+                { "text": "Poor internet: 4 → 2", "sub_bullets": [] },
+                { "text": "Upfront cost: 4 → 2", "sub_bullets": [] },
+                { "text": "Staff skills: 3 → 2", "sub_bullets": [] },
+                { "text": "Patient preference: 3 → 2", "sub_bullets": [] },
+                { "text": "Privacy concerns: 3 → 2", "sub_bullets": [] }
+              ]
+            },
+            { "text": "New restraining total: 2 + 2 + 2 + 2 + 2 = 10", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Make a decision",
+          "sub_bullets": [
+            {
+              "text": "Proceed with a phased telehealth implementation, starting with a one-year pilot in the main clinic plus 2–3 village hubs",
+              "sub_bullets": [
+                { "text": "After planned actions, driving forces strongly outweigh restraining ones", "sub_bullets": [] },
+                { "text": "Major barriers (internet and cost) have realistic mitigation options", "sub_bullets": [] },
+                { "text": "Benefits to patients (travel time, continuity) and donors (innovation) are high", "sub_bullets": [] }
+              ]
+            },
+            {
+              "text": "Next steps",
+              "sub_bullets": [
+                { "text": "Draft a proposal for donors including force field summary and mitigation plan/pilot scope", "sub_bullets": [] },
+                { "text": "Line up telecom partner and training schedule", "sub_bullets": [] },
+                { "text": "Define success metrics (number of telehealth visits, patient satisfaction, travel time saved)", "sub_bullets": [] }
+              ]
+            }
+          ]
+        }
+      ]
+    ,
+    "resources":
+    [
+        { "text": "https://www.ebsco.com/research-starters/social-sciences-and-humanities/force-field-analysis", "sub_bullets": [] },
+        { "text": "https://sc.edu/about/offices_and_divisions/organizational_excellence/resources/facilitation/force_field_analysis.php", "sub_bullets": [] },
+        { "text": "https://hr.mit.edu/learning-topics/change/articles/force-field", "sub_bullets": [] }
+      ]
+    ,
+    "use_case_video": "/assets/forceanalysisexamplevideo.mp4",
+    "evaluation": [
+        { "text": "Can you come up with at least 3 driving forces and 3 restraining forces?", "sub_bullets": [] },
+        { "text": "Can you determine which restraining force has the highest weight?", "sub_bullets": [] },
+        { "text": "Can you make a decision to realistically reduce the heaviest restraining force?", "sub_bullets": [] },
+        { "text": "Can you do something to boost a driving force?", "sub_bullets": [] }
+      ]
+}

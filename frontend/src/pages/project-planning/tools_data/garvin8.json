@@ -1,0 +1,195 @@
+{
+    "name": "Garvin's 8",
+    "type": ["Quality Management"],
+    "time": ["Short-term", "Long-term"],
+    "image": "/assets/images/garvin8.png",
+    "learning_obj": 
+    [
+        {
+          "text": "Gain a comprehensive understanding of how to measure the quality of a product, using Garvin’s 8 dimensions of quality.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Understand the elements:",
+          "sub_bullets": [
+            { "text": "Performance", "sub_bullets": [] },
+            { "text": "Features", "sub_bullets": [] },
+            { "text": "Reliability", "sub_bullets": [] },
+            { "text": "Conformance", "sub_bullets": [] },
+            { "text": "Durability", "sub_bullets": [] },
+            { "text": "Serviceability", "sub_bullets": [] },
+            { "text": "Aesthetics", "sub_bullets": [] },
+            { "text": "Perceived Quality", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Utilize this information to improve the quality and customer satisfaction of a product.",
+          "sub_bullets": []
+        },
+        {
+          "text": "How Garvin’s 8 can be used in service of Worthwhile Development.",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "characteristics":
+    [
+        {
+          "text": "Garvin’s 8 measures quality with the following metrics:",
+          "sub_bullets": [
+            { "text": "Performance - analyzes the product’s core functioning", "sub_bullets": [] },
+            { "text": "Features - the extra uses of a product, enhancements", "sub_bullets": [] },
+            { "text": "Reliability - the ability to perform correctly over time", "sub_bullets": [] },
+            { "text": "Conformance - how it fills the accepted standards", "sub_bullets": [] },
+            { "text": "Durability - how long it can be used or lasts", "sub_bullets": [] },
+            { "text": "Serviceability - how quickly it can be fixed or restored", "sub_bullets": [] },
+            { "text": "Aesthetics - how the product looks", "sub_bullets": [] },
+            { "text": "Perceived Quality - how customers view the product", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Is intended to ensure that products are created with perceived quality.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Help producers, anyone seeking to create and release a product, do so with customer satisfaction in mind, in a manageable way.",
+          "sub_bullets": []
+        }
+      ],
+    "process":
+    [
+        {
+          "text": "Analyze the performance, ensure the product fully completes its purpose.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Analyze the extra functions of the product, if they work properly and enhance consumer enjoyment.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Is the product reliable? Keep track of how long it lasts.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Measure the product’s performance and features against industry competitors and substitutes, does it measure up?",
+          "sub_bullets": []
+        },
+        {
+          "text": "How long can the product be used? Will consumers find this acceptable?",
+          "sub_bullets": []
+        },
+        {
+          "text": "How quickly can the product be repaired?",
+          "sub_bullets": []
+        },
+        {
+          "text": "Does the product look satisfactory?",
+          "sub_bullets": []
+        },
+        {
+          "text": "Analyze if the customers like and respect the product. Keep track of public image.",
+          "sub_bullets": []
+        }
+      ],
+      "benefits":
+      [
+        {
+          "text": "Provides a comprehensive method of analyzing quality.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Examines the product from multiple viewpoints.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Can be used to identify problems in different aspects of the product, and identify potential questions or issues that may arise in the market.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Simplifies quality analysis into a digestible method for beginners and new businesses.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Can focus on Worthwhile Development, because it allows producers to analyze how the product will affect the end users and customer, giving them the opportunity to ensure that it is ethical, and upholds proper standards of satisfaction.",
+          "sub_bullets": []
+        }
+      ],
+      "drawbacks":
+      [
+        {
+          "text": "Quality is ultimately subjective, so Garvin’s 8 cannot completely ensure that its dimensions of quality will work for every product.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Some of the dimensions, like aesthetics and perceived quality, can overlap and become a bit redundant.",
+          "sub_bullets": []
+        }
+      ],
+      "example":
+      [
+        { "text": "Using the iPhone 16 pro as an example, here is an analysis using Garvin’s 8.", "sub_bullets": [] },
+        {
+          "text": "Performance: The iPhone 16 pro needs to perform core phone functions (calls, messages) reliably.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Features: Examples include the superior camera, better zoom, and enhancements beyond the basic phone requirements.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Reliability: Expected to last around five years; battery degradation is a known drawback.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Conformance: Meets and improves Apple’s established standards, particularly camera and battery improvements.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Durability: Typically lasts 7–10 years.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Serviceability: Apple offers hardware and software repair support; repairs typically take a few weeks.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Aesthetics: Designed to look sleek, advanced, luxurious, with a large screen.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Perceived Quality: Apple products are generally viewed as high-quality and valuable.",
+          "sub_bullets": []
+        }
+      ],
+      "resources":
+      [
+        {
+          "text": "https://www.qualitygurus.com/garvins-8-dimensions-of-quality/",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.ifm.eng.cam.ac.uk/research/dstools/quality-framework/",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.dau.edu/library/damag/november-december2023/garvins-eight",
+          "sub_bullets": []
+        }
+      ],
+      "use_case_video": "/assets/Garvins8examplevideo.mp4",
+      "evaluation":
+      [
+        {
+          "text": "Can you explain each of the eight dimensions of quality?",
+          "sub_bullets": []
+        },
+        {
+          "text": "Sketch a quick Garvin’s 8 diagram for a hypothetical product. You can use a pre-existing product to keep this simple.",
+          "sub_bullets": []
+        },
+        {
+          "text": "Make a Garvin’s 8 list for your product or idea.",
+          "sub_bullets": []
+        }
+      ]      
+}

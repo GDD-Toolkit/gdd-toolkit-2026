@@ -1,0 +1,205 @@
+{
+    "name": "Agile",
+    "type": ["User-Centric"],
+    "time": ["Short-term", "Long-term"],
+    "image": "/assets/images/agile.png",
+    "learning_obj":
+    [
+        {
+          "text": "Understand the Agile Mindset:",
+          "sub_bullets": [{
+            "text": "Describe the Agile values and principles and explain how they differ from traditional project management approaches.",
+            "sub_bullets": []
+          }]
+        },
+        {
+          "text": "Plan Iterations and Sprints:",
+          "sub_bullets": [{
+            "text": "Understand how to plan and manage sprints, including defining sprint goals, estimating tasks, and setting realistic timelines."
+            ,"sub_bullets": []
+            }]
+        },
+        {
+          "text": "Deliver Incremental Value to Customers:",
+          "sub_bullets": [{
+            "text": "Understand the concept of delivering in increments, gathering customer feedback after each iteration, and using it to improve the product and plan future work."
+            ,"sub_bullets": []
+          }]
+        }
+      ],
+    "characteristics":
+    [
+        {
+          "text": "Works best when a project doesn’t have clear constraints, timelines, or available resources",
+          "sub_bullets": []
+        },
+        {
+          "text": "“Sprints”",
+          "sub_bullets": [{
+            "text": "Each phase follows a cycle, changing based on progress as well as user and stakeholder needs",
+            "sub_bullets": []
+          },
+          {
+            "text": "Quick turnover",
+            "sub_bullets": []
+          }]
+        },
+        {
+          "text": "Feature by feature launch",
+          "sub_bullets": []
+        },
+        {
+          "text": "Collective accountability",
+          "sub_bullets": [{
+            "text": "Everyone is responsible for the success of the initiative",
+            "sub_bullets": []
+          }]
+        }
+      ],
+    "process":
+    [
+        {
+          "text": "Plan",
+          "sub_bullets": [
+            { "text": "Analyze concept and requirements", "sub_bullets": [] },
+            { "text": "Determine current state and expectations", "sub_bullets": [] },
+            { "text": "Arrange teams and tools", "sub_bullets": [] },
+            { "text": "Break project into small manageable tasks", "sub_bullets": [] },
+            { "text": "Set KPIs (key performance indicators)", "sub_bullets": [] },
+            { "text": "Choose a project management system (Notion, Trello, etc.) to keep track of everything", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Design",
+          "sub_bullets": [
+            { "text": "Map user and stakeholders needs to product features, prototyping.", "sub_bullets": [] },
+            { "text": "Visualize your product and how it will function in the real world", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Develop",
+          "sub_bullets": [
+            { "text": "Manufacturing, software development, i.e. fulfill steps needed to produce the “product”", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Test",
+          "sub_bullets": [
+            { "text": "Ensure product functions as intended, address issues/concerns", "sub_bullets": [] },
+            { "text": "Plan, design, and development may change during this step", "sub_bullets": [] },
+            { "text": "Conduct interviews, run scenarios, internal testing", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Release",
+          "sub_bullets": [
+            { "text": "Present product to stakeholders", "sub_bullets": [] },
+            { "text": "Push product to market, start tracking KPIs", "sub_bullets": [] },
+            { "text": "Collect feedback", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Feedback",
+          "sub_bullets": [
+            { "text": "Reflect on KPIs and feedback", "sub_bullets": [] },
+            { "text": "Repeat Agile cycle", "sub_bullets": [] }
+          ]
+        }
+      ]
+    ,
+    "benefits":
+    [
+        {
+          "text": "You can deploy to market quickly, which allows you to get feedback and responses in a short span",
+          "sub_bullets": []
+        },
+        {
+          "text": "You waste fewer resources (including time) because you always work on up-to-date tasks",
+          "sub_bullets": []
+        },
+        {
+          "text": "Short “sprints” allow you to detect and fix issues and defects faster",
+          "sub_bullets": []
+        },
+        {
+          "text": "Well known.",
+          "sub_bullets": []
+        }
+      ],
+    "drawbacks":
+    [
+        {
+          "text": "Short “sprints” do not leave time for documentation, which makes it difficult to avoid repeating past mistakes",
+          "sub_bullets": []
+        },
+        {
+          "text": "Demands more man power",
+          "sub_bullets": []
+        },
+        {
+          "text": "No clear end",
+          "sub_bullets": []
+        },
+        {
+          "text": "Short cycles don’t leave enough time for the design thinking process",
+          "sub_bullets": []
+        }
+      ],
+    "example":
+    [
+        {
+          "text": "Project team at Hack4Impact, a UMD club that creates technical solutions for nonprofit clients",
+          "sub_bullets": []
+        },
+        {
+          "text": "The card demonstrates the plan and design steps",
+          "sub_bullets": [
+            {
+                "text": "The picture is the prototype",
+                "sub_bullets": []
+              },
+              {
+                "text": "The plan are the bullets outlining the functionality and technologies",
+                "sub_bullets": []
+              }
+          ]
+        },
+        {
+          "text": "Engineers develop the features",
+          "sub_bullets": []
+        },
+        {
+          "text": "Testing takes place when the card goes to the “Verification” section",
+          "sub_bullets": []
+        },
+        {
+          "text": "Deployment and Review takes place when card goes to “Done” section",
+          "sub_bullets": [],
+          "image": "/assets/images/agileex.png"
+        }
+      ],
+    "resources":
+    [
+        {
+          "text": "https://agilealliance.org/agile101/",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.atlassian.com/agile",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.agilecrm.com/",
+          "sub_bullets": []
+        }
+      ]
+    ,
+    "slideshow": "https://docs.google.com/presentation/d/e/2PACX-1vSYBsTOFEMYS8c_VmAQi5S9tY5KubYoiA7409guLPjO5mXD8fgxmwhepgiZhgsc4DMcmqMY2DhdU3Zl/embed?start=true&loop=false&delayms=3000&slide=id.g26ed3ecceac_1_21",
+    "evaluation":
+    [
+        { "text": "Define the agile mindset", "sub_bullets": [] },
+        { "text": "List the subset methodologies", "sub_bullets": [] },
+        { "text": "What are the steps of agile", "sub_bullets": [] },
+        { "text": "Test your knowledge by listing 3 pros of agile for a project of your choice", "sub_bullets": [] }
+    ]
+}

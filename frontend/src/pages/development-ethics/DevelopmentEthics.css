@@ -1,0 +1,243 @@
+/* === General Page Styles === */
+.page-container {
+    font-family: "Inter", sans-serif;
+    background-color: #fff;
+    color: #fff;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* centers the title */
+    position: relative;
+}
+  
+  /* === Mission Banner === */
+  .mission-banner {
+    width: 100%;
+    background: linear-gradient(to right, #A07CFF, #6D83F2);
+    text-align: center;
+    padding: 3.5rem 1rem;
+  }
+  
+  .mission-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0;
+  }
+  
+  @media (min-width: 768px) {
+    .mission-title {
+      font-size: 3.2rem;
+    }
+  }
+  
+  /* === Content Section === */
+  .content-section {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  .content-section + .content-section {
+    margin-top: 3rem;
+  }
+  
+  /* === Content Card === */
+  .content-card {
+    position: relative;
+    margin-top: -2rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f3f4f6;
+  }
+  
+  @media (min-width: 768px) {
+    .content-card {
+      padding: 2rem;
+    }
+  }
+  
+  /* === Simulation Title === */
+  .simulation-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #6D83F2;
+    text-align: center;
+  }
+  
+  @media (min-width: 768px) {
+    .simulation-title {
+      font-size: 1.875rem;
+    }
+  }
+  
+  /* === Simulation Text === */
+  .simulation-text {
+    margin-top: 0.75rem;
+    color: #374151;
+    line-height: 1.7;
+    font-size: 0.9375rem;
+    text-align: center;
+  }
+  
+  @media (min-width: 768px) {
+    .simulation-text {
+      font-size: 1rem;
+    }
+  }
+  
+  .simulation-text a {
+    color: #6D83F2;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .simulation-text a:hover {
+    color: #5B6FE0;
+    text-decoration: underline;
+  }
+
+  /* === Checklist Section === */
+.checklist-section {
+    max-width: 72rem;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+  }
+  
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    background-color: #f9fafb;
+    padding: 1rem 1.25rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+    line-height: 1.6;
+    font-size: 1rem;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+  }
+  
+  .checklist-item:hover {
+    background-color: rgba(160, 124, 255, 0.08);
+    border-color: rgba(160, 124, 255, 0.35);
+  }
+  
+  /* === Checkmark Icon === */
+  .checkmark {
+    color: #6D83F2;
+    font-weight: 700;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+  
+  /* === Strong Text Styling === */
+  .checklist-item strong {
+    color: #6D83F2;
+    font-weight: 600;
+  }
+  
+  /* === Responsive Adjustments === */
+  @media (min-width: 768px) {
+    .checklist-item {
+      font-size: 1.05rem;
+      padding: 1.25rem 1.5rem;
+    }
+  }
+
+/* Maldevelopment Alert Box */
+.alert-box {
+    display: block;
+    align-items: center;
+    gap: 1rem;
+    background-color: #fff7ed;
+    border-left: 6px solid #ea580c;
+}
+
+.alert-icon {
+    color: #ea580c;
+    font-size: 1.35rem;
+    margin-top: 0;
+    line-height: 1;
+}
+
+/* Icon + Title together at the top */
+.alert-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Title styling */
+.alert-header h3 {
+    color: #b45309;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Paragraph under the title */
+.alert-description {
+    color: #444;
+    line-height: 1.6;
+    margin: 0;
+}
+
+  /* === Numbered List Section === */
+.numbered-list {
+    list-style: none; /* remove default numbers */
+    counter-reset: item; /* start custom numbering */
+    padding-left: 0;
+    margin-top: 1.5rem;
+}
+
+.numbered-item {
+    counter-increment: item;
+    position: relative;
+    margin-bottom: 1rem;
+    padding-left: 2.5rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #1f2937;
+}
+
+.numbered-item::before {
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 700;
+    color: #6D83F2;
+    font-size: 1.05rem;
+}
+
+.numbered-item u {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+}
+
+/* Optional: subtle hover animation */
+.numbered-item:hover, .star-item:hover {
+    transform: translateX(4px);
+    transition: transform 0.2s ease;
+}

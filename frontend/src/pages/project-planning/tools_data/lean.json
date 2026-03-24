@@ -1,0 +1,166 @@
+{
+    "name": "Lean",
+    "type": ["Efficiency/Innovation"],
+    "time": ["Long-term"],
+    "image": "/assets/images/lean.png",
+    "learning_obj":
+    [
+        {
+          "text": "Understand the Lean Philosophy:",
+          "sub_bullets": [{
+            "text": "Describe the principles of Lean, including continuous improvement, waste reduction, and maximizing customer value, and explain their relevance to project planning.",
+            "sub_bullets": []
+          }]
+        },
+        {
+          "text": "Identify Value and Waste:",
+          "sub_bullets": [{
+            "text": "Recognize and classify value-adding versus non-value-adding activities, and identify the five types of waste in a project workflow.",
+            "sub_bullets": []
+          }]
+        },
+        {
+          "text": "Measure and Evaluate Lean Success with Metrics:",
+          "sub_bullets": [{
+            "text": "Identify and utilize key Lean metrics, such as cycle time, lead time, and throughput, to measure project performance and guide decision-making for continuous improvement.",
+            "sub_bullets": []
+          }]
+        }
+      ],
+    "characteristics":
+    [
+        {
+          "text": "Eliminates waste of multiple forms",
+          "sub_bullets": [
+            { "text": "Motion – movements of people, materials, or machines are more complicated or occur more frequently than necessary", "sub_bullets": [] },
+            { "text": "Inventory – too much stock results in loss of storage, management burden, and loss of value over time", "sub_bullets": [] },
+            { "text": "Time – processes are interrupted or idle, causing costly delays", "sub_bullets": [] },
+            { "text": "Overproduction", "sub_bullets": [] },
+            { "text": "Human Potential – not utilizing the full capabilities of people", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Encourages teams to document effective processes",
+          "sub_bullets": []
+        },
+        {
+          "text": "Customer-centric",
+          "sub_bullets": [{
+            "text": "Cost-effective, decreased resource use leading to lower prices and happier customers",
+            "sub_bullets": []
+          } ]
+        }   
+    ],
+    "process":
+    [
+        {
+          "text": "Define Value",
+          "sub_bullets": [
+            { "text": "Understand customer needs and values—what is the customer actually looking for?", "sub_bullets": [] },
+            { "text": "Streamline the process to eliminate spending on things the customer won’t value", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Map Value Stream",
+          "sub_bullets": [
+            { "text": "Identify and map all steps and resources involved in delivering the product or service", "sub_bullets": [] },
+            { "text": "Similar to the 'plan' step of Agile methodology", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Create Flow",
+          "sub_bullets": [
+            { "text": "Address potential roadblocks before starting to avoid unnecessary resource expenditure", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Establish Pull",
+          "sub_bullets": [
+            { "text": "Base production on actual customer demand to reduce overproduction and excess inventory", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Pursue Perfection",
+          "sub_bullets": [
+            { "text": "Continually seek ways to reduce waste and improve processes", "sub_bullets": [] }
+          ]
+        }
+      ],
+    "benefits":
+    [
+        {
+          "text": "Increased Efficiency and Productivity",
+          "sub_bullets": []
+        },
+        {
+          "text": "Enhanced Quality",
+          "sub_bullets": []
+        },
+        {
+          "text": "Reduced Costs",
+          "sub_bullets": []
+        },
+        {
+          "text": "Faster Delivery Times",
+          "sub_bullets": []
+        },
+        {
+          "text": "Better Customer Satisfaction",
+          "sub_bullets": []
+        },
+        {
+          "text": "Higher Employee Engagement and Morale",
+          "sub_bullets": []
+        }
+      ],
+    "drawbacks":
+    [
+        {
+          "text": "Cutting back too much",
+          "sub_bullets": []
+        },
+        {
+          "text": "Relies on every team buying into the principle",
+          "sub_bullets": []
+        }
+      ],
+    "example":
+    [
+        {
+          "text": "Amazon uses Lean management principles in its fulfillment centers",
+          "sub_bullets": [
+            { "text": "Pick-to-Belt Process: Workers pick products from shelves and place them on conveyor belts leading to packaging areas", "sub_bullets": [] },
+            { "text": "5S System: Workspaces are organized for maximum efficiency and safety", "sub_bullets": [] },
+            { "text": "Kaizen: Continuous improvement approach encouraging employees to spot and eliminate waste", "sub_bullets": [] },
+            { "text": "Just-in-Time Inventory: Minimizes inventory on hand to reduce costs and risk of obsolescence", "sub_bullets": [] }
+          ],
+            "image": "/assets/images/leanex.png"
+        }
+      ],
+    "resources":
+    [
+        { "text": "https://www.atlassian.com/agile/project-management/lean-methodology", "sub_bullets": [] },
+        { "text": "https://www.planview.com/resources/guide/lean-principles-101/what-is-lean/", "sub_bullets": [] },
+        { "text": "https://www.masterclass.com/articles/lean-methodology", "sub_bullets": [] }
+      ],
+    "slideshow": "https://docs.google.com/presentation/d/e/2PACX-1vTH-M7Fv8YxZlBmxvldXYz_os_2qxY-q3mYIFym0xnvXY8epZTobx79q8l0UMNz17ZLoSr_vE7fhzDK/embed?start=true&loop=false&delayms=3000&slide=id.p",
+    "evaluation":
+    [
+        {
+          "text": "Define the lean methodology.",
+          "sub_bullets": []
+        },
+        {
+          "text": "What is lean philosophy?",
+          "sub_bullets": []
+        },
+        {
+          "text": "What are three benefits of using the lean methodology?",
+          "sub_bullets": []
+        },
+        {
+          "text": "How can lean principles benefit a project of your choosing? Write it down.",
+          "sub_bullets": []
+        }
+      ]
+}

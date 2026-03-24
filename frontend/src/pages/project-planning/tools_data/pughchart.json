@@ -1,0 +1,147 @@
+{
+    "name": "Pugh Chart",
+    "type":["Decision Making"],
+    "time":["Short-term"],
+    "image": "/assets/images/pughchart.png",
+    "learning_obj": 
+    [
+        { "text": "Understanding how to compare multiple design alternatives objectively", "sub_bullets": [] },
+        { "text": "Applying a structured approach to select the best option among alternatives", "sub_bullets": [] },
+        { "text": "Recognizing how to improve or combine ideas repeatedly", "sub_bullets": [] },
+        { "text": "Communicating decisions with data-driven justification, not just intuition", "sub_bullets": [] }
+    ]
+    ,
+    "characteristics":
+    [
+        { "text": "Compares multiple options against a baseline", "sub_bullets": [] },
+        { "text": "Uses + / 0 / – to rate performance relative to baseline", "sub_bullets": [] },
+        { "text": "Based on defined evaluation criteria (e.g., cost, quality)", "sub_bullets": [] },
+        { "text": "Can be weighted to reflect importance", "sub_bullets": [] },
+        { "text": "Produces a simple, visual matrix to support clear decisions", "sub_bullets": [] },
+        { "text": "Versatile (deciding between new location for office, hiring candidates, marketing campaign strategies, data platforms, etc.)", "sub_bullets": [] }
+      ]
+    ,
+    "process": 
+    [
+        { "text": "Define the Goal / Problem", "sub_bullets": [{ "text": "Clearly state what decision you are trying to make (ex. “Select the best site for a new clinic”).", "sub_bullets": [] }] },
+        { "text": "List Alternatives", "sub_bullets": [{ "text": "Identify all possible options or designs (ex. Site A, Site B, Site C).", "sub_bullets": [] }] },
+        { "text": "Select Evaluation Criteria", "sub_bullets": [{ "text": "Determine the factors that matter (ex. cost, accessibility, environmental impact, timeline).", "sub_bullets": [] }] },
+        { "text": "Choose a Baseline", "sub_bullets": [{ "text": "Select one option as a reference point for comparison — typically the current or most familiar one.", "sub_bullets": [] }] },
+        { "text": "Score Each Alternative", "sub_bullets": [
+            { "text": "For each criterion, compare the alternative to the baseline using:", "sub_bullets": [
+                { "text": "+ (better than baseline)", "sub_bullets": [] },
+                { "text": "0 (same as baseline)", "sub_bullets": [] },
+                { "text": "– (worse than baseline)", "sub_bullets": [] }
+            ] }
+        ] },
+        { "text": "Weigh Each Criteria by Importance (optional)", "sub_bullets": [] },
+        { "text": "Calculate Totals", "sub_bullets": [{ "text": "Count the number of +, 0, and – for each option.", "sub_bullets": [] }] },
+        { "text": "Analyze and Refine", "sub_bullets": [{ "text": "Identify high-scoring alternatives. If none are ideal, consider combining features or refining criteria and repeat.", "sub_bullets": [] }] },
+        { "text": "Make a Decision", "sub_bullets": [{ "text": "Choose the best-performing alternative or shortlist top candidates for further analysis.", "sub_bullets": [] }] }
+      ]
+    ,
+    "benefits": 
+    [
+        { "text": "Structured decision-making: reduces bias and emotions in choices", "sub_bullets": [] },
+        { "text": "Simple visualization: easy to communicate results", "sub_bullets": [] },
+        { "text": "Encourages teamwork: groups can evaluate collaboratively", "sub_bullets": [] },
+        { "text": "Facilitates iteration: can improve ideas over multiple rounds", "sub_bullets": [] },
+        { "text": "Flexible: works for both qualitative and quantitative data", "sub_bullets": [] },
+        { "text": "Worthwhile Development: allows inclusion of criteria related to well-being and environmental effects, focusing on ethics in comparative processes", "sub_bullets": [] }
+      ]
+    ,
+    "drawbacks":
+    [
+        { "text": "Subjective: scoring “+” or “–” depends on judgment", "sub_bullets": [] },
+        { "text": "No weighting by default: unless you assign weights, all criteria are treated equally", "sub_bullets": [] },
+        { "text": "Baseline sensitivity: results can vary if the reference option changes", "sub_bullets": [] },
+        { "text": "Not purely quantitative: less precise for data-heavy or financial decisions", "sub_bullets": [] }
+      ]
+    ,
+    "example":
+    [
+        {
+          "text": "Choose the best LMS platform for a university to support online courses, grading, and student engagement",
+          "sub_bullets": []
+        },
+        {
+          "text": "Alternatives",
+          "sub_bullets": [
+            { "text": "Blackboard (current system)", "sub_bullets": [] },
+            { "text": "Canvas", "sub_bullets": [] },
+            { "text": "Moodle", "sub_bullets": [] },
+            { "text": "Google Classroom", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Evaluation Criteria",
+          "sub_bullets": [
+            { "text": "Cost (licensing and maintenance)", "sub_bullets": [] },
+            { "text": "Ease of use (faculty/student interface)", "sub_bullets": [] },
+            { "text": "Integration with university systems (SIS, email, etc.)", "sub_bullets": [] },
+            { "text": "Mobile compatibility", "sub_bullets": [] },
+            { "text": "Customization/flexibility", "sub_bullets": [] },
+            { "text": "Technical support and training availability", "sub_bullets": [] },
+            { "text": "Data security and compliance", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Baseline/current system is Blackboard",
+          "sub_bullets": []
+        },
+        {
+          "text": "Score alternatives",
+          "image": "/assets/images/pughchartex1.png",
+          "sub_bullets": []
+        },
+        {
+          "text": "Add weightage and calculate totals",
+          "image": "/assets/images/pughchartex2.png",
+          "sub_bullets": [
+            { "text": "Cost: 5", "sub_bullets": [] },
+            { "text": "Ease of use: 4", "sub_bullets": [] },
+            { "text": "Integration: 4", "sub_bullets": [] },
+            { "text": "Mobile compatibility: 3", "sub_bullets": [] },
+            { "text": "Customization: 3", "sub_bullets": [] },
+            { "text": "Support/training: 4", "sub_bullets": [] },
+            { "text": "Security/compliance: 5", "sub_bullets": [] }
+          ]
+        },
+        {
+          "text": "Analyze and refine",
+          "sub_bullets": [
+            { "text": "Canvas (A2) has the highest overall score (+19), indicating it outperforms the baseline across most criteria", "sub_bullets": [] },
+            { "text": "Moodle (A3) improves on cost and customization but lacks in integration, support, and compliance, limiting institutional scalability", "sub_bullets": [] },
+            { "text": "Google Classroom (A4) performs well in cost and simplicity but poorly in integration, security, and support", "sub_bullets": [] },
+            { "text": "Canvas’s only real weakness is higher licensing cost, but it provides superior functionality and reliability", "sub_bullets": [] }
+          ]
+        },
+        {
+            "text": "Decision",
+            "sub_bullets": [
+              {
+                "text": "Canvas",
+                "sub_bullets": [
+                  { "text": "Delivers the best combination of usability, support, and integration even after weighting adjustments", "sub_bullets": [] }
+                ]
+              }
+            ]
+          }
+      ]
+      ,
+    "resources": 
+    [
+        { "text": "https://sixsigmastudyguide.com/pugh-analysis/", "sub_bullets": [] },
+        { "text": "https://leanscape.io/an-overview-of-the-pugh-matrix-what-is-it-and-how-does-it-work/", "sub_bullets": [] },
+        { "text": "https://www.youtube.com/watch?v=HWUyPMVau4Y", "sub_bullets": [] },
+        { "text": "https://www.youtube.com/watch?v=E8rWSKR8", "sub_bullets": [] }
+    ]
+    ,
+    "use_case_video": "/assets/pughchartexamplevideo.mp4",
+    "evaluation": 
+    [
+        { "text": "Can you identify your baseline?", "sub_bullets": [] },
+        { "text": "Can you assign weights to your criteria?", "sub_bullets": [] },
+        { "text": "Can you determine which alternative is best or worst simply by looking at your chart?", "sub_bullets": [] }
+    ]
+}

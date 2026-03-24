@@ -1,0 +1,11 @@
+{
+  "name": "getCaseStudies",
+  "version": "1.0.0",
+  "description": "Lambda function to retrieve case studies from DynamoDB",
+  "main": "src/index.js",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.637.0",
+    "@aws-sdk/util-dynamodb": "^3.637.0"
+  }
+}
+

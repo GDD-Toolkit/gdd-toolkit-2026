@@ -1,0 +1,206 @@
+/* === Modal Overlay === */
+.tool-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 9999;
+}
+
+/* === Modal Box === */
+.tool-modal {
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    color: #374151;
+}
+
+/* === Header === */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(to right, #047857, #059669, #0d9488);
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+}
+
+.modal-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* === Image === */
+.modal-main-image {
+    width: 100%;
+    height: 300px; /* fixed height, adjust as needed */
+    object-fit: contain; /* or 'cover' if you want it cropped */
+    align-items: center;
+    margin: 1rem 0;
+    border-radius: 0.75rem;
+}
+
+/* === Sections === */
+.modal-section {
+    margin-top: 1.5rem;
+}
+
+.modal-card {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-top: 1rem;
+    min-width: 0;        /* prevents overflow */
+    width: 100%;         /* ensures consistent width */
+    height: auto;        /* allows different heights */
+    box-sizing: border-box;
+}
+
+.modal-section h3,
+.modal-card h3 {
+    font-size: 1.25rem;
+    color: #065f46;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+}
+.modal-card a {
+    word-break: break-all;
+}
+/* Resource links */
+.bullet-list a {
+    color: #047857;
+    text-decoration: none;
+}
+
+.bullet-list a:hover {
+    text-decoration: underline;
+}
+
+/* === Grid 2 columns === */
+.modal-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+/* === Video === */
+.modal-video {
+    width: 100%;
+    height: 220px;
+    border: none;
+    border-radius: 0.75rem;
+}
+
+/* === Bullet Lists === */
+.bullet-list {
+    padding-left: 1.25rem;
+    list-style: disc;
+}
+
+.sub-bullet-list {
+    padding-left: 1.25rem;
+    margin-top: 0.25rem;
+    font-size: 0.95rem;
+    color: #4b5563;
+    list-style: circle;
+}
+
+/* === Keywords Badge === */
+.keywords-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.keyword-badge {
+    padding: 0.35rem 0.65rem;
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* === Modal Overlay === */
+.tool-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 9999;
+}
+
+/* === Modal Box === */
+.tool-modal {
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    color: #374151;
+}
+
+/* === Header === */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(to right, #A07CFF, #8b7df5, #6D83F2);
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+}
+
+.modal-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* === Sections === */
+.modal-section h3,
+.modal-card h3 {
+    font-size: 1.25rem;
+    color: #6D83F2;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Resource links */
+.bullet-list a {
+    color: #6D83F2;
+    text-decoration: none;
+}
+
+.bullet-list a:hover {
+    text-decoration: underline;
+}
+
+/* === Keywords Badge === */
+.keyword-badge {
+    padding: 0.35rem 0.65rem;
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+}

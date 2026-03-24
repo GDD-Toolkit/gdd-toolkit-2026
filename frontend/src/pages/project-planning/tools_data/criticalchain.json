@@ -1,0 +1,189 @@
+{
+    "name": "Critical Chain",
+    "type": ["Efficiency/Innovation"],
+    "time": ["Long-term"],
+    "image": "/assets/images/criticalchain.png",
+    "learning_obj":
+    [
+        {
+          "text": "Understand the Principles of Critical Chain",
+          "sub_bullets": [
+            {
+              "text": "Comprehend the core concepts of CCPM, including its focus on resource dependency and constraint management.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Implement Buffer Management",
+          "sub_bullets": [
+            {
+              "text": "Learn how to create and use buffers to protect project timelines against uncertainties and delays.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Optimize Resource Allocation",
+          "sub_bullets": [
+            {
+              "text": "Develop skills to allocate resources effectively within the critical chain, reducing multitasking and resource conflicts.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Monitor and Control the Critical Chain",
+          "sub_bullets": [
+            {
+              "text": "Gain proficiency in tracking project progress using CCPM principles and making adjustments to the chain and buffers as needed.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Apply CCPM to Improve Project Flow",
+          "sub_bullets": [
+            {
+              "text": "Understand how to apply CCPM to real-world projects to enhance project completion rates and overall efficiency.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ]
+      ,
+    "characteristics":
+    [
+        {
+          "text": "Buffers added to protect the project schedule from uncertainties and variations in task durations",
+          "sub_bullets": []
+        },
+        {
+          "text": "Project Buffer",
+          "sub_bullets": [
+            {
+              "text": "Added at the end of the project to protect the overall timeline.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Feeding Buffers",
+          "sub_bullets": [
+            {
+              "text": "Placed where non-critical paths feed into the critical chain to prevent delays from affecting the project.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Resource Buffers",
+          "sub_bullets": [
+            {
+              "text": "Ensures resources are available when needed, especially for critical chain tasks.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Clearly identified timeline for workflow, avoiding multitasking",
+          "sub_bullets": []
+        },
+        {
+          "text": "Allows subteams to reconvene on important objectives requiring additional manpower",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "process":
+    [
+        {
+          "text": "To be Added",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "benefits":
+    [
+        {
+          "text": "Clearly identified process for workflow",
+          "sub_bullets": []
+        },
+        {
+          "text": "Creates good efficiency due to being split up into teams for smaller objectives",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "drawbacks":
+    [
+        {
+          "text": "Does not identify customer thoughts",
+          "sub_bullets": []
+        },
+        {
+          "text": "Not suitable for straightforward objectives",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "example":
+    [
+        {
+          "text": "Pfizer’s Drug Development Process",
+          "sub_bullets": [
+            {
+              "text": "Pfizer identified the critical path of drug development processes that were often delayed due to resource constraints or unexpected problems.",
+              "sub_bullets": []
+            },
+            {
+              "text": "Introduced project buffers and feeding buffers to protect key tasks and prevent delays from pushing back the timeline.",
+              "sub_bullets": []
+            },
+            {
+              "text": "Aligned and scheduled resources such as researchers and lab equipment to avoid over-allocation or under-utilization.",
+              "sub_bullets": []
+            },
+            {
+              "text": "Implemented task prioritization using CCPM principles, focusing on tasks that directly impacted the timeline and avoiding unnecessary work.",
+              "sub_bullets": []
+            }
+          ],
+          "image": "/assets/images/criticalchainex.png"
+        }
+      ]
+      ,
+    "resources":
+    [
+        {
+          "text": "https://asana.com/resources/critical-chain-project-management",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.6sigma.us/project-management/critical-chain-project-management/",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.pmi.org/learning/library/pmbok-critical-chain-approach-4646",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://www.critical-chain-projects.com/the-method",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "slideshow": "https://docs.google.com/presentation/d/e/2PACX-1vSu25Muy1gcRGwP6RQXCziMFoBFwxCl55zkMg6B0paQ6prXIH31ObxLpU5guNqKyEB3TGH1gCWcwKDx/embed?start=true&loop=false&delayms=3000&slide=id.g2cf2bf27e8d_2_108",
+    "evaluation":
+    [
+        {
+          "text": "Define the critical chain method of management.",
+          "sub_bullets": []
+        },
+        {
+          "text": "What are the pros of using critical chain methodology?",
+          "sub_bullets": []
+        }
+      ]
+      
+}

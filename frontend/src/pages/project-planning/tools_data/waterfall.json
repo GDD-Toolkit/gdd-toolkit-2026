@@ -1,0 +1,244 @@
+{
+    "name": "Waterfall",
+    "type": [],
+    "time": ["Long-term"],
+    "image": "/assets/images/waterfall.png",
+    "learning_obj":
+    [
+        {
+          "text": "Develop Comprehensive Project Plans",
+          "sub_bullets": [
+            {
+              "text": "Gain skills to create detailed project plans with clearly defined milestones, deliverables, and timelines.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Identify and Manage Risks and Dependencies",
+          "sub_bullets": [
+            {
+              "text": "Develop strategies to foresee potential risks and manage inter-dependencies between phases in a Waterfall project.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Monitor and Track Project Progress",
+          "sub_bullets": [
+            {
+              "text": "Learn techniques to monitor project progress and manage resource allocation using Waterfall tools.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ]
+      ,
+    "characteristics":
+    [
+        {
+          "text": "Well-suited for projects with clear, unchanging requirements and thorough upfront understanding",
+          "sub_bullets": []
+        },
+        {
+          "text": "Linear and Sequential",
+          "sub_bullets": []
+        },
+        {
+          "text": "Each phase must be completed before moving to the next",
+          "sub_bullets": []
+        },
+        {
+          "text": "Clear Documentation",
+          "sub_bullets": [
+            {
+              "text": "Each phase is thoroughly documented, ensuring clear guidelines and specifications.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Fixed Scope",
+          "sub_bullets": [
+            {
+              "text": "Requirements are defined upfront with limited flexibility for changes.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Late Testing",
+          "sub_bullets": [
+            {
+              "text": "Testing occurs after implementation, delaying the discovery of issues.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ]
+      ,
+    "process":
+    [
+        {
+          "text": "Requirement Gathering",
+          "sub_bullets": [
+            {
+              "text": "Define the problem, identify the scope, and develop a plan or strategy to solve it.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Analysis",
+          "sub_bullets": [
+            {
+              "text": "Investigate the problem to define necessary requirements. Define 'what'.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Design",
+          "sub_bullets": [
+            {
+              "text": "Design a solution based on the requirements. Define 'how'.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Coding",
+          "sub_bullets": [
+            {
+              "text": "Implement (program) the design.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Testing",
+          "sub_bullets": [
+            {
+              "text": "Test the program to ensure that requirements have been satisfied.",
+              "sub_bullets": []
+            }
+          ]
+        },
+        {
+          "text": "Operations/Maintenance",
+          "sub_bullets": [
+            {
+              "text": "Fix or improve applications based on use or changes in the environment.",
+              "sub_bullets": []
+            }
+          ]
+        }
+      ]
+      ,
+    "benefits":
+    [
+        {
+          "text": "Provides a way for large or changing teams to work together toward a common goal defined in the requirements phase",
+          "sub_bullets": []
+        },
+        {
+          "text": "Ensures a disciplined and structured organization",
+          "sub_bullets": []
+        },
+        {
+          "text": "Provides a simple method to understand, follow, and arrange tasks",
+          "sub_bullets": []
+        },
+        {
+          "text": "Smooth transitions between phases",
+          "sub_bullets": []
+        },
+        {
+          "text": "Extremely stable",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "drawbacks":
+    [
+        {
+          "text": "Design flaws discovered late often require starting over from scratch",
+          "sub_bullets": []
+        },
+        {
+          "text": "No consideration for error correction during earlier phases",
+          "sub_bullets": []
+        },
+        {
+          "text": "Lacks flexibility for unforeseen roadblocks and changes",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "example":
+    [
+        {
+          "text": "NASA’s Space Shuttle Software Development Project",
+          "sub_bullets": [
+            {
+              "text": "Extensive requirements gathered and documented upfront to ensure clarity.",
+              "sub_bullets": []
+            },
+            {
+              "text": "Detailed design specifications created before implementation to avoid late-stage changes.",
+              "sub_bullets": []
+            },
+            {
+              "text": "Implementation involved writing software code strictly based on requirements and design documents.",
+              "sub_bullets": []
+            },
+            {
+              "text": "Testing conducted after development to ensure specifications were met and defects minimized.",
+              "sub_bullets": []
+            },
+            {
+              "text": "Deployment and maintenance followed, with any system changes requiring formal processes.",
+              "sub_bullets": []
+            }
+          ],
+          "image":"/assets/images/waterfallex.png"
+        }
+      ]
+      ,
+    "resources":
+    [
+        {
+          "text": "https://www.atlassian.com/agile/project-management/waterfall-methodology",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://business.adobe.com/blog/basics/waterfall",
+          "sub_bullets": []
+        },
+        {
+          "text": "https://instituteprojectmanagement.com/blog/waterfall-methodology/",
+          "sub_bullets": []
+        }
+      ]
+      ,
+    "slideshow": "https://docs.google.com/presentation/d/e/2PACX-1vRQBm3gq61GGNR-OEITWFvcz2UOpU5vSwynSiEfe1kGQAWNCZZInQQzxVK9N1WkuUD7-OBkA6I0GCGK/embed?start=true&loop=false&delayms=3000&slide=id.g2cbaadf8d39_0_5",
+    "evaluation":
+    [
+        {
+          "text": "Define waterfall management.",
+          "sub_bullets": []
+        },
+        {
+          "text": "What are the different steps or parts of the approach?",
+          "sub_bullets": []
+        },
+        {
+          "text": "What are the three benefits of waterfall?",
+          "sub_bullets": []
+        },
+        {
+          "text": "Choose a simple example and apply each stage of the waterfall approach.",
+          "sub_bullets": []
+        }
+      ]      
+}
