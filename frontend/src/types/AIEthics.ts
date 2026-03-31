@@ -2,11 +2,11 @@ export type AIEthics = {
     UniqueID: string;
     Tag: string;
     RelatedInfo: string;
-    MinPrice: BigInteger;
-    MaxPrice: BigInteger;
-    ConsiderationCount: BigInteger;
+    MinPrice: bigint;
+    MaxPrice: bigint;
+    ConsiderationCount: bigint;
     ConsiderationInfo: string;
-    ConsiderationScore: BigInteger;
-    TotalScore: BigInteger;
+    ConsiderationScore: bigint;
+    TotalScore: bigint;
     SimilarTools: string;
 }
