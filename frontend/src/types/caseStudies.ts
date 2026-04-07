@@ -5,26 +5,20 @@
 
 export type CaseStudy = {
   id: string;
-  name: string;
-  description?: string;
-  lessons_learned?: string;
-  evaluation?: string;
-  image?: string; // S3 URL (s3://...) or regular URL
-  keywords?: string[];
-  regions?: string[];
-  values?: string[];
-  relation_sdgs_values?: string;
-  summary?: string;
-  findings_implications?: string;
-  references?: string;
-  goal?: string;
-  introduction?: string;
-  issue?: string;
-  methods?: string;
-  sdgs: number[];
+  casestudy_title:string;
+  region_id:string;
+  values:string;
+  keyword:string;
+  description: string;
+  lesson_learned: string;
+  evaluation_boxes: Object[];
+  image_url:string;
+  SDG: Integer; 
+  test: string;
 
-  // Additional fields that might exist
-  [key: string]: unknown;
+ 
+
+  
 };
 
 /**
