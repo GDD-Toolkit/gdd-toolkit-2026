@@ -1,10 +1,29 @@
 import { useEffect, useState } from "react";
 import { getCohorts } from "../../api/strapi.ts";
+import { getProjectPlannings} from "../../api/strapi.ts";
 
 type CohortItem = {
   id?: number;
   year?: number;
   attributes?: { year?: number };
+};
+
+type ProjectPlanningItem = {
+  id?: number;
+  name?: string;
+  key_words?: Array<string>;
+  learning_objectives?: string;
+  characteristics?: string;
+  process?: string;
+  benefits?: string;
+  drawbacks?: string;
+  example?: string;
+  example_image_urls?: Array<string>;
+  resources?: string;
+  video_slideshow_url?: string;
+  evaluation?: string;
+  image_icon?: string;
+
 };
 
 /**
@@ -16,6 +35,30 @@ type CohortItem = {
  * - renders a list when data arrives
  */
 export default function CohortsExample() {
+
+  useEffect(() => {
+    async function debugApi() {
+      console.log(" Starting API Fetch...");
+      try {
+        const data = await getProjectPlannings();
+        
+        console.log("✅ Success! Data received:");
+        console.table(data); // This creates a nice table in the console
+        console.log("Full JSON structure:", data);
+
+        if (data.length > 0) {
+          console.log("First item keys:", Object.keys(data[0]));
+        } else {
+          console.warn("⚠️ Array is empty. Check if you have entries in Strapi.");
+        }
+      } catch (err) {
+        console.error("❌ API Fetch Failed:", err);
+      }
+    }
+
+    debugApi();
+  }, []);
+
   // Store the list of cohorts from the API.
   const [cohorts, setCohorts] = useState<CohortItem[]>([]);
 
@@ -79,3 +122,4 @@ export default function CohortsExample() {
     </div>
   );
 }
+

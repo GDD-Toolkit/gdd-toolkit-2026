@@ -60,3 +60,36 @@ export async function getCohorts() {
   // { data: [{ id, documentId, year, ... }], meta: {...} }
   return Array.isArray(json.data) ? json.data : [];
 }
+ 
+export async function getProjectPlannings() {
+  const baseUrl = getStrapiBaseUrl();
+  const pluralApiId = "project-plannings";
+
+  // If the env already ends with /api, do not add /api again.
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+  const url = `${apiBase}/${pluralApiId}?populate=*`;
+
+  // Send a GET request to Strapi with the token header if available.
+  const response = await fetch(url, {
+    method: "GET",
+    headers: buildStrapiHeaders(),
+  });
+
+  // If the request failed, throw an error so the component can handle it.
+  if (!response.ok) {
+    const body = await response.text().catch(() => "");
+    const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
+
+    throw new Error(
+      `Failed to fetch cohorts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
+    );
+  }
+
+  // Parse the JSON body from Strapi.
+  const json = await response.json();
+
+  // Return the array inside the "data" key.
+  // Example shape in Strapi v5:
+  // { data: [{ id, documentId, year, ... }], meta: {...} }
+  return Array.isArray(json.data) ? json.data : [];
+}
