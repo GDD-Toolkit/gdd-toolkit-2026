@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCohorts } from "../../api/strapi.ts";
+import { getCohorts, getCohorts2 } from "../../api/strapi";
 
 type CohortItem = {
   id?: number;
@@ -35,6 +35,11 @@ export default function CohortsExample() {
         // Ask our API helper for the data.
         const data = await getCohorts();
         console.log(data);
+
+        getCohorts2().then((data) => {
+          console.log("COHORTS2:", data);
+        });
+
         // Save the results into component state.
         setCohorts(data as CohortItem[]);
       } catch (err: unknown) {
