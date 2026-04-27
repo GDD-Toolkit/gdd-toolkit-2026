@@ -60,3 +60,31 @@ export async function getCohorts() {
   // { data: [{ id, documentId, year, ... }], meta: {...} }
   return Array.isArray(json.data) ? json.data : [];
 }
+
+export async function getPodcasts() {
+  const baseUrl = getStrapiBaseUrl();
+  const pluralApiId = "podcasts";
+
+  // If the env already ends with /api, do not add /api again.
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+  const url = `${apiBase}/${pluralApiId}`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: buildStrapiHeaders(),
+  });
+  
+
+  if(!response.ok) {
+    const body = await response.text().catch(() => "");
+    const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
+
+    throw new Error(
+      `Failed to fetch cohorts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
+    );
+  }
+
+  const json = await response.json();
+
+  return Array.isArray(json.data) ? json.data : [];
+}
