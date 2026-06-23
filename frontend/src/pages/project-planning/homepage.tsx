@@ -37,7 +37,7 @@ const bannerVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
 };
 
-// Single flat list in the same order as the reference image (left→right, top→bottom)
+// Single flat list in the same order as the reference image (left→right, top→bottom) 
 const TOOLS: Tool[] = [
   { 
     name: "Agile", 
