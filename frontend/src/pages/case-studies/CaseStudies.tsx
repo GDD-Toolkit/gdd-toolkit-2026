@@ -40,7 +40,7 @@ export default function CaseStudies() {
         setError(null);
         const [worthwhile, maldevelopment] = await Promise.all([
           fetchWorthwhile().catch(() => []),
-          fetchMaldevelopment().catch(() => []),
+          fetchMaldevelopment().catch(() => []), // !!! Failed to load resource: the server responded with a status of 404 (Not Found)
         ]);
 
         // Combine and label each case study with its segment

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { CaseStudy } from "@/types/caseStudies";
 import { s3UriToHttps } from "@/utils/s3";
+import { Card } from "../ui/card";
 
 interface CaseStudyCardProps {
   caseStudy: CaseStudy & { segment?: "worthwhile" | "maldevelopment" };
@@ -42,8 +43,8 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
 
   return (
     <>
-      <div 
-        className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer"
+      <Card 
+        className="bg-white p-0 rounded-xl shadow-md overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer"
         onClick={() => navigate(`/case-studies?id=${caseStudy.id}`)}
       >
         {/* Image */}
@@ -133,7 +134,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
             </span>
           </div>
         </div>
-      </div>
+      </Card>
     </>
   );
 }
