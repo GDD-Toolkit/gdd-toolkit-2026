@@ -30,7 +30,7 @@ function buildStrapiHeaders(): HeadersInit {
  */
 export async function getCohorts() {
   const baseUrl = getStrapiBaseUrl();
-  const pluralApiId = "coherts";
+  const pluralApiId = "cohorts";
 
   // If the env already ends with /api, do not add /api again.
   const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
