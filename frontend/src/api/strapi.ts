@@ -60,6 +60,10 @@ export async function getCohorts() {
   // { data: [{ id, documentId, year, ... }], meta: {...} }
   return Array.isArray(json.data) ? json.data : [];
 }
+
+/**
+ * Fetch all maldevelopment cases
+ */
 export async function getMaldevelopment() {
   const baseUrl = getStrapiBaseUrl();
   const pluralApiId = "maldevelopments";
