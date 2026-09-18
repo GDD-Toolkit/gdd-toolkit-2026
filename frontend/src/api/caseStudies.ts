@@ -70,14 +70,19 @@ export async function fetchMaldevelopment(): Promise<CaseStudy[]> {
  * @returns Promise<CaseStudy[]> Combined array of projects and policies
  */
 export async function fetchWorthwhile(): Promise<CaseStudy[]> {
-  const [projects, policies] = await Promise.allSettled([
-    fetchProjects(),
-    fetchPolicies(),
-  ]);
-
-  const projectData = projects.status === "fulfilled" ? projects.value : [];
-  const policyData = policies.status === "fulfilled" ? policies.value : [];
-
-  return [...projectData, ...policyData];
+  try {
+    const [projects, policies] = await Promise.all([
+      fetchProjects(),
+      fetchPolicies().catch(() => []), // Gracefully handle if policies endpoint doesn't exist yet
+    ]);
+    return [...projects, ...policies];
+  } catch (error) {
+    // If projects fails, try to return policies only
+    try {
+      return await fetchPolicies();
+    } catch {
+      throw error;
+    }
+  }
 }
 
