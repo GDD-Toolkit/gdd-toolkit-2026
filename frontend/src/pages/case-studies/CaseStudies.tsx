@@ -13,6 +13,7 @@ import type { CaseStudy } from "@/types/caseStudies";
 import "./CaseStudies.css";
 import { easeOut, motion } from "framer-motion";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 // Extended CaseStudy type with segment label
 type CaseStudyWithSegment = CaseStudy & {
   segment: "worthwhile" | "maldevelopment";
@@ -169,7 +170,7 @@ export default function CaseStudies() {
   const renderContent = () => {
     if (loading) {
       return (
-        <div className="text-center py-12">
+        <div className="text-center py-12 mx-auto">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#6D83F2]"></div>
           <p className="mt-4 text-gray-600">Loading case studies...</p>
         </div>
@@ -178,7 +179,7 @@ export default function CaseStudies() {
 
     if (error) {
       return (
-        <div className="text-center py-12">
+        <div className="text-center py-12 mx-auto">
           <p className="text-red-600 text-lg mb-2">Failed to load case studies.</p>
           <p className="text-gray-500">Please try again later.</p>
           {import.meta.env.DEV && (
@@ -188,7 +189,12 @@ export default function CaseStudies() {
       );
     }
 
-    return <CaseStudiesGrid caseStudies={filteredCaseStudies} searchQuery={searchQuery} />;
+    return (
+    <div className="flex flex-col gap-5">
+      <span className="mx-auto text-gray-500 size-xs">Showing {filteredCaseStudies.length} of {allCaseStudies.length} case studies</span>
+      <CaseStudiesGrid caseStudies={filteredCaseStudies} searchQuery={searchQuery} />
+    </div>
+    );
   };
 
     return (
@@ -224,131 +230,85 @@ export default function CaseStudies() {
             </section>
         
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 py-10">
+      <main className="max-w-6xl mx-auto px-4 py-10 flex gap-10">
         {/* Search */}
-        <div className="sticky top-25 z-4 mb-6 flex justify-center">
-          <input
-            type="text"
-            placeholder="Search by case study name…"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full max-w-xl rounded-full px-4 py-2 shadow-sm
-            border border-[#6D83F2]
-            bg-white
-            text-[#6D83F2]
-            placeholder-[#6D83F2]
-            focus:outline-none focus:ring-1 "
-          />
-        </div>
+        <div className="border border-[#AACDBB] bg-[#EEF2EB] min-w-70 z-10 sticky top-25 h-fit">
+          <h2>Filter Case Studies</h2>
+          <ul>
+            <li>
+              <h3>Search</h3>
+              <input
+                type="text"
+                placeholder="Search by case study name…"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full max-w-xl rounded-lg px-4 py-2
+                border border-slate-400
+                bg-gray-100
+                text-gray-800
+                placeholder-gray-500
+                focus:outline-none focus:ring-1 "
+              />
+            </li>
 
-        {/* Filters */}
-        <div className="max-w-5xl mx-auto space-y-4 mb-8">
-          {/* Values */}
-          <div className="flex items-center flex-wrap gap-3">
-            <label className="w-20 text-sm font-medium text-[#6D83F2]">
-              Values
-            </label>
-            <Select
-              value=""
-              onValueChange={(v) => {
-                if (v && !selectedValues.includes(v)) {
-                  setSelectedValues([...selectedValues, v]);
+            <li>
+              <h3>Values</h3>
+              <ToggleGroup 
+                size="sm" 
+                variant="outline"
+                className="gap-2 p-1 rounded-lg bg-yellow-500 flex-wrap"
+                multiple
+                onValueChange={(v) => {
+                if (v) {
+                  setSelectedValues(v);
                 }
               }}
-            >
-              <SelectTrigger 
-                className="w-48 border-[#6D83F2] text-[#6D83F2] focus:ring-[#A07CFF] text-sm px-3 py-1.5"
               >
-                <SelectValue className="text-[#6D83F2]" placeholder="Select Values…" />
-              </SelectTrigger>
-              <SelectContent className="w-[var(--anchor-width)] min-w-[200px]" alignItemWithTrigger={false} align="start">
-                {allValues.map((v) => (
-                  <SelectItem key={v} value={v}>
-                    {v}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <SelectedChips
-              items={selectedValues}
-              variant="values"
-              onRemove={(v) =>
-                setSelectedValues(selectedValues.filter(x => x !== v))
-              }
-            />
-          </div>
+                {allValues.map((v) => 
+                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v}className="">{v}</ToggleGroupItem>
+                )}
+              </ToggleGroup>
+            </li>
 
-          {/* Regions */}
-          <div className="flex items-center flex-wrap gap-3">
-            <label className="w-20 text-sm font-medium text-[#6D83F2]">
-              Regions
-            </label>
-            <Select
-              value=""
-              onValueChange={(r) => {
-                if (r && !selectedRegions.includes(r)) {
-                  setSelectedRegions([...selectedRegions, r]);
+            <li>
+              <h3>Regions</h3>
+              <ToggleGroup 
+                size="sm" 
+                variant="outline"
+                className="gap-2 p-1 rounded-lg bg-yellow-500 flex-wrap"
+                multiple
+                onValueChange={(v) => {
+                if (v) {
+                  setSelectedRegions(v);
                 }
               }}
-            >
-              <SelectTrigger 
-                className="w-48 border-[#6D83F2] text-[#6D83F2] focus:ring-[#A07CFF] text-sm px-3 py-1.5"
               >
-                <SelectValue className="text-[#6D83F2]" placeholder="Select Regions…" />
-              </SelectTrigger>
-              <SelectContent className="w-[var(--anchor-width)] min-w-[200px]" alignItemWithTrigger={false} align="start">
-                {allRegions.map((v) => (
-                  <SelectItem key={v} value={v}>
-                    {v}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <SelectedChips
-              items={selectedRegions}
-              variant="regions"
-              onRemove={(r) =>
-                setSelectedRegions(selectedRegions.filter(x => x !== r))
-              }
-            />
-          </div>
+                {allRegions.map((v) => 
+                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v}className="">{v}</ToggleGroupItem>
+                )}
+              </ToggleGroup>
+            </li>
 
-          {/* SDGs */}
-          <div className="flex items-center flex-wrap gap-3">
-            <label className="w-20 text-sm font-medium text-[#6D83F2]">
-              SDGs
-            </label>
-            <Select
-              value=""
-              onValueChange={(e) => {
-                const s = Number(e);
-                if (s && !selectedSdgs.includes(s)) {
-                  setSelectedSdgs([...selectedSdgs, s]);
+            <li>
+              <h3>SDGs</h3>
+              <ToggleGroup 
+                size="sm" 
+                variant="outline"
+                className="gap-2 p-1 rounded-lg bg-yellow-500 flex-wrap"
+                multiple
+                onValueChange={(v) => {
+                if (v) {
+                  const sdgs = v.map((s) => Number(s));
+                  setSelectedSdgs(sdgs);
                 }
               }}
-            >
-              <SelectTrigger 
-                className="w-48 border-[#6D83F2] text-[#6D83F2] focus:ring-[#A07CFF] text-sm px-3 py-1.5"
               >
-                <SelectValue className="text-[#6D83F2]" placeholder="Select SDGs..." />
-              </SelectTrigger>
-              <SelectContent className="w-[var(--anchor-width)] min-w-[200px]" alignItemWithTrigger={false} align="start">
-                {allSdgs.map((v) => (
-                  <SelectItem key={v} value={v}>
-                    {v}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <SelectedChips
-              items={selectedSdgs}
-              variant="sdgs"
-              format={(s) => `SDG ${s}`}
-              onRemove={(s) =>
-                setSelectedSdgs(selectedSdgs.filter(x => x !== s))
-              }
-            />
-          </div>
+                {allSdgs.map((v) => 
+                  <ToggleGroupItem key={v} value={""+v} aria-label={"Toggle " + v}className="">{"SDG " + v}</ToggleGroupItem>
+                )}
+              </ToggleGroup>
+            </li>
+          </ul>
         </div>
 
         {renderContent()}

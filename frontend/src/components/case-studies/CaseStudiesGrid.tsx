@@ -25,7 +25,7 @@ export default function CaseStudiesGrid({ caseStudies, searchQuery }: CaseStudie
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-2">
       {caseStudies.map((study) => (
         <CaseStudyCard key={study.id} caseStudy={study} />
       ))}
