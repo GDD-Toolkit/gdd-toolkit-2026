@@ -194,51 +194,32 @@ export default function CaseStudies() {
     return (
     <div className="min-h-screen bg-gray-50">
       {/* Page Header */}
-      <header className="bg-gradient-to-r from-[#A07CFF] to-[#6D83F2] text-white py-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-center">Case Studies</h1>
-        </div>
-            </header>
-        
-            <section className="content-section">
-                <div className="content-card">
-                    <motion.p
-                    className="simulation-text"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, ease: easeOut }}
-                    >
-                    This tool includes a dedicated library of case studies that highlight both exemplary development practices and real-world instances of maldevelopment. These cases give users a grounded understanding of how ethical challenges unfold in practice—and how values-based, human-centered approaches can lead to better outcomes. By learning from successes and missteps alike, users of our toolkit can more confidently apply these lessons and principles to their own projects.
-                    <br /><br />
-                    See the <a
+      <header className="bg-[#43673B] text-white py-12">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col gap-5 pb-20">
+          <h1 className="text-4xl md:text-5xl font-bold">Case Studies</h1>
+          <div className="text-lg">This tool includes a dedicated library of case studies that highlight both exemplary development practices and real-world instances of maldevelopment. These cases give users a grounded understanding of how ethical challenges unfold in practice—and how values-based, human-centered approaches can lead to better outcomes. By learning from successes and missteps alike, users of our toolkit can more confidently apply these lessons and principles to their own projects.</div>
+          <div> See the <a
                         href="/projectevaloldinternal.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="!text-[#6D83F2] font-semibold underline !hover:text-[#5f72d8] transition-colors"
-                    >
-                        case study evaluation methodology
-                    </a> for more details.
-                    <br /><br />
-                    Below is a tutorial on how to navigate and utilize the case studies effectively:
-                    {/* Embedded Video */}
-                    <motion.div
-                    className="w-full flex justify-center mt-6"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, ease: easeOut }}
-                    >
+                        className="font-semibold underline transition-colors"
+                    >case study evaluation methodology</a> for more details.
+          </div>
+          <div>Below is a tutorial on how to navigate and utilize the case studies effectively.</div>
+        </div>
+      </header>
+        
+            <section className="content-section">
+                <div className="flex justify-center -mt-20">
                     <video
                         src="/Case_study_video.mp4" // Local video URL
-                        width="80%"
+                        width="100%"
                         height="480"
                         controls // adds play/pause buttons
                         style={{ border: "1px solid #ccc", borderRadius: "8px", display: "block" }}
                         title="Case Study Tutorial"
                     ></video>
-                    </motion.div>
-                    <br /><br />
-                    Explore our comprehensive collection of case studies using the search bar or dropdowns. Each entry is thoughtfully categorized as either "Worthwhile Development" or "Maldevelopment," providing clear insights into ethical practices and challenges in the field. Dive in to learn from real-world examples and enhance your understanding of value-driven development.
-                    </motion.p>
+
                 </div>
             </section>
         
