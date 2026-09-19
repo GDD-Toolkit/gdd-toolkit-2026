@@ -95,43 +95,6 @@ export default function CaseStudies() {
   const allSdgs = Array.from(
     new Set(allCaseStudies.flatMap(cs => cs.sdgs ?? []))
   ).sort((a, b) => a - b);
-
-  function SelectedChips<T extends string | number>({
-    items,
-    onRemove,
-    format,
-    variant,
-  }: {
-    items: T[];
-    onRemove: (item: T) => void;
-    format?: (item: T) => string;
-    variant: "values" | "regions" | "sdgs";
-  }) {
-    const styles = {
-        values: "bg-sky-100 text-sky-700",
-        regions: "bg-purple-100 text-purple-700",
-        sdgs: "bg-orange-100 text-orange-700",
-      };      
-
-    return (
-      <div className="flex flex-wrap gap-2 ml-3">
-        {items.map(item => (
-          <span
-            key={item.toString()}
-            className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${styles[variant]}`}
-          >
-            {format ? format(item) : item}
-            <button
-              className="ml-1 opacity-70 hover:opacity-100"
-              onClick={() => onRemove(item)}
-            >
-              ×
-            </button>
-          </span>
-        ))}
-      </div>
-    );
-  }
   
   // Check for case study ID in URL and open modal
   useEffect(() => {
@@ -190,7 +153,7 @@ export default function CaseStudies() {
     }
 
     return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 md:w-2/3 lg:w-2/3">
       <span className="mx-auto text-gray-500 size-xs">Showing {filteredCaseStudies.length} of {allCaseStudies.length} case studies</span>
       <CaseStudiesGrid caseStudies={filteredCaseStudies} searchQuery={searchQuery} />
     </div>
@@ -230,11 +193,11 @@ export default function CaseStudies() {
             </section>
         
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 py-10 flex gap-10">
+      <main className="max-w-full mx-auto p-10 flex flex-col md:flex-row lg:flex-row gap-6 md:gap-10 lg:gap-10">
         {/* Search */}
-        <div className="border border-[#AACDBB] bg-[#EEF2EB] min-w-70 z-10 sticky top-25 h-fit">
-          <h2>Filter Case Studies</h2>
-          <ul>
+        <div className="flex flex-col gap-5 border border-[#AACDBB] bg-[#E1EDDD] p-5 z-10 md:sticky lg:sticky top-25 md:w-1/3 lg:w-1/3 h-fit rounded-lg">
+          <h2 className="text-xl">Filter Case Studies</h2>
+          <ul className="flex flex-col gap-5">
             <li>
               <h3>Search</h3>
               <input
@@ -256,7 +219,7 @@ export default function CaseStudies() {
               <ToggleGroup 
                 size="sm" 
                 variant="outline"
-                className="gap-2 p-1 rounded-lg bg-yellow-500 flex-wrap"
+                className="gap-2 p-1 rounded-lg flex-wrap"
                 multiple
                 onValueChange={(v) => {
                 if (v) {
@@ -265,7 +228,7 @@ export default function CaseStudies() {
               }}
               >
                 {allValues.map((v) => 
-                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v}className="">{v}</ToggleGroupItem>
+                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="border border-gray-300">{v}</ToggleGroupItem>
                 )}
               </ToggleGroup>
             </li>
@@ -275,7 +238,7 @@ export default function CaseStudies() {
               <ToggleGroup 
                 size="sm" 
                 variant="outline"
-                className="gap-2 p-1 rounded-lg bg-yellow-500 flex-wrap"
+                className="gap-2 p-1 rounded-lg flex-wrap"
                 multiple
                 onValueChange={(v) => {
                 if (v) {
@@ -284,7 +247,7 @@ export default function CaseStudies() {
               }}
               >
                 {allRegions.map((v) => 
-                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v}className="">{v}</ToggleGroupItem>
+                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="border border-gray-300">{v}</ToggleGroupItem>
                 )}
               </ToggleGroup>
             </li>
@@ -294,7 +257,7 @@ export default function CaseStudies() {
               <ToggleGroup 
                 size="sm" 
                 variant="outline"
-                className="gap-2 p-1 rounded-lg bg-yellow-500 flex-wrap"
+                className="gap-2 p-1 rounded-lg flex-wrap"
                 multiple
                 onValueChange={(v) => {
                 if (v) {
@@ -304,7 +267,7 @@ export default function CaseStudies() {
               }}
               >
                 {allSdgs.map((v) => 
-                  <ToggleGroupItem key={v} value={""+v} aria-label={"Toggle " + v}className="">{"SDG " + v}</ToggleGroupItem>
+                  <ToggleGroupItem key={v} value={""+v} aria-label={"Toggle " + v} className="border border-gray-300">{"SDG " + v}</ToggleGroupItem>
                 )}
               </ToggleGroup>
             </li>

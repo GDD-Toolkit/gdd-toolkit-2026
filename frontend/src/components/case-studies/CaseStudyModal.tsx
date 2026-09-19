@@ -99,7 +99,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
         onClick={(e) => e.stopPropagation()}
       >
         {/* Green Header */}
-        <div className="bg-gradient-to-r from-[#A07CFF] to-[#6D83F2] text-white py-6 px-6 relative">
+        <div className="bg-[#43673B] text-white py-6 px-6 relative">
           <button
             onClick={onClose}
             className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
