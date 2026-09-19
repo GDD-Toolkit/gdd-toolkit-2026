@@ -109,7 +109,7 @@ export default function CaseStudies() {
   }) {
     const styles = {
         values: "bg-sky-100 text-sky-700",
-        regions: "bg-slate-100 text-slate-700",
+        regions: "bg-purple-100 text-purple-700",
         sdgs: "bg-orange-100 text-orange-700",
       };      
 
@@ -246,7 +246,7 @@ export default function CaseStudies() {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 py-10">
         {/* Search */}
-        <div className="mb-6 flex justify-center">
+        <div className="sticky top-25 z-4 mb-6 flex justify-center">
           <input
             type="text"
             placeholder="Search by case study name…"
@@ -254,9 +254,10 @@ export default function CaseStudies() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full max-w-xl rounded-full px-4 py-2 shadow-sm
             border border-[#6D83F2]
+            bg-white
             text-[#6D83F2]
             placeholder-[#6D83F2]
-            focus:ring-[#A07CFF]"            
+            focus:outline-none focus:ring-1 "
           />
         </div>
 

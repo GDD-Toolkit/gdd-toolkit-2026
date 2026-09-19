@@ -101,7 +101,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
             {caseStudy.regions?.map((region, idx) => (
               <Badge
                 key={`region-${idx}`}
-                className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-slate-100 text-slate-700"
+                className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-purple-100 text-purple-700"
               >
                 {region}
               </Badge>
