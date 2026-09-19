@@ -12,6 +12,7 @@ import { fetchWorthwhile, fetchMaldevelopment } from "@/api/caseStudies";
 import type { CaseStudy } from "@/types/caseStudies";
 import "./CaseStudies.css";
 import { easeOut, motion } from "framer-motion";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Extended CaseStudy type with segment label
 type CaseStudyWithSegment = CaseStudy & {
@@ -266,23 +267,27 @@ export default function CaseStudies() {
             <label className="w-20 text-sm font-medium text-[#6D83F2]">
               Values
             </label>
-            <select
-              className="w-48 rounded-full px-3 py-1.5 text-sm
-              border border-[#6D83F2] text-[#6D83F2]
-              focus:ring-[#A07CFF]"
-              onChange={(e) => {
-                const v = e.target.value;
+            <Select
+              value=""
+              onValueChange={(v) => {
                 if (v && !selectedValues.includes(v)) {
                   setSelectedValues([...selectedValues, v]);
                 }
-                e.target.value = "";
               }}
             >
-              <option value="">Select Values …</option>
-              {allValues.map(v => (
-                <option key={v}>{v}</option>
-              ))}
-            </select>
+              <SelectTrigger 
+                className="w-48 border-[#6D83F2] text-[#6D83F2] focus:ring-[#A07CFF] text-sm px-3 py-1.5"
+              >
+                <SelectValue className="text-[#6D83F2]" placeholder="Select Values…" />
+              </SelectTrigger>
+              <SelectContent className="w-[var(--anchor-width)] min-w-[200px]" alignItemWithTrigger={false} align="start">
+                {allValues.map((v) => (
+                  <SelectItem key={v} value={v}>
+                    {v}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <SelectedChips
               items={selectedValues}
               variant="values"
@@ -297,23 +302,27 @@ export default function CaseStudies() {
             <label className="w-20 text-sm font-medium text-[#6D83F2]">
               Regions
             </label>
-            <select
-              className="w-48 rounded-full px-3 py-1.5 text-sm
-              border border-[#6D83F2] text-[#6D83F2]
-              focus:ring-[#A07CFF]"
-              onChange={(e) => {
-                const r = e.target.value;
+            <Select
+              value=""
+              onValueChange={(r) => {
                 if (r && !selectedRegions.includes(r)) {
                   setSelectedRegions([...selectedRegions, r]);
                 }
-                e.target.value = "";
               }}
             >
-              <option value="">Select Regions…</option>
-              {allRegions.map(r => (
-                <option key={r}>{r}</option>
-              ))}
-            </select>
+              <SelectTrigger 
+                className="w-48 border-[#6D83F2] text-[#6D83F2] focus:ring-[#A07CFF] text-sm px-3 py-1.5"
+              >
+                <SelectValue className="text-[#6D83F2]" placeholder="Select Regions…" />
+              </SelectTrigger>
+              <SelectContent className="w-[var(--anchor-width)] min-w-[200px]" alignItemWithTrigger={false} align="start">
+                {allRegions.map((v) => (
+                  <SelectItem key={v} value={v}>
+                    {v}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <SelectedChips
               items={selectedRegions}
               variant="regions"
@@ -328,25 +337,28 @@ export default function CaseStudies() {
             <label className="w-20 text-sm font-medium text-[#6D83F2]">
               SDGs
             </label>
-            <select
-              className="w-48 rounded-full px-3 py-1.5 text-sm
-              border border-[#6D83F2] text-[#6D83F2]
-              focus:ring-[#A07CFF]"
-              onChange={(e) => {
-                const s = Number(e.target.value);
+            <Select
+              value=""
+              onValueChange={(e) => {
+                const s = Number(e);
                 if (s && !selectedSdgs.includes(s)) {
                   setSelectedSdgs([...selectedSdgs, s]);
                 }
-                e.target.value = "";
               }}
             >
-              <option value="">Select SDGs…</option>
-              {allSdgs.map(s => (
-                <option key={s} value={s}>
-                  SDG {s}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger 
+                className="w-48 border-[#6D83F2] text-[#6D83F2] focus:ring-[#A07CFF] text-sm px-3 py-1.5"
+              >
+                <SelectValue className="text-[#6D83F2]" placeholder="Select SDGs..." />
+              </SelectTrigger>
+              <SelectContent className="w-[var(--anchor-width)] min-w-[200px]" alignItemWithTrigger={false} align="start">
+                {allSdgs.map((v) => (
+                  <SelectItem key={v} value={v}>
+                    {v}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <SelectedChips
               items={selectedSdgs}
               variant="sdgs"

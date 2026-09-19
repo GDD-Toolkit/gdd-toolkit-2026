@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import type { CaseStudy } from "@/types/caseStudies";
 import { s3UriToHttps } from "@/utils/s3";
 import { Card } from "../ui/card";
+import { Badge } from "../ui/badge";
 
 interface CaseStudyCardProps {
   caseStudy: CaseStudy & { segment?: "worthwhile" | "maldevelopment" };
@@ -87,32 +88,32 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
             </div>
           )}
 
-          {/* Tags - Values, Regions, SDGs */}
+          {/* Badges - Values, Regions, SDGs */}
           <div className="flex flex-wrap gap-2 mb-3">
             {caseStudy.values?.map((value, idx) => (
-              <span
+              <Badge
                 key={`value-${idx}`}
                 className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-sky-100 text-sky-700"
               >
                 {value}
-              </span>
+              </Badge>
             ))}
             {caseStudy.regions?.map((region, idx) => (
-              <span
+              <Badge
                 key={`region-${idx}`}
                 className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-slate-100 text-slate-700"
               >
                 {region}
-              </span>
+              </Badge>
             ))}
-            {/* SDG Tags */}
+            {/* SDG */}
             {caseStudy.sdgs?.map((sdg, idx) => (
-                <span
+                <Badge
                 key={`sdg-${idx}`}
                 className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-orange-100 text-orange-700"
                 >
                 SDG {sdg}
-                </span>
+                </Badge>
             ))}
           </div>
 
