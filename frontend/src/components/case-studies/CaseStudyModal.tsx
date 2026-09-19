@@ -8,6 +8,7 @@ import type { CaseStudy } from "@/types/caseStudies";
 import { s3UriToHttps } from "@/utils/s3";
 import { X, MapPin, Star, Target, Key, Zap, HeartPulse, ShieldCheck, Palette, Scale, CheckCircle2, Leaf } from "lucide-react";
 import { Card } from "../ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface CaseStudyModalProps {
   caseStudy: CaseStudy | null;
@@ -316,37 +317,29 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
 
                 <Card className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
                 <ul className="space-y-2">
+                <Accordion className="max-w-">
                     {caseStudy.references.map((ref, idx) => {
                     const url = extractUrl(ref);
                     const before = url ? ref.split(url)[0] : ref;
-                    const after = url ? ref.split(url)[1] : "";
+                    // const after = url ? ref.split(url)[1] : "";  // --- Not currently in use.
 
                     return (
-                        <li
-                        key={idx}
-                        className="text-sm text-gray-700 leading-relaxed flex gap-2"
-                        >
-                        <span className="text-[#6D83F2] font-semibold">
-                            [{idx + 1}]
-                        </span>
-
-                        <span>
-                            {before}
-                            {url && (
-                            <a
-                                href={url}
-                                target="_blank"
+                      <AccordionItem value={"ref_"+idx}>
+                        <AccordionTrigger className="text-sm text-gray-700 font-normal leading-relaxed flex gap-2"><span className="text-[#6D83F2] font-semibold">[{idx+1}] </span>{before}</AccordionTrigger>
+                        <AccordionContent>
+                          {url ? 
+                              <a 
+                                target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-emerald-700 underline hover:text-emerald-800 break-all"
-                            >
-                                {url}
-                            </a>
-                            )}
-                            {after}
-                        </span>
-                        </li>
+                                className="text-emerald-700 underline hover:text-emerald-800 break-all" 
+                                href={url}
+                              >{url}
+                              </a> : <span>Link not found</span>}
+                        </AccordionContent>
+                      </AccordionItem>
                     );
-                    })}
+                  })}
+                </Accordion>
                 </ul>
                 </Card>
             </div>
