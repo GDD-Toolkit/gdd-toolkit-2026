@@ -10,6 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "@base-ui/react": "^1.8.0",
+>>>>>>> 9d33d7d4 (updated podcasts page to new UI)
     "@fontsource-variable/geist": "^5.3.0",
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.4.0",

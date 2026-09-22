@@ -155,7 +155,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04, duration: 0.3 }}
                   >
-                    <Button className="group hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]">
+                    <Button className="!bg-white !text-slate-800 border-gray-200 shadow-sm group hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]">
                       <span className="relative z-10">{m.label}</span>
                       <motion.span
                         className="relative z-10"
@@ -233,7 +233,7 @@ export default function Navbar() {
 
             {/* Triangle alert icon */}
             <div className="relative ml-4">
-              <Button size="icon" variant="default" onClick={() => setShowMessage(v => !v)} aria-label="Prerelease info" className='hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]'>
+              <Button size="icon" variant="default" onClick={() => setShowMessage(v => !v)} aria-label="Prerelease info" className='!bg-white !text-slate-800 border-gray-200 shadow-sm hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]'>
                 <AlertTriangle className="w-5 h-5 text-red-600" />
               </Button>
 
@@ -262,7 +262,7 @@ export default function Navbar() {
           >
             <Button
               size="icon"
-              className="lg:hidden"
+              className="!bg-white !text-slate-800 border-gray-200 shadow-sm lg:hidden"
               onClick={() => setMobile((v) => !v)}
               aria-label="Toggle menu"
             >
@@ -294,7 +294,7 @@ export default function Navbar() {
                   <div key={m.label} className="space-y-2">
                     <Button
                       variant="default"
-                      className="w-full justify-between"
+                      className="!bg-white !text-slate-800 border-gray-200 shadow-sm w-full justify-between"
                       onClick={() => setMobileOpenMenu(mobileOpenMenu === idx ? null : idx)}
                     >
                       <span>{m.label}</span>
@@ -323,7 +323,7 @@ export default function Navbar() {
                             >
                               <Button
                                 variant="default"
-                                className="w-full justify-start ml-2"
+                                className="!bg-white !text-slate-800 border-gray-200 shadow-sm w-full justify-start ml-2"
                                 onClick={() => {
                                   setMobile(false)
                                   window.location.href = it.href
@@ -345,7 +345,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.04 }}
                   >
-                    <Button variant="default" className="w-full" onClick={() => {
+                    <Button variant="default" className="!bg-white !text-slate-800 border-gray-200 shadow-sm w-full" onClick={() => {
                       setMobile(false)
                       window.location.href = m.href || '/'
                     }}>

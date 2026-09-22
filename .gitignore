@@ -28,6 +28,7 @@ database_tables.txt
 *.njsproj
 *.sln
 *.sw?
+.env
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
