@@ -50,3 +50,7 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+# build/tool caches and stray binaries
+.vite/
+*.pkg
