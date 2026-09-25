@@ -1,107 +1,111 @@
-import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown, AlertTriangle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import Logo from '@/components/Logo'
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ChevronDown, AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Logo from "@/components/Logo";
 
 type Menu = {
-  label: string
-  href?: string
-  items?: { label: string; href: string }[]
-}
+  label: string;
+  href?: string;
+  items?: { label: string; href: string }[];
+};
 
 const MENUS: Menu[] = [
-  { label: 'Home', href: '/' },
+  { label: "Home", href: "/" },
   {
-    label: 'Development Ethics',
+    label: "Development Ethics",
     items: [
-      { label: 'Development Ethics', href: '/development-ethics' },
-      { label: 'Worthwhile Development', href: '/worthwhile-development' },
-      { label: 'The Capability Approach', href: '/capability-approach' }
-    ]
+      { label: "Development Ethics", href: "/development-ethics" },
+      { label: "Worthwhile Development", href: "/worthwhile-development" },
+      { label: "The Capability Approach", href: "/capability-approach" },
+    ],
   },
   {
-    label: 'Tools',
+    label: "Tools",
     items: [
-      { label: 'AI Business Ethics Canvas', href: 'https://main.dn6y4rvhmhz3f.amplifyapp.com/' },
-      { label: 'AI Ethics Dashboard', href: 'https://main.dc0y8ib3ovhbx.amplifyapp.com/' },
-      { label: 'Ethics of Innovation', href: '/ethics-of-innovation' },
-      { label: 'Human Centered Design', href: '/human-centered-design' },
-      { label: 'Project Planning', href: '/project-planning' },
-      { label: 'Project Evaluation', href: '/project-evaluation' }
-    ]
+      {
+        label: "AI Business Ethics Canvas",
+        href: "https://main.dn6y4rvhmhz3f.amplifyapp.com/",
+      },
+      { label: "AI Ethics Dashboard", href: "/ai-ethics-dashboard" },
+      { label: "Ethics of Innovation", href: "/ethics-of-innovation" },
+      { label: "Human Centered Design", href: "/human-centered-design" },
+      { label: "Project Planning", href: "/project-planning" },
+      { label: "Project Evaluation", href: "/project-evaluation" },
+    ],
   },
   {
-    label: 'Case Studies', href: '/case-studies',
+    label: "Case Studies",
+    href: "/case-studies",
   },
   {
-    label: 'Resources',
+    label: "Resources",
     items: [
-      { label: 'Funding Sources', href: '/funding-sources' },
-      { label: 'Podcast', href: '/podcast' },
-      { label: 'Acknowledgements', href: '/acknowledgements'}
-    ]
-  }
-]
+      { label: "Funding Sources", href: "/funding-sources" },
+      { label: "Podcast", href: "/podcast" },
+      { label: "Acknowledgements", href: "/acknowledgements" },
+    ],
+  },
+];
 
 export default function Navbar() {
-  const [open, setOpen] = useState<number | null>(null)
-  const [mobile, setMobile] = useState(false)
-  const [mobileOpenMenu, setMobileOpenMenu] = useState<number | null>(null)
-  const [showMessage, setShowMessage] = useState(false) // toggle alert manually
-  const closeTimeoutRef = useRef<number | null>(null)
+  const [open, setOpen] = useState<number | null>(null);
+  const [mobile, setMobile] = useState(false);
+  const [mobileOpenMenu, setMobileOpenMenu] = useState<number | null>(null);
+  const [showMessage, setShowMessage] = useState(false); // toggle alert manually
+  const closeTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     return () => {
-      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
-    }
-  }, [])
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    };
+  }, []);
 
   const openMenu = (i: number) => {
     if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current)
-      closeTimeoutRef.current = null
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
     }
-    setOpen(i)
-  }
+    setOpen(i);
+  };
 
   const scheduleClose = () => {
-    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
-    closeTimeoutRef.current = window.setTimeout(() => setOpen(null), 200)
-  }
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = window.setTimeout(() => setOpen(null), 200);
+  };
 
   const dropdownVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: -8,
-      scale: 0.96
+      scale: 0.96,
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      scale: 1
+      scale: 1,
     },
     exit: {
       opacity: 0,
       y: -8,
-      scale: 0.96
-    }
-  }
+      scale: 0.96,
+    },
+  };
 
   const mobileMenuVariants = {
     hidden: {
       height: 0,
-      opacity: 0
+      opacity: 0,
     },
     visible: {
-      height: 'auto',
-      opacity: 1
+      height: "auto",
+      opacity: 1,
     },
     exit: {
       height: 0,
-      opacity: 0
-    }
-  }
+      opacity: 0,
+    },
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, x: -8 },
@@ -110,26 +114,26 @@ export default function Navbar() {
       x: 0,
       transition: {
         delay: i * 0.04,
-        duration: 0.2
-      }
-    })
-  }
+        duration: 0.2,
+      },
+    }),
+  };
 
   return (
-    <motion.header 
+    <motion.header
       className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/60 shadow-sm"
       initial={{ y: -12, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.33, duration: 0.4, ease: 'easeOut' }}
+      transition={{ delay: 0.33, duration: 0.4, ease: "easeOut" }}
     >
       {/* Subtle gradient accent at top */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#A07CFF] via-[#6D83F2] to-[#A07CFF]" />
-      
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* BRAND */}
-          <motion.a 
-            href="/" 
+          <motion.a
+            href="/"
             className="inline-flex items-center shrink-0 group"
             aria-label="GDD Home"
             whileHover={{ scale: 1.02 }}
@@ -176,7 +180,9 @@ export default function Navbar() {
                         exit="exit"
                         transition={{ duration: 0.2 }}
                         className="absolute left-0 mt-2 w-72 rounded-xl bg-white shadow-xl border border-gray-200/80 overflow-hidden"
-                        style={{ boxShadow: '0 10px 40px -10px rgba(0, 0, 0, 0.15)' }}
+                        style={{
+                          boxShadow: "0 10px 40px -10px rgba(0, 0, 0, 0.15)",
+                        }}
                         onMouseEnter={() => openMenu(i)}
                         onMouseLeave={scheduleClose}
                       >
@@ -228,12 +234,18 @@ export default function Navbar() {
                 >
                   {m.label}
                 </motion.a>
-              )
+              ),
             )}
 
             {/* Triangle alert icon */}
             <div className="relative ml-4">
-              <Button size="icon" variant="default" onClick={() => setShowMessage(v => !v)} aria-label="Prerelease info" className='hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]'>
+              <Button
+                size="icon"
+                variant="default"
+                onClick={() => setShowMessage((v) => !v)}
+                aria-label="Prerelease info"
+                className="hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]"
+              >
                 <AlertTriangle className="w-5 h-5 text-red-600" />
               </Button>
 
@@ -247,19 +259,23 @@ export default function Navbar() {
                     transition={{ duration: 0.2 }}
                     className="absolute top-full mt-2 right-0 w-64 bg-red-600 text-white p-3 rounded-lg shadow-lg z-50"
                   >
-                    This is a prerelease version of our Development Ethics Toolkit. For feedback and issues, please email <a href="mailto:gddfire@gmail.com" className="underline font-semibold">gddfire@gmail.com</a>.
+                    This is a prerelease version of our Development Ethics
+                    Toolkit. For feedback and issues, please email{" "}
+                    <a
+                      href="mailto:gddfire@gmail.com"
+                      className="underline font-semibold"
+                    >
+                      gddfire@gmail.com
+                    </a>
+                    .
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
-            
           </nav>
 
           {/* MOBILE TOGGLE */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               size="icon"
               className="lg:hidden"
@@ -270,7 +286,11 @@ export default function Navbar() {
                 animate={{ rotate: mobile ? 90 : 0 }}
                 transition={{ duration: 0.3 }}
               >
-                {mobile ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobile ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </motion.div>
             </Button>
           </motion.div>
@@ -295,7 +315,9 @@ export default function Navbar() {
                     <Button
                       variant="default"
                       className="w-full justify-between"
-                      onClick={() => setMobileOpenMenu(mobileOpenMenu === idx ? null : idx)}
+                      onClick={() =>
+                        setMobileOpenMenu(mobileOpenMenu === idx ? null : idx)
+                      }
                     >
                       <span>{m.label}</span>
                       <motion.span
@@ -309,7 +331,7 @@ export default function Navbar() {
                       {mobileOpenMenu === idx && (
                         <motion.ul
                           initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
+                          animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden pl-2 space-y-2"
@@ -325,8 +347,8 @@ export default function Navbar() {
                                 variant="default"
                                 className="w-full justify-start ml-2"
                                 onClick={() => {
-                                  setMobile(false)
-                                  window.location.href = it.href
+                                  setMobile(false);
+                                  window.location.href = it.href;
                                 }}
                               >
                                 <span className="w-1 h-1 rounded-full bg-[#A07CFF]/10 mr-2" />
@@ -345,19 +367,23 @@ export default function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.04 }}
                   >
-                    <Button variant="default" className="w-full" onClick={() => {
-                      setMobile(false)
-                      window.location.href = m.href || '/'
-                    }}>
+                    <Button
+                      variant="default"
+                      className="w-full"
+                      onClick={() => {
+                        setMobile(false);
+                        window.location.href = m.href || "/";
+                      }}
+                    >
                       {m.label}
                     </Button>
                   </motion.div>
-                )
+                ),
               )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </motion.header>
-  )
+  );
 }
