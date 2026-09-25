@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, AlertTriangle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/brand-button'
 import Logo from '@/components/Logo'
 
 type Menu = {

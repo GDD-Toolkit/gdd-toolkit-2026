@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCohorts, getCohorts2 } from "../../api/strapi";
+import { getTeams } from "../../api/strapi.ts";
 
 type CohortItem = {
   id?: number;
@@ -48,39 +49,26 @@ export default function CohortsExample() {
       } finally {
         // Stop the loading state whether success or failure.
         setLoading(false);
+    useEffect(() => {
+      // Create an async function inside useEffect.
+      async function loadCohorts() {
+        try {
+          // Clear old errors before starting a new request.
+
+          // Ask our API helper for the data.
+          const data = await getTeams();
+          console.log(data);
+          // Save the results into component state.
+        } catch (err: unknown) {
+        console.log(err)
+        }
       }
-    }
 
-    // Run the fetch one time when the component mounts.
-    loadCohorts();
-  }, []);
+      // Run the fetch one time when the component mounts.
+      loadCohorts();
+    }, []);
 
-  // Show loading text while the request is running.
-  if (loading) {
-    return <p>Loading cohorts...</p>;
-  }
-
-  // Show an error message if the request failed.
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
-  // Show a friendly message if no records exist yet.
-  if (cohorts.length === 0) {
-    return <p>No cohorts found yet.</p>;
-  }
-
-  // Render the data once it exists.
-  return (
-    <div>
-      <h1>Strapi API example: Cohorts</h1>
-      <ul>
-        {cohorts.map((c, idx) => {
-          const year = c.attributes?.year ?? c.year;
-          const key = c.id ?? `${idx}`;
-          return <li key={key}>{year ?? "(missing year)"}</li>;
-        })}
-      </ul>
-    </div>
-  );
+  return(
+    <></>
+  )
 }
