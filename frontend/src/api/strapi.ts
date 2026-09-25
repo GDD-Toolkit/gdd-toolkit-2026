@@ -60,6 +60,13 @@ export async function getCohorts() {
   return Array.isArray(json.data) ? json.data : [];
 }
 
+export async function getCohorts2() {
+  const baseUrl = getStrapiBaseUrl();
+  const pluralApiId = "coherts";
+
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+  const url = `${apiBase}/${pluralApiId}?populate=*`;
+
 
 export async function getTeams() {
   const baseUrl = getStrapiBaseUrl();
@@ -81,6 +88,14 @@ export async function getTeams() {
     const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
 
     throw new Error(
+      `Failed to fetch cohorts2.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
+    );
+  }
+
+  const json = await response.json();
+
+  return Array.isArray(json.data) ? json.data : [];
+}
       `Failed to fetch cohorts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
     );
   }
