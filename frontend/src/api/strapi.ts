@@ -60,6 +60,8 @@ export async function getCohorts() {
   return Array.isArray(json.data) ? json.data : [];
 }
 
+
+
 export async function getPodcasts() {
   const baseUrl = getStrapiBaseUrl();
   const pluralApiId = "podcasts";
@@ -68,13 +70,25 @@ export async function getPodcasts() {
   const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
   const url = `${apiBase}/${pluralApiId}`;
 
-export async function getCohorts2() {
-  const baseUrl = getStrapiBaseUrl();
-  const pluralApiId = "coherts";
+  const response = await fetch(url, {
+    method: "GET",
+    headers: buildStrapiHeaders(),
+  });
+  
 
-  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
-  const url = `${apiBase}/${pluralApiId}?populate=*`;
+  if(!response.ok) {
+    const body = await response.text().catch(() => "");
+    const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
 
+    throw new Error(
+      `Failed to fetch podcasts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
+    );
+  }
+
+  const json = await response.json();
+
+  return Array.isArray(json.data) ? json.data : [];
+}
 
 export async function getTeams() {
   const baseUrl = getStrapiBaseUrl();
@@ -95,7 +109,7 @@ export async function getTeams() {
     const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
 
     throw new Error(
-      `Failed to fetch Maldevelopment data.
+      `Failed to fetch teams.
 URL: ${url}
 Status: ${response.status} ${response.statusText}
 Body: ${snippet}`
@@ -133,18 +147,3 @@ Body: ${snippet}`
   const json = await response.json();
   return Array.isArray(json.data) ? json.data : [];
 }
-  const json = await response.json();
-
-  return Array.isArray(json.data) ? json.data : [];
-}
-      `Failed to fetch cohorts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
-    );
-  }
-
-  // Parse the JSON body from Strapi.
-  const json = await response.json();
-  // Return the array inside the "data" key.
-  // Example shape in Strapi v5:
-  // { data: [{ id, documentId, year, ... }], meta: {...} }
-  return Array.isArray(json.data) ? json.data : []; }
-  
