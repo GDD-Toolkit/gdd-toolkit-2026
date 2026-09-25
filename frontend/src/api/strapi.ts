@@ -60,6 +60,21 @@ export async function getCohorts() {
   return Array.isArray(json.data) ? json.data : [];
 }
 
+export async function getPodcasts() {
+  const baseUrl = getStrapiBaseUrl();
+  const pluralApiId = "podcasts";
+
+  // If the env already ends with /api, do not add /api again.
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+  const url = `${apiBase}/${pluralApiId}`;
+
+export async function getCohorts2() {
+  const baseUrl = getStrapiBaseUrl();
+  const pluralApiId = "coherts";
+
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+  const url = `${apiBase}/${pluralApiId}?populate=*`;
+
 
 export async function getTeams() {
   const baseUrl = getStrapiBaseUrl();
@@ -118,3 +133,18 @@ Body: ${snippet}`
   const json = await response.json();
   return Array.isArray(json.data) ? json.data : [];
 }
+  const json = await response.json();
+
+  return Array.isArray(json.data) ? json.data : [];
+}
+      `Failed to fetch cohorts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
+    );
+  }
+
+  // Parse the JSON body from Strapi.
+  const json = await response.json();
+  // Return the array inside the "data" key.
+  // Example shape in Strapi v5:
+  // { data: [{ id, documentId, year, ... }], meta: {...} }
+  return Array.isArray(json.data) ? json.data : []; }
+  
