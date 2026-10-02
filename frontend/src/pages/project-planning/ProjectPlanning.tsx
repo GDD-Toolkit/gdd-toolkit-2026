@@ -34,11 +34,13 @@ import { AspectRatio } from "../../components/ui/aspect-ratio";
 import { Card, CardContent, CardHeader } from "../../components/ui/card";
 import { Target, ChartNoAxesCombined, RefreshCw, X, ChevronDown } from "lucide-react";
 
+const toolsBatchSize = 6;
+
 const wizardSteps = ["Framework Intro", "Select Tools", "Evaluation"];
 
 function ToolCardTrigger(props: React.ComponentProps<"div">) {
     // Radix HoverCard cancels touchstart by default. These cards contain buttons
-    // and a scrollable parent, so preserve native taps and swipe scrolling.
+    // so preserve native taps and page scrolling.
     return <div {...props} onTouchStart={undefined} />;
 }
 
@@ -65,7 +67,6 @@ const ProjectPlanning: React.FC = () => {
     const [evaluationPhase, setEvaluationPhase] = useState<EvaluationPhase>("design");
     const [evaluationAnswers, setEvaluationAnswers] = useState<EvaluationAnswers>({});
     const [evaluationWeights, setEvaluationWeights] = useState<EvaluationWeights>({ design: "1", implementation: "1", outcomes: "1" });
-    const [viewportRatio, setViewportRatio] = useState(() => window.innerWidth / window.innerHeight);
     const [previewSide, setPreviewSide] = useState<"left" | "right">("right");
     const [previewTopInset, setPreviewTopInset] = useState(16);
 
@@ -92,11 +93,6 @@ const ProjectPlanning: React.FC = () => {
         setPreviewSide(bounds.left + bounds.width / 2 < window.innerWidth / 2 ? "right" : "left");
     };
 
-    useEffect(() => {
-        const updateViewportRatio = () => setViewportRatio(window.innerWidth / window.innerHeight);
-        window.addEventListener("resize", updateViewportRatio);
-        return () => window.removeEventListener("resize", updateViewportRatio);
-    }, []);
     // Keeps chosen tools selected when moving between steps
     const [selectedToolNames, setSelectedToolNames] = useState<string[]>([]);
     // Adds a tool to the selection, or removes it if already selected
@@ -120,40 +116,21 @@ const ProjectPlanning: React.FC = () => {
     const [search, setSearch] = useState("");
     const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
     const [keywordFeedback, setKeywordFeedback] = useState("");
-    const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(6);
-    const [toolsViewport, setToolsViewport] = useState<HTMLDivElement | null>(null);
+    const [visibleCount, setVisibleCount] = useState(toolsBatchSize);
+    const [toolColumns, setToolColumns] = useState(1);
+    const [toolsGrid, setToolsGrid] = useState<HTMLDivElement | null>(null);
     useEffect(() => {
-        const viewport = toolsViewport;
-        const grid = viewport?.querySelector<HTMLElement>(".tools-grid");
-        if (step !== 2 || !viewport || !grid) return;
-
-        let measuredWidth = 0;
-        let tallestCard = 0;
-        const updateCapacity = () => {
-            const cards = [...grid.querySelectorAll<HTMLElement>(".tool-card")];
-            if (!cards.length) return;
-            // Retain the tallest measured card at this width to avoid page-size
-            // oscillation when pages contain cards with different text lengths.
-            if (measuredWidth !== grid.clientWidth) {
-                measuredWidth = grid.clientWidth;
-                tallestCard = 0;
-            }
-            tallestCard = Math.max(tallestCard, ...cards.map((card) => card.offsetHeight));
-            const gridStyle = getComputedStyle(grid);
-            const viewportStyle = getComputedStyle(viewport);
-            const columns = gridStyle.gridTemplateColumns.split(" ").length;
-            const gap = parseFloat(gridStyle.rowGap) || 0;
-            const height = viewport.clientHeight - parseFloat(viewportStyle.paddingTop) - parseFloat(viewportStyle.paddingBottom);
-            // Fill whole rows, including the rows needed for the six-tool minimum.
-            const rows = Math.max(Math.ceil(6 / columns), Math.floor((height + gap) / (tallestCard + gap)));
-            setPageSize(columns * rows);
+        if (!toolsGrid) return;
+        const updateColumns = () => {
+            if (!toolsGrid.clientWidth) return;
+            const columns = getComputedStyle(toolsGrid).gridTemplateColumns.trim().split(/\s+/).length;
+            setToolColumns(Math.max(1, columns));
         };
-        const observer = new ResizeObserver(updateCapacity);
-        observer.observe(viewport);
-        observer.observe(grid);
+        updateColumns();
+        const observer = new ResizeObserver(updateColumns);
+        observer.observe(toolsGrid);
         return () => observer.disconnect();
-    }, [step, toolsViewport]);
+    }, [toolsGrid]);
     const toolTriggerRef = useRef<HTMLButtonElement | null>(null);
     const keywords = [...new Set(tools.flatMap((tool) => [...tool.type, ...tool.time]))].sort();
     // === Modal State ===
@@ -168,18 +145,14 @@ const ProjectPlanning: React.FC = () => {
             t.time.some((ti) => ti.toLowerCase().includes(term)))
         );
     });
-    const pageCount = Math.max(1, Math.ceil(filteredTools.length / pageSize));
-    const currentPage = Math.min(page, pageCount);
-    const visibleTools = filteredTools.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-    const changePage = (nextPage: number) => {
-        setPage(nextPage);
-        toolsViewport?.scrollTo({ top: 0 });
-    };
+    // Round up to complete rows at every responsive grid width.
+    const fullRowCount = Math.ceil(visibleCount / toolColumns) * toolColumns;
+    const visibleTools = filteredTools.slice(0, fullRowCount);
     const toggleKeyword = (keyword: string) => {
         setSelectedKeywords((previous) => previous.includes(keyword)
             ? previous.filter((value) => value !== keyword)
             : [...previous, keyword]);
-        changePage(1);
+        setVisibleCount(toolsBatchSize);
     };
     const addTypedKeywords = () => {
         const matches = matchKeywords(search, keywords);
@@ -191,7 +164,7 @@ const ProjectPlanning: React.FC = () => {
         setSelectedKeywords((previous) => [...new Set([...previous, ...matches])]);
         setKeywordFeedback(additions.length ? `Added: ${additions.join(", ")}.` : "Those keywords are already selected.");
         setSearch("");
-        changePage(1);
+        setVisibleCount(toolsBatchSize);
     };
 
     // === Badge Colors ===
@@ -342,7 +315,7 @@ const ProjectPlanning: React.FC = () => {
                                 value={search}
                                 aria-label="Search planning tools"
                                 aria-describedby="planning-keyword-feedback"
-                                onChange={(e) => { setSearch(e.target.value); setKeywordFeedback(""); changePage(1); }}
+                                onChange={(e) => { setSearch(e.target.value); setKeywordFeedback(""); setVisibleCount(toolsBatchSize); }}
                                 onKeyDown={(event) => {
                                     if (event.key === "Enter" && !event.nativeEvent.isComposing) {
                                         event.preventDefault();
@@ -363,7 +336,7 @@ const ProjectPlanning: React.FC = () => {
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent className="planning-keyword-options" collisionPadding={16}>
-                                        <Button type="button" variant="outline" onClick={() => { setSelectedKeywords([]); setSearch(""); setKeywordFeedback(""); changePage(1); }}>
+                                        <Button type="button" variant="outline" onClick={() => { setSelectedKeywords([]); setSearch(""); setKeywordFeedback(""); setVisibleCount(toolsBatchSize); }}>
                                             All keywords
                                         </Button>
                                         <p>Match any selected keyword.</p>
@@ -394,13 +367,10 @@ const ProjectPlanning: React.FC = () => {
                 {/* Tool cards shown in step 2 */}
                 <div
                     className="planning-tools-viewport"
-                    ref={setToolsViewport}
-                    style={{ aspectRatio: viewportRatio }}
                     role="region"
                     aria-label="Available planning tools"
-                    tabIndex={0}
                 >
-                <div className="tools-grid">
+                <div id="planning-tools-grid" className="tools-grid" ref={setToolsGrid}>
                     {filteredTools.length === 0 && (
                         <p className="planning-tools-empty" role="status">No tools match your search.</p>
                     )}
@@ -477,14 +447,16 @@ const ProjectPlanning: React.FC = () => {
                     ))}
                 </div>
                 </div>
-                <nav className="planning-pagination" aria-label="Tool results pages">
-                    <Button variant="outline" disabled={currentPage === 1} onClick={() => changePage(currentPage - 1)}>Previous</Button>
-                    <div className="planning-pagination-status" role="status" aria-atomic="true">
-                        <span className="planning-pagination-count">{filteredTools.length} tools</span>
-                        <span className="planning-pagination-page">Page <strong>{currentPage}</strong> of <strong>{pageCount}</strong></span>
+                <div className="planning-show-more">
+                    <div className="planning-tools-status" role="status" aria-atomic="true">
+                        Showing {visibleTools.length} of {filteredTools.length} tools
                     </div>
-                    <Button className="planning-pagination-next" disabled={currentPage === pageCount} onClick={() => changePage(currentPage + 1)}>Next</Button>
-                </nav>
+                    {visibleTools.length < filteredTools.length && (
+                        <Button type="button" aria-controls="planning-tools-grid" onClick={() => setVisibleCount(fullRowCount + toolsBatchSize)}>
+                            Show more
+                        </Button>
+                    )}
+                </div>
             </TabsContent>
 
             {/* --- Section 3: Project evaluation tool --- */}
