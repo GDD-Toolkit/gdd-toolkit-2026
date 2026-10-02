@@ -170,7 +170,6 @@
     opacity: 1;
 }
 
-/* Match the browser viewport proportions; extra rows scroll inside the box. */
 /* The preview is portaled outside .planning-page. */
 .planning-tool-preview[data-slot="hover-card-content"] {
     box-sizing: border-box;
@@ -249,9 +248,9 @@
     width: 100%;
 }
 
-.planning-page .planning-pagination {
+.planning-page .planning-show-more {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
@@ -259,27 +258,27 @@
     font-size: 0.875rem;
 }
 
-.planning-page .planning-pagination button {
+.planning-page .planning-show-more button {
     min-height: 44px;
 }
 
-.planning-page .planning-pagination button,
+.planning-page .planning-show-more button,
 .planning-page .planning-step-actions button {
     background: #171717;
     color: #fff;
 }
 
-.planning-page .planning-pagination button:hover:not(:disabled),
+.planning-page .planning-show-more button:hover:not(:disabled),
 .planning-page .planning-step-actions button:hover:not(:disabled) {
     background: #262626;
 }
 
-.planning-page .planning-pagination button:disabled,
+.planning-page .planning-show-more button:disabled,
 .planning-page .planning-step-actions button:disabled {
     opacity: 0.4;
 }
 
-.planning-page .planning-pagination-status {
+.planning-page .planning-tools-status {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -291,18 +290,8 @@
     font-variant-numeric: tabular-nums;
 }
 
-.planning-page .planning-pagination-count {
-    font-weight: 500;
-}
-
-.planning-page .planning-pagination-page strong {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--foreground, #171717);
-}
-
 @media (max-width: 639px) {
-    .planning-page .planning-pagination-status {
+    .planning-page .planning-tools-status {
         order: -1;
         width: 100%;
     }
@@ -314,16 +303,9 @@
     max-width: 69rem;
     margin: 2rem auto;
     padding: 1rem;
-    overflow: auto;
-    scrollbar-gutter: stable;
     border: 1px solid #d1d5db;
     border-radius: 1rem;
     background: #f8fafc;
-}
-
-.planning-page .planning-tools-viewport:focus-visible {
-    outline: 3px solid #047857;
-    outline-offset: 3px;
 }
 
 .planning-page .tools-grid {
