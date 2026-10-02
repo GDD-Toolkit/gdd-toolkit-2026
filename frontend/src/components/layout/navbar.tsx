@@ -120,7 +120,7 @@ export default function Navbar() {
   };
 
   return (
-    <motion.header
+    <motion.header data-site-header
       className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/60 shadow-sm"
       initial={{ y: -12, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}

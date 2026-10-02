@@ -54,16 +54,75 @@ export async function getCohorts() {
 
   // Parse the JSON body from Strapi.
   const json = await response.json();
-
   // Return the array inside the "data" key.
   // Example shape in Strapi v5:
   // { data: [{ id, documentId, year, ... }], meta: {...} }
   return Array.isArray(json.data) ? json.data : [];
 }
 
-export async function getCohorts2() {
+
+
+export async function getPodcasts() {
   const baseUrl = getStrapiBaseUrl();
-  const pluralApiId = "coherts";
+  const pluralApiId = "podcasts";
+
+  // If the env already ends with /api, do not add /api again.
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+  const url = `${apiBase}/${pluralApiId}`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: buildStrapiHeaders(),
+  });
+  
+
+  if(!response.ok) {
+    const body = await response.text().catch(() => "");
+    const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
+
+    throw new Error(
+      `Failed to fetch podcasts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
+    );
+  }
+
+  const json = await response.json();
+
+  return Array.isArray(json.data) ? json.data : [];
+}
+
+export async function getTeams() {
+  const baseUrl = getStrapiBaseUrl();
+  const pluralApiId = "teams";
+
+  // If the env already ends with /api, do not add /api again.
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+  const url = `${apiBase}/${pluralApiId}?populate=*`;
+
+  // Send a GET request to Strapi with the token header if available.
+  const response = await fetch(url, {
+    method: "GET",
+    headers: buildStrapiHeaders(),
+  });
+
+  if (!response.ok) {
+    const body = await response.text().catch(() => "");
+    const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
+
+    throw new Error(
+      `Failed to fetch teams.
+URL: ${url}
+Status: ${response.status} ${response.statusText}
+Body: ${snippet}`
+    );
+  }
+
+  const json = await response.json();
+  return Array.isArray(json.data) ? json.data : [];
+}
+
+export async function getMaldevelopment() {
+  const baseUrl = getStrapiBaseUrl();
+  const pluralApiId = "maldevelopments";
 
   const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
   const url = `${apiBase}/${pluralApiId}?populate=*`;
@@ -78,11 +137,13 @@ export async function getCohorts2() {
     const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
 
     throw new Error(
-      `Failed to fetch cohorts2.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
+      `Failed to fetch Maldevelopment.
+URL: ${url}
+Status: ${response.status} ${response.statusText}
+Body: ${snippet}`
     );
   }
 
   const json = await response.json();
-
   return Array.isArray(json.data) ? json.data : [];
 }
