@@ -50,3 +50,10 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+# build/tool caches and stray binaries
+.vite/
+*.pkg
+
+# Amplify env metadata (account ID, role ARNs, stack IDs) - regenerate locally with `amplify pull`
+amplify/team-provider-info.json
