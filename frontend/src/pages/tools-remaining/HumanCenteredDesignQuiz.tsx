@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./HumanCenteredDesignQuiz.css";
 
+// Props for a single collapsible quiz question.
 type Props = {
   question?: string;
   options: string[];
@@ -16,13 +17,17 @@ export default function CollapsibleQuizQuestion({
   wrongExplanation = "",
   correctExplanation = ""
 }: Props) {
+  // Controls whether the answer options are visible or collapsed.
   const [open, setOpen] = useState<boolean>(true); // controls whether answers are visible or not
+  // Tracks which answer option the user has selected. Null means nothing selected yet.
   const [selected, setSelected] = useState<number | null>(null);
 
+  // Toggles the answer list open or closed.
   function handleToggle(): void {
     setOpen((s) => !s);
   }
 
+  // Records the index of the answer the user clicked.
   function handleSelect(index: number): void {
     setSelected(index);
   }
