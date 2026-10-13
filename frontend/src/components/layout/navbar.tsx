@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
+import { AuthControls } from "@/components/auth/AuthControls";
 
 type Menu = {
   label: string;
@@ -272,6 +273,11 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* AUTH */}
+            <div className="ml-2">
+              <AuthControls />
+            </div>
           </nav>
 
           {/* MOBILE TOGGLE */}
@@ -380,6 +386,11 @@ export default function Navbar() {
                   </motion.div>
                 ),
               )}
+
+              {/* AUTH */}
+              <div className="border-t border-gray-200/60 pt-3">
+                <AuthControls layout="stacked" />
+              </div>
             </div>
           </motion.div>
         )}

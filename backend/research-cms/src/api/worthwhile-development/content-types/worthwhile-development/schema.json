@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "worthwhile_developments",
+  "info": {
+    "singularName": "worthwhile-development",
+    "pluralName": "worthwhile-developments",
+    "displayName": "Case_Studies"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "case_title": {
+      "type": "string",
+      "required": true
+    },
+    "case_type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "Worthwhile Development",
+        "Maldevelopment"
+      ]
+    },
+    "region": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "Europe",
+        "Central Asia",
+        "North America",
+        "Middle East, North Africa, Afghanistan, & Pakistan",
+        "Latin America and Caribbean",
+        "South Asia",
+        "Sub-Saharan Africa",
+        "East Asia & Pacific"
+      ]
+    },
+    "worthwhile_developments": {
+      "type": "component",
+      "component": "shared.keyword-worthwhile-development",
+      "repeatable": true
+    },
+    "sdg": {
+      "type": "component",
+      "component": "shared.sdg",
+      "repeatable": true,
+      "required": true
+    },
+    "keywords": {
+      "type": "component",
+      "component": "shared.keyword-worthwhile-development",
+      "repeatable": true,
+      "required": true
+    },
+    "references": {
+      "type": "component",
+      "component": "shared.references",
+      "repeatable": true,
+      "required": false
+    },
+    "descriptions": {
+      "type": "component",
+      "component": "shared.descriptions",
+      "repeatable": true,
+      "required": true
+    },
+    "lesson_learned": {
+      "type": "component",
+      "component": "shared.lesson-learned",
+      "repeatable": true,
+      "required": true
+    },
+    "case_thumbnail": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

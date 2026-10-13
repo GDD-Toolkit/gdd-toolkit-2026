@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "project_plannings",
+  "info": {
+    "singularName": "project-planning",
+    "pluralName": "project-plannings",
+    "displayName": "Project_Planning"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "keywords": {
+      "type": "component",
+      "component": "shared.project-keywords",
+      "repeatable": true,
+      "required": true
+    }
+  }
+}
