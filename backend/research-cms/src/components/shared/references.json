@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_shared_references",
+  "info": {
+    "displayName": "references"
+  },
+  "options": {},
+  "attributes": {
+    "APA_citation": {
+      "type": "string",
+      "required": true
+    },
+    "author": {
+      "type": "string",
+      "required": true
+    },
+    "author_contact_information": {
+      "type": "string",
+      "required": true
+    },
+    "article_link": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

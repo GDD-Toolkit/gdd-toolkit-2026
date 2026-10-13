@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_shared_lesson_learneds",
+  "info": {
+    "displayName": "lesson_learned"
+  },
+  "options": {},
+  "attributes": {
+    "subsection": {
+      "type": "string",
+      "required": true
+    },
+    "subsection_text": {
+      "type": "text",
+      "required": true
+    },
+    "sub_image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  },
+  "config": {}
+}

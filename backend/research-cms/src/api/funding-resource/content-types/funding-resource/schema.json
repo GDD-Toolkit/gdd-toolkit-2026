@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "funding_resources",
+  "info": {
+    "singularName": "funding-resource",
+    "pluralName": "funding-resources",
+    "displayName": "Funding_Resource"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "grant_name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "min_grant_amount": {
+      "type": "biginteger",
+      "required": true
+    },
+    "max_grant_amount": {
+      "type": "biginteger",
+      "required": true
+    },
+    "time_period": {
+      "type": "text",
+      "required": true
+    },
+    "eligibility": {
+      "type": "text",
+      "required": true
+    },
+    "past_awards": {
+      "type": "text",
+      "required": true
+    },
+    "grant_site": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
