@@ -1,12 +1,13 @@
 import "./ToolModal.css";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../../components/ui/dialog";
 
-type Bullet = {
+export type Bullet = {
     text: string;
     image?: string;
     sub_bullets: Bullet[];
 };
 
-type ProjectPlanningTool = {
+export type ProjectPlanningTool = {
     name: string;
     type: string[];
     time: string[];
@@ -23,12 +24,15 @@ type ProjectPlanningTool = {
     evaluation: Bullet[];
 };
 
+
 export default function ToolModal({
     tool,
     onClose,
+    onRestoreFocus,
 }: {
     tool: ProjectPlanningTool;
     onClose: () => void;
+    onRestoreFocus: () => void;
 }) {
     const typeColors: Record<string, string> = {
         "Six Sigma": "#dbeafe",          // light blue
@@ -45,18 +49,15 @@ export default function ToolModal({
     };
 
     return (
-        <div className="tool-modal-overlay">
-            <div className="tool-modal">
-                {/* Header */}
-                <div className="modal-header">
-                    <button className="back-button" onClick={onClose}>
-                        ← Back
-                    </button>
-                    <h2 className="modal-title">{tool.name}</h2>
-                </div>
+        <Dialog open onOpenChange={(open) => { if (!open) onClose(); }}>
+            <DialogContent className="planning-tool-dialog" onCloseAutoFocus={(event) => { event.preventDefault(); onRestoreFocus(); }}>
+                <DialogHeader>
+                    <DialogTitle>{tool.name}</DialogTitle>
+                    <DialogDescription>Explore the process, benefits, and learning resources for {tool.name}.</DialogDescription>
+                </DialogHeader>
 
                 {/* Image */}
-                <img src={tool.image} alt={tool.name} className="modal-main-image" />
+                {tool.image && <img src={tool.image} alt={tool.name} className="modal-main-image" />}
 
                 {/* Keywords */}
                 <div className="modal-section modal-card">
@@ -165,8 +166,8 @@ export default function ToolModal({
                     <h3>Evaluation</h3>
                     <BulletList bullets={tool.evaluation} />
                 </div>
-            </div>
-        </div>
+            </DialogContent>
+        </Dialog>
     );
 }
 

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_speakers",
+  "info": {
+    "displayName": "speakers"
+  },
+  "options": {},
+  "attributes": {
+    "speaker": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

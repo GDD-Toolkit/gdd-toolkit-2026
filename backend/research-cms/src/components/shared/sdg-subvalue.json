@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shared_sdg_subvalues",
+  "info": {
+    "displayName": "sdg_subvalue"
+  },
+  "options": {},
+  "attributes": {
+    "sdg_subvalue": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}

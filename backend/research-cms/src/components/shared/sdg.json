@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_shared_sdgs",
+  "info": {
+    "displayName": "sdg"
+  },
+  "options": {},
+  "attributes": {
+    "sdg_value": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "max": 17
+    },
+    "sub_value": {
+      "type": "component",
+      "component": "shared.sdg-subvalue",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

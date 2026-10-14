@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_teammates",
+  "info": {
+    "displayName": "teammates"
+  },
+  "options": {},
+  "attributes": {
+    "member_name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

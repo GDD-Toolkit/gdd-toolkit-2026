@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, easeOut } from "framer-motion";
 import "../tools/ethics-of-innovation/EthicsOfInnovation.css";
 import "./ProjectEvaluation.css";
+import { evaluationBands } from "./evaluationScoring";
 
 const ProjectEvaluation: React.FC = () => {
     const bannerVariants = {
@@ -39,48 +40,20 @@ const ProjectEvaluation: React.FC = () => {
                         transition={{ duration: 0.6, ease: easeOut }}
                     >
                         The Project Evaluation Tool aims to assist in assessing the ethicality of development projects, programs, 
-                        and/or policies based on the 7 values of worthwhile development (listed below) created by Jay
-                        Drydyk in the Routledge Handbook of Development Ethics.
+                        and/or policies based on the 7 values of worthwhile development (listed below) created by Jay
+                        Drydyk in the Routledge Handbook of Development Ethics.
                         <br></br><br></br>
                         <b> The development project, program, and/or policy will be graded on a percent scale, with a score of 100% 
                             indicating a perfect project, program, and/or policy. Below are interpretations of select score ranges: </b>
                     </motion.p>
                     <ul className="star-list">
-                        <motion.li
-                            className="star-item"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            <b>Poor: </b>0–30%
-                        </motion.li>
-
-                        <motion.li
-                            className="star-item"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.1, duration: 0.4 }}
-                        >
-                            <b>Developing: </b>30–60%
-                        </motion.li>
-
-                        <motion.li
-                            className="star-item"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.2, duration: 0.4 }}
-                        >
-                            <b>Good: </b>60–80%
-                        </motion.li>
-
-                        <motion.li
-                            className="star-item"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.3, duration: 0.4 }}
-                        >
-                            <b>Superior: </b> 80–100%
-                        </motion.li>
+                        {evaluationBands.map((band, index) => (
+                            <motion.li key={band.label} className="star-item"
+                                initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.1, duration: 0.4 }}>
+                                <b>{band.label}: </b>{band.range}
+                            </motion.li>
+                        ))}
                     </ul>
                 </div>
             </section>

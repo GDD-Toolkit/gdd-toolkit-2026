@@ -1,15 +1,31 @@
 import RootLayout from "@/app/layout/RootLayout";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 const HomePage = lazy(() => import("@/pages/home"));
+const AIEthicsDashboard = lazy(() => import("@/pages/ai-ethics-dashboard"));
+const AIEthicsTools = lazy(() => import("@/pages/ai-ethics-dashboard/tools"));
+const AIEthicsTool = lazy(() => import("@/pages/ai-ethics-dashboard/tool"));
 const AboutPage = lazy(() => import("@/pages/about/About"));
-const WorthwhileDevelopmentPage = lazy(() => import("@/pages/worthwhile-development/WorthwhileDevelopment"));
-const CapabilityApproachPage = lazy(() => import("@/pages/capability-approach/CapabilityApproach"));
-const DevelopmentEthics = lazy(() => import("@/pages/development-ethics/DevelopmentEthics"));
-const EthicsOfInnovation = lazy(() => import("@/pages/tools/ethics-of-innovation/EthicsOfInnovation"));
-const DesignUser = lazy(() => import("@/pages/tools/ethics-of-innovation/DesignUser"));
-const ExistingEcosystems = lazy(() => import("@/pages/tools/ethics-of-innovation/ExistingEcosystems"));
+const WorthwhileDevelopmentPage = lazy(
+  () => import("@/pages/worthwhile-development/WorthwhileDevelopment"),
+);
+const CapabilityApproachPage = lazy(
+  () => import("@/pages/capability-approach/CapabilityApproach"),
+);
+const DevelopmentEthics = lazy(
+  () => import("@/pages/development-ethics/DevelopmentEthics"),
+);
+const EthicsOfInnovation = lazy(
+  () => import("@/pages/tools/ethics-of-innovation/EthicsOfInnovation"),
+);
+const DesignUser = lazy(
+  () => import("@/pages/tools/ethics-of-innovation/DesignUser"),
+);
+const ExistingEcosystems = lazy(
+  () => import("@/pages/tools/ethics-of-innovation/ExistingEcosystems"),
+);
 const Scale = lazy(() => import("@/pages/tools/ethics-of-innovation/Scale"));
 const Sustainability = lazy(() => import("@/pages/tools/ethics-of-innovation/Sustainability"));
 const DataDriven = lazy(() => import("@/pages/tools/ethics-of-innovation/DataDriven"));
@@ -22,32 +38,54 @@ const ProjectPlanning = lazy(() => import("@/pages/project-planning/ProjectPlann
 const GeopoliticalAnalysis = lazy(() => import("@/pages/geopolitcal-analysis/GeopoliticalAnalysis"));
 const ProjectEvaluation = lazy(() => import("@/pages/tools/ProjectEvaluation"));
 const CaseStudies = lazy(() => import("@/pages/case-studies/CaseStudies"));
-const CaseStudyDetail = lazy(() => import("@/pages/case-studies/CaseStudyDetail"));
+const CaseStudyDetail = lazy(
+  () => import("@/pages/case-studies/CaseStudyDetail"),
+);
 const FundingSources = lazy(() => import("@/pages/resources/FundingSources"));
 const Podcast = lazy(() => import("@/pages/resources/Podcast"));
-const Acknowledgements = lazy(() => import("@/pages/resources/Acknowledgements"));
+const Acknowledgements = lazy(
+  () => import("@/pages/resources/Acknowledgements"),
+);
 const ApiTesting = lazy(() => import("@/pages/api_example/api_testing"));
+const AuthCallback = lazy(() => import("@/pages/auth/AuthCallback"));
+const EmailConfirmed = lazy(() => import("@/pages/auth/EmailConfirmed"));
+const AccountPage = lazy(() => import("@/pages/account/Account"));
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
+      { path: "ai-ethics-dashboard", element: <AIEthicsDashboard /> },
+      { path: "ai-ethics-dashboard/tools", element: <AIEthicsTools /> },
+      { path: "ai-ethics-dashboard/tool", element: <AIEthicsTool /> },
       { path: "api_testing", element: <ApiTesting /> },
       { path: "about", element: <AboutPage /> },
       { path: "development-ethics", element: <DevelopmentEthics /> },
-      { path: "worthwhile-development", element: <WorthwhileDevelopmentPage /> },
+      {
+        path: "worthwhile-development",
+        element: <WorthwhileDevelopmentPage />,
+      },
       { path: "capability-approach", element: <CapabilityApproachPage /> },
       { path: "ethics-of-innovation", element: <EthicsOfInnovation /> },
       { path: "ethics-of-innovation/user", element: <DesignUser /> },
-      { path: "ethics-of-innovation/ecosystem", element: <ExistingEcosystems /> },
+      {
+        path: "ethics-of-innovation/ecosystem",
+        element: <ExistingEcosystems />,
+      },
       { path: "ethics-of-innovation/scale", element: <Scale /> },
-      { path: "ethics-of-innovation/sustainability", element: <Sustainability /> },
+      {
+        path: "ethics-of-innovation/sustainability",
+        element: <Sustainability />,
+      },
       { path: "ethics-of-innovation/data", element: <DataDriven /> },
       { path: "ethics-of-innovation/standards", element: <OpenStandards /> },
       { path: "ethics-of-innovation/reuse", element: <ReuseImprove /> },
       { path: "ethics-of-innovation/privacy", element: <AddressSecurity /> },
-      { path: "ethics-of-innovation/collaboration", element: <Collaborative /> },
+      {
+        path: "ethics-of-innovation/collaboration",
+        element: <Collaborative />,
+      },
       { path: "human-centered-design", element: <HumanCenteredDesign /> },
       { path: "project-planning", element: <ProjectPlanning /> },
       { path: "geopolitical-analysis", element: <GeopoliticalAnalysis /> },
@@ -57,6 +95,16 @@ const router = createBrowserRouter([
       { path: "funding-sources", element: <FundingSources /> },
       { path: "podcast", element: <Podcast /> },
       { path: "acknowledgements", element: <Acknowledgements /> },
+      { path: "auth/callback/:provider", element: <AuthCallback /> },
+      { path: "auth/confirmed", element: <EmailConfirmed /> },
+      {
+        path: "account",
+        element: (
+          <ProtectedRoute>
+            <AccountPage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
