@@ -15,7 +15,8 @@
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry",
-    "seed:local": "strapi import -f ./data/seed_data.tar.gz --force --exclude files"
+    "seed:local": "strapi import -f ./data/seed_data.tar.gz --force --exclude files",
+    "seed:export": "strapi export -f ./data/seed_data.tar.gz --no-encrypt --exclude files"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.38.0",
