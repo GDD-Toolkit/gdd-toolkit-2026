@@ -1,0 +1,105 @@
+{
+  "collectionName": "components_shared_ethical_considerations",
+  "info": {
+    "displayName": "ethical_consideration"
+  },
+  "options": {},
+  "attributes": {
+    "purpose_score": {
+      "type": "integer",
+      "required": true
+    },
+    "Integration_score": {
+      "type": "integer",
+      "required": true
+    },
+    "offline_capabilities_score": {
+      "type": "integer",
+      "required": true
+    },
+    "sustainabilty_score": {
+      "type": "integer",
+      "required": true
+    },
+    "bias_mitigation_score": {
+      "type": "integer",
+      "required": true
+    },
+    "transparency_score": {
+      "type": "integer",
+      "required": true
+    },
+    "control_oversight_score": {
+      "type": "integer",
+      "required": true
+    },
+    "privacy_data_ethics_score": {
+      "type": "integer",
+      "required": true
+    },
+    "localization_accessibility_score": {
+      "type": "integer",
+      "required": true
+    },
+    "evidence_of_impact_score": {
+      "type": "integer",
+      "required": true
+    },
+    "low_tech_compativility_score": {
+      "type": "integer",
+      "required": true
+    },
+    "ethical_failsafes_score": {
+      "type": "integer",
+      "required": true
+    },
+    "accountability_responsability_score": {
+      "type": "integer",
+      "required": true
+    },
+    "documentation_support_score": {
+      "type": "integer",
+      "required": true
+    },
+    "integration_description": {
+      "type": "text"
+    },
+    "offline_capabilties_description": {
+      "type": "text"
+    },
+    "sustainability_description": {
+      "type": "text"
+    },
+    "bias_migration_description": {
+      "type": "text"
+    },
+    "transparency_description": {
+      "type": "text"
+    },
+    "control_oversight_description": {
+      "type": "text"
+    },
+    "privacy_data_ethics_description": {
+      "type": "text"
+    },
+    "localization_accessibility_description": {
+      "type": "text"
+    },
+    "evidence_of_impact_description": {
+      "type": "text"
+    },
+    "low_tech_compatbability_description": {
+      "type": "text"
+    },
+    "ethical_failsafes_description": {
+      "type": "text"
+    },
+    "accountability_responsability_description": {
+      "type": "text"
+    },
+    "documentation_support_description": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

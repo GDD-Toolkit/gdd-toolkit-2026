@@ -1,4 +1,5 @@
 import RootLayout from "@/app/layout/RootLayout";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -61,6 +62,9 @@ const Acknowledgements = lazy(
   () => import("@/pages/resources/Acknowledgements"),
 );
 const ApiTesting = lazy(() => import("@/pages/api_example/api_testing"));
+const AuthCallback = lazy(() => import("@/pages/auth/AuthCallback"));
+const EmailConfirmed = lazy(() => import("@/pages/auth/EmailConfirmed"));
+const AccountPage = lazy(() => import("@/pages/account/Account"));
 const router = createBrowserRouter([
   {
     path: "/",
@@ -105,6 +109,16 @@ const router = createBrowserRouter([
       { path: "funding-sources", element: <FundingSources /> },
       { path: "podcast", element: <Podcast /> },
       { path: "acknowledgements", element: <Acknowledgements /> },
+      { path: "auth/callback/:provider", element: <AuthCallback /> },
+      { path: "auth/confirmed", element: <EmailConfirmed /> },
+      {
+        path: "account",
+        element: (
+          <ProtectedRoute>
+            <AccountPage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);

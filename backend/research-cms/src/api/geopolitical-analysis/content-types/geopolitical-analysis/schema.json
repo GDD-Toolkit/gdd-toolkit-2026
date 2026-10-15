@@ -1,0 +1,14 @@
+{
+  "kind": "collectionType",
+  "collectionName": "geopolitical_analyses",
+  "info": {
+    "singularName": "geopolitical-analysis",
+    "pluralName": "geopolitical-analyses",
+    "displayName": "Geopolitical Analysis"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {}
+}

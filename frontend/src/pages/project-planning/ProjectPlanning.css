@@ -170,13 +170,221 @@
     opacity: 1;
 }
 
-/* === Tools Gallery Grid === */
-.tools-grid {
-    margin: 2rem auto;
-    max-width: 1100px;          /* centers the grid */
+/* Match the browser viewport proportions; extra rows scroll inside the box. */
+/* The preview is portaled outside .planning-page. */
+.planning-tool-preview[data-slot="hover-card-content"] {
+    box-sizing: border-box;
+    width: 20rem;
+    max-width: min(calc(100vw - 2rem), var(--radix-hover-card-content-available-width));
+    max-height: min(calc(100dvh - 2rem), var(--radix-hover-card-content-available-height));
+    overflow-y: auto;
+    overflow-wrap: anywhere;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.875rem;
+    background: rgba(226, 232, 240, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #1e293b;
+    padding: 1rem;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.22);
+}
+
+.planning-page .planning-keyword-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.planning-page .planning-keyword-filter > button {
+    min-height: 44px;
+    width: min(100%, 24rem);
+}
+
+.planning-keyword-options[data-slot="popover-content"] {
+    max-width: calc(100vw - 2rem);
+    max-height: var(--radix-popover-content-available-height);
+    overflow-y: auto;
+}
+
+.planning-keyword-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 44px;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.planning-page .planning-keyword-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.planning-page .planning-keyword-chips li {
+    display: flex;
+    align-items: center;
+    padding-left: 0.75rem;
+    border-radius: 999px;
+    background: #ede9fe;
+    color: #37306b;
+    font-size: 0.875rem;
+}
+
+.planning-page .planning-keyword-chips button {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);  /* ALWAYS 4 tools per row */
-    gap: 1.5rem;
+    place-items: center;
+    width: 44px;
+    min-height: 44px;
+    border-radius: 999px;
+}
+
+.planning-page .planning-search-bar {
+    width: 100%;
+}
+
+.planning-page .planning-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1.5rem;
+    font-size: 0.875rem;
+}
+
+.planning-page .planning-pagination button {
+    min-height: 44px;
+}
+
+.planning-page .planning-pagination button,
+.planning-page .planning-step-actions button {
+    background: #171717;
+    color: #fff;
+}
+
+.planning-page .planning-pagination button:hover:not(:disabled),
+.planning-page .planning-step-actions button:hover:not(:disabled) {
+    background: #262626;
+}
+
+.planning-page .planning-pagination button:disabled,
+.planning-page .planning-step-actions button:disabled {
+    opacity: 0.4;
+}
+
+.planning-page .planning-pagination-status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+    padding: 0.5rem 0;
+    color: var(--muted-foreground, #525252);
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.planning-page .planning-pagination-count {
+    font-weight: 500;
+}
+
+.planning-page .planning-pagination-page strong {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--foreground, #171717);
+}
+
+@media (max-width: 639px) {
+    .planning-page .planning-pagination-status {
+        order: -1;
+        width: 100%;
+    }
+}
+
+.planning-page .planning-tools-viewport {
+    box-sizing: border-box;
+    width: calc(100% - 3rem);
+    max-width: 69rem;
+    margin: 2rem auto;
+    padding: 1rem;
+    overflow: auto;
+    scrollbar-gutter: stable;
+    border: 1px solid #d1d5db;
+    border-radius: 1rem;
+    background: #f8fafc;
+}
+
+.planning-page .planning-tools-viewport:focus-visible {
+    outline: 3px solid #047857;
+    outline-offset: 3px;
+}
+
+.planning-page .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+    align-items: stretch;
+    gap: 1rem;
+}
+
+.planning-page .tools-grid .tool-card {
+    position: relative;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    overflow-wrap: anywhere;
+}
+
+/* Extend the native details button across the card without nesting buttons. */
+.planning-page .planning-tool-details-trigger::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.planning-page .planning-tool-details-trigger:focus-visible::after {
+    outline: 3px solid #047857;
+    outline-offset: 3px;
+}
+
+.planning-page .planning-tool-select {
+    position: relative;
+    z-index: 1;
+}
+
+.planning-page .tools-grid .tool-image {
+    aspect-ratio: 16 / 10;
+    object-fit: contain;
+    background: #fff;
+}
+
+.planning-page .tools-grid .tool-name {
+    margin: 0;
+}
+
+.planning-page .tools-grid .tool-name button {
+    min-height: 44px;
+}
+
+.planning-page .tools-grid .tool-badges {
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+.planning-page .planning-tools-empty {
+    grid-column: 1 / -1;
+    padding: 1rem;
+    text-align: center;
 }
 
 .tool-card {
@@ -375,4 +583,255 @@
 /* === Tools Grid === */
 .tool-name {
     color: #6D83F2;
+}
+
+/* Wizard shell styles are scoped to Project Planning. */
+.planning-page .planning-evaluation {
+    display: grid;
+    gap: 1.5rem;
+    margin: 1rem 0 2rem;
+    line-height: 1.6;
+}
+
+.planning-page .planning-evaluation-phases,
+.planning-page .planning-evaluation-values,
+.planning-page .planning-evaluation-options {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+}
+
+.planning-page .planning-evaluation h3,
+.planning-page .planning-evaluation h4 {
+    font-weight: 600;
+    color: #065f46;
+}
+
+.planning-page .planning-evaluation-choice {
+    min-width: 0;
+    overflow: visible;
+}
+
+.planning-page .planning-evaluation-choice[data-selected="true"] {
+    box-shadow: 0 0 0 2px #059669;
+    background: #ecfdf5;
+}
+
+.planning-page .planning-evaluation-choice:focus-within {
+    outline: 2px solid #047857;
+    outline-offset: 4px;
+}
+
+.planning-page .planning-evaluation-choice label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-height: 44px;
+    cursor: pointer;
+}
+
+.planning-page .planning-evaluation-choice [role="radio"] {
+    margin-top: 0.25rem;
+}
+
+.planning-page .planning-evaluation-description {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.planning-page .planning-evaluation-options,
+.planning-page .planning-evaluation-score {
+    margin-top: 1rem;
+}
+
+.planning-page .planning-evaluation input {
+    min-height: 44px;
+    margin: 0.5rem 0;
+}
+
+.planning-page .planning-evaluation textarea {
+    display: block;
+    width: 100%;
+    min-height: 7rem;
+    margin: 0.5rem 0 1rem;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    background: white;
+    color: #1f2937;
+    resize: vertical;
+}
+
+.planning-page .planning-evaluation textarea:focus-visible {
+    outline: 2px solid #047857;
+    outline-offset: 2px;
+}
+
+.planning-page .planning-evaluation-questions {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 0.75rem 0 1rem;
+}
+
+.planning-page .planning-evaluation-guides {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.planning-page .planning-evaluation-guide {
+    border: 1px solid #d1d5db;
+    border-radius: 0.75rem;
+    padding: 1rem;
+}
+
+.planning-page .planning-evaluation-guide summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #065f46;
+    min-height: 44px;
+}
+
+.planning-page .planning-evaluation-results {
+    display: grid;
+    gap: 1rem;
+}
+
+.planning-page .planning-evaluation-total {
+    padding: 1rem;
+    background: #ecfdf5;
+    border-radius: 0.75rem;
+    font-weight: 600;
+}
+
+@media (min-width: 768px) {
+    .planning-page .planning-evaluation-phases {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .planning-page .planning-evaluation-values,
+    .planning-page .planning-evaluation-options {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.planning-page .planning-intro-video {
+    width: 100%;
+    max-width: 48rem;
+    margin: 1.5rem auto 0;
+    overflow: hidden;
+    border-radius: 1rem;
+    background: #111827;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.planning-page .planning-intro-video iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.planning-page .planning-benefits-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.planning-page .planning-benefit-card {
+    min-width: 0;
+    background: #fff;
+    color: #374151;
+    line-height: 1.7;
+}
+
+.planning-page .planning-benefit-card h3 {
+    margin: 0.5rem 0 0;
+    color: #065f46;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.planning-page .planning-benefit-icon {
+    color: #047857;
+}
+
+@media (min-width: 768px) {
+    .planning-page .planning-benefits-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.planning-page .planning-wizard {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    color: #1f2937;
+    padding-bottom: 2rem;
+}
+
+.planning-page .planning-stepper {
+    width: 100%;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.planning-page .planning-step-tabs {
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.planning-page .planning-step-tabs [role="tab"] {
+    min-height: 44px;
+    white-space: normal;
+}
+
+.planning-page .planning-step-tabs [data-state="active"] {
+    background: #047857;
+    color: white;
+}
+
+.planning-page .planning-mobile-step {
+    display: none;
+}
+
+.planning-page .planning-step-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.planning-page .planning-step-actions button {
+    min-height: 44px;
+}
+
+.planning-page .planning-step-panel .content-card {
+    margin-top: 0;
+}
+
+.planning-page .planning-step-panel {
+    min-width: 0;
+}
+
+@media (max-width: 639px) {
+    .planning-page .planning-step-tabs {
+        display: none;
+    }
+
+    .planning-page .planning-mobile-step {
+        display: block;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .planning-page .planning-step-actions span {
+        font-size: 0.875rem;
+    }
 }

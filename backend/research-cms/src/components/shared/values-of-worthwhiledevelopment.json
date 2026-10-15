@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_values_of_worthwhiledevelopments",
+  "info": {
+    "displayName": "values_of_worthwhiledevelopment"
+  },
+  "options": {},
+  "attributes": {
+    "values": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "Cultural Freedom",
+        "Empowerment",
+        "Equality",
+        "Human Rights",
+        "Responsibility",
+        "Sustainability",
+        "Well-being"
+      ]
+    }
+  },
+  "config": {}
+}

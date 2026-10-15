@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_authors",
+  "info": {
+    "displayName": "author",
+    "icon": "alien"
+  },
+  "options": {},
+  "attributes": {
+    "author_name": {
+      "type": "string",
+      "required": true
+    },
+    "affiliation": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

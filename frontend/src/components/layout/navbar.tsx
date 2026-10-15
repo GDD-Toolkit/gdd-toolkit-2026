@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
+import { AuthControls } from "@/components/auth/AuthControls";
 
 type Menu = {
   label: string;
@@ -120,7 +121,7 @@ export default function Navbar() {
   };
 
   return (
-    <motion.header
+    <motion.header data-site-header
       className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/60 shadow-sm"
       initial={{ y: -12, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -159,7 +160,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04, duration: 0.3 }}
                   >
-                    <Button className="group hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]">
+                    <Button className="!bg-white !text-slate-800 border-gray-200 shadow-sm group hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]">
                       <span className="relative z-10">{m.label}</span>
                       <motion.span
                         className="relative z-10"
@@ -272,13 +273,18 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* AUTH */}
+            <div className="ml-2">
+              <AuthControls />
+            </div>
           </nav>
 
           {/* MOBILE TOGGLE */}
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               size="icon"
-              className="lg:hidden"
+              className="!bg-white !text-slate-800 border-gray-200 shadow-sm lg:hidden"
               onClick={() => setMobile((v) => !v)}
               aria-label="Toggle menu"
             >
@@ -345,7 +351,7 @@ export default function Navbar() {
                             >
                               <Button
                                 variant="default"
-                                className="w-full justify-start ml-2"
+                                className="!bg-white !text-slate-800 border-gray-200 shadow-sm w-full justify-start ml-2"
                                 onClick={() => {
                                   setMobile(false);
                                   window.location.href = it.href;
@@ -380,6 +386,11 @@ export default function Navbar() {
                   </motion.div>
                 ),
               )}
+
+              {/* AUTH */}
+              <div className="border-t border-gray-200/60 pt-3">
+                <AuthControls layout="stacked" />
+              </div>
             </div>
           </motion.div>
         )}
