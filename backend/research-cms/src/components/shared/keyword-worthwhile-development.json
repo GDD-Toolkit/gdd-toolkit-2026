@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_keyword_worthwhile_developments",
+  "info": {
+    "displayName": "keyword_worthwhile_development"
+  },
+  "options": {},
+  "attributes": {
+    "keyword": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

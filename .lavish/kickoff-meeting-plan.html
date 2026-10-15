@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GDD Toolkit 2026 — Kickoff Run Sheet</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js"></script>
+<style>
+  :root{
+    --brand:#6D83F2; --brand-dk:#5B6FE0; --brand-2:#A07CFF;
+    --ok:#047857; --ok-bg:#f0fdf4; --ok-br:#bbf7d0;
+    --warn:#ea580c; --warn-bg:#fff7ed; --warn-br:#fed7aa;
+    --stop:#b91c1c; --stop-bg:#fef2f2; --stop-br:#fecaca;
+    --ink:#1f2937; --ink-2:#374151; --mut:#6b7280;
+    --line:#e5e7eb; --surf:#ffffff; --page:#f7f8fb;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  :where(.grid,.flex)>*{min-width:0;}
+  :where(p,h1,h2,h3,h4,li,dd,td,th,.badge){overflow-wrap:anywhere;}
+  :where(img,svg){max-width:100%;height:auto;}
+  body{margin:0;background:var(--page);color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;}
+  code,.mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    font-size:.86em;background:#eef0f7;padding:.12em .42em;border-radius:5px;
+    color:var(--ink-2);word-break:break-all;}
+  .wrap{max-width:1140px;margin:0 auto;padding-inline:20px;}
+  .card{background:var(--surf);border:1px solid var(--line);border-radius:14px;}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);}
+  .badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;
+    padding:3px 9px;border-radius:999px;border:1px solid;white-space:nowrap;}
+  .b-stop{background:var(--stop-bg);border-color:var(--stop-br);color:var(--stop);}
+  .b-warn{background:var(--warn-bg);border-color:var(--warn-br);color:var(--warn);}
+  .b-ok{background:var(--ok-bg);border-color:var(--ok-br);color:var(--ok);}
+  .b-brand{background:#eef1fe;border-color:#c7d0fb;color:var(--brand-dk);}
+  .b-mut{background:#f3f4f6;border-color:var(--line);color:var(--mut);}
+  h2.sec{font-size:24px;font-weight:800;letter-spacing:-.02em;margin:0;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th{text-align:left;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--mut);font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line);
+    background:#fafbfd;white-space:nowrap;}
+  td{padding:11px 12px;border-bottom:1px solid #f1f2f6;vertical-align:top;}
+  tbody tr:last-child td{border-bottom:0;}
+  .tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surf);}
+  .rail{position:relative;padding-left:26px;}
+  .rail::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;
+    background:linear-gradient(var(--brand),var(--brand-2));border-radius:2px;}
+  .dot{position:absolute;left:2px;width:14px;height:14px;border-radius:50%;
+    background:var(--surf);border:3px solid var(--brand);margin-top:5px;}
+  .dot.hot{border-color:var(--warn);}
+  .dot.big{border-color:var(--ok);}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header style="background:linear-gradient(135deg,#5B6FE0,#6D83F2 45%,#A07CFF);color:#fff;">
+  <div class="wrap" style="padding-block:38px 44px;">
+    <div class="flex flex-wrap items-center gap-2" style="margin-bottom:16px;">
+      <span class="badge" style="background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#fff;">Kickoff</span>
+      <span class="badge" style="background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#fff;">18 Sep 2026</span>
+      <span class="badge" style="background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#fff;">60 min</span>
+      <span class="badge" style="background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#fff;">6 students</span>
+    </div>
+    <h1 style="margin:0 0 14px;padding-bottom:3px;font-size:clamp(26px,4.4vw,42px);line-height:1.18;font-weight:800;letter-spacing:-.025em;">
+      GDD Toolkit 2026 — Kickoff Run Sheet
+    </h1>
+    <p style="margin:0;max-width:66ch;font-size:16.5px;color:rgba(255,255,255,.93);">
+      Process rules are already set. This hour has exactly one job:
+      <strong style="color:#fff;">get all six students writing code against a working master.</strong>
+    </p>
+
+    <div class="card" style="margin-top:26px;background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.3);padding:18px 20px;">
+      <div class="eyebrow" style="color:rgba(255,255,255,.8);">Success criterion — verifiable before anyone leaves</div>
+      <p style="margin:8px 0 0;font-size:17px;font-weight:600;color:#fff;">
+        Six branches pushed. Six draft PRs open. Each one renders a real page at a real route.
+      </p>
+      <p style="margin:8px 0 0;font-size:13.5px;color:rgba(255,255,255,.82);">
+        If a student leaves without a pushed branch, the meeting did not land — regardless of how much was discussed.
+      </p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" style="padding-block:34px 60px;">
+
+<!-- ============ BLOCKERS ============ -->
+<section style="margin-bottom:40px;">
+  <div class="eyebrow">Read this first</div>
+  <h2 class="sec" style="margin:6px 0 6px;">Three things block all six students</h2>
+  <p style="margin:0 0 20px;color:var(--ink-2);max-width:74ch;font-size:15px;">
+    None of these are meeting topics — they are <strong>prerequisites</strong>. If they are not true when the meeting
+    starts, students spend the hour watching you fix the repo instead of coding. Each is verified against the repo below.
+  </p>
+
+  <div class="grid gap-4" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));">
+
+    <article class="card" style="padding:20px;border-left:4px solid var(--stop);">
+      <div class="flex items-center gap-2" style="margin-bottom:10px;">
+        <span class="badge b-stop">Hard blocker</span><span class="badge b-mut">2 min fix</span>
+      </div>
+      <h3 style="margin:0 0 8px;font-size:16.5px;font-weight:800;">Nobody can read their spec</h3>
+      <p style="margin:0 0 10px;font-size:13.5px;color:var(--ink-2);">
+        <code>gdd-planning/</code> is untracked — it exists only on your laptop. Every wireframe link in the kickoff
+        doc is a <code>file:///home/ssefa/…</code> path, which resolves to nothing on a student machine.
+      </p>
+      <div style="font-size:12.5px;color:var(--mut);">
+        <strong style="color:var(--ink-2);">Evidence:</strong> <code>git status</code> → <code>?? gdd-planning/</code>
+      </div>
+    </article>
+
+    <article class="card" style="padding:20px;border-left:4px solid var(--stop);">
+      <div class="flex items-center gap-2" style="margin-bottom:10px;">
+        <span class="badge b-stop">Hard blocker</span><span class="badge b-mut">15 min fix</span>
+      </div>
+      <h3 style="margin:0 0 8px;font-size:16.5px;font-weight:800;">Shadcn UI isn't installed</h3>
+      <p style="margin:0 0 10px;font-size:13.5px;color:var(--ink-2);">
+        Five of six specs are written against Shadcn components. The repo has no <code>@radix-ui/*</code>,
+        no <code>class-variance-authority</code>, no <code>components.json</code> — just one hand-rolled
+        <code>button.tsx</code>. Left unfixed, six students each run <code>shadcn init</code> differently.
+      </p>
+      <div style="font-size:12.5px;color:var(--mut);">
+        <strong style="color:var(--ink-2);">Present &amp; fine:</strong> Tailwind v4, React 19, Framer Motion, Lucide, <code>clsx</code>, <code>tailwind-merge</code>
+      </div>
+    </article>
+
+    <article class="card" style="padding:20px;border-left:4px solid var(--warn);">
+      <div class="flex items-center gap-2" style="margin-bottom:10px;">
+        <span class="badge b-warn">Conflict risk</span><span class="badge b-mut">20 min fix</span>
+      </div>
+      <h3 style="margin:0 0 8px;font-size:16.5px;font-weight:800;">The API helper is stuck in 3 PRs</h3>
+      <p style="margin:0 0 10px;font-size:13.5px;color:var(--ink-2);">
+        PRs <strong>#8, #9, #11</strong> all edit <code>frontend/src/api/strapi.ts</code> independently. #9 also carries
+        <code>.env.example</code>, <code>vite-env.d.ts</code> and the router wiring — the actual plumbing students need to fetch anything.
+      </p>
+      <div style="font-size:12.5px;color:var(--mut);">
+        <strong style="color:var(--ink-2);">Also colliding:</strong> #4 &amp; #6 on <code>projectPlanning.ts</code>; #1, #4, #6 each add <code>ToolkitHomeVideo.mp4</code>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ PRE-MEETING ============ -->
+<section style="margin-bottom:40px;">
+  <div class="card" style="padding:24px;border-left:4px solid var(--brand);">
+    <div class="eyebrow">Before the meeting — you, ~40 minutes</div>
+    <h2 class="sec" style="margin:6px 0 16px;">Pre-flight checklist</h2>
+
+    <div class="grid gap-3" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));">
+      <div style="background:var(--page);border-radius:10px;padding:14px;">
+        <div style="font-weight:800;font-size:13.5px;margin-bottom:6px;">1 · Publish the specs</div>
+        <p style="margin:0;font-size:12.5px;color:var(--ink-2);">Commit and push <code>gdd-planning/</code>, then rewrite the
+        <code>file:///</code> links to repo-relative paths so they work for everyone.</p>
+      </div>
+      <div style="background:var(--page);border-radius:10px;padding:14px;">
+        <div style="font-weight:800;font-size:13.5px;margin-bottom:6px;">2 · Land the Strapi helper</div>
+        <p style="margin:0;font-size:12.5px;color:var(--ink-2);">Merge <strong>#9</strong> first (it has the env + router plumbing),
+        then rebase <strong>#8</strong> and <strong>#11</strong> onto it. Close <strong>#1</strong>–<strong>#6</strong> — six months stale, superseded.</p>
+      </div>
+      <div style="background:var(--page);border-radius:10px;padding:14px;">
+        <div style="font-weight:800;font-size:13.5px;margin-bottom:6px;">3 · Land the Shadcn baseline</div>
+        <p style="margin:0;font-size:12.5px;color:var(--ink-2);">Init Shadcn and commit the shared primitives
+        (<code>card</code>, <code>badge</code>, <code>tabs</code>, <code>dialog</code>, <code>input</code>, <code>select</code>,
+        <code>sheet</code>, <code>slider</code>, <code>form</code>, <code>progress</code>) so nobody re-inits.</p>
+      </div>
+      <div style="background:var(--page);border-radius:10px;padding:14px;">
+        <div style="font-weight:800;font-size:13.5px;margin-bottom:6px;">4 · Smoke-test clean clone</div>
+        <p style="margin:0;font-size:12.5px;color:var(--ink-2);">Fresh clone → <code>npm i</code> → <code>npm run dev</code>.
+        If that fails for you, it fails for all six and the hour is gone.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:13px 15px;background:var(--warn-bg);border:1px solid var(--warn-br);border-radius:10px;">
+      <strong style="color:var(--warn);font-size:13px;">Fallback if #3 doesn't land:</strong>
+      <span style="font-size:13px;color:var(--ink-2);">Tell students to build with plain Tailwind and swap in Shadcn later.
+      Do not let six people idle waiting on a dependency install.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RUN SHEET ============ -->
+<section style="margin-bottom:40px;">
+  <div class="eyebrow">The hour</div>
+  <h2 class="sec" style="margin:6px 0 6px;">60-minute run sheet</h2>
+  <p style="margin:0 0 22px;color:var(--ink-2);max-width:74ch;font-size:15px;">
+    Weighted deliberately: <strong>28 of 60 minutes are hands-on-keyboard.</strong> Talking is capped at 22 minutes because
+    the outcome you asked for is code, not consensus.
+  </p>
+
+  <div class="rail">
+    <div style="position:relative;margin-bottom:20px;">
+      <span class="dot"></span>
+      <div class="card" style="padding:16px 18px;">
+        <div class="flex flex-wrap items-baseline gap-2" style="margin-bottom:5px;">
+          <span class="mono" style="font-weight:800;color:var(--brand-dk);background:none;padding:0;">0–5</span>
+          <h3 style="margin:0;font-size:16px;font-weight:800;">Where the project actually stands</h3>
+        </div>
+        <p style="margin:0;font-size:13.5px;color:var(--ink-2);">
+          Blunt and short: master has been quiet since April, ten PRs went unreviewed, and that stops today.
+          Name the reset without assigning blame — most of them wrote that code as coursework months ago.
+        </p>
+      </div>
+    </div>
+
+    <div style="position:relative;margin-bottom:20px;">
+      <span class="dot"></span>
+      <div class="card" style="padding:16px 18px;">
+        <div class="flex flex-wrap items-baseline gap-2" style="margin-bottom:5px;">
+          <span class="mono" style="font-weight:800;color:var(--brand-dk);background:none;padding:0;">5–12</span>
+          <h3 style="margin:0;font-size:16px;font-weight:800;">Tour of the foundation you landed this morning</h3>
+        </div>
+        <p style="margin:0 0 8px;font-size:13.5px;color:var(--ink-2);">Screen-share master and show the four things they each need:</p>
+        <ul style="margin:0;padding-left:20px;font-size:13.5px;color:var(--ink-2);">
+          <li>Where their spec lives, now that it is pushed</li>
+          <li><code>frontend/src/api/strapi.ts</code> — the helper, and how to call it</li>
+          <li><code>frontend/src/components/ui/</code> — the Shadcn primitives, already installed</li>
+          <li><code>.env.example</code> → <code>.env</code>, and <code>npm run dev</code> working</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="position:relative;margin-bottom:20px;">
+      <span class="dot hot"></span>
+      <div class="card" style="padding:16px 18px;">
+        <div class="flex flex-wrap items-baseline gap-2" style="margin-bottom:5px;">
+          <span class="mono" style="font-weight:800;color:var(--warn);background:none;padding:0;">12–22</span>
+          <h3 style="margin:0;font-size:16px;font-weight:800;">Module handoff — 6 × 100 seconds</h3>
+        </div>
+        <p style="margin:0;font-size:13.5px;color:var(--ink-2);">
+          One pass around the room. Each student states back: <em>my module, my route, my first commit.</em>
+          You are listening for misunderstanding, not delivering a briefing — the cards below do that.
+          <strong>Hold the timer.</strong> This is the section that historically eats the hour.
+        </p>
+      </div>
+    </div>
+
+    <div style="position:relative;margin-bottom:20px;">
+      <span class="dot big"></span>
+      <div class="card" style="padding:18px 20px;border:2px solid var(--ok);background:var(--ok-bg);">
+        <div class="flex flex-wrap items-baseline gap-2" style="margin-bottom:5px;">
+          <span class="mono" style="font-weight:800;color:var(--ok);background:none;padding:0;">22–50</span>
+          <h3 style="margin:0;font-size:16.5px;font-weight:800;">Live build block — the point of the meeting</h3>
+        </div>
+        <p style="margin:0 0 8px;font-size:13.5px;color:var(--ink-2);">
+          Everyone codes in the room, together, for 28 minutes. You float and unblock — you do not present.
+          Laptops open, branch created, first file written.
+        </p>
+        <p style="margin:0;font-size:13.5px;color:var(--ink-2);">
+          This is the highest-value part of the hour: the friction that kills student momentum (env vars, install
+          failures, "where does this file go") surfaces while you are standing right there.
+        </p>
+      </div>
+    </div>
+
+    <div style="position:relative;margin-bottom:20px;">
+      <span class="dot"></span>
+      <div class="card" style="padding:16px 18px;">
+        <div class="flex flex-wrap items-baseline gap-2" style="margin-bottom:5px;">
+          <span class="mono" style="font-weight:800;color:var(--brand-dk);background:none;padding:0;">50–57</span>
+          <h3 style="margin:0;font-size:16px;font-weight:800;">Push &amp; open draft PRs — round robin</h3>
+        </div>
+        <p style="margin:0;font-size:13.5px;color:var(--ink-2);">
+          Everyone pushes and opens a <strong>draft</strong> PR before standing up. Drafts signal "in progress" and
+          keep your review queue honest. Confirm six PR links land in the channel — that is your proof the meeting worked.
+        </p>
+      </div>
+    </div>
+
+    <div style="position:relative;">
+      <span class="dot"></span>
+      <div class="card" style="padding:16px 18px;">
+        <div class="flex flex-wrap items-baseline gap-2" style="margin-bottom:5px;">
+          <span class="mono" style="font-weight:800;color:var(--brand-dk);background:none;padding:0;">57–60</span>
+          <h3 style="margin:0;font-size:16px;font-weight:800;">Close: what happens before next session</h3>
+        </div>
+        <p style="margin:0;font-size:13.5px;color:var(--ink-2);">
+          State your review turnaround out loud and commit to it. The backlog grew because review never came —
+          a promise here is what prevents a repeat.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEPENDENCY ============ -->
+<section style="margin-bottom:40px;">
+  <div class="eyebrow">Sequencing</div>
+  <h2 class="sec" style="margin:6px 0 6px;">One student gates the other five</h2>
+  <p style="margin:0 0 18px;color:var(--ink-2);max-width:74ch;font-size:15px;">
+    Brendan owns the shared shell — layout, auth context, design tokens. The other five consume it. If his work
+    slips, five people build against a moving target and every PR conflicts in the same files.
+  </p>
+  <div class="card" style="padding:22px;">
+    <div style="overflow-x:auto;"><pre class="mermaid" style="margin:0;text-align:center;min-width:0;">
+flowchart TD
+  F["Shared foundation — Brendan<br/>Header · Footer<br/>AuthContext · Shadcn tokens"]
+  A["AI Ethics Dashboard<br/>Cyncia"]
+  B["Geopolitical Analysis<br/>Andrew"]
+  C["Grants Portal<br/>Ediale"]
+  D["Planning Wizard<br/>Dennis"]
+  E["Case Studies Reader<br/>Ian"]
+  S["Strapi v5 CMS — Week 2 binding"]
+  F --> A & B & C & D & E
+  A & B & C & D & E --> S
+  classDef found fill:#6D83F2,stroke:#5B6FE0,color:#fff,font-weight:700
+  classDef mod fill:#eef1fe,stroke:#c7d0fb,color:#1f2937
+  classDef late fill:#f3f4f6,stroke:#d1d5db,color:#6b7280,stroke-dasharray:5 4
+  class F found
+  class A,B,C,D,E mod
+  class S late
+    </pre></div>
+    <p style="margin:16px 0 0;font-size:13px;color:var(--mut);text-align:center;">
+      Decouple the risk: the five module owners build against <strong>mock JSON</strong> and a placeholder layout,
+      so none of them idle if the foundation runs late.
+    </p>
+  </div>
+</section>
+
+<!-- ============ STUDENT CARDS ============ -->
+<section style="margin-bottom:40px;">
+  <div class="eyebrow">Handoff</div>
+  <h2 class="sec" style="margin:6px 0 6px;">Six cards — first commit, not the whole module</h2>
+  <p style="margin:0 0 22px;color:var(--ink-2);max-width:74ch;font-size:15px;">
+    Each "first commit" is scoped to land inside the 28-minute build block. Deliberately tiny: a route that renders,
+    with hardcoded data. Shipping something small today beats designing something large that never merges.
+  </p>
+
+  <div class="grid gap-4" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));">
+
+    <article class="card" style="padding:20px;border-top:4px solid var(--brand);">
+      <div class="flex flex-wrap items-center gap-2" style="margin-bottom:4px;">
+        <h3 style="margin:0;font-size:17px;font-weight:800;">Brendan Hu</h3>
+        <span class="badge b-brand">gates everyone</span>
+      </div>
+      <div style="font-size:12px;color:var(--mut);margin-bottom:10px;"><code>BrendanHu404</code> · Infrastructure, Auth &amp; Global Layout</div>
+      <div style="font-size:13px;color:var(--ink-2);margin-bottom:10px;">
+        <strong>First commit:</strong> <code>AuthContext.tsx</code> shell exporting a typed context with
+        <code>user: null</code> and a <code>role</code> field — plus <code>Header</code>/<code>Footer</code> consuming it.
+        No real auth today.
+      </div>
+      <div style="font-size:12.5px;color:var(--mut);">
+        <strong style="color:var(--ink-2);">Note:</strong> existing <code>header.tsx</code>, <code>footer.tsx</code>,
+        <code>navbar.tsx</code> already in <code>components/layout/</code> — unify, don't rewrite.
+      </div>
+    </article>
+
+    <article class="card" style="padding:20px;border-top:4px solid var(--brand-2);">
+      <div class="flex flex-wrap items-center gap-2" style="margin-bottom:4px;">
+        <h3 style="margin:0;font-size:17px;font-weight:800;">Cyncia Chen</h3>
+        <span class="badge b-warn">name mismatch</span>
+      </div>
+      <div style="font-size:12px;color:var(--mut);margin-bottom:10px;"><code>MeiyanChen25?</code> · AI Ethics Dashboard</div>
+      <div style="font-size:13px;color:var(--ink-2);margin-bottom:10px;">
+        <strong>First commit:</strong> <code>pages/ai-ethics/</code> rendering a responsive
+        <code>Card</code> grid from 3 hardcoded tools, routed and collapsing to one column under 768px.
+      </div>
+      <div style="font-size:12.5px;color:var(--mut);">
+        <strong style="color:var(--ink-2);">Head start:</strong> already wrote <code>types/AIEthics.ts</code> in PR #7 — reuse it.
+      </div>
+    </article>
+
+    <article class="card" style="padding:20px;border-top:4px solid var(--brand-2);">
+      <div class="flex flex-wrap items-center gap-2" style="margin-bottom:4px;">
+        <h3 style="margin:0;font-size:17px;font-weight:800;">Andrew Mei</h3>
+        <span class="badge b-mut">greenfield</span>
+      </div>
+      <div style="font-size:12px;color:var(--mut);margin-bottom:10px;"><code>Andrew-mei-20</code> · Geopolitical Analysis</div>
+      <div style="font-size:13px;color:var(--ink-2);margin-bottom:10px;">
+        <strong>First commit:</strong> <code>pages/geopolitical/</code> with a <code>Select</code> country picker over
+        5 hardcoded countries, printing the selection. <strong>No map today.</strong>
+      </div>
+      <div style="font-size:12.5px;color:var(--warn);">
+        <strong>Watch:</strong> the map is the biggest unknown in the project. Pick the library in week 1 — not week 3.
+      </div>
+    </article>
+
+    <article class="card" style="padding:20px;border-top:4px solid var(--brand-2);">
+      <div class="flex flex-wrap items-center gap-2" style="margin-bottom:4px;">
+        <h3 style="margin:0;font-size:17px;font-weight:800;">Ediale Odia</h3>
+        <span class="badge b-stop">no GitHub handle</span>
+      </div>
+      <div style="font-size:12px;color:var(--mut);margin-bottom:10px;">handle unknown · Grants &amp; Funding Portal</div>
+      <div style="font-size:13px;color:var(--ink-2);margin-bottom:10px;">
+        <strong>First commit:</strong> refactor the existing <code>resources/FundingSources.tsx</code> into a
+        <code>Card</code> grid — keep the current data, change only the presentation.
+      </div>
+      <div style="font-size:12.5px;color:var(--stop);">
+        <strong>Confirm in the room:</strong> no PR, branch or commit maps to this name. Get repo access sorted live.
+      </div>
+    </article>
+
+    <article class="card" style="padding:20px;border-top:4px solid var(--brand-2);">
+      <div class="flex flex-wrap items-center gap-2" style="margin-bottom:4px;">
+        <h3 style="margin:0;font-size:17px;font-weight:800;">Dennis Huynh</h3>
+        <span class="badge b-warn">handle unconfirmed</span>
+      </div>
+      <div style="font-size:12px;color:var(--mut);margin-bottom:10px;"><code>Galboinkus?</code> · Project Planning Wizard</div>
+      <div style="font-size:13px;color:var(--ink-2);margin-bottom:10px;">
+        <strong>First commit:</strong> a 3-step stepper shell in the existing <code>pages/project-planning/</code> —
+        <code>Progress</code> bar plus next/back buttons. Empty steps are fine.
+      </div>
+      <div style="font-size:12.5px;color:var(--mut);">
+        <strong style="color:var(--ink-2);">Head start:</strong> <code>types/projectPlanning.ts</code> exists in PRs #4 and #6 (duplicated — reconcile).
+      </div>
+    </article>
+
+    <article class="card" style="padding:20px;border-top:4px solid var(--brand-2);">
+      <div class="flex flex-wrap items-center gap-2" style="margin-bottom:4px;">
+        <h3 style="margin:0;font-size:17px;font-weight:800;">Ian Panait</h3>
+        <span class="badge b-ok">furthest along</span>
+      </div>
+      <div style="font-size:12px;color:var(--mut);margin-bottom:10px;"><code>IanP07</code> · Public Policy &amp; Case Studies</div>
+      <div style="font-size:13px;color:var(--ink-2);margin-bottom:10px;">
+        <strong>First commit:</strong> long-form reading layout in the existing <code>pages/case-studies/</code> —
+        constrained measure, heading scale, sticky table-of-contents shell.
+      </div>
+      <div style="font-size:12.5px;color:var(--ok);">
+        <strong>Leverage:</strong> PR #9 is his and carries the env + router plumbing. Have him walk the room through it at 5–12.
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ PR BACKLOG ============ -->
+<section style="margin-bottom:40px;">
+  <div class="eyebrow">Cleanup</div>
+  <h2 class="sec" style="margin:6px 0 6px;">The 10-PR backlog — disposition</h2>
+  <p style="margin:0 0 18px;color:var(--ink-2);max-width:74ch;font-size:15px;">
+    All ten are open with zero reviews, spanning 2026-03-24 to 2026-05-01. Clearing them before the meeting means
+    students branch from a master that actually contains their earlier work — a visible signal that shipping counts.
+  </p>
+  <div class="tscroll">
+    <table>
+      <thead>
+        <tr><th>PR</th><th>Opened</th><th>Author</th><th>Title</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        <tr style="background:var(--ok-bg);">
+          <td><strong>#9</strong></td><td class="mono">04-27</td><td><code>IanP07</code></td>
+          <td>Strapi route / podcasts <span class="badge b-ok" style="margin-left:4px;">plumbing</span></td>
+          <td><strong style="color:var(--ok);">Merge first</strong> — carries env, router, vite types</td>
+        </tr>
+        <tr><td><strong>#8</strong></td><td class="mono">04-27</td><td><code>MeiyanChen25</code></td>
+          <td>Second Strapi route + testing</td>
+          <td>Rebase onto #9, then merge</td></tr>
+        <tr><td><strong>#11</strong></td><td class="mono">05-01</td><td><code>BrendanHu404</code></td>
+          <td>Strapi route for maldevelopment</td>
+          <td>Rebase onto #9, then merge</td></tr>
+        <tr><td><strong>#7</strong></td><td class="mono">04-14</td><td><code>MeiyanChen25</code></td>
+          <td>AI ethics types</td>
+          <td>Merge — types only, low risk</td></tr>
+        <tr><td><strong>#6</strong></td><td class="mono">04-07</td><td><code>Andrew-mei-20</code></td>
+          <td>Acknowledgements</td>
+          <td>Split: keep types, drop the 
+          <code>.mp4</code></td></tr>
+        <tr><td><strong>#4</strong></td><td class="mono">04-07</td><td><code>Galboinkus</code></td>
+          <td>Project planning types</td>
+          <td>Reconcile with #6 — same file</td></tr>
+        <tr style="color:var(--mut);"><td><strong>#5</strong></td><td class="mono">04-07</td><td><code>BrendanHu404</code></td>
+          <td>Documentation brendan</td><td>Close — superseded</td></tr>
+        <tr style="color:var(--mut);"><td><strong>#3</strong></td><td class="mono">04-07</td><td><code>IanP07</code></td>
+          <td>Documentation ian</td><td>Close — superseded</td></tr>
+        <tr style="color:var(--mut);"><td><strong>#2</strong></td><td class="mono">03-24</td><td><code>Andrew-mei-20</code></td>
+          <td>Documentation andrew</td><td>Close — superseded</td></tr>
+        <tr style="color:var(--mut);"><td><strong>#1</strong></td><td class="mono">03-24</td><td><code>Galboinkus</code></td>
+          <td>added picture</td><td>Close — superseded</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin:12px 0 0;font-size:12.5px;color:var(--mut);">
+    Closing a student's PR reads as rejection unless you say why. One line on each — "superseded by the new module
+    structure, your types are preserved in #7" — costs a minute and protects morale.
+  </p>
+</section>
+
+<!-- ============ RISKS ============ -->
+<section>
+  <div class="eyebrow">Before you run this</div>
+  <h2 class="sec" style="margin:6px 0 18px;">Open questions I couldn't resolve from the repo</h2>
+
+  <div class="grid gap-4" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));">
+
+    <article class="card" style="padding:18px;border-left:3px solid var(--stop);">
+      <h3 style="margin:0 0 8px;font-size:15px;font-weight:800;">Who are these six people?</h3>
+      <p style="margin:0;font-size:13px;color:var(--ink-2);">
+        The kickoff doc names <strong>Cyncia Chen</strong> and <strong>Ediale Odia</strong>. GitHub shows
+        <code>MeiyanChen25</code> and <code>Galboinkus</code>, plus <code>documentation_mohamed</code> and
+        <code>documentation_dennis</code> branches. Either the doc is stale or the roster changed —
+        <strong>fix this before you assign modules on a slide.</strong>
+      </p>
+    </article>
+
+    <article class="card" style="padding:18px;border-left:3px solid var(--warn);">
+      <h3 style="margin:0 0 8px;font-size:15px;font-weight:800;">The sprint plan contradicts what they already built</h3>
+      <p style="margin:0;font-size:13px;color:var(--ink-2);">
+        Phase 1 says "static layouts, mock JSON," with Strapi binding deferred to Week 2. But these students already
+        wrote working Strapi fetch routes in April. Telling them to go back to mock data will read as erasure —
+        frame it as <em>"your API layer is the foundation; now we build the UI on top."</em>
+      </p>
+    </article>
+
+    <article class="card" style="padding:18px;border-left:3px solid var(--warn);">
+      <h3 style="margin:0 0 8px;font-size:15px;font-weight:800;">Is there a Strapi instance running?</h3>
+      <p style="margin:0;font-size:13px;color:var(--ink-2);">
+        The plan specifies Strapi v5 on AWS + RDS, but I found no infra config in the repo — no Dockerfile, no App Runner
+        or EC2 definition. If no instance exists yet, Week 2's binding phase has no target and the mock-data approach
+        isn't a choice, it's the only option.
+      </p>
+    </article>
+
+    <article class="card" style="padding:18px;border-left:3px solid var(--mut);">
+      <h3 style="margin:0 0 8px;font-size:15px;font-weight:800;">Amplify is still here</h3>
+      <p style="margin:0;font-size:13px;color:var(--ink-2);">
+        <code>amplify/</code> is live in the repo with uncommitted changes to
+        <code>gddtoolkit2025/cli-inputs.json</code>, while the plan calls for replacing it. Decide the retirement date
+        before students build auth against the wrong system. <span style="color:var(--mut);">Unrelated: a 49&nbsp;MB
+        <code>AWSCLIV2.pkg</code> is committed at the repo root — worth removing sometime, not today.</span>
+      </p>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer style="border-top:1px solid var(--line);background:var(--surf);">
+  <div class="wrap" style="padding-block:20px;font-size:12.5px;color:var(--mut);">
+    Every claim verified against the repo at <code>69821f9</code> (master) and the live GitHub PR list on 18 Sep 2026.
+    Styled with the GDD Toolkit's own palette.
+  </div>
+</footer>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true, theme: "base", securityLevel: "strict",
+    flowchart: { useMaxWidth: true, htmlLabels: true, padding: 14 },
+    themeVariables: { fontFamily: "ui-sans-serif, system-ui, sans-serif", fontSize: "13px" } });
+</script>
+</body>
+</html>

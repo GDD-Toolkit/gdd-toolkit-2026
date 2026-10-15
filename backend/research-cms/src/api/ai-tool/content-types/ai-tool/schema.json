@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ai_tools",
+  "info": {
+    "singularName": "ai-tool",
+    "pluralName": "ai-tools",
+    "displayName": "AI_Tool"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "about_section": {
+      "type": "text",
+      "required": true
+    },
+    "logo": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "total_score": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "max": 50
+    },
+    "ethical_consideration": {
+      "type": "component",
+      "component": "shared.ethical-consideration",
+      "repeatable": true,
+      "required": true
+    },
+    "price": {
+      "type": "json",
+      "required": true
+    },
+    "similar_tools": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ai-tool.ai-tool"
+    }
+  }
+}
