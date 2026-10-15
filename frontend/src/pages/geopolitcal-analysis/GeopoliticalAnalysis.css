@@ -1,0 +1,62 @@
+.geopolitical-country-hover-card {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 50%;
+  width: min(100%, 800px);
+  transform: translateX(-50%);
+}
+
+@media (min-width: 1024px) {
+  .geopolitical-country-hover-card {
+    top: 50%;
+    left: calc(50% + 256px);
+    width: min(12rem, calc(50% - 256px));
+    min-height: 8rem;
+    transform: translateY(-50%);
+  }
+}
+
+.geopolitical-explore-panel[data-side="right"] {
+  inset: 1rem 1rem 1rem auto;
+  width: min(26rem, calc(100vw - 2rem));
+  max-width: none;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+}
+
+.geopolitical-explore-panel[data-side="bottom"] {
+  max-height: 85dvh;
+  border-radius: 1.25rem 1.25rem 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.geopolitical-explore-panel[data-state="open"] {
+  animation: explore-panel-in 220ms ease-out;
+}
+
+.geopolitical-explore-panel[data-state="closed"] {
+  animation: explore-panel-in 180ms ease-in reverse;
+}
+
+.geopolitical-explore-panel[data-side="right"] {
+  --explore-offset-x: calc(100% + 1rem);
+  --explore-offset-y: 0;
+}
+
+.geopolitical-explore-panel[data-side="bottom"] {
+  --explore-offset-x: 0;
+  --explore-offset-y: 100%;
+}
+
+@keyframes explore-panel-in {
+  from { transform: translate(var(--explore-offset-x), var(--explore-offset-y)); }
+  to { transform: translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .geopolitical-explore-panel[data-state] {
+    animation: none;
+    transition: none;
+  }
+}

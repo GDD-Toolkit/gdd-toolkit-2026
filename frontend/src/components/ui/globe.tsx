@@ -15,6 +15,7 @@ export interface GlobeRegion {
 
 const EMPTY_REGIONS: readonly GlobeRegion[] = []
 const EMPTY_COUNTRIES: readonly string[] = []
+const EMPTY_REGION_NAMES: readonly string[] = []
 
 export interface GlobeCountry {
   name: string
@@ -30,25 +31,36 @@ interface CountryProperties {
 
 interface RotatingEarthProps {
   regions?: readonly GlobeRegion[]
-  focusCenter?: readonly [number, number] | null
+  selectedRegions?: readonly string[]
   selectedCountries?: readonly string[]
   onCountriesLoaded?: (countries: GlobeCountry[]) => void
+  onCountryHover?: (country: string | null) => void
+  onCountryClick?: (country: string) => void
   width?: number
   height?: number
   className?: string
 }
 
-export default function RotatingEarth({ width = 800, height = 600, className = "", regions = EMPTY_REGIONS, focusCenter = null, selectedCountries = EMPTY_COUNTRIES, onCountriesLoaded }: RotatingEarthProps) {
+export default function RotatingEarth({ width = 800, height = 600, className = "", regions = EMPTY_REGIONS, selectedRegions = EMPTY_REGION_NAMES, selectedCountries = EMPTY_COUNTRIES, onCountriesLoaded, onCountryHover, onCountryClick }: RotatingEarthProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   const regionsRef = useRef(regions)
+  const selectedRegionsRef = useRef(new Set(selectedRegions))
   const renderRef = useRef<(() => void) | null>(null)
-  const focusRef = useRef(focusCenter)
-  const focusGlobeRef = useRef<(() => void) | null>(null)
   const selectedCountriesRef = useRef(new Set(selectedCountries))
   const onCountriesLoadedRef = useRef(onCountriesLoaded)
+  const onCountryHoverRef = useRef(onCountryHover)
+  const onCountryClickRef = useRef(onCountryClick)
+
+  useEffect(() => {
+    onCountryClickRef.current = onCountryClick
+  }, [onCountryClick])
+
+  useEffect(() => {
+    onCountryHoverRef.current = onCountryHover
+  }, [onCountryHover])
 
   useEffect(() => {
     onCountriesLoadedRef.current = onCountriesLoaded
@@ -61,9 +73,9 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
   }, [selectedCountries])
 
   useEffect(() => {
-    focusRef.current = focusCenter
-    focusGlobeRef.current?.()
-  }, [focusCenter])
+    selectedRegionsRef.current = new Set(selectedRegions)
+    renderRef.current?.()
+  }, [selectedRegions])
 
   useEffect(() => {
     regionsRef.current = regions
@@ -77,17 +89,31 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
     const context = canvas.getContext("2d")
     if (!context) return
 
-    // Set up responsive dimensions
-    const containerWidth = Math.min(width, window.innerWidth - 40)
-    const containerHeight = Math.min(height, window.innerHeight - 100)
-    const radius = Math.min(containerWidth, containerHeight) / 2.5
-
-    const dpr = window.devicePixelRatio || 1
-    canvas.width = containerWidth * dpr
-    canvas.height = containerHeight * dpr
-    canvas.style.width = `${containerWidth}px`
-    canvas.style.height = `${containerHeight}px`
-    context.scale(dpr, dpr)
+    // Mobile uses the full available width and a square drawing surface.
+    const getDimensions = () => {
+      const mobile = window.innerWidth < 1024
+      const availableWidth = canvas.parentElement?.getBoundingClientRect().width ?? window.innerWidth - 40
+      const nextWidth = Math.max(1, Math.min(width, mobile ? availableWidth : window.innerWidth - 40))
+      return {
+        width: nextWidth,
+        height: mobile ? nextWidth : Math.max(1, Math.min(height, window.innerHeight - 100)),
+        mobile,
+      }
+    }
+    const initialDimensions = getDimensions()
+    let containerWidth = initialDimensions.width
+    let containerHeight = initialDimensions.height
+    let radius = Math.min(containerWidth, containerHeight) / 2.5
+    let dpr = window.devicePixelRatio || 1
+    let mobile = initialDimensions.mobile
+    const sizeCanvas = () => {
+      canvas.width = Math.round(containerWidth * dpr)
+      canvas.height = Math.round(containerHeight * dpr)
+      canvas.style.width = `${containerWidth}px`
+      canvas.style.height = mobile ? "auto" : `${containerHeight}px`
+      context.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+    sizeCanvas()
 
     // Create projection and path generator for Canvas
     const projection = d3
@@ -190,15 +216,55 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
 
     const allDots: DotData[] = []
     let landFeatures: any
+    let hoverPosition: { x: number; y: number } | null = null
+    let hoveredCountry: string | null = null
+    const countryAtPosition = (position: { x: number; y: number }) => {
+      let country: string | null = null
+      if (landFeatures) {
+        const bounds = canvas.getBoundingClientRect()
+        const x = (position.x - bounds.left) * containerWidth / bounds.width
+        const y = (position.y - bounds.top) * containerHeight / bounds.height
+        const [centerX, centerY] = projection.translate()
+        if (x >= 0 && x <= containerWidth && y >= 0 && y <= containerHeight
+          && Math.hypot(x - centerX, y - centerY) <= projection.scale()) {
+          const coordinates = projection.invert?.([x, y])
+          if (coordinates) {
+            country = landFeatures.features.find(
+              (feature: d3.GeoPermissibleObjects & { properties: CountryProperties }) =>
+                d3.geoContains(feature, coordinates),
+            )?.properties.ADMIN ?? null
+          }
+        }
+      }
+      return country
+    }
+    const updateHoveredCountry = () => {
+      const country = hoverPosition && onCountryHoverRef.current ? countryAtPosition(hoverPosition) : null
+      if (country !== hoveredCountry) {
+        hoveredCountry = country
+        onCountryHoverRef.current?.(country)
+      }
+    }
+    const clearHoveredCountry = () => {
+      hoverPosition = null
+      updateHoveredCountry()
+    }
 
-    const regionColor = (properties: DotData["properties"]) =>
+    const regionForCountry = (properties: DotData["properties"]) =>
       regionsRef.current.find((region) =>
         region.worldBankRegion !== undefined
           ? region.worldBankRegion === properties.REGION_WB
           :
         (region.continent !== undefined && region.continent === properties.CONTINENT) ||
         (region.subregions ?? [region.name]).includes(properties.SUBREGION ?? "")
-      )?.color
+      )
+    const regionColor = (properties: DotData["properties"]) => regionForCountry(properties)?.color
+    const countryHighlighted = (properties: CountryProperties) => {
+      if (selectedCountriesRef.current.size > 0) return selectedCountriesRef.current.has(properties.ADMIN)
+      if (selectedRegionsRef.current.size === 0) return true
+      const region = regionForCountry(properties)
+      return region !== undefined && selectedRegionsRef.current.has(region.name)
+    }
 
     const render = () => {
       // Clear canvas
@@ -236,7 +302,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
           context.fillStyle = color
           context.globalAlpha = selectedCountriesRef.current.has(feature.properties.ADMIN)
             ? 0.85
-            : selectedCountriesRef.current.size > 0 ? 0.12 : 0.35
+            : countryHighlighted(feature.properties) ? 0.35 : 0.12
           context.fill()
           context.globalAlpha = 1
         })
@@ -265,7 +331,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
             context.beginPath()
             context.arc(projected[0], projected[1], 1.2 * scaleFactor, 0, 2 * Math.PI)
             context.fillStyle = regionColor(dot.properties) ?? "#999999"
-            context.globalAlpha = selectedCountriesRef.current.size > 0 && !selectedCountriesRef.current.has(dot.properties.ADMIN) ? 0.35 : 1
+            context.globalAlpha = countryHighlighted(dot.properties) ? 1 : 0.35
             context.fill()
             context.globalAlpha = 1
           }
@@ -280,6 +346,8 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
         context.lineWidth = 2.5 * scaleFactor
         context.stroke()
       }
+      // Recheck a stationary pointer as the globe rotates or zooms underneath it.
+      updateHoveredCountry()
     }
 
     renderRef.current = render
@@ -330,16 +398,11 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
     // Pointer capture keeps mouse, pen, and touch gestures on the globe.
     const rotation: [number, number] = [0, 0]
     const pointers = new Map<number, { x: number; y: number }>()
-    let resumeAt = 0
+    let clickCandidate: { id: number; x: number; y: number } | null = null
+    let resumeAt = performance.now() + 2000
     let previousElapsed = 0
-    let focusAnimation: {
-      startedAt: number
-      from: [number, number]
-      to: [number, number]
-    } | null = null
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const pauseRotation = () => {
-      focusAnimation = null
       resumeAt = performance.now() + 2000
     }
     const zoom = (factor: number) => {
@@ -353,60 +416,36 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
       projection.rotate(rotation)
       render()
     }
-    const focusGlobe = () => {
-      focusAnimation = null
-      const center = focusRef.current
-      if (!center) {
-        pauseRotation()
-        return
-      }
-      // Normalize the longitude change so the globe takes the shorter turn.
-      const longitudeDelta = ((-center[0] - rotation[0]) % 360 + 540) % 360 - 180
-      const target: [number, number] = [rotation[0] + longitudeDelta, -center[1]]
-      if (reducedMotion) {
-        rotation[0] = target[0]
-        rotation[1] = target[1]
-        projection.rotate(rotation)
-        render()
-      } else {
-        focusAnimation = {
-          startedAt: performance.now(),
-          from: [...rotation],
-          to: target,
-        }
-      }
-    }
-    focusGlobeRef.current = focusGlobe
-    focusGlobe()
-
     const rotationTimer = d3.timer((elapsed) => {
       const delta = Math.min(elapsed - previousElapsed, 50)
       previousElapsed = elapsed
-      if (focusAnimation) {
-        const progress = Math.min((performance.now() - focusAnimation.startedAt) / 900, 1)
-        const eased = d3.easeCubicInOut(progress)
-        rotation[0] = focusAnimation.from[0] + (focusAnimation.to[0] - focusAnimation.from[0]) * eased
-        rotation[1] = focusAnimation.from[1] + (focusAnimation.to[1] - focusAnimation.from[1]) * eased
-        projection.rotate(rotation)
-        render()
-        if (progress === 1) focusAnimation = null
-      } else if (!focusRef.current && !reducedMotion && pointers.size === 0 && performance.now() >= resumeAt) {
+      if (!reducedMotion && pointers.size === 0 && performance.now() >= resumeAt) {
         rotateBy(delta * 0.015, 0)
       }
     })
 
     const handlePointerDown = (event: PointerEvent) => {
       if (event.button !== 0) return
+      hoverPosition = { x: event.clientX, y: event.clientY }
+      updateHoveredCountry()
       canvas.setPointerCapture(event.pointerId)
       pointers.set(event.pointerId, { x: event.clientX, y: event.clientY })
+      clickCandidate = pointers.size === 1
+        ? { id: event.pointerId, x: event.clientX, y: event.clientY }
+        : null
       canvas.style.cursor = "grabbing"
       canvas.focus({ preventScroll: true })
       pauseRotation()
     }
     const handlePointerMove = (event: PointerEvent) => {
+      hoverPosition = { x: event.clientX, y: event.clientY }
+      updateHoveredCountry()
       const previous = pointers.get(event.pointerId)
       if (!previous) return
       const next = { x: event.clientX, y: event.clientY }
+      if (clickCandidate && Math.hypot(next.x - clickCandidate.x, next.y - clickCandidate.y) > 5) {
+        clickCandidate = null
+      }
       if (pointers.size === 1) {
         const sensitivity = 90 / (projection.scale() * canvas.getBoundingClientRect().width / containerWidth)
         rotateBy((next.x - previous.x) * sensitivity, -(next.y - previous.y) * sensitivity)
@@ -420,12 +459,20 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
       pauseRotation()
     }
     const handlePointerEnd = (event: PointerEvent) => {
+      const isClick = event.type === "pointerup" && clickCandidate?.id === event.pointerId
+        && Math.hypot(event.clientX - clickCandidate.x, event.clientY - clickCandidate.y) <= 5
+      clickCandidate = null
       pointers.delete(event.pointerId)
       if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId)
       if (pointers.size === 0) canvas.style.cursor = "grab"
       pauseRotation()
+      if (isClick) {
+        const country = countryAtPosition({ x: event.clientX, y: event.clientY })
+        if (country) onCountryClickRef.current?.(country)
+      }
     }
     const handleWheel = (event: WheelEvent) => {
+      clickCandidate = null
       event.preventDefault()
       const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? containerHeight : 1)
       zoom(Math.exp(-Math.max(-200, Math.min(200, delta)) * 0.002))
@@ -450,8 +497,29 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
       pauseRotation()
     }
 
+    const resizeCanvas = () => {
+      const dimensions = getDimensions()
+      const nextDpr = window.devicePixelRatio || 1
+      if (dimensions.width === containerWidth && dimensions.height === containerHeight
+        && dimensions.mobile === mobile && nextDpr === dpr) return
+      const zoomFactor = projection.scale() / radius
+      containerWidth = dimensions.width
+      containerHeight = dimensions.height
+      mobile = dimensions.mobile
+      dpr = nextDpr
+      radius = Math.min(containerWidth, containerHeight) / 2.5
+      sizeCanvas()
+      projection.translate([containerWidth / 2, containerHeight / 2]).scale(radius * zoomFactor)
+      render()
+    }
+    const resizeObserver = new ResizeObserver(resizeCanvas)
+    if (canvas.parentElement) resizeObserver.observe(canvas.parentElement)
+    window.addEventListener("resize", resizeCanvas)
+
     canvas.addEventListener("pointerdown", handlePointerDown)
     canvas.addEventListener("pointermove", handlePointerMove)
+    canvas.addEventListener("pointerleave", clearHoveredCountry)
+    canvas.addEventListener("pointercancel", clearHoveredCountry)
     canvas.addEventListener("pointerup", handlePointerEnd)
     canvas.addEventListener("pointercancel", handlePointerEnd)
     canvas.addEventListener("lostpointercapture", handlePointerEnd)
@@ -461,12 +529,15 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
 
     return () => {
       renderRef.current = null
-      focusGlobeRef.current = null
-      focusAnimation = null
       controller.abort()
       rotationTimer.stop()
+      resizeObserver.disconnect()
+      window.removeEventListener("resize", resizeCanvas)
+      clearHoveredCountry()
       canvas.removeEventListener("pointerdown", handlePointerDown)
       canvas.removeEventListener("pointermove", handlePointerMove)
+      canvas.removeEventListener("pointerleave", clearHoveredCountry)
+      canvas.removeEventListener("pointercancel", clearHoveredCountry)
       canvas.removeEventListener("pointerup", handlePointerEnd)
       canvas.removeEventListener("pointercancel", handlePointerEnd)
       canvas.removeEventListener("lostpointercapture", handlePointerEnd)
@@ -496,7 +567,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
         ref={canvasRef}
         className="w-full h-auto rounded-2xl bg-background dark"
         tabIndex={0}
-        aria-label="Interactive globe. Drag to rotate, pinch or scroll to zoom. Arrow keys rotate, plus and minus zoom, Home resets."
+        aria-label="Interactive globe. Click or tap a country to toggle its selection. Drag to rotate, pinch or scroll to zoom. Arrow keys rotate, plus and minus zoom, Home resets."
         style={{ maxWidth: "100%", height: "auto", touchAction: "none", cursor: "grab" }}
       />
       {isLoading && <p role="status" className="absolute top-4 left-4 text-sm">Loading globe...</p>}
