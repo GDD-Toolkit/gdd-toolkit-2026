@@ -1,4 +1,7 @@
 import { ArrowLeft, ExternalLink } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
+
+import { tools } from "../data/aiTools";
 
 const considerations = [
   "Viability",
@@ -12,14 +15,47 @@ const considerations = [
 ];
 
 export default function AIEthicsTool() {
+  const [searchParams] = useSearchParams();
+
+  const toolName = searchParams.get("name");
+
+  const tool = tools.find((item) => item.name === toolName);
+
+  if (!tool) {
+    return (
+      <main className="min-h-screen bg-white text-black px-6 py-8">
+        <div className="max-w-7xl mx-auto">
+          <Link
+            to="/ai-ethics-dashboard/tools"
+            className="inline-flex items-center gap-2 text-lg"
+          >
+            <ArrowLeft size={20} />
+            Back
+          </Link>
+
+          <div className="mt-16 text-center">
+            <h1 className="text-3xl font-normal">Tool Not Found</h1>
+
+            <p className="mt-4 text-gray-600">
+              The selected AI tool could not be found.
+            </p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-white text-black px-6 py-8">
       <div className="max-w-7xl mx-auto">
         {/* Back */}
-        <button className="flex items-center gap-2 text-lg">
+        <Link
+          to="/ai-ethics-dashboard/tools"
+          className="inline-flex items-center gap-2 text-lg"
+        >
           <ArrowLeft size={20} />
           Back
-        </button>
+        </Link>
 
         {/* Tool Header */}
         <div className="mt-10 text-center">
@@ -27,15 +63,17 @@ export default function AIEthicsTool() {
             Logo
           </div>
 
-          <h1 className="mt-6 text-4xl font-normal">Tool Name</h1>
+          <h1 className="mt-6 text-4xl font-normal">{tool.name}</h1>
 
-          <p className="mt-2 text-gray-600">Version 1.0 · Last Updated</p>
+          <p className="mt-2 text-gray-600">
+            {tool.type} · {tool.price}
+          </p>
 
           {/* Ethicality Score */}
           <div className="mt-6">
             <p className="text-lg">Ethicality Score</p>
 
-            <p className="text-4xl font-semibold mt-1">72/100</p>
+            <p className="text-4xl font-semibold mt-1">{tool.score}/100</p>
           </div>
 
           {/* External Link */}
@@ -51,8 +89,30 @@ export default function AIEthicsTool() {
 
           <div className="mt-4 bg-gray-200 rounded-md p-6 min-h-32">
             <p className="text-gray-700">
-              Brief description of the AI tool and its intended use.
+              Brief description of {tool.name} and its intended use.
             </p>
+          </div>
+        </section>
+
+        {/* Tool Information */}
+        <section className="mt-12">
+          <h2 className="text-2xl font-medium">Tool Information</h2>
+
+          <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="bg-gray-200 rounded-md p-6">
+              <h3 className="text-lg font-medium">Tool Type</h3>
+              <p className="mt-2 text-gray-700">{tool.type}</p>
+            </div>
+
+            <div className="bg-gray-200 rounded-md p-6">
+              <h3 className="text-lg font-medium">Research</h3>
+              <p className="mt-2 text-gray-700">{tool.research}</p>
+            </div>
+
+            <div className="bg-gray-200 rounded-md p-6">
+              <h3 className="text-lg font-medium">Project Development</h3>
+              <p className="mt-2 text-gray-700">{tool.projectDevelopment}</p>
+            </div>
           </div>
         </section>
 
@@ -81,7 +141,7 @@ export default function AIEthicsTool() {
 
           <div className="mt-5 bg-gray-200 rounded-md p-8">
             <p className="text-lg text-gray-700">
-              Overall assessment of this tool based on the ethical evaluation
+              Overall assessment of {tool.name} based on the ethical evaluation
               criteria.
             </p>
           </div>
