@@ -128,6 +128,29 @@ export function removeBookmark(token: string, kind: BookmarkKind, documentId: st
   });
 }
 
+/**
+ * Sends a password-reset email. Strapi answers the same for unknown addresses,
+ * so callers must not claim an account exists.
+ */
+export function forgotPassword(email: string): Promise<void> {
+  return request<void>("/auth/forgot-password", {
+    method: "POST",
+    body: { email: email.trim().toLowerCase() },
+  });
+}
+
+/** Completes a reset from the emailed link (/auth/reset-password?code=…). Returns a fresh session. */
+export function resetPassword(
+  code: string,
+  password: string,
+  passwordConfirmation: string,
+): Promise<AuthResponse> {
+  return request<AuthResponse>("/auth/reset-password", {
+    method: "POST",
+    body: { code, password, passwordConfirmation },
+  });
+}
+
 /** Absolute URL for a Strapi media file (local provider returns relative paths). */
 export function strapiMediaUrl(url: string): string {
   if (/^https?:\/\//.test(url)) return url;
