@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Bookmark } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
@@ -19,7 +20,7 @@ interface BookmarkButtonProps {
  * Drop this onto any card once that module reads its items from Strapi.
  */
 export function BookmarkButton({ kind, documentId, label, className }: BookmarkButtonProps) {
-  const { isBookmarked, toggleBookmark } = useAuth();
+  const { isAuthenticated, isBookmarked, toggleBookmark, openAuthModal } = useAuth();
   const [pending, setPending] = useState(false);
   const saved = isBookmarked(kind, documentId);
 
@@ -27,11 +28,16 @@ export function BookmarkButton({ kind, documentId, label, className }: BookmarkB
     // Cards are often links; keep the click from navigating.
     event.preventDefault();
     event.stopPropagation();
+    if (!isAuthenticated) {
+      openAuthModal("sign-in");
+      return;
+    }
     setPending(true);
     try {
       await toggleBookmark(kind, documentId);
-    } catch (error) {
-      console.error("Bookmark update failed:", error);
+      toast.success(saved ? `Removed "${label}" from your saved items.` : `Saved "${label}".`);
+    } catch {
+      toast.error("Couldn't update your saved items. Please try again.");
     } finally {
       setPending(false);
     }

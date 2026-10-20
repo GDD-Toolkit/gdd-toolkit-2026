@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { LogOut, UserRound } from "lucide-react";
+import { toast } from "sonner";
 import { strapiMediaUrl } from "@/api/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -69,7 +70,12 @@ export function UserDropdown({ showName = false }: UserDropdownProps) {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onSelect={logout}>
+        <DropdownMenuItem
+          onSelect={() => {
+            logout();
+            toast.success("Signed out.");
+          }}
+        >
           <LogOut />
           Log out
         </DropdownMenuItem>

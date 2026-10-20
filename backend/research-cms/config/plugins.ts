@@ -30,18 +30,19 @@ const config = ({
   email: {
     config: {
       provider: "nodemailer",
+      // Defaults target Gmail. For local development point SMTP_HOST/SMTP_PORT
+      // at a mail catcher such as Mailpit (localhost:1025), which needs no auth.
       providerOptions: {
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        auth: {
-          user: env("SMTP_USERNAME"),
-          pass: env("SMTP_PASSWORD"),
-        },
+        host: env("SMTP_HOST") || "smtp.gmail.com",
+        port: env.int("SMTP_PORT") || 587,
+        secure: env.bool("SMTP_SECURE", false),
+        ...(env("SMTP_USERNAME")
+          ? { auth: { user: env("SMTP_USERNAME"), pass: env("SMTP_PASSWORD") } }
+          : {}),
       },
       settings: {
-        defaultFrom: env("SMTP_USERNAME"),
-        defaultReplyTo: env("SMTP_USERNAME"),
+        defaultFrom: env("SMTP_FROM") || env("SMTP_USERNAME"),
+        defaultReplyTo: env("SMTP_FROM") || env("SMTP_USERNAME"),
       },
     },
   },

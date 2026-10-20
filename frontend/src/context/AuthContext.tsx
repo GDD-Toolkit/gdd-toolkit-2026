@@ -6,6 +6,7 @@ import {
   type AuthContextValue,
   type AuthModalTab,
   type AuthStatus,
+  type LoginOptions,
   type RegisterResult,
 } from "@/context/auth-context";
 import {
@@ -17,30 +18,39 @@ import {
 } from "@/types/auth";
 
 /**
- * The Strapi JWT lives in localStorage (plan §5.4). That keeps the SPA simple
+ * The Strapi JWT lives in web storage (plan §5.4). That keeps the SPA simple
  * but means any XSS on this origin can read it; see the plan's open question 2.
+ * "Remember me" keeps it in localStorage (survives closing the browser);
+ * otherwise it goes to sessionStorage and ends with the tab.
  */
 const TOKEN_KEY = "gdd.auth.token";
 
-function readStoredToken(): string | null {
+type TokenStore = "local" | "session";
+
+function readStoredToken(): { token: string; store: TokenStore } | null {
   try {
-    return localStorage.getItem(TOKEN_KEY);
+    const local = localStorage.getItem(TOKEN_KEY);
+    if (local) return { token: local, store: "local" };
+    const session = sessionStorage.getItem(TOKEN_KEY);
+    if (session) return { token: session, store: "session" };
   } catch {
-    return null;
+    // Storage unavailable (private mode, blocked).
   }
+  return null;
 }
 
-function writeStoredToken(token: string | null) {
+function writeStoredToken(token: string | null, store: TokenStore = "local") {
   try {
-    if (token) localStorage.setItem(TOKEN_KEY, token);
-    else localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(TOKEN_KEY);
+    if (token) (store === "local" ? localStorage : sessionStorage).setItem(TOKEN_KEY, token);
   } catch {
-    // Storage unavailable (private mode, blocked). The session lasts for this page load only.
+    // Storage unavailable. The session lasts for this page load only.
   }
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [token, setToken] = useState<string | null>(readStoredToken);
+  const [token, setToken] = useState<string | null>(() => readStoredToken()?.token ?? null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [status, setStatus] = useState<AuthStatus>(() =>
     readStoredToken() ? "loading" : "anonymous",
@@ -50,12 +60,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     tab: "sign-in",
   });
 
-  const establishSession = useCallback((jwt: string, profile: UserProfile) => {
-    writeStoredToken(jwt);
-    setToken(jwt);
-    setUser(profile);
-    setStatus("authenticated");
-  }, []);
+  const establishSession = useCallback(
+    (jwt: string, profile: UserProfile, store: TokenStore = "local") => {
+      writeStoredToken(jwt, store);
+      setToken(jwt);
+      setUser(profile);
+      setStatus("authenticated");
+    },
+    [],
+  );
 
   const clearSession = useCallback(() => {
     writeStoredToken(null);
@@ -71,9 +84,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     let cancelled = false;
     authApi
-      .getMe(stored)
+      .getMe(stored.token)
       .then((profile) => {
-        if (!cancelled) establishSession(stored, profile);
+        if (!cancelled) establishSession(stored.token, profile, stored.store);
       })
       .catch((error: unknown) => {
         if (cancelled) return;
@@ -90,19 +103,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [establishSession, clearSession]);
 
   const loginWithToken = useCallback(
-    async (jwt: string) => {
+    async (jwt: string, { remember = true }: LoginOptions = {}) => {
       const profile = await authApi.getMe(jwt);
-      establishSession(jwt, profile);
+      establishSession(jwt, profile, remember ? "local" : "session");
       return profile;
     },
     [establishSession],
   );
 
   const login = useCallback(
-    async (payload: LoginPayload) => {
+    async (payload: LoginPayload, options?: LoginOptions) => {
       const { jwt } = await authApi.login(payload);
-      await loginWithToken(jwt);
+      const profile = await loginWithToken(jwt, options);
       setAuthModal((modal) => ({ ...modal, open: false }));
+      return profile;
     },
     [loginWithToken],
   );

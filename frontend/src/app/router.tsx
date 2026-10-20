@@ -48,6 +48,7 @@ const Acknowledgements = lazy(
 );
 const ApiTesting = lazy(() => import("@/pages/api_example/api_testing"));
 const AuthCallback = lazy(() => import("@/pages/auth/AuthCallback"));
+const ResetPassword = lazy(() => import("@/pages/auth/ResetPassword"));
 const EmailConfirmed = lazy(() => import("@/pages/auth/EmailConfirmed"));
 const AccountPage = lazy(() => import("@/pages/account/Account"));
 const router = createBrowserRouter([
@@ -97,6 +98,7 @@ const router = createBrowserRouter([
       { path: "acknowledgements", element: <Acknowledgements /> },
       { path: "auth/callback/:provider", element: <AuthCallback /> },
       { path: "auth/confirmed", element: <EmailConfirmed /> },
+      { path: "auth/reset-password", element: <ResetPassword /> },
       {
         path: "account",
         element: (
