@@ -81,6 +81,16 @@ async function ensureAdvancedSettings(strapi: Core.Strapi) {
   if (frontendUrl && !next.email_confirmation_redirection) {
     next.email_confirmation_redirection = `${frontendUrl.replace(/\/$/, "")}/auth/confirmed`;
   }
+  // Page the password-reset email links to; Strapi appends ?code=<token>.
+  if (frontendUrl && !next.email_reset_password) {
+    next.email_reset_password = `${frontendUrl.replace(/\/$/, "")}/auth/reset-password`;
+  }
+
+  // Explicit switch for sign-up email confirmation. Unset leaves the admin-panel setting alone.
+  const confirmation = process.env.AUTH_EMAIL_CONFIRMATION;
+  if (confirmation === "true" || confirmation === "false") {
+    next.email_confirmation = confirmation === "true";
+  }
 
   await store.set({ key: "advanced", value: next });
 }
