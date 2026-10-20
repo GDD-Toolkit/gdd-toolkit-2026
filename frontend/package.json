@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@base-ui/react": "^1.8.0",
     "@fontsource-variable/geist": "^5.3.0",
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.4.0",
@@ -20,6 +21,7 @@
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.546.0",
     "next-themes": "^0.4.6",
+    "modules": "^0.4.0",
     "radix-ui": "^1.6.7",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

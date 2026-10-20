@@ -1,134 +1,186 @@
-import { useRef, useState } from "react";
-import { motion, easeOut } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Clock3, Headphones, Pause, Play, X } from "lucide-react";
+import { Button } from "../../components/ui/button";
 import "./Podcast.css";
 
-const DesignUser: React.FC = () => {
-    const bannerVariants = {
-        hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
-    };
-
-    const simulationRef = useRef<HTMLHeadingElement>(null);
-
-    const episodes = [
-        { number: 1, date: "2025-12-08", url: "/assets/The_Development_Lens_EP1.mp3" },
-    ];
-    
-    const [minEp, setMinEp] = useState<number | "">( "");
-    const [maxEp, setMaxEp] = useState<number | "">( "");
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
-    
-    const filteredEpisodes = episodes.filter(ep => {
-        const episodeOk =
-            (minEp === "" || ep.number >= minEp) &&
-            (maxEp === "" || ep.number <= maxEp);
-    
-        const dateOk =
-            (!startDate || ep.date >= startDate) &&
-            (!endDate || ep.date <= endDate);
-    
-        return episodeOk && dateOk;
-    });
-    
-
-    return (
-        <div className="page-container">
-            <header className="mission-banner">
-                <div className="header-flex">
-                    <motion.h1
-                        className="mission-title"
-                        initial="hidden"
-                        animate="visible"
-                        variants={bannerVariants}
-                    >
-                        Podcast
-                    </motion.h1>
-                </div>
-            </header>
-
-            {/* --- Section 1: Podcat image + Summary --- */}
-            <section className="content-section">
-                <div className="content-card principles-summary-flex">
-                    <h2 ref={simulationRef} className="principles-summary-title">The Development Lens</h2>
-
-                    <div className="principles-summary-content">
-                    <div className="principles-summary-image-wrapper">
-                        <img
-                        src="/assets/images/developmentlens.png"
-                        alt="Design Principles Summary"
-                        className="principles-summary-image"
-                        />
-                    </div>
-
-                    <div className="principles-summary-text-wrapper">
-                        <p className="principles-summary-text">
-                        Welcome to <b> The Development Lens</b>, a podcast created by students in the FIRE Global Development & Design stream, exploring how ethical, sustainable, and human-centered choices shape real-world projects. In each episode, you’ll hear thoughtful conversations with our student team, our faculty mentor, and partners working in communities across Africa and the Philippines as we test and refine our Development Ethics Toolkit in relation to the United Nations Sustainable Development Goals (SDGs). We unpack case studies, share behind-the-scenes stories from our independent research projects, and reflect honestly on what works well, what is challenging, and how we can improve as future practitioners. By the end of each episode, you will not only understand what our toolkit is and how it functions, but also hear how it can help development practitioners connect their work to the SDGs, ask better questions, make more ethical decisions, and ultimately design projects that focus on pro-development and center the people they are meant to serve.
-                        </p>
-                    </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* --- Section 2: Episodes --- */}
-            <section className="content-section">
-                <div className="content-card">
-                    <h2 className="principles-summary-title">Episodes</h2>
-
-                    {/* Filters */}
-                    <div className="episode-filters">
-                        <div>
-                            <label>Episode # Range:</label>
-                            <div className="filter-row">
-                                <input
-                                type="number"
-                                min={1}
-                                placeholder="Min"
-                                value={minEp}
-                                onChange={e =>
-                                    setMinEp(e.target.value === "" ? "" : Number(e.target.value))
-                                }
-                                />
-
-                                <input
-                                type="number"
-                                min={1}
-                                placeholder="Max"
-                                value={maxEp}
-                                onChange={e =>
-                                    setMaxEp(e.target.value === "" ? "" : Number(e.target.value))
-                                }
-                                />
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <label>Date Range:</label>
-                            <div className="filter-row">
-                                <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
-                                <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Episodes List */}
-                    <div className="episode-list">
-                        {filteredEpisodes.map((ep) => (
-                            <div key={ep.number} className="episode-item">
-                                <div>
-                                    <b>{ep.number}.</b> {ep.date}
-                                </div>
-                                <audio controls src={ep.url}></audio>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-            
-            <br></br>
-        </div>
-    );
+type Episode = {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  url: string;
 };
 
-export default DesignUser;
+// Replace these records with Strapi data when the endpoint is connected.
+const episodes: Episode[] = [
+  {
+    id: 1,
+    title: "The Development Lens · Episode 1",
+    description: "Listen to the first episode of The Development Lens, a podcast from FIRE Global Development & Design.",
+    date: "2025-12-08",
+    url: "/assets/The_Development_Lens_EP1.mp3",
+  },
+];
+const artwork = "/assets/images/developmentlens.png";
+
+function formatTime(seconds: number) {
+  if (!Number.isFinite(seconds)) return "0:00";
+  const total = Math.floor(seconds);
+  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;
+}
+
+export default function Podcast() {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const requestRef = useRef(0);
+  const [activeEpisode, setActiveEpisode] = useState<Episode | null>(null);
+  const [playing, setPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [lengths, setLengths] = useState<Record<number, number>>({});
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const probes = episodes.map(episode => {
+      const audio = new Audio();
+      audio.preload = "metadata";
+      audio.onloadedmetadata = () => {
+        if (Number.isFinite(audio.duration)) {
+          setLengths(previous => ({ ...previous, [episode.id]: audio.duration }));
+        }
+      };
+      audio.src = episode.url;
+      return audio;
+    });
+    return () => {
+      probes.forEach(audio => {
+        audio.onloadedmetadata = null;
+        audio.removeAttribute("src");
+        audio.load();
+      });
+    };
+  }, []);
+
+  async function playEpisode(episode: Episode) {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const request = ++requestRef.current;
+    setError("");
+    if (activeEpisode?.id !== episode.id) {
+      audio.pause();
+      audio.src = episode.url;
+      setCurrentTime(0);
+      setDuration(lengths[episode.id] ?? 0);
+      setActiveEpisode(episode);
+    }
+    try {
+      await audio.play();
+    } catch (cause) {
+      if (request === requestRef.current && !(cause instanceof DOMException && cause.name === "AbortError")) {
+        setError("Unable to play this episode. Please try again.");
+      }
+    }
+  }
+
+  function toggleEpisode(episode: Episode) {
+    if (activeEpisode?.id === episode.id && playing) {
+      requestRef.current += 1;
+      audioRef.current?.pause();
+    } else {
+      void playEpisode(episode);
+    }
+  }
+
+  function seek(time: number) {
+    const audio = audioRef.current;
+    if (!audio || !Number.isFinite(audio.duration)) return;
+    audio.currentTime = Math.max(0, Math.min(time, audio.duration));
+    setCurrentTime(audio.currentTime);
+  }
+
+  function closePlayer() {
+    requestRef.current += 1;
+    const audio = audioRef.current;
+    if (audio) {
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
+    }
+    setActiveEpisode(null);
+    setPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
+    setError("");
+  }
+
+  return (
+    <div className={`podcast-page${activeEpisode ? " podcast-page--with-player" : ""}`}>
+      <div className="podcast-shell">
+        <div className="podcast-eyebrow"><Headphones size={16} /> THE PODCAST</div>
+        <section className="podcast-hero" aria-labelledby="podcast-title">
+          <div className="podcast-artwork"><img src={artwork} alt="The Development Lens podcast cover" /></div>
+          <div className="podcast-introduction">
+            <span className="podcast-tag">FIRE Global Development &amp; Design</span>
+            <h1 id="podcast-title">The Development Lens<span>.</span></h1>
+            <p className="podcast-deck">Thoughtful conversations. More ethical development.</p>
+            <p>Explore how ethical, sustainable, and human-centered choices shape real-world projects. Join our student team, faculty mentor, and community partners as we unpack case studies, share research stories, and put the Development Ethics Toolkit into practice.</p>
+            <p>From Africa to the Philippines, we reflect on what works, what challenges us, and how to design projects that center the people they serve.</p>
+            <Button className="podcast-primary" onClick={() => toggleEpisode(episodes[0])}>
+              {playing ? <Pause size={17} /> : <Play size={17} />} {playing ? "Pause episode" : "Listen to the latest episode"}
+            </Button>
+          </div>
+        </section>
+
+        <section className="podcast-episodes" aria-labelledby="episodes-title">
+          <div className="podcast-section-heading">
+            <div><span className="podcast-eyebrow">LISTEN &amp; EXPLORE</span><h2 id="episodes-title">All episodes</h2></div>
+            <span className="podcast-count">{episodes.length} {episodes.length === 1 ? "episode" : "episodes"}</span>
+          </div>
+          <div className="podcast-episode-list">
+            {episodes.map(episode => {
+              const isPlaying = activeEpisode?.id === episode.id && playing;
+              return (
+                <article key={episode.id} className={`podcast-episode${activeEpisode?.id === episode.id ? " podcast-episode--active" : ""}`}>
+                  <span className="podcast-episode-number">{String(episode.id).padStart(2, "0")}</span>
+                  <div className="podcast-episode-body">
+                    <div className="podcast-episode-meta">
+                      <time dateTime={episode.date}>Uploaded {new Date(`${episode.date}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</time>
+                      <span><Clock3 size={14} />{lengths[episode.id] ? formatTime(lengths[episode.id]) : "Length unavailable"}</span>
+                    </div>
+                    <h3>{episode.title}</h3>
+                    <p>{episode.description}</p>
+                  </div>
+                  <Button variant="outline" className="podcast-episode-play" onClick={() => toggleEpisode(episode)} aria-label={`${isPlaying ? "Pause" : "Play"} ${episode.title}`}>
+                    {isPlaying ? <Pause size={18} /> : <Play size={18} />}<span>{isPlaying ? "Pause" : "Play episode"}</span>
+                  </Button>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      </div>
+
+      <audio ref={audioRef} preload="metadata" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onTimeUpdate={event => setCurrentTime(event.currentTarget.currentTime)} onLoadedMetadata={event => setDuration(Number.isFinite(event.currentTarget.duration) ? event.currentTarget.duration : 0)} onError={() => { setPlaying(false); setError("Unable to load the audio. Please try again."); }} />
+
+      {activeEpisode && (
+        <section className="podcast-player" aria-label="Podcast audio player">
+          <div className="podcast-player-inner">
+            <div className="podcast-now-playing">
+              <img src={artwork} alt="" />
+              <div><span>{playing ? "NOW PLAYING" : "READY TO LISTEN"}</span><strong>{activeEpisode.title}</strong></div>
+            </div>
+            <div className="podcast-playback">
+              <div className="podcast-player-controls">
+                <Button variant="ghost" className="podcast-skip" aria-label="Skip back 15 seconds" onClick={() => seek((audioRef.current?.currentTime ?? 0) - 15)} disabled={!duration}><ArrowLeft size={17} /><span>15s</span></Button>
+                <Button className="podcast-primary podcast-player-toggle" aria-label={playing ? "Pause" : "Play"} onClick={() => toggleEpisode(activeEpisode)}>{playing ? <Pause size={20} /> : <Play size={20} />}</Button>
+                <Button variant="ghost" className="podcast-skip" aria-label="Skip forward 15 seconds" onClick={() => seek((audioRef.current?.currentTime ?? 0) + 15)} disabled={!duration}><span>15s</span><ArrowRight size={17} /></Button>
+              </div>
+              <div className="podcast-progress"><span>{formatTime(currentTime)}</span><input aria-label="Playback position" type="range" min={0} max={duration || 1} step={0.1} value={Math.min(currentTime, duration || 1)} disabled={!duration} onChange={event => seek(Number(event.target.value))} /><span>{formatTime(duration)}</span></div>
+            </div>
+            <Button variant="ghost" className="podcast-close" aria-label="Close player and stop audio" onClick={closePlayer}><X size={20} /></Button>
+            {error && <p className="podcast-player-error" role="alert">{error}</p>}
+          </div>
+        </section>
+      )}
+    </div>
+  );
+}

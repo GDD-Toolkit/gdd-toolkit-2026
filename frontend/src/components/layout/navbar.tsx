@@ -160,7 +160,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04, duration: 0.3 }}
                   >
-                    <Button className="group hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]">
+                    <Button className="!bg-white !text-slate-800 border-gray-200 shadow-sm group hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]">
                       <span className="relative z-10">{m.label}</span>
                       <motion.span
                         className="relative z-10"
@@ -284,7 +284,7 @@ export default function Navbar() {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               size="icon"
-              className="lg:hidden"
+              className="!bg-white !text-slate-800 border-gray-200 shadow-sm lg:hidden"
               onClick={() => setMobile((v) => !v)}
               aria-label="Toggle menu"
             >
@@ -351,7 +351,7 @@ export default function Navbar() {
                             >
                               <Button
                                 variant="default"
-                                className="w-full justify-start ml-2"
+                                className="!bg-white !text-slate-800 border-gray-200 shadow-sm w-full justify-start ml-2"
                                 onClick={() => {
                                   setMobile(false);
                                   window.location.href = it.href;
