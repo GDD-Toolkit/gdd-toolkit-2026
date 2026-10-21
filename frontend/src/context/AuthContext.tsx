@@ -13,6 +13,7 @@ import {
   siteRoleOf,
   type BookmarkKind,
   type LoginPayload,
+  type ProfileUpdatePayload,
   type RegisterPayload,
   type UserProfile,
 } from "@/types/auth";
@@ -139,6 +140,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(await authApi.getMe(token));
   }, [token]);
 
+  const updateProfile = useCallback(
+    async (payload: ProfileUpdatePayload) => {
+      if (!token) throw new Error("Sign in to update your profile.");
+      const next = await authApi.updateProfile(token, payload);
+      setUser(next);
+      return next;
+    },
+    [token],
+  );
+
   const isBookmarked = useCallback(
     (kind: BookmarkKind, documentId: string) => {
       const list = kind === "tools" ? user?.bookmarkedTools : user?.savedGrants;
@@ -183,6 +194,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loginWithToken,
       logout: clearSession,
       refreshUser,
+      updateProfile,
       isBookmarked,
       toggleBookmark,
       authModal,
@@ -198,6 +210,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loginWithToken,
       clearSession,
       refreshUser,
+      updateProfile,
       isBookmarked,
       toggleBookmark,
       authModal,

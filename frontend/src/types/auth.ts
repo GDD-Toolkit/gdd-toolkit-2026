@@ -4,6 +4,8 @@
  * The site "Admin" role is unrelated to Strapi admin-panel accounts.
  */
 
+import type { Interest, Language } from "@/types/onboarding";
+
 /** Strapi role `type` for signed-in site users. */
 export type SiteRole = "student" | "researcher" | "admin";
 
@@ -46,6 +48,12 @@ export interface UserProfile {
   institution?: string | null;
   department?: string | null;
   bio?: string | null;
+  occupation?: string | null;
+  country?: string | null;
+  language?: Language | null;
+  interests?: Interest[] | null;
+  /** True once the onboarding questions have been answered. */
+  onboardingComplete?: boolean;
   avatar?: StrapiMedia | null;
   bookmarkedTools?: BookmarkedTool[];
   savedGrants?: SavedGrant[];
@@ -83,6 +91,12 @@ export interface ProfileUpdatePayload {
   institution?: string | null;
   department?: string | null;
   bio?: string | null;
+  occupation?: string | null;
+  country?: string | null;
+  language?: Language;
+  interests?: Interest[];
+  /** Only true is accepted; the server checks every onboarding answer is present. */
+  onboardingComplete?: true;
 }
 
 export type BookmarkKind = "tools" | "grants";

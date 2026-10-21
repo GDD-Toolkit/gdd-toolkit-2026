@@ -2,6 +2,7 @@ import { createContext } from "react";
 import type {
   BookmarkKind,
   LoginPayload,
+  ProfileUpdatePayload,
   RegisterPayload,
   SiteRole,
   UserProfile,
@@ -29,6 +30,8 @@ export interface AuthContextValue {
   loginWithToken: (jwt: string, options?: LoginOptions) => Promise<UserProfile>;
   logout: () => void;
   refreshUser: () => Promise<void>;
+  /** Saves profile fields and returns the updated user. */
+  updateProfile: (payload: ProfileUpdatePayload) => Promise<UserProfile>;
   isBookmarked: (kind: BookmarkKind, documentId: string) => boolean;
   toggleBookmark: (kind: BookmarkKind, documentId: string) => Promise<void>;
   authModal: { open: boolean; tab: AuthModalTab };

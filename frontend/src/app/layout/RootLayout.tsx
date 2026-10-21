@@ -3,6 +3,7 @@ import Navbar from "@/components/layout/navbar"; // adjust path if lowercase
 import Footer from "@/components/layout/footer"; // adjust path if lowercase
 import { AuthProvider } from "@/context/AuthContext";
 import { AuthModal } from "@/components/auth/AuthModal";
+import { OnboardingDialog } from "@/components/auth/OnboardingDialog";
 import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout() {
@@ -16,6 +17,7 @@ export default function RootLayout() {
         <Footer />
       </div>
       <AuthModal />
+      <OnboardingDialog />
       <Toaster />
     </AuthProvider>
   );
