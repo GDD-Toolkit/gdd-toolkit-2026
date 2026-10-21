@@ -45,16 +45,15 @@ export default function AccountPage() {
   const languageLabel = languages.find(({ code }) => code === user.language)?.label ?? user.language;
 
   return (
-    <div className="mx-auto max-w-3xl space-y-10 px-4 py-12">
+    <div className="mx-auto max-w-3xl space-y-5 px-4 py-12">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-semibold">{displayNameOf(user)}</h1>
-          <p className="text-sm text-muted-foreground">{user.email}</p>
+          <h1 className="text-xl font-semibold">Welcome {displayNameOf(user)}!</h1>
         </div>
-        <Badge variant="secondary">{user.role?.name ?? "Member"}</Badge>
+        <Badge variant="secondary" className="h-7 px-3 text-sm">{user.role?.name ?? "Member"}</Badge>
       </header>
 
-      <section aria-labelledby="profile-heading" className="rounded-xl border border-border p-6">
+      <section aria-labelledby="profile-heading" className="rounded-xl border border-border p-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 id="profile-heading" className="text-lg font-medium">
             Profile
