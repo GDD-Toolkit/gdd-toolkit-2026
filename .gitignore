@@ -53,9 +53,7 @@ amplifytools.xcconfig
 **.sample
 #amplify-do-not-edit-end
 
-# build/tool caches and stray binaries
-.vite/
+# stray installer and Amplify env metadata (account ID, role ARNs, stack IDs)
+# regenerate team-provider-info.json locally with `amplify pull`
 *.pkg
-
-# Amplify env metadata (account ID, role ARNs, stack IDs) - regenerate locally with `amplify pull`
 amplify/team-provider-info.json
