@@ -99,6 +99,25 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::funding-resource.funding-resource"
+    },
+    "occupation": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "country": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "interests": {
+      "type": "json"
+    },
+    "language": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "onboardingComplete": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

@@ -1249,6 +1249,10 @@ export interface PluginUsersPermissionsUser
     >;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    country: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1269,6 +1273,11 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    interests: Schema.Attribute.JSON;
+    language: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 10;
+      }>;
     lastName: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 100;
@@ -1279,6 +1288,12 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    occupation: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    onboardingComplete: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{

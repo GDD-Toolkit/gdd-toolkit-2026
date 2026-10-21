@@ -8,6 +8,7 @@ vi.mock("@/api/auth", async (importOriginal) => {
     ...actual,
     getMe: vi.fn(),
     login: vi.fn(),
+    updateProfile: vi.fn(),
     addBookmark: vi.fn(),
     removeBookmark: vi.fn(),
   };
@@ -133,5 +134,31 @@ describe("bookmarks", () => {
 
     expect(result.current.authModal).toEqual({ open: true, tab: "sign-in" });
     expect(authApi.addBookmark).not.toHaveBeenCalled();
+  });
+});
+
+describe("profile", () => {
+  it("updateProfile sends the token and stores the returned user", async () => {
+    login.mockResolvedValue({ jwt: "jwt-4", user });
+    getMe.mockResolvedValue(user);
+    vi.mocked(authApi.updateProfile).mockResolvedValue({
+      ...user,
+      occupation: "Analyst",
+      onboardingComplete: true,
+    });
+    const { result } = renderHook(() => useAuth(), { wrapper });
+
+    await act(async () => {
+      await result.current.login({ identifier: "ada@example.com", password: "pw" });
+    });
+    await act(async () => {
+      await result.current.updateProfile({ occupation: "Analyst", onboardingComplete: true });
+    });
+
+    expect(authApi.updateProfile).toHaveBeenCalledWith("jwt-4", {
+      occupation: "Analyst",
+      onboardingComplete: true,
+    });
+    expect(result.current.user?.onboardingComplete).toBe(true);
   });
 });

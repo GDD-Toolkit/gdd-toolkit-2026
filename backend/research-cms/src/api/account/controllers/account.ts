@@ -6,14 +6,25 @@ const { ValidationError, NotFoundError } = errors;
 const USER_UID = "plugin::users-permissions.user";
 const ME_POPULATE = ["role", "avatar", "bookmarkedTools", "savedGrants"];
 
-/** Editable profile fields and their schema max lengths. */
+/** Editable text fields and their schema max lengths. */
 const PROFILE_FIELDS: Record<string, number> = {
   firstName: 100,
   lastName: 100,
   institution: 200,
   department: 200,
   bio: 1000,
+  occupation: 100,
+  country: 100,
 };
+
+/** Interest values mirror shared/types/Users.ts. */
+const INTERESTS = ["health", "environment", "social", "economic"];
+
+/** Language is an ISO 639-1 code; the full list lives in shared/types/Users.ts. */
+const LANGUAGE_CODE = /^[a-z]{2}$/;
+
+/** Text answers the onboarding prompt must collect before it can be marked complete. */
+const ONBOARDING_FIELDS = ["firstName", "lastName", "institution", "occupation", "country", "language"];
 
 const BOOKMARK_KINDS = {
   tools: { field: "bookmarkedTools", uid: "api::ai-tool.ai-tool" },
@@ -65,15 +76,18 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
   },
 
   async updateProfile(ctx) {
-    const body = (ctx.request.body ?? {}) as Record<string, unknown>;
+    const { interests, language, onboardingComplete, ...text } = (ctx.request.body ?? {}) as Record<
+      string,
+      unknown
+    >;
 
-    const unknown = Object.keys(body).filter((key) => !(key in PROFILE_FIELDS));
+    const unknown = Object.keys(text).filter((key) => !(key in PROFILE_FIELDS));
     if (unknown.length > 0) {
       throw new ValidationError(`Invalid parameters: ${unknown.join(", ")}`);
     }
 
-    const data: Record<string, string | null> = {};
-    for (const [key, value] of Object.entries(body)) {
+    const data: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(text)) {
       if (value === null || value === "") {
         data[key] = null;
         continue;
@@ -85,6 +99,36 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         throw new ValidationError(`${key} must be at most ${PROFILE_FIELDS[key]} characters`);
       }
       data[key] = value.trim();
+    }
+
+    if (interests !== undefined) {
+      if (!Array.isArray(interests) || interests.some((item) => !INTERESTS.includes(item))) {
+        throw new ValidationError(`interests must be an array of: ${INTERESTS.join(", ")}`);
+      }
+      data.interests = Array.from(new Set(interests));
+    }
+
+    if (language !== undefined) {
+      if (typeof language !== "string" || !LANGUAGE_CODE.test(language)) {
+        throw new ValidationError("language must be a two-letter ISO 639-1 code");
+      }
+      data.language = language;
+    }
+
+    // The client marks onboarding done; the server checks the answers are really there.
+    if (onboardingComplete !== undefined) {
+      if (onboardingComplete !== true) {
+        throw new ValidationError("onboardingComplete can only be set to true");
+      }
+      const merged = { ...ctx.state.user, ...data };
+      const missing = ONBOARDING_FIELDS.filter((field) => !merged[field]);
+      if (!Array.isArray(merged.interests) || merged.interests.length === 0) {
+        missing.push("interests");
+      }
+      if (missing.length > 0) {
+        throw new ValidationError(`Answer these before finishing onboarding: ${missing.join(", ")}`);
+      }
+      data.onboardingComplete = true;
     }
 
     await userService(strapi).edit(ctx.state.user.id, data);

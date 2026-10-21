@@ -1,13 +1,36 @@
 import { Badge } from "@/components/ui/badge";
 import { BookmarkButton } from "@/components/auth/BookmarkButton";
+import { EditProfileDialog } from "@/components/auth/EditProfileDialog";
 import { useAuth } from "@/hooks/useAuth";
 import { displayNameOf } from "@/types/auth";
+import { INTEREST_OPTIONS, languages } from "@/types/onboarding";
 
 function Field({ label, value }: { label: string; value?: string | null }) {
   return (
     <div>
       <dt className="text-xs uppercase tracking-wide text-muted-foreground">{label}</dt>
       <dd className="mt-0.5 text-sm">{value?.trim() ? value : <span className="text-muted-foreground">Not set</span>}</dd>
+    </div>
+  );
+}
+
+/** Interests as badges, keeping the display order from the onboarding form. */
+function Interests({ values }: { values?: string[] | null }) {
+  const chosen = INTEREST_OPTIONS.filter(({ value }) => values?.includes(value));
+  return (
+    <div className="sm:col-span-2">
+      <dt className="text-xs uppercase tracking-wide text-muted-foreground">Areas of interest</dt>
+      <dd className="mt-1 flex flex-wrap gap-1.5">
+        {chosen.length === 0 ? (
+          <span className="text-sm text-muted-foreground">Not set</span>
+        ) : (
+          chosen.map(({ value, label }) => (
+            <Badge key={value} variant="outline">
+              {label}
+            </Badge>
+          ))
+        )}
+      </dd>
     </div>
   );
 }
@@ -19,6 +42,7 @@ export default function AccountPage() {
 
   const tools = user.bookmarkedTools ?? [];
   const grants = user.savedGrants ?? [];
+  const languageLabel = languages.find(({ code }) => code === user.language)?.label ?? user.language;
 
   return (
     <div className="mx-auto max-w-3xl space-y-10 px-4 py-12">
@@ -31,11 +55,18 @@ export default function AccountPage() {
       </header>
 
       <section aria-labelledby="profile-heading" className="rounded-xl border border-border p-6">
-        <h2 id="profile-heading" className="text-lg font-medium">
-          Profile
-        </h2>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 id="profile-heading" className="text-lg font-medium">
+            Profile
+          </h2>
+          <EditProfileDialog user={user} />
+        </div>
         <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Field label="Institution" value={user.institution} />
+          <Field label="Occupation" value={user.occupation} />
+          <Field label="Organization" value={user.institution} />
+          <Field label="Country" value={user.country} />
+          <Field label="Preferred language" value={languageLabel} />
+          <Interests values={user.interests} />
           <Field label="Department" value={user.department} />
           <Field label="Email status" value={user.confirmed ? "Confirmed" : "Not confirmed"} />
           <Field label="Sign-in method" value={user.provider === "local" ? "Email & password" : user.provider} />
