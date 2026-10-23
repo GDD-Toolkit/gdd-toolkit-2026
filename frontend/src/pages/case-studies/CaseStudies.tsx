@@ -11,9 +11,11 @@ import CaseStudyModal from "@/components/case-studies/CaseStudyModal";
 import { fetchWorthwhile, fetchMaldevelopment } from "@/api/caseStudies";
 import type { CaseStudy } from "@/types/caseStudies";
 import "./CaseStudies.css";
-import { easeOut, motion } from "framer-motion";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Button } from "@/components/ui/button";
+
+const CASE_STUDIES_PER_PAGE = 8;
+
 // Extended CaseStudy type with segment label
 type CaseStudyWithSegment = CaseStudy & {
   segment: "worthwhile" | "maldevelopment";
@@ -32,6 +34,7 @@ export default function CaseStudies() {
   
     const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(CASE_STUDIES_PER_PAGE);
 
   // Fetch all case studies (both worthwhile and maldevelopment)
   useEffect(() => {
@@ -72,17 +75,26 @@ export default function CaseStudies() {
       }
     }
 
-    const anyFilterActive =
-      selectedValues.length || selectedRegions.length || selectedSdgs.length;
+    const matchesValues =
+    selectedValues.length === 0 ||
+    selectedValues.some(v => study.values?.includes(v));
 
-    if (!anyFilterActive) return true;
+    const matchesRegions =
+    selectedRegions.length === 0 ||
+    selectedRegions.some(r => study.regions?.includes(r));
 
-    return (
-      study.values?.some(v => selectedValues.includes(v)) ||
-      study.regions?.some(r => selectedRegions.includes(r)) ||
-      study.sdgs?.some(s => selectedSdgs.includes(s))
-    );
+    const matchesSdgs =
+    selectedSdgs.length === 0 ||
+    selectedSdgs.some(s => study.sdgs?.includes(s));
+
+    return matchesValues && matchesRegions && matchesSdgs;
   });
+
+  useEffect(() => {
+    setVisibleCount(CASE_STUDIES_PER_PAGE);
+  }, [searchQuery, selectedValues, selectedRegions, selectedSdgs]);
+
+  const visibleCaseStudies = filteredCaseStudies.slice(0, visibleCount);
   
   const allValues = Array.from(
     new Set(allCaseStudies.flatMap(cs => cs.values ?? []))
@@ -154,8 +166,16 @@ export default function CaseStudies() {
 
     return (
     <div className="flex flex-col gap-5 md:w-2/3 lg:w-2/3">
-      <span className="mx-auto text-gray-500 size-xs">Showing {filteredCaseStudies.length} of {allCaseStudies.length} case studies</span>
-      <CaseStudiesGrid caseStudies={filteredCaseStudies} searchQuery={searchQuery} />
+      <span className="mx-auto text-gray-500 size-xs">Showing {visibleCaseStudies.length} of {filteredCaseStudies.length} case studies</span>
+      <CaseStudiesGrid caseStudies={visibleCaseStudies} searchQuery={searchQuery} />
+      {visibleCount < filteredCaseStudies.length && (
+        <Button
+          className="self-center"
+          onClick={() => setVisibleCount(count => count + CASE_STUDIES_PER_PAGE)}
+        >
+          Load more
+        </Button>
+      )}
     </div>
     );
   };
@@ -193,7 +213,7 @@ export default function CaseStudies() {
             </section>
         
       {/* Main Content */}
-      <main className="max-w-full mx-auto p-10 flex flex-col md:flex-row lg:flex-row gap-6 md:gap-10 lg:gap-10">
+      <main className="max-w-1024 mx-auto p-10 flex flex-col md:flex-row lg:flex-row gap-6 md:gap-10 lg:gap-10">
         {/* Search */}
         <div className="flex flex-col gap-5 border border-[#AACDBB] bg-[#E1EDDD] p-5 z-10 md:sticky lg:sticky top-25 md:w-1/3 lg:w-1/3 h-fit rounded-lg">
           <h2 className="text-xl">Filter Case Studies</h2>
