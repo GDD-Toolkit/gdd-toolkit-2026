@@ -22,6 +22,26 @@ const SITE_ROLES = [
   },
 ];
 
+/**
+ * Public content collections. Anonymous visitors (the Public role) may list
+ * and read them; the frontend fetches them without an API token.
+ */
+const PUBLIC_CONTENT_TYPES = [
+  "ai-tool",
+  "cohert",
+  "funding-resource",
+  "geopolitical-analysis",
+  "podcast",
+  "project-planning",
+  "team",
+  "worthwhile-development",
+];
+
+const PUBLIC_READ_ACTIONS = PUBLIC_CONTENT_TYPES.flatMap((name) => [
+  `api::${name}.${name}.find`,
+  `api::${name}.${name}.findOne`,
+]);
+
 /** Content API actions every signed-in site role needs. */
 const SITE_ROLE_ACTIONS = [
   "plugin::users-permissions.user.me",
@@ -31,18 +51,29 @@ const SITE_ROLE_ACTIONS = [
   "api::account.account.addBookmark",
   "api::account.account.removeBookmark",
   // Signed-in requests are checked against the user's role, not Public, so
-  // bookmark targets must stay readable once a JWT is attached.
-  "api::ai-tool.ai-tool.find",
-  "api::ai-tool.ai-tool.findOne",
-  "api::funding-resource.funding-resource.find",
-  "api::funding-resource.funding-resource.findOne",
+  // public content must stay readable once a JWT is attached.
+  ...PUBLIC_READ_ACTIONS,
 ];
 
 const USERS_PERMISSIONS_STORE = { type: "plugin", name: "users-permissions" } as const;
 
+/** Grants any of `actions` the role does not have yet. Existing grants are left alone. */
+async function grantActions(strapi: Core.Strapi, roleId: number, actions: string[]) {
+  const permissions = strapi.db.query("plugin::users-permissions.permission");
+  const existing = await permissions.findMany({
+    where: { role: { id: roleId }, action: { $in: actions } },
+  });
+  const granted = new Set(existing.map((permission) => permission.action));
+
+  for (const action of actions) {
+    if (!granted.has(action)) {
+      await permissions.create({ data: { action, role: roleId } });
+    }
+  }
+}
+
 async function ensureSiteRoles(strapi: Core.Strapi) {
   const roles = strapi.db.query("plugin::users-permissions.role");
-  const permissions = strapi.db.query("plugin::users-permissions.permission");
 
   for (const definition of SITE_ROLES) {
     let role = await roles.findOne({ where: { type: definition.type } });
@@ -51,17 +82,17 @@ async function ensureSiteRoles(strapi: Core.Strapi) {
       strapi.log.info(`[auth] Created site role "${definition.name}"`);
     }
 
-    const existing = await permissions.findMany({
-      where: { role: { id: role.id }, action: { $in: SITE_ROLE_ACTIONS } },
-    });
-    const granted = new Set(existing.map((permission) => permission.action));
-
-    for (const action of SITE_ROLE_ACTIONS) {
-      if (!granted.has(action)) {
-        await permissions.create({ data: { action, role: role.id } });
-      }
-    }
+    await grantActions(strapi, role.id, SITE_ROLE_ACTIONS);
   }
+}
+
+/** The Public role is created by the users-permissions plugin; make sure it can read public content. */
+async function ensurePublicReadPermissions(strapi: Core.Strapi) {
+  const roles = strapi.db.query("plugin::users-permissions.role");
+  const role = await roles.findOne({ where: { type: "public" } });
+  if (!role) return;
+
+  await grantActions(strapi, role.id, PUBLIC_READ_ACTIONS);
 }
 
 async function ensureAdvancedSettings(strapi: Core.Strapi) {
@@ -123,6 +154,7 @@ export default {
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
     await ensureSiteRoles(strapi);
+    await ensurePublicReadPermissions(strapi);
     await ensureAdvancedSettings(strapi);
     await configureGoogleProvider(strapi);
   },
