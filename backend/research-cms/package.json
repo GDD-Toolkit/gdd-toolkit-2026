@@ -19,8 +19,8 @@
     "seed:export": "strapi export -f ./data/seed_data.tar.gz --no-encrypt --exclude files"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.38.0",
-    "@strapi/plugin-users-permissions": "5.38.0",
+    "@strapi/plugin-cloud": "5.58.0",
+    "@strapi/plugin-users-permissions": "5.58.0",
     "@strapi/provider-email-nodemailer": "^5.38.0",
     "@strapi/provider-upload-aws-s3": "^5.41.1",
     "@strapi/strapi": "5.58.0",
