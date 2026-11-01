@@ -68,7 +68,7 @@ export async function getPodcasts() {
 
   // If the env already ends with /api, do not add /api again.
   const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
-  const url = `${apiBase}/${pluralApiId}`;
+  const url = `${apiBase}/${pluralApiId}?populate=*`;
 
   const response = await fetch(url, {
     method: "GET",

@@ -7,20 +7,11 @@ type Episode = {
   id: number;
   title: string;
   description: string;
-  date: string;
-  url: string;
+  podcast_audio?: { id: number; url: string }[];
 };
 
 // Replace these records with Strapi data when the endpoint is connected.
-const episodes: Episode[] = [
-  {
-    id: 1,
-    title: "The Development Lens · Episode 1",
-    description: "Listen to the first episode of The Development Lens, a podcast from FIRE Global Development & Design.",
-    date: "2025-12-08",
-    url: "/assets/The_Development_Lens_EP1.mp3",
-  },
-];
+
 const artwork = "/assets/images/developmentlens.png";
 
 function formatTime(seconds: number) {
@@ -37,6 +28,8 @@ export default function Podcast() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [lengths, setLengths] = useState<Record<number, number>>({});
+
+  const [podcasts, setPodcasts] = useState<Episode[]>([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
