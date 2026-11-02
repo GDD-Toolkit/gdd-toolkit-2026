@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_shared_evaluations",
+  "info": {
+    "displayName": "evaluations"
+  },
+  "options": {},
+  "attributes": {
+    "grade": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "F"
+      ]
+    },
+    "values": {
+      "type": "component",
+      "component": "shared.values-of-worthwhiledevelopment",
+      "repeatable": false,
+      "required": true
+    }
+  },
+  "config": {}
+}

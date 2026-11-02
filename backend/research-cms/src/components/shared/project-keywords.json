@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_project_keywords",
+  "info": {
+    "displayName": "project_keywords"
+  },
+  "options": {},
+  "attributes": {
+    "keywords": {
+      "type": "enumeration",
+      "enum": [
+        "User-centric",
+        "Short-term",
+        "Long-term",
+        "Efficiency/Short-term",
+        "Process Mapping",
+        "Decision Making",
+        "Six Sigma",
+        "Quality Managment"
+      ]
+    }
+  },
+  "config": {}
+}
