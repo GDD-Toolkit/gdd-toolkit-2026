@@ -14,6 +14,10 @@ interface CaseStudyCardProps {
   caseStudy: CaseStudy & { segment?: "worthwhile" | "maldevelopment" };
 }
 
+/*
+TODO: Map SDG names to an array. Right now it displays the number
+*/
+
 /**
  * Renders a placeholder image when image is missing or fails to load
  */
