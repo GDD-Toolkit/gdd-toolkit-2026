@@ -1,3 +1,6 @@
+docs/
+.lavish/
+
 # Logs
 logs
 *.log
@@ -32,31 +35,8 @@ database_tables.txt
 *.sw?
 .env
 
-#amplify-do-not-edit-begin
-amplify/\#current-cloud-backend
-amplify/.config/local-*
-amplify/logs
-amplify/mock-data
-amplify/mock-api-resources
-amplify/backend/amplify-meta.json
-amplify/backend/.temp
 build/
-dist/
-node_modules/
-aws-exports.js
-awsconfiguration.json
-amplifyconfiguration.json
-amplifyconfiguration.dart
-amplify-build-config.json
-amplify-gradle-config.json
-amplifytools.xcconfig
-.secret-*
-**.sample
-#amplify-do-not-edit-end
 
 # build/tool caches and stray binaries
 .vite/
 *.pkg
-
-# Amplify env metadata (account ID, role ARNs, stack IDs) - regenerate locally with `amplify pull`
-amplify/team-provider-info.json
