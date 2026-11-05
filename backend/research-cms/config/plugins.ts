@@ -15,13 +15,16 @@ const config = ({
           region: env("AWS_REGION"),
           params: {
             Bucket: env("AWS_BUCKET"),
-            signedUrlExpires: env.int("AWS_SIGNED_URL_EXPIRES", 15 * 60),
+            // Tell Strapi to return signed URLs for private media.
+            ACL: "private",
+            signedUrlExpires: env.int("AWS_SIGNED_URL_EXPIRES", 60 * 60),
           },
         },
       },
       actionOptions: {
-        upload: {},
-        uploadStream: {},
+        // Omit ACL headers on writes to support Bucket owner enforced S3 buckets.
+        upload: { ACL: undefined },
+        uploadStream: { ACL: undefined },
         delete: {},
       },
     },
@@ -30,8 +33,6 @@ const config = ({
   email: {
     config: {
       provider: "nodemailer",
-      // Defaults target Gmail. For local development point SMTP_HOST/SMTP_PORT
-      // at a mail catcher such as Mailpit (localhost:1025), which needs no auth.
       providerOptions: {
         host: env("SMTP_HOST") || "smtp.gmail.com",
         port: env.int("SMTP_PORT") || 587,
@@ -49,9 +50,6 @@ const config = ({
 
   "users-permissions": {
     config: {
-      // Extra sign-up fields the register endpoint may accept. Anything else
-      // in the body is rejected by Strapi with "Invalid parameters".
-      // Role is never accepted: new users always get the default role (Student).
       register: {
         allowedFields: ["firstName", "lastName", "institution", "department"],
       },

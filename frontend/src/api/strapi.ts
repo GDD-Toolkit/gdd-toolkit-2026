@@ -62,7 +62,16 @@ export async function getCohorts() {
 
 
 
-export async function getPodcasts() {
+export type StrapiPodcast = {
+  id: number;
+  title: string;
+  description: string;
+  release_date?: string | null;
+  createdAt: string;
+  podcast_audio?: { id: number; url: string }[] | null;
+};
+
+export async function getPodcasts(): Promise<StrapiPodcast[]> {
   const baseUrl = getStrapiBaseUrl();
   const pluralApiId = "podcasts";
 

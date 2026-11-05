@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Clock3, Headphones, Pause, Play, X } from "lucide-react";
 import { Button } from "../../components/ui/button";
+import { getPodcasts } from "../../api/strapi";
 import "./Podcast.css";
 
 type Episode = {
   id: number;
   title: string;
   description: string;
-  podcast_audio?: { id: number; url: string }[];
+  url: string;
+  date: string;
 };
-
-// Replace these records with Strapi data when the endpoint is connected.
 
 const artwork = "/assets/images/developmentlens.png";
 
@@ -29,11 +29,47 @@ export default function Podcast() {
   const [duration, setDuration] = useState(0);
   const [lengths, setLengths] = useState<Record<number, number>>({});
 
-  const [podcasts, setPodcasts] = useState<Episode[]>([]);
+  const [episodes, setEpisodes] = useState<Episode[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const probes = episodes.map(episode => {
+    let cancelled = false;
+
+    async function loadPodcasts() {
+      try {
+        const podcasts = await getPodcasts();
+        const mediaBase = `${import.meta.env.VITE_STRAPI_URL.replace(/\/(api\/?)?$/, "")}/`;
+        const loadedEpisodes = podcasts.map(podcast => {
+          const audioUrl = podcast.podcast_audio?.[0]?.url;
+          return {
+            id: podcast.id,
+            title: podcast.title,
+            description: podcast.description,
+            date: podcast.release_date || podcast.createdAt,
+            url: audioUrl ? new URL(audioUrl, mediaBase).href : "",
+          };
+        });
+        loadedEpisodes.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        if (!cancelled) setEpisodes(loadedEpisodes);
+      } catch {
+        if (!cancelled) setFetchError("Unable to load podcasts. Please try again later.");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    void loadPodcasts();
+    return () => { cancelled = true; };
+  }, []);
+
+  useEffect(() => {
+    console.log(episodes);
+  }, [episodes])
+
+  useEffect(() => {
+    const probes = episodes.filter(episode => episode.url).map(episode => {
       const audio = new Audio();
       audio.preload = "metadata";
       audio.onloadedmetadata = () => {
@@ -51,11 +87,11 @@ export default function Podcast() {
         audio.load();
       });
     };
-  }, []);
+  }, [episodes]);
 
   async function playEpisode(episode: Episode) {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || !episode.url) return;
     const request = ++requestRef.current;
     setError("");
     if (activeEpisode?.id !== episode.id) {
@@ -105,6 +141,9 @@ export default function Podcast() {
     setError("");
   }
 
+  const latestEpisode = episodes[0];
+  const latestIsPlaying = activeEpisode?.id === latestEpisode?.id && playing;
+
   return (
     <div className={`podcast-page${activeEpisode ? " podcast-page--with-player" : ""}`}>
       <div className="podcast-shell">
@@ -117,8 +156,8 @@ export default function Podcast() {
             <p className="podcast-deck">Thoughtful conversations. More ethical development.</p>
             <p>Explore how ethical, sustainable, and human-centered choices shape real-world projects. Join our student team, faculty mentor, and community partners as we unpack case studies, share research stories, and put the Development Ethics Toolkit into practice.</p>
             <p>From Africa to the Philippines, we reflect on what works, what challenges us, and how to design projects that center the people they serve.</p>
-            <Button className="podcast-primary" onClick={() => toggleEpisode(episodes[0])}>
-              {playing ? <Pause size={17} /> : <Play size={17} />} {playing ? "Pause episode" : "Listen to the latest episode"}
+            <Button className="podcast-primary" disabled={!latestEpisode?.url} onClick={() => { if (latestEpisode) toggleEpisode(latestEpisode); }}>
+              {latestIsPlaying ? <Pause size={17} /> : <Play size={17} />} {latestIsPlaying ? "Pause episode" : "Listen to the latest episode"}
             </Button>
           </div>
         </section>
@@ -129,6 +168,9 @@ export default function Podcast() {
             <span className="podcast-count">{episodes.length} {episodes.length === 1 ? "episode" : "episodes"}</span>
           </div>
           <div className="podcast-episode-list">
+            {loading && <p role="status">Loading podcasts...</p>}
+            {fetchError && <p role="alert">{fetchError}</p>}
+            {!loading && !fetchError && episodes.length === 0 && <p>No podcasts available yet.</p>}
             {episodes.map(episode => {
               const isPlaying = activeEpisode?.id === episode.id && playing;
               return (
@@ -136,14 +178,14 @@ export default function Podcast() {
                   <span className="podcast-episode-number">{String(episode.id).padStart(2, "0")}</span>
                   <div className="podcast-episode-body">
                     <div className="podcast-episode-meta">
-                      <time dateTime={episode.date}>Uploaded {new Date(`${episode.date}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</time>
+                      <time dateTime={episode.date}>Released {new Date(episode.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</time>
                       <span><Clock3 size={14} />{lengths[episode.id] ? formatTime(lengths[episode.id]) : "Length unavailable"}</span>
                     </div>
                     <h3>{episode.title}</h3>
                     <p>{episode.description}</p>
                   </div>
-                  <Button variant="outline" className="podcast-episode-play" onClick={() => toggleEpisode(episode)} aria-label={`${isPlaying ? "Pause" : "Play"} ${episode.title}`}>
-                    {isPlaying ? <Pause size={18} /> : <Play size={18} />}<span>{isPlaying ? "Pause" : "Play episode"}</span>
+                  <Button variant="outline" className="podcast-episode-play" disabled={!episode.url} onClick={() => toggleEpisode(episode)} aria-label={episode.url ? `${isPlaying ? "Pause" : "Play"} ${episode.title}` : `Audio unavailable for ${episode.title}`}>
+                    {isPlaying ? <Pause size={18} /> : <Play size={18} />}<span>{!episode.url ? "Audio unavailable" : isPlaying ? "Pause" : "Play episode"}</span>
                   </Button>
                 </article>
               );
