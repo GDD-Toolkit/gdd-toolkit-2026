@@ -48,24 +48,20 @@ export interface SharedEthicalConsideration extends Struct.ComponentSchema {
     evidence_of_impact_score: Schema.Attribute.Integer &
       Schema.Attribute.Required;
     integration_description: Schema.Attribute.Text;
-    Integration_score: Schema.Attribute.Integer & Schema.Attribute.Required;
     localization_accessibility_description: Schema.Attribute.Text;
     localization_accessibility_score: Schema.Attribute.Integer &
       Schema.Attribute.Required;
     low_tech_compatbability_description: Schema.Attribute.Text;
     low_tech_compativility_score: Schema.Attribute.Integer &
       Schema.Attribute.Required;
-    offline_capabilities_score: Schema.Attribute.Integer &
-      Schema.Attribute.Required;
     offline_capabilties_description: Schema.Attribute.Text;
     privacy_data_ethics_description: Schema.Attribute.Text;
     privacy_data_ethics_score: Schema.Attribute.Integer &
       Schema.Attribute.Required;
-    purpose_score: Schema.Attribute.Integer & Schema.Attribute.Required;
     sustainability_description: Schema.Attribute.Text;
-    sustainabilty_score: Schema.Attribute.Integer & Schema.Attribute.Required;
     transparency_description: Schema.Attribute.Text;
     transparency_score: Schema.Attribute.Integer & Schema.Attribute.Required;
+    viability: Schema.Attribute.Integer & Schema.Attribute.Required;
   };
 }
 
@@ -169,6 +165,7 @@ export interface SharedSdgSubvalue extends Struct.ComponentSchema {
   };
   attributes: {
     sdg_subvalue: Schema.Attribute.Integer;
+    sub_value_letter: Schema.Attribute.String;
   };
 }
 
@@ -215,7 +212,7 @@ export interface SharedValuesOfWorthwhiledevelopment
 }
 
 declare module '@strapi/strapi' {
-  export module Public {
+  export namespace Public {
     export interface ComponentSchemas {
       'shared.author': SharedAuthor;
       'shared.descriptions': SharedDescriptions;

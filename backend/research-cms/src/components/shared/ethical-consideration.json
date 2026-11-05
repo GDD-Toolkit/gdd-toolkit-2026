@@ -5,19 +5,7 @@
   },
   "options": {},
   "attributes": {
-    "purpose_score": {
-      "type": "integer",
-      "required": true
-    },
-    "Integration_score": {
-      "type": "integer",
-      "required": true
-    },
-    "offline_capabilities_score": {
-      "type": "integer",
-      "required": true
-    },
-    "sustainabilty_score": {
+    "viability": {
       "type": "integer",
       "required": true
     },
