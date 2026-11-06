@@ -1,8 +1,29 @@
 import "./ToolModal.css";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../../components/ui/dialog";
 
-import type { Bullet, ProjectPlanningTool } from "../../types/projectPlanningTool";
-export type { ProjectPlanningTool } from "../../types/projectPlanningTool";
+export type Bullet = {
+    text: string;
+    image?: string;
+    sub_bullets: Bullet[];
+};
+
+export type ProjectPlanningTool = {
+    name: string;
+    type: string[];
+    time: string[];
+    image: string;
+    learning_obj: Bullet[];
+    characteristics: Bullet[];
+    process: Bullet[];
+    benefits: Bullet[];
+    drawbacks: Bullet[];
+    example: Bullet[];
+    resources: Bullet[];
+    use_case_video?: string;
+    slideshow?: string;
+    evaluation: Bullet[];
+};
+
 
 export default function ToolModal({
     tool,

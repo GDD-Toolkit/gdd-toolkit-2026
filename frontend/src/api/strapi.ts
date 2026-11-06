@@ -1,4 +1,4 @@
-import type { ProjectPlanningTool } from "../types/projectPlanningTool";
+import type { ProjectPlanningTool } from "../pages/project-planning/ToolModal";
 import { parsePlanningTool } from "./planningToolValidation";
 
 export async function getProjectPlanningTools(signal?: AbortSignal): Promise<ProjectPlanningTool[]> {

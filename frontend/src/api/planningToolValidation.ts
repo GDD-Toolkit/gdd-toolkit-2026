@@ -1,4 +1,4 @@
-import type { Bullet, ProjectPlanningTool } from "../types/projectPlanningTool";
+import type { Bullet, ProjectPlanningTool } from "../pages/project-planning/ToolModal";
 
 const sections = ["learning_obj", "characteristics", "process", "benefits", "drawbacks", "example", "resources", "evaluation"] as const;
 const record = (value: unknown): value is Record<string, unknown> => typeof value === "object" && value !== null;
