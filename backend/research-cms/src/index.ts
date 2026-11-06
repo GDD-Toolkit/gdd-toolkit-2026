@@ -153,6 +153,14 @@ export default {
   register() {},
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    // Log only non-secret upload settings to diagnose unsigned media URLs.
+    strapi.log.info(`[uploads] ${JSON.stringify({
+      provider: strapi.config.get("plugin::upload.provider"),
+      acl: strapi.config.get("plugin::upload.providerOptions.s3Options.params.ACL"),
+      isPrivate: await strapi.plugin("upload").provider.isPrivate(),
+      bucket: strapi.config.get("plugin::upload.providerOptions.s3Options.params.Bucket"),
+    })}`);
+
     await ensureSiteRoles(strapi);
     await ensurePublicReadPermissions(strapi);
     await ensureAdvancedSettings(strapi);
