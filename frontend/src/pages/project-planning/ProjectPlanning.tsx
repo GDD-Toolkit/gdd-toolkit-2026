@@ -63,23 +63,20 @@ const planningBenefits = [
 ];
 
 const ProjectPlanning: React.FC = () => {
-    const [projects, setProjects] = useState([])
-
-    useEffect(() => {
-        try {
-            const fetchProjects = async () => {
-                const projectsData = await getProjects()
-                setProjects(projectsData)
-            }
-            fetchProjects()
-        } catch (e) {
-            console.log(e)
-        }
-
-    }, [])
-    console.log(projects)
-    console.log("HERLJKHASs")
     const [step, setStep] = useState(1);
+    const [projects, setProjects] = useState<any[]>([]);
+    useEffect(() => {
+        let active = true;
+        getProjects()
+            .then((projects) => {
+                if (active) setProjects(projects);
+            })
+            .catch((error: unknown) => {
+                if (active) console.error("Could not load Strapi projects:", error);
+            });
+        return () => { active = false; };
+    }, []);
+    console.log("projects", projects);
     const [evaluationPhase, setEvaluationPhase] = useState<EvaluationPhase>("design");
     const [evaluationAnswers, setEvaluationAnswers] = useState<EvaluationAnswers>({});
     const [evaluationWeights, setEvaluationWeights] = useState<EvaluationWeights>({ design: "1", implementation: "1", outcomes: "1" });
