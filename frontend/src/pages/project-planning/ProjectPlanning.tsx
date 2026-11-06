@@ -1,23 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, easeOut } from "framer-motion";
 import "./ProjectPlanning.css";
-import { getProjects } from "@/api/strapi";
-import agileData from "./tools_data/agile.json";
-import dmaicData from "./tools_data/dmaic.json";
-import leanData from "./tools_data/lean.json";
-import waterfallData from "./tools_data/waterfall.json";
-import criticalchainData from "./tools_data/criticalchain.json";
-import journeymappingData from "./tools_data/journeymapping.json";
-import personaData from "./tools_data/persona.json";
-import sipocData from "./tools_data/sipoc.json";
-import garvin8Data from "./tools_data/garvin8.json";
-import dmadvData from "./tools_data/dmadv.json";
-import dmediData from "./tools_data/dmedi.json";
-import strategycanvasData from "./tools_data/strategycanvas.json";
-import gapanalysisData from "./tools_data/gapanalysis.json";
-import pughchartData from "./tools_data/pughchart.json";
-import montecarloData from "./tools_data/montecarlo.json";
-import forceanalysisData from "./tools_data/forceanalysis.json";
+import { getProjectPlanningTools } from "@/api/strapi";
 import type { ProjectPlanningTool } from "./ToolModal";
 
 import ToolModal from "./ToolModal";
@@ -63,22 +47,22 @@ const planningBenefits = [
 ];
 
 const ProjectPlanning: React.FC = () => {
-    const [projects, setProjects] = useState([])
-
+    const [tools, setTools] = useState<ProjectPlanningTool[]>([]);
+    const [loadingTools, setLoadingTools] = useState(true);
+    const [toolsError, setToolsError] = useState<string | null>(null);
+    const [loadAttempt, setLoadAttempt] = useState(0);
     useEffect(() => {
-        try {
-            const fetchProjects = async () => {
-                const projectsData = await getProjects()
-                setProjects(projectsData)
-            }
-            fetchProjects()
-        } catch (e) {
-            console.log(e)
-        }
-
-    }, [])
-    console.log(projects)
-    console.log("HERLJKHASs")
+        const controller = new AbortController();
+        setLoadingTools(true);
+        setToolsError(null);
+        getProjectPlanningTools(controller.signal)
+            .then((data) => { if (!controller.signal.aborted) setTools(data); })
+            .catch(() => {
+                if (!controller.signal.aborted) setToolsError("We couldn’t load the planning tools. Please try again.");
+            })
+            .finally(() => { if (!controller.signal.aborted) setLoadingTools(false); });
+        return () => controller.abort();
+    }, [loadAttempt]);
     const [step, setStep] = useState(1);
     const [evaluationPhase, setEvaluationPhase] = useState<EvaluationPhase>("design");
     const [evaluationAnswers, setEvaluationAnswers] = useState<EvaluationAnswers>({});
@@ -126,7 +110,6 @@ const ProjectPlanning: React.FC = () => {
 
     const simulationRef = useRef<HTMLHeadingElement>(null);
 
-    const tools: ProjectPlanningTool[] = [agileData, dmaicData, leanData, waterfallData, criticalchainData, journeymappingData, personaData, sipocData, garvin8Data, dmadvData, dmediData, strategycanvasData, gapanalysisData, pughchartData, montecarloData, forceanalysisData];
 
     // === Search State ===
     const [search, setSearch] = useState("");
@@ -386,9 +369,11 @@ const ProjectPlanning: React.FC = () => {
                         role="region"
                         aria-label="Available planning tools"
                     >
+                        {loadingTools && <p role="status">Loading planning tools…</p>}
+                        {toolsError && <div role="alert"><p>{toolsError}</p><Button type="button" onClick={() => setLoadAttempt((value) => value + 1)}>Try again</Button></div>}
                         <div id="planning-tools-grid" className="tools-grid" ref={setToolsGrid}>
-                            {filteredTools.length === 0 && (
-                                <p className="planning-tools-empty" role="status">No tools match your search.</p>
+                            {!loadingTools && !toolsError && filteredTools.length === 0 && (
+                                <p className="planning-tools-empty" role="status">{tools.length ? "No tools match your search." : "No planning tools are available yet."}</p>
                             )}
                             {visibleTools.map((tool) => (
                                 <HoverCard key={tool.name} openDelay={150} closeDelay={150}>
