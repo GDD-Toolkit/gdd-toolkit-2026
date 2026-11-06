@@ -74,9 +74,9 @@ export async function getPodcasts() {
     method: "GET",
     headers: buildStrapiHeaders(),
   });
-  
 
-  if(!response.ok) {
+
+  if (!response.ok) {
     const body = await response.text().catch(() => "");
     const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
 
@@ -138,6 +138,36 @@ export async function getMaldevelopment() {
 
     throw new Error(
       `Failed to fetch Maldevelopment.
+URL: ${url}
+Status: ${response.status} ${response.statusText}
+Body: ${snippet}`
+    );
+  }
+
+  const json = await response.json();
+  return Array.isArray(json.data) ? json.data : [];
+}
+
+export async function getProjects() {
+  const baseUrl = getStrapiBaseUrl();
+  const pluralApiId = "project-plannings";
+
+  // If the env already ends with /api, do not add /api again.
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+  const url = `${apiBase}/${pluralApiId}?populate=*`;
+
+  // Send a GET request to Strapi with the token header if available.
+  const response = await fetch(url, {
+    method: "GET",
+    headers: buildStrapiHeaders(),
+  });
+
+  if (!response.ok) {
+    const body = await response.text().catch(() => "");
+    const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
+
+    throw new Error(
+      `Failed to fetch projects.
 URL: ${url}
 Status: ${response.status} ${response.statusText}
 Body: ${snippet}`
