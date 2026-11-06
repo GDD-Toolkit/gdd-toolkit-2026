@@ -1,0 +1,50 @@
+{
+  "collectionName": "components_shared_well_beings",
+  "info": {
+    "displayName": "well_being",
+    "icon": "emotionHappy"
+  },
+  "options": {},
+  "attributes": {
+    "population": {
+      "type": "integer"
+    },
+    "population_growth_rate": {
+      "type": "decimal"
+    },
+    "life_expectancy_male": {
+      "type": "decimal"
+    },
+    "life_expectancy_female": {
+      "type": "decimal"
+    },
+    "life_expectancy_total": {
+      "type": "decimal"
+    },
+    "density_doctors": {
+      "type": "decimal"
+    },
+    "density_nurses": {
+      "type": "decimal"
+    },
+    "homicide": {
+      "type": "decimal"
+    },
+    "kidnapping_rate": {
+      "type": "decimal"
+    },
+    "robbery_rate": {
+      "type": "decimal"
+    },
+    "serious_assault_rate": {
+      "type": "decimal"
+    },
+    "sexual_violence_rate": {
+      "type": "decimal"
+    },
+    "trafficking_of_persons": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}
