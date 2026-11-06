@@ -1,7 +1,9 @@
 // src/app/pages/project-planning/homepage.tsx
-
+import { getProjects } from "@/api/strapi";
 import React from "react";
 import { motion, easeOut } from "framer-motion";
+import { projectDevelopmentTypes } from "../ai-ethics-dashboard/data/toolFilters";
+import { useEffect, useState } from "react";
 
 type Tool = {
   name: string;
@@ -39,115 +41,115 @@ const bannerVariants = {
 
 // Single flat list in the same order as the reference image (left→right, top→bottom)
 const TOOLS: Tool[] = [
-  { 
-    name: "Agile", 
-    summary: "Short, iterative cycles with frequent feedback for adaptive delivery.", 
-    href: "#", 
+  {
+    name: "Agile",
+    summary: "Short, iterative cycles with frequent feedback for adaptive delivery.",
+    href: "#",
     icon: ICONS.bolt,
     image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=300&fit=crop"
   },
-  { 
-    name: "Critical Chain", 
-    summary: "Protect schedules with resource-buffer management under real-world constraints.", 
-    href: "#", 
+  {
+    name: "Critical Chain",
+    summary: "Protect schedules with resource-buffer management under real-world constraints.",
+    href: "#",
     icon: ICONS.clock,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"
   },
-  { 
-    name: "DMAIC", 
-    summary: "Define–Measure–Analyze–Improve–Control to optimize and stabilize processes.", 
-    href: "#", 
+  {
+    name: "DMAIC",
+    summary: "Define–Measure–Analyze–Improve–Control to optimize and stabilize processes.",
+    href: "#",
     icon: ICONS.Sigma,
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
   },
-  { 
-    name: "DMEDI", 
-    summary: "Define–Measure–Explore–Develop–Implement for designing solutions from first principles.", 
-    href: "#", 
+  {
+    name: "DMEDI",
+    summary: "Define–Measure–Explore–Develop–Implement for designing solutions from first principles.",
+    href: "#",
     icon: ICONS.flow,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"
   },
-  { 
-    name: "Force Field Analysis", 
-    summary: "Map drivers and restraints on change to choose effective levers and mitigations.", 
-    href: "#", 
+  {
+    name: "Force Field Analysis",
+    summary: "Map drivers and restraints on change to choose effective levers and mitigations.",
+    href: "#",
     icon: ICONS.compare,
     image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop"
   },
-  { 
-    name: "GAP Analysis", 
-    summary: "Compare current vs. target state to surface capability gaps and actionable steps.", 
-    href: "#", 
+  {
+    name: "GAP Analysis",
+    summary: "Compare current vs. target state to surface capability gaps and actionable steps.",
+    href: "#",
     icon: ICONS.chart,
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
   },
-  { 
-    name: "Garvin's 8", 
-    summary: "Quality dimensions overview—module summary and examples coming soon.", 
-    href: "#", 
+  {
+    name: "Garvin's 8",
+    summary: "Quality dimensions overview—module summary and examples coming soon.",
+    href: "#",
     icon: ICONS.chart,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"
   },
-  { 
-    name: "Journey Mapping", 
-    summary: "Visualize user steps, thoughts, and touchpoints to uncover needs and opportunities.", 
-    href: "#", 
+  {
+    name: "Journey Mapping",
+    summary: "Visualize user steps, thoughts, and touchpoints to uncover needs and opportunities.",
+    href: "#",
     icon: ICONS.map,
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop"
   },
-  { 
-    name: "Lean", 
-    summary: "Eliminate waste and improve flow with continuous improvement and pull systems.", 
-    href: "#", 
+  {
+    name: "Lean",
+    summary: "Eliminate waste and improve flow with continuous improvement and pull systems.",
+    href: "#",
     icon: ICONS.bars,
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop"
   },
-  { 
-    name: "Monte Carlo", 
-    summary: "Simulate uncertainty to estimate outcome ranges for cost, schedule, and risk.", 
-    href: "#", 
+  {
+    name: "Monte Carlo",
+    summary: "Simulate uncertainty to estimate outcome ranges for cost, schedule, and risk.",
+    href: "#",
     icon: ICONS.dice,
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
   },
-  { 
-    name: "Persona Approach", 
-    summary: "Create semi-fictional users/stakeholders to align decisions with real goals and constraints.", 
-    href: "#", 
+  {
+    name: "Persona Approach",
+    summary: "Create semi-fictional users/stakeholders to align decisions with real goals and constraints.",
+    href: "#",
     icon: ICONS.people,
     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop"
   },
-  { 
-    name: "PUGH Chart", 
-    summary: "Evaluate alternatives against weighted criteria to make transparent trade-offs.", 
-    href: "#", 
+  {
+    name: "PUGH Chart",
+    summary: "Evaluate alternatives against weighted criteria to make transparent trade-offs.",
+    href: "#",
     icon: ICONS.compare,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"
   },
-  { 
-    name: "SIPOC", 
-    summary: "Summarize Suppliers, Inputs, Process, Outputs, and Customers to frame the system.", 
-    href: "#", 
+  {
+    name: "SIPOC",
+    summary: "Summarize Suppliers, Inputs, Process, Outputs, and Customers to frame the system.",
+    href: "#",
     icon: ICONS.flow,
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop"
   },
-  { 
-    name: "Six Sigma", 
-    summary: "Reduce variation and defects using statistical control and disciplined improvement.", 
-    href: "#", 
+  {
+    name: "Six Sigma",
+    summary: "Reduce variation and defects using statistical control and disciplined improvement.",
+    href: "#",
     icon: ICONS.Sigma,
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
   },
-  { 
-    name: "Strategy Canvas", 
-    summary: "Plot value curves versus alternatives to reveal where to differentiate.", 
-    href: "#", 
+  {
+    name: "Strategy Canvas",
+    summary: "Plot value curves versus alternatives to reveal where to differentiate.",
+    href: "#",
     icon: ICONS.chart,
     image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop"
   },
-  { 
-    name: "Waterfall", 
-    summary: "Sequential, phase-gated delivery with clear stage exits and documentation.", 
-    href: "#", 
+  {
+    name: "Waterfall",
+    summary: "Sequential, phase-gated delivery with clear stage exits and documentation.",
+    href: "#",
     icon: ICONS.chart,
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
   },
@@ -176,7 +178,19 @@ const ToolTile: React.FC<{ tool: Tool }> = ({ tool }) => (
   </article>
 );
 
+
 const ProjectPlanningHomepage: React.FC = () => {
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const projectsData = await getProjects()
+      setProjects(projectsData)
+    }
+    fetchProjects()
+  }, [])
+  console.log(projects)
+  console.log("HERLJKHASs")
   return (
     <div className="w-full bg-white text-gray-900">
       {/* Header Section - matching worthwhile.tsx style */}
@@ -220,16 +234,16 @@ const ProjectPlanningHomepage: React.FC = () => {
 
       <main className="pb-20">
 
-      {/* UNIFIED GRID */}
-      <section aria-labelledby="tool-grid" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10">
-        <h2 id="tool-grid" className="sr-only">Tool Grid</h2>
+        {/* UNIFIED GRID */}
+        <section aria-labelledby="tool-grid" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10">
+          <h2 id="tool-grid" className="sr-only">Tool Grid</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {TOOLS.map((tool) => (
-            <ToolTile key={tool.name} tool={tool} />
-          ))}
-        </div>
-      </section>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {TOOLS.map((tool) => (
+              <ToolTile key={tool.name} tool={tool} />
+            ))}
+          </div>
+        </section>
       </main>
     </div>
   );

@@ -1,0 +1,19 @@
+# Keep the image free of local state, secrets and build output.
+node_modules
+dist
+build
+.cache
+.strapi
+.tmp
+*.tsbuildinfo
+.env
+.env.*
+*.pem
+*.log
+notes.txt
+license.txt
+docker-compose.yml
+Dockerfile
+.dockerignore
+README.md
+Makefile
