@@ -1,5 +1,14 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface SharedAgencyAndEmpowerment extends Struct.ComponentSchema {
+  collectionName: 'components_shared_agency_and_empowerments';
+  info: {
+    displayName: 'agency_and_empowerment';
+    icon: 'rocket';
+  };
+  attributes: {};
+}
+
 export interface SharedAuthor extends Struct.ComponentSchema {
   collectionName: 'components_shared_authors';
   info: {
@@ -21,6 +30,20 @@ export interface SharedDescriptions extends Struct.ComponentSchema {
     sub_image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     subsection: Schema.Attribute.String & Schema.Attribute.Required;
     subsection_text: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedEquality extends Struct.ComponentSchema {
+  collectionName: 'components_shared_equalities';
+  info: {
+    displayName: 'equality';
+    icon: 'thumbUp';
+  };
+  attributes: {
+    ethnic_diversity_rate: Schema.Attribute.Decimal;
+    female_literacy_rate: Schema.Attribute.Decimal;
+    gender_pay_gap: Schema.Attribute.Decimal;
+    most_common_ethnic_group: Schema.Attribute.String;
   };
 }
 
@@ -214,11 +237,36 @@ export interface SharedValuesOfWorthwhiledevelopment
   };
 }
 
+export interface SharedWellBeing extends Struct.ComponentSchema {
+  collectionName: 'components_shared_well_beings';
+  info: {
+    displayName: 'well_being';
+    icon: 'emotionHappy';
+  };
+  attributes: {
+    density_doctors: Schema.Attribute.Decimal;
+    density_nurses: Schema.Attribute.Decimal;
+    homicide: Schema.Attribute.Decimal;
+    kidnapping_rate: Schema.Attribute.Decimal;
+    life_expectancy_female: Schema.Attribute.Decimal;
+    life_expectancy_male: Schema.Attribute.Decimal;
+    life_expectancy_total: Schema.Attribute.Decimal;
+    population: Schema.Attribute.Integer;
+    population_growth_rate: Schema.Attribute.Decimal;
+    robbery_rate: Schema.Attribute.Decimal;
+    serious_assault_rate: Schema.Attribute.Decimal;
+    sexual_violence_rate: Schema.Attribute.Decimal;
+    trafficking_of_persons: Schema.Attribute.Integer;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'shared.agency-and-empowerment': SharedAgencyAndEmpowerment;
       'shared.author': SharedAuthor;
       'shared.descriptions': SharedDescriptions;
+      'shared.equality': SharedEquality;
       'shared.ethical-consideration': SharedEthicalConsideration;
       'shared.evaluations': SharedEvaluations;
       'shared.keyword-worthwhile-development': SharedKeywordWorthwhileDevelopment;
@@ -230,6 +278,7 @@ declare module '@strapi/strapi' {
       'shared.speakers': SharedSpeakers;
       'shared.teammates': SharedTeammates;
       'shared.values-of-worthwhiledevelopment': SharedValuesOfWorthwhiledevelopment;
+      'shared.well-being': SharedWellBeing;
     }
   }
 }

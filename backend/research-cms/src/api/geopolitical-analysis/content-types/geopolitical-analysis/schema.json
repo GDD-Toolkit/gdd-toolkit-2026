@@ -10,5 +10,24 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {}
+  "attributes": {
+    "country_name": {
+      "type": "string"
+    },
+    "well_being": {
+      "type": "component",
+      "component": "shared.well-being",
+      "repeatable": false
+    },
+    "equality": {
+      "type": "component",
+      "component": "shared.equality",
+      "repeatable": false
+    },
+    "agency_and_empowerment": {
+      "type": "component",
+      "component": "shared.agency-and-empowerment",
+      "repeatable": false
+    }
+  }
 }
