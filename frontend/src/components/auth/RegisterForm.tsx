@@ -14,8 +14,10 @@ function validate(values: RegisterPayload): FieldErrors {
   const errors: FieldErrors = {};
   if (!values.firstName.trim()) errors.firstName = "First name is required.";
   if (!values.lastName.trim()) errors.lastName = "Last name is required.";
-  if (!values.institution.trim()) errors.institution = "Institution is required.";
-  if (!EMAIL_PATTERN.test(values.email.trim())) errors.email = "Enter a valid email address.";
+  if (!values.institution.trim())
+    errors.institution = "Institution is required.";
+  if (!EMAIL_PATTERN.test(values.email.trim()))
+    errors.email = "Enter a valid email address.";
   if (values.password.length < MIN_PASSWORD_LENGTH) {
     errors.password = `Password must be at least ${MIN_PASSWORD_LENGTH} characters.`;
   }
@@ -32,6 +34,7 @@ const EMPTY: RegisterPayload = {
 
 export function RegisterForm() {
   const { register } = useAuth();
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [values, setValues] = useState<RegisterPayload>(EMPTY);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [error, setError] = useState<string | null>(null);
@@ -45,6 +48,10 @@ export function RegisterForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!termsAccepted) {
+      setError("You must agree to the Terms of Use and Privacy Policy.");
+      return;
+    }
     const errors = validate(values);
     setFieldErrors(errors);
     if (Object.keys(errors).length > 0) return;
@@ -55,7 +62,11 @@ export function RegisterForm() {
       const result = await register(values);
       if (result === "confirmation-required") setConfirmationSent(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Sign up failed. Please try again.");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Sign up failed. Please try again.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -66,8 +77,9 @@ export function RegisterForm() {
       <div role="status" className="space-y-2 text-sm">
         <p className="font-medium">Check your email</p>
         <p className="text-muted-foreground">
-          We sent a confirmation link to <span className="font-medium">{values.email}</span>.
-          Open it to activate your account, then sign in.
+          We sent a confirmation link to{" "}
+          <span className="font-medium">{values.email}</span>. Open it to
+          activate your account, then sign in.
         </p>
       </div>
     );
@@ -88,7 +100,9 @@ export function RegisterForm() {
         required
         {...props}
       />
-      {fieldErrors[name] && <p className="text-xs text-destructive">{fieldErrors[name]}</p>}
+      {fieldErrors[name] && (
+        <p className="text-xs text-destructive">{fieldErrors[name]}</p>
+      )}
     </div>
   );
 
@@ -103,10 +117,44 @@ export function RegisterForm() {
         autoComplete: "organization",
         placeholder: "e.g. University of Maryland",
       })}
-      {field("password", "Password", { type: "password", autoComplete: "new-password" })}
+      {field("password", "Password", {
+        type: "password",
+        autoComplete: "new-password",
+      })}
       <p className="text-xs text-muted-foreground">
-        New accounts start with the Student role. An administrator can upgrade you to Researcher.
+        New accounts start with the Student role. An administrator can upgrade
+        you to Researcher.
       </p>
+      <label className="flex items-start gap-2 text-sm">
+        <input
+          type="checkbox"
+          checked={termsAccepted}
+          onChange={(event) => setTermsAccepted(event.target.checked)}
+          className="mt-1"
+          required
+        />
+        <span>
+          I agree to the{" "}
+          <a
+            href="/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-primary"
+          >
+            Terms of Use
+          </a>{" "}
+          and{" "}
+          <a
+            href="/Privacy_Statement.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-primary"
+          >
+            Privacy Policy
+          </a>
+          .
+        </span>
+      </label>
       {error && (
         <p role="alert" className="text-sm text-destructive">
           {error}

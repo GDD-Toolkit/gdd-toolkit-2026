@@ -17,6 +17,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cn": "^0.3.0",
+    "detect-node-es": "^1.1.0",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.546.0",
     "radix-ui": "^1.6.7",

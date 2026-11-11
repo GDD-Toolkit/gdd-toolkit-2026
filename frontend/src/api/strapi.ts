@@ -147,3 +147,24 @@ Body: ${snippet}`
   const json = await response.json();
   return Array.isArray(json.data) ? json.data : [];
 }
+
+export async function getAITools() {
+  const baseUrl = getStrapiBaseUrl();
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+  const url = `${apiBase}/ai-tools?populate=*`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: buildStrapiHeaders(),
+  });
+
+  if (!response.ok) {
+    const body = await response.text().catch(() => "");
+    throw new Error(
+      `Failed to fetch AI tools. Status: ${response.status}. Body: ${body.slice(0, 200)}`
+    );
+  }
+
+  const json = await response.json();
+  return Array.isArray(json.data) ? json.data : [];
+}
