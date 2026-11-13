@@ -12,7 +12,8 @@
   "pluginOptions": {},
   "attributes": {
     "country_name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "well_being": {
       "type": "component",
@@ -27,6 +28,26 @@
     "agency_and_empowerment": {
       "type": "component",
       "component": "shared.agency-and-empowerment",
+      "repeatable": false
+    },
+    "environmental_sustainability": {
+      "type": "component",
+      "component": "shared.environmental-sustainability",
+      "repeatable": false
+    },
+    "human_rights": {
+      "type": "component",
+      "component": "shared.human-rights",
+      "repeatable": false
+    },
+    "responsibility": {
+      "type": "component",
+      "component": "shared.responsibility",
+      "repeatable": false
+    },
+    "cultural_freedom": {
+      "type": "component",
+      "component": "shared.cultural-freedom",
       "repeatable": false
     }
   }

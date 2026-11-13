@@ -1,0 +1,50 @@
+{
+  "collectionName": "components_shared_responsibilities",
+  "info": {
+    "displayName": "responsibility",
+    "icon": "bell"
+  },
+  "options": {},
+  "attributes": {
+    "people_per_square_km": {
+      "type": "integer"
+    },
+    "voice_and_accountability": {
+      "type": "decimal"
+    },
+    "political_stability": {
+      "type": "decimal"
+    },
+    "government_effectiveness": {
+      "type": "decimal"
+    },
+    "respitory_quality": {
+      "type": "decimal"
+    },
+    "rule_of_law": {
+      "type": "decimal"
+    },
+    "control_of_corruption": {
+      "type": "decimal"
+    },
+    "overall": {
+      "type": "decimal"
+    },
+    "political_instability": {
+      "type": "decimal"
+    },
+    "military_expenditure_percentage_of_gdp": {
+      "type": "decimal"
+    },
+    "icc": {
+      "type": "boolean"
+    },
+    "icj": {
+      "type": "boolean"
+    },
+    "geneva_convention": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

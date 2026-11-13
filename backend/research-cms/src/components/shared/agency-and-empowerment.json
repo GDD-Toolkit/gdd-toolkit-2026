@@ -5,6 +5,37 @@
     "icon": "rocket"
   },
   "options": {},
-  "attributes": {},
+  "attributes": {
+    "labor_force_participation": {
+      "type": "decimal"
+    },
+    "unemployment_rate": {
+      "type": "decimal"
+    },
+    "poverty_rate": {
+      "type": "decimal"
+    },
+    "gdp": {
+      "type": "decimal"
+    },
+    "trade_percentage_of_gdp": {
+      "type": "decimal"
+    },
+    "export_percentage_of_gdp": {
+      "type": "decimal"
+    },
+    "import_percentage_of_gdp": {
+      "type": "decimal"
+    },
+    "gdp_growth_percentage": {
+      "type": "decimal"
+    },
+    "electricity_access_percentage": {
+      "type": "decimal"
+    },
+    "gini_index": {
+      "type": "decimal"
+    }
+  },
   "config": {}
 }

@@ -33,6 +33,7 @@ interface RotatingEarthProps {
   regions?: readonly GlobeRegion[]
   selectedRegions?: readonly string[]
   selectedCountries?: readonly string[]
+  focusCountry?: string | null
   onCountriesLoaded?: (countries: GlobeCountry[]) => void
   onCountryHover?: (country: string | null) => void
   onCountryClick?: (country: string) => void
@@ -41,7 +42,7 @@ interface RotatingEarthProps {
   className?: string
 }
 
-export default function RotatingEarth({ width = 800, height = 600, className = "", regions = EMPTY_REGIONS, selectedRegions = EMPTY_REGION_NAMES, selectedCountries = EMPTY_COUNTRIES, onCountriesLoaded, onCountryHover, onCountryClick }: RotatingEarthProps) {
+export default function RotatingEarth({ width = 800, height = 600, className = "", regions = EMPTY_REGIONS, selectedRegions = EMPTY_REGION_NAMES, selectedCountries = EMPTY_COUNTRIES, focusCountry = null, onCountriesLoaded, onCountryHover, onCountryClick }: RotatingEarthProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -49,6 +50,8 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
   const regionsRef = useRef(regions)
   const selectedRegionsRef = useRef(new Set(selectedRegions))
   const renderRef = useRef<(() => void) | null>(null)
+  const focusCountryRef = useRef(focusCountry)
+  const centerCountryRef = useRef<(() => void) | null>(null)
   const selectedCountriesRef = useRef(new Set(selectedCountries))
   const onCountriesLoadedRef = useRef(onCountriesLoaded)
   const onCountryHoverRef = useRef(onCountryHover)
@@ -66,11 +69,16 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
     onCountriesLoadedRef.current = onCountriesLoaded
   }, [onCountriesLoaded])
 
-  // Country changes only redraw; they never change the projection or zoom.
+  // Selection highlighting and requested camera movement are independent.
   useEffect(() => {
     selectedCountriesRef.current = new Set(selectedCountries)
     renderRef.current?.()
   }, [selectedCountries])
+
+  useEffect(() => {
+    focusCountryRef.current = focusCountry
+    centerCountryRef.current?.()
+  }, [focusCountry])
 
   useEffect(() => {
     selectedRegionsRef.current = new Set(selectedRegions)
@@ -276,7 +284,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
       // Draw ocean (globe background)
       context.beginPath()
       context.arc(containerWidth / 2, containerHeight / 2, currentScale, 0, 2 * Math.PI)
-      context.fillStyle = "#000000"
+      context.fillStyle = "#87CEEB"
       context.fill()
       context.strokeStyle = "#ffffff"
       context.lineWidth = 2 * scaleFactor
@@ -386,6 +394,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
 
         console.log(`[v0] Total dots generated: ${totalDots} across ${landFeatures.features.length} land features`)
 
+        centerCountryRef.current?.()
         render()
         setIsLoading(false)
       } catch {
@@ -402,15 +411,41 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
     let resumeAt = performance.now() + 2000
     let previousElapsed = 0
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    let focusTransition: {
+      startedAt: number
+      from: [number, number]
+      delta: [number, number]
+    } | null = null
     const pauseRotation = () => {
       resumeAt = performance.now() + 2000
     }
+    const centerCountry = () => {
+      focusTransition = null
+      if (!focusCountryRef.current || !landFeatures) return
+      const feature = landFeatures.features.find(
+        (feature: { properties: CountryProperties }) => feature.properties.ADMIN === focusCountryRef.current,
+      )
+      if (!feature) return
+      const [longitude, latitude] = d3.geoCentroid(feature)
+      if (!Number.isFinite(longitude) || !Number.isFinite(latitude)) return
+      // Explicit country navigation always animates, including when idle rotation is disabled.
+      const longitudeDelta = ((-longitude - rotation[0]) % 360 + 540) % 360 - 180
+      focusTransition = {
+        startedAt: performance.now(),
+        from: [...rotation],
+        delta: [longitudeDelta, -latitude - rotation[1]],
+      }
+      pauseRotation()
+    }
+    centerCountryRef.current = centerCountry
     const zoom = (factor: number) => {
+      focusTransition = null
       projection.scale(Math.max(radius * 0.5, Math.min(radius * 3, projection.scale() * factor)))
       pauseRotation()
       render()
     }
     const rotateBy = (dx: number, dy: number) => {
+      focusTransition = null
       rotation[0] = (rotation[0] + dx) % 360
       rotation[1] = Math.max(-90, Math.min(90, rotation[1] + dy))
       projection.rotate(rotation)
@@ -419,13 +454,25 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
     const rotationTimer = d3.timer((elapsed) => {
       const delta = Math.min(elapsed - previousElapsed, 50)
       previousElapsed = elapsed
-      if (!reducedMotion && pointers.size === 0 && performance.now() >= resumeAt) {
+      if (focusTransition) {
+        const progress = Math.min(1, (performance.now() - focusTransition.startedAt) / 1000)
+        const eased = d3.easeCubicInOut(progress)
+        rotation[0] = (focusTransition.from[0] + focusTransition.delta[0] * eased) % 360
+        rotation[1] = focusTransition.from[1] + focusTransition.delta[1] * eased
+        projection.rotate(rotation)
+        render()
+        if (progress === 1) {
+          focusTransition = null
+          pauseRotation()
+        }
+      } else if (!reducedMotion && pointers.size === 0 && performance.now() >= resumeAt) {
         rotateBy(delta * 0.015, 0)
       }
     })
 
     const handlePointerDown = (event: PointerEvent) => {
       if (event.button !== 0) return
+      focusTransition = null
       hoverPosition = { x: event.clientX, y: event.clientY }
       updateHoveredCountry()
       canvas.setPointerCapture(event.pointerId)
@@ -529,6 +576,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
 
     return () => {
       renderRef.current = null
+      centerCountryRef.current = null
       controller.abort()
       rotationTimer.stop()
       resizeObserver.disconnect()
@@ -567,7 +615,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
         ref={canvasRef}
         className="w-full h-auto rounded-2xl bg-background dark"
         tabIndex={0}
-        aria-label="Interactive globe. Click or tap a country to toggle its selection. Drag to rotate, pinch or scroll to zoom. Arrow keys rotate, plus and minus zoom, Home resets."
+        aria-label={`Interactive globe.${onCountryClick ? " Click or tap a country to view its details." : ""} Drag to rotate, pinch or scroll to zoom. Arrow keys rotate, plus and minus zoom, Home resets.`}
         style={{ maxWidth: "100%", height: "auto", touchAction: "none", cursor: "grab" }}
       />
       {isLoading && <p role="status" className="absolute top-4 left-4 text-sm">Loading globe...</p>}

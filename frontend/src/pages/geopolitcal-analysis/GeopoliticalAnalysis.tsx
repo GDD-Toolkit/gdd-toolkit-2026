@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { RotateCcw, X } from "lucide-react";
+import { ArrowRight, RotateCcw, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Globe, { type GlobeCountry, type GlobeRegion } from "@/components/ui/globe";
-import ExplorePanel from "./ExplorePanel";
 import RankingCardRows from "./RankingCardRows";
+import CountryDetailCard from "./CountryDetailCard";
 import "./GeopoliticalAnalysis.css";
 
 import {
@@ -29,7 +29,15 @@ const regions: GlobeRegion[] = [
   { name: "Sub-Saharan Africa", color: "#ffcc00", worldBankRegion: "Sub-Saharan Africa", center: [20, -5] },
 ]
 const regionNames = regions.map((region) => region.name)
-const developmentValues = Array.from({ length: 7 }, (_, index) => `Development Value #${index + 1}`)
+const developmentValues = [
+  "Well-being",
+  "Equality",
+  "Agency and Empowerment",
+  "Environmental Sustainability",
+  "Human Rights",
+  "Cultural Freedom",
+  "Responsibility",
+]
 
 function MultiSelectCombobox({
   id,
@@ -81,10 +89,13 @@ function MultiSelectCombobox({
 }
 
 export default function GeopoliticalAnalysis() {
+  const [activeView, setActiveView] = useState("globe");
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [countries, setCountries] = useState<GlobeCountry[]>([]);
   const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const [focusCountry, setFocusCountry] = useState<string | null>(null);
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
+  const [detailCountry, setDetailCountry] = useState<GlobeCountry | null>(null);
   const [selectedDevelopmentValues, setSelectedDevelopmentValues] = useState<string[]>([]);
   const activeRegions = regions.filter((region) => selectedRegions.includes(region.name));
   const activeWorldBankRegions = new Set(activeRegions.map((region) => region.worldBankRegion));
@@ -98,6 +109,7 @@ export default function GeopoliticalAnalysis() {
   const visibleRegions = selectedRegions.length > 0 ? activeRegions : regions;
 
   const changeRegions = (nextRegions: string[]) => {
+    setFocusCountry(null);
     setSelectedRegions(nextRegions);
     const nextWorldBankRegions = new Set(
       regions.filter((region) => nextRegions.includes(region.name)).map((region) => region.worldBankRegion),
@@ -109,6 +121,8 @@ export default function GeopoliticalAnalysis() {
     setSelectedCountries((selected) => selected.filter((country) => validCountries.has(country)));
   };
   const changeCountries = (nextCountries: string[]) => {
+    const addedCountry = nextCountries.find((country) => !selectedCountries.includes(country));
+    setFocusCountry(activeView === "globe" ? addedCountry ?? null : null);
     setSelectedCountries(nextCountries);
     const addedCountries = countries.filter(
       (country) => nextCountries.includes(country.name) && !selectedCountries.includes(country.name),
@@ -133,105 +147,126 @@ export default function GeopoliticalAnalysis() {
     });
   };
   const resetSelections = () => {
+    setFocusCountry(null);
     setSelectedRegions([]);
     setSelectedCountries([]);
     setSelectedDevelopmentValues([]);
   };
-  const toggleCountry = (country: string) => {
-    changeCountries(selectedCountries.includes(country)
-      ? selectedCountries.filter((selected) => selected !== country)
-      : [...selectedCountries, country]);
-  };
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-12">
-      <h1 className="text-4xl font-bold">Geopolitical Analysis</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
-        World Bank analytical regions (before July 2025).
-      </p>
-      <div className="mt-6">
-        <div className="grid items-start gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto]">
-          <MultiSelectCombobox
-            id="region-select"
-            label="Regions"
-            items={regionNames}
-            value={selectedRegions}
-            onValueChange={changeRegions}
-            placeholder="Select regions"
-          />
-          <MultiSelectCombobox
-            id="countries-select"
-            label="Countries"
-            items={countryNames}
-            value={selectedCountries}
-            onValueChange={changeCountries}
-            disabled={countryNames.length === 0}
-            placeholder={countries.length === 0 ? "Loading countries..." : "Select countries"}
-          />
-          <MultiSelectCombobox
-            id="development-values-select"
-            label="Development values"
-            items={developmentValues}
-            value={selectedDevelopmentValues}
-            onValueChange={(values) => setSelectedDevelopmentValues(values.slice(-1))}
-            placeholder="Select a development value"
-          />
-          <div className="flex items-center gap-2 md:mt-7">
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              aria-label="Reset all selections"
-              title="Reset all selections"
-              disabled={selectedRegions.length === 0 && selectedCountries.length === 0 && selectedDevelopmentValues.length === 0}
-              onClick={resetSelections}
-            >
-              <RotateCcw aria-hidden="true" />
-            </Button>
-            <ExplorePanel
-              regions={selectedRegions}
-              countries={selectedCountries}
-              developmentValues={selectedDevelopmentValues}
-            />
+    <section className="geopolitical-page">
+      <header className="geopolitical-hero">
+        <h1>Geopolitical Analysis</h1>
+        <p>Explore the global context of development across regions and countries.</p>
+      </header>
+      <div className="geopolitical-content">
+        <section className="geopolitical-introduction" aria-labelledby="geopolitical-map-title">
+          <h2 id="geopolitical-map-title">Explore development around the world</h2>
+          <p>
+            Select a development value, region, or country to guide your exploration.
+            Use the interactive globe to discover regional groupings and select countries for further analysis.
+          </p>
+        </section>
+        <section className="geopolitical-map-panel" aria-label="Geopolitical exploration tools">
+          <div>
+            <div className="geopolitical-filters">
+              <MultiSelectCombobox
+                id="development-values-select"
+                label="Development values"
+                items={developmentValues}
+                value={selectedDevelopmentValues}
+                onValueChange={(values) => setSelectedDevelopmentValues(values.slice(-1))}
+                placeholder="Select a development value"
+              />
+              <MultiSelectCombobox
+                id="region-select"
+                label="Regions"
+                items={regionNames}
+                value={selectedRegions}
+                onValueChange={changeRegions}
+                placeholder="Select regions"
+              />
+              <MultiSelectCombobox
+                id="countries-select"
+                label="Countries"
+                items={countryNames}
+                value={selectedCountries}
+                onValueChange={changeCountries}
+                disabled={countryNames.length === 0}
+                placeholder={countries.length === 0 ? "Loading countries..." : "Select countries"}
+              />
+              <div className="geopolitical-filter-actions">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  aria-label="Reset all selections"
+                  title="Reset all selections"
+                  disabled={selectedRegions.length === 0 && selectedCountries.length === 0 && selectedDevelopmentValues.length === 0}
+                  onClick={resetSelections}
+                >
+                  <RotateCcw aria-hidden="true" />
+                </Button>
+                <Button type="button" onClick={() => setActiveView("placeholder")}>
+                  Explore <ArrowRight aria-hidden="true" />
+                </Button>
+              </div>
+            </div>
+            <p role="status" className="mt-2 text-sm text-muted-foreground">
+              {selectedRegions.length > 0 ? `Highlighting ${selectedRegions.join(", ")}. Clear to highlight all regions.` : "Showing all region colors."}
+            </p>
           </div>
-        </div>
-        <p role="status" className="mt-2 text-sm text-muted-foreground">
-          {selectedRegions.length > 0 ? `Highlighting ${selectedRegions.join(", ")}. Clear to highlight all regions.` : "Showing all region colors."}
-        </p>
+          <ul aria-label="Region colors" className="geopolitical-legend">
+            {visibleRegions.map((region) => (
+              <li key={region.name} className="flex items-center gap-2">
+                <span aria-hidden="true" className="size-3 rounded-full" style={{ backgroundColor: region.color }} />
+                {region.name}
+              </li>
+            ))}
+          </ul>
+          <Tabs value={activeView} onValueChange={setActiveView} className="mt-8">
+            <TabsList aria-label="Visualization view" className="mx-auto">
+              <TabsTrigger value="globe">Globe</TabsTrigger>
+              <TabsTrigger value="placeholder">Rankings</TabsTrigger>
+            </TabsList>
+            <TabsContent value="globe" className="relative">
+              <Globe
+                regions={regions}
+                selectedRegions={selectedRegions}
+                selectedCountries={selectedCountries}
+                focusCountry={focusCountry}
+                onCountriesLoaded={setCountries}
+                onCountryHover={setHoveredCountry}
+                onCountryClick={(name) => {
+                  const country = countries.find((country) => country.name === name);
+                  if (country) setDetailCountry(country);
+                }}
+                className="geopolitical-globe mx-auto w-full max-w-[800px]"
+              />
+              {hoveredCountry && (
+                <Card className="geopolitical-country-hover-card pointer-events-none" size="sm" role="status">
+                  <CardContent>{hoveredCountry}</CardContent>
+                </Card>
+              )}
+            </TabsContent>
+            <TabsContent value="placeholder" className="w-full min-w-0">
+              <RankingCardRows />
+            </TabsContent>
+          </Tabs>
+          <p className="geopolitical-map-note">
+            Region colors follow World Bank analytical groupings from before July 2025.
+          </p>
+        </section>
       </div>
-      <ul aria-label="Region colors" className="mt-6 flex flex-wrap gap-4 text-sm">
-        {visibleRegions.map((region) => (
-          <li key={region.name} className="flex items-center gap-2">
-            <span aria-hidden="true" className="size-3 rounded-full" style={{ backgroundColor: region.color }} />
-            {region.name}
-          </li>
-        ))}
-      </ul>
-      <Tabs defaultValue="globe" className="mt-8">
-        <TabsList aria-label="Visualization view" className="mx-auto">
-          <TabsTrigger value="globe">Globe</TabsTrigger>
-          <TabsTrigger value="placeholder">Placeholder</TabsTrigger>
-        </TabsList>
-        <TabsContent value="globe" className="relative">
-          <Globe
-            regions={regions}
-            selectedRegions={selectedRegions}
-            selectedCountries={selectedCountries}
-            onCountriesLoaded={setCountries}
-            onCountryHover={setHoveredCountry}
-            onCountryClick={toggleCountry}
-            className="mx-auto w-full max-w-[800px]"
-          />
-          {hoveredCountry && (
-            <Card className="geopolitical-country-hover-card pointer-events-none" size="sm" role="status">
-              <CardContent>{hoveredCountry}</CardContent>
-            </Card>
-          )}
-        </TabsContent>
-        <TabsContent value="placeholder" className="w-full min-w-0">
-          <RankingCardRows />
-        </TabsContent>
-      </Tabs>
+      {detailCountry && (
+        <CountryDetailCard
+          key={detailCountry.name}
+          country={detailCountry}
+          values={developmentValues}
+          initialValue={selectedDevelopmentValues[0]}
+          onClose={() => setDetailCountry(null)}
+        />
+      )}
     </section>
   );
 }

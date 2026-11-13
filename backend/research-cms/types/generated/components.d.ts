@@ -6,7 +6,18 @@ export interface SharedAgencyAndEmpowerment extends Struct.ComponentSchema {
     displayName: 'agency_and_empowerment';
     icon: 'rocket';
   };
-  attributes: {};
+  attributes: {
+    electricity_access_percentage: Schema.Attribute.Decimal;
+    export_percentage_of_gdp: Schema.Attribute.Decimal;
+    gdp: Schema.Attribute.Decimal;
+    gdp_growth_percentage: Schema.Attribute.Decimal;
+    gini_index: Schema.Attribute.Decimal;
+    import_percentage_of_gdp: Schema.Attribute.Decimal;
+    labor_force_participation: Schema.Attribute.Decimal;
+    poverty_rate: Schema.Attribute.Decimal;
+    trade_percentage_of_gdp: Schema.Attribute.Decimal;
+    unemployment_rate: Schema.Attribute.Decimal;
+  };
 }
 
 export interface SharedAuthor extends Struct.ComponentSchema {
@@ -21,6 +32,22 @@ export interface SharedAuthor extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedCulturalFreedom extends Struct.ComponentSchema {
+  collectionName: 'components_shared_cultural_freedoms';
+  info: {
+    displayName: 'cultural_freedom';
+  };
+  attributes: {
+    assembly: Schema.Attribute.String;
+    civil_liberties: Schema.Attribute.Integer;
+    gri: Schema.Attribute.Decimal;
+    official_language: Schema.Attribute.String;
+    political_rights: Schema.Attribute.Integer;
+    shi: Schema.Attribute.Decimal;
+    type_of_government: Schema.Attribute.Text;
+  };
+}
+
 export interface SharedDescriptions extends Struct.ComponentSchema {
   collectionName: 'components_shared_descriptions';
   info: {
@@ -30,6 +57,23 @@ export interface SharedDescriptions extends Struct.ComponentSchema {
     sub_image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     subsection: Schema.Attribute.String & Schema.Attribute.Required;
     subsection_text: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedEnvironmentalSustainability
+  extends Struct.ComponentSchema {
+  collectionName: 'components_shared_environmental_sustainabilities';
+  info: {
+    displayName: 'environmental_sustainability';
+    icon: 'earth';
+  };
+  attributes: {
+    average_air_temperature: Schema.Attribute.Decimal;
+    co2_emissions_per_capita: Schema.Attribute.Decimal;
+    ghg_emissions: Schema.Attribute.Decimal;
+    paris_climate_agreement: Schema.Attribute.Boolean;
+    precipitation: Schema.Attribute.Decimal;
+    terrain: Schema.Attribute.Text;
   };
 }
 
@@ -108,6 +152,33 @@ export interface SharedEvaluations extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedGenevaConvention extends Struct.ComponentSchema {
+  collectionName: 'components_shared_geneva_conventions';
+  info: {
+    displayName: 'geneva_convention';
+  };
+  attributes: {
+    participation: Schema.Attribute.Boolean;
+  };
+}
+
+export interface SharedHumanRights extends Struct.ComponentSchema {
+  collectionName: 'components_shared_human_rights';
+  info: {
+    displayName: 'human_rights';
+    icon: 'walk';
+  };
+  attributes: {
+    homelessness_count: Schema.Attribute.BigInteger;
+    homelessness_rate: Schema.Attribute.Decimal;
+    literacy_rate_adult: Schema.Attribute.Decimal;
+    literacy_rate_youth: Schema.Attribute.Decimal;
+    poverty_gap_at_3_usd_a_day: Schema.Attribute.Decimal;
+    poverty_rate_at_3_usd: Schema.Attribute.Decimal;
+    poverty_rate_at_povery_line: Schema.Attribute.Decimal;
+  };
+}
+
 export interface SharedKeywordWorthwhileDevelopment
   extends Struct.ComponentSchema {
   collectionName: 'components_shared_keyword_worthwhile_developments';
@@ -163,6 +234,29 @@ export interface SharedReferences extends Struct.ComponentSchema {
     author: Schema.Attribute.String & Schema.Attribute.Required;
     author_contact_information: Schema.Attribute.String &
       Schema.Attribute.Required;
+  };
+}
+
+export interface SharedResponsibility extends Struct.ComponentSchema {
+  collectionName: 'components_shared_responsibilities';
+  info: {
+    displayName: 'responsibility';
+    icon: 'bell';
+  };
+  attributes: {
+    control_of_corruption: Schema.Attribute.Decimal;
+    geneva_convention: Schema.Attribute.Boolean;
+    government_effectiveness: Schema.Attribute.Decimal;
+    icc: Schema.Attribute.Boolean;
+    icj: Schema.Attribute.Boolean;
+    military_expenditure_percentage_of_gdp: Schema.Attribute.Decimal;
+    overall: Schema.Attribute.Decimal;
+    people_per_square_km: Schema.Attribute.Integer;
+    political_instability: Schema.Attribute.Decimal;
+    political_stability: Schema.Attribute.Decimal;
+    respitory_quality: Schema.Attribute.Decimal;
+    rule_of_law: Schema.Attribute.Decimal;
+    voice_and_accountability: Schema.Attribute.Decimal;
   };
 }
 
@@ -246,17 +340,17 @@ export interface SharedWellBeing extends Struct.ComponentSchema {
   attributes: {
     density_doctors: Schema.Attribute.Decimal;
     density_nurses: Schema.Attribute.Decimal;
-    homicide: Schema.Attribute.Decimal;
+    homicide_rate: Schema.Attribute.Decimal;
     kidnapping_rate: Schema.Attribute.Decimal;
     life_expectancy_female: Schema.Attribute.Decimal;
     life_expectancy_male: Schema.Attribute.Decimal;
     life_expectancy_total: Schema.Attribute.Decimal;
-    population: Schema.Attribute.Integer;
+    population: Schema.Attribute.BigInteger;
     population_growth_rate: Schema.Attribute.Decimal;
     robbery_rate: Schema.Attribute.Decimal;
     serious_assault_rate: Schema.Attribute.Decimal;
     sexual_violence_rate: Schema.Attribute.Decimal;
-    trafficking_of_persons: Schema.Attribute.Integer;
+    trafficking_of_persons_rate: Schema.Attribute.Integer;
   };
 }
 
@@ -265,14 +359,19 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'shared.agency-and-empowerment': SharedAgencyAndEmpowerment;
       'shared.author': SharedAuthor;
+      'shared.cultural-freedom': SharedCulturalFreedom;
       'shared.descriptions': SharedDescriptions;
+      'shared.environmental-sustainability': SharedEnvironmentalSustainability;
       'shared.equality': SharedEquality;
       'shared.ethical-consideration': SharedEthicalConsideration;
       'shared.evaluations': SharedEvaluations;
+      'shared.geneva-convention': SharedGenevaConvention;
+      'shared.human-rights': SharedHumanRights;
       'shared.keyword-worthwhile-development': SharedKeywordWorthwhileDevelopment;
       'shared.lesson-learned': SharedLessonLearned;
       'shared.project-keywords': SharedProjectKeywords;
       'shared.references': SharedReferences;
+      'shared.responsibility': SharedResponsibility;
       'shared.sdg': SharedSdg;
       'shared.sdg-subvalue': SharedSdgSubvalue;
       'shared.speakers': SharedSpeakers;

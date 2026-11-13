@@ -564,11 +564,20 @@ export interface ApiGeopoliticalAnalysisGeopoliticalAnalysis
       'shared.agency-and-empowerment',
       false
     >;
-    country_name: Schema.Attribute.String;
+    country_name: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    cultural_freedom: Schema.Attribute.Component<
+      'shared.cultural-freedom',
+      false
+    >;
+    environmental_sustainability: Schema.Attribute.Component<
+      'shared.environmental-sustainability',
+      false
+    >;
     equality: Schema.Attribute.Component<'shared.equality', false>;
+    human_rights: Schema.Attribute.Component<'shared.human-rights', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -576,6 +585,7 @@ export interface ApiGeopoliticalAnalysisGeopoliticalAnalysis
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    responsibility: Schema.Attribute.Component<'shared.responsibility', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -7,7 +7,7 @@
   "options": {},
   "attributes": {
     "population": {
-      "type": "integer"
+      "type": "biginteger"
     },
     "population_growth_rate": {
       "type": "decimal"
@@ -27,7 +27,7 @@
     "density_nurses": {
       "type": "decimal"
     },
-    "homicide": {
+    "homicide_rate": {
       "type": "decimal"
     },
     "kidnapping_rate": {
@@ -42,7 +42,7 @@
     "sexual_violence_rate": {
       "type": "decimal"
     },
-    "trafficking_of_persons": {
+    "trafficking_of_persons_rate": {
       "type": "integer"
     }
   },
