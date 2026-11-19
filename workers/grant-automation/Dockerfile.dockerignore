@@ -1,0 +1,11 @@
+# Build context for workers/grant-automation/Dockerfile (built from the repo root).
+# BuildKit uses this file instead of the root .dockerignore for this Dockerfile.
+*
+!package.json
+!package-lock.json
+!shared
+!workers/grant-automation
+workers/grant-automation/node_modules
+workers/grant-automation/rejects
+workers/grant-automation/.env
+workers/grant-automation/.env.*

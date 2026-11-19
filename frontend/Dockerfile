@@ -2,7 +2,8 @@
 # Builds the Vite app and serves the static output with nginx.
 #
 # Build from the REPO ROOT, not from frontend/, because the app imports ../shared/types:
-#   docker build -f frontend/Dockerfile --build-arg VITE_STRAPI_URL=https://cms.example.edu -t gdd-frontend .
+#   docker build -f frontend/Dockerfile --build-arg VITE_STRAPI_URL=https://cms.example.edu \
+#     --build-arg VITE_GRANTS_API_URL=https://www.example.edu/grants/api -t gdd-frontend .
 # The root .dockerignore limits the build context to frontend/ and shared/.
 
 FROM node:22-bookworm-slim AS build
@@ -18,8 +19,10 @@ COPY frontend ./frontend
 # Vite compiles every VITE_* variable into the bundle, so the Strapi URL is fixed at build
 # time and this image is specific to one environment. Never pass a token here.
 ARG VITE_STRAPI_URL
+ARG VITE_GRANTS_API_URL
 RUN test -n "$VITE_STRAPI_URL" || { echo "VITE_STRAPI_URL build arg is required" >&2; exit 1; }
-ENV VITE_STRAPI_URL=$VITE_STRAPI_URL
+RUN test -n "$VITE_GRANTS_API_URL" || { echo "VITE_GRANTS_API_URL build arg is required" >&2; exit 1; }
+ENV VITE_STRAPI_URL=$VITE_STRAPI_URL VITE_GRANTS_API_URL=$VITE_GRANTS_API_URL
 RUN cd frontend && npm run build
 
 # nginx runs as an unprivileged user on port 8080. TLS is the reverse proxy's job.

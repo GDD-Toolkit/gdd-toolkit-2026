@@ -1,0 +1,27 @@
+# Reverse proxy and TLS for the whole site. Caddy gets and renews certificates by itself.
+#
+# Values come from deploy/.env (see .env.example):
+#   SITE_HOST   the website, e.g. devethicstoolkit.umd.edu
+#   CMS_HOST    Strapi (API + admin panel), e.g. cms.devethicstoolkit.umd.edu
+#   CADDY_TLS   "internal" = Caddy's own self-signed certificate, for testing before DNS exists
+#               an email address = a real Let's Encrypt certificate (needs DNS pointing here)
+
+{$SITE_HOST} {
+	tls {$CADDY_TLS}
+	encode zstd gzip
+
+	# The grants read API. handle_path strips the prefix, so /grants/api/grants -> /grants.
+	handle_path /grants/api/* {
+		reverse_proxy grant-api:4100
+	}
+
+	handle {
+		reverse_proxy frontend:8080
+	}
+}
+
+{$CMS_HOST} {
+	tls {$CADDY_TLS}
+	encode zstd gzip
+	reverse_proxy cms:1337
+}

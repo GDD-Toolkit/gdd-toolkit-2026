@@ -1,0 +1,81 @@
+# Production stack on the EC2 box. Run from this folder:
+#   docker compose -f docker-compose.prod.yml up -d
+#
+# Needs three files next to it (all gitignored):
+#   .env         hostnames, TLS mode, image tag          (template: .env.example here)
+#   .env.cms     Strapi secrets, RDS, S3, SMTP, Google    (template: backend/research-cms/.env.example)
+#   .env.grants  grants DB roles                          (template: workers/grant-automation/.env.example)
+#
+# Only Caddy publishes ports. The database is RDS and uploads go to S3, so nothing
+# here keeps state except Caddy's certificates and the ingest rejects.
+name: gdd
+
+services:
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # HTTP/3
+    environment:
+      SITE_HOST: ${SITE_HOST:?set SITE_HOST in deploy/.env}
+      CMS_HOST: ${CMS_HOST:?set CMS_HOST in deploy/.env}
+      CADDY_TLS: ${CADDY_TLS:?set CADDY_TLS in deploy/.env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data # certificates: keep this volume or Caddy re-issues on every start
+      - caddy_config:/config
+    depends_on: [frontend, cms, grant-api]
+
+  frontend:
+    image: ghcr.io/gdd-toolkit/gdd-frontend:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: frontend/Dockerfile
+      # Vite bakes these into the bundle, so the image only works for these hostnames.
+      args:
+        VITE_STRAPI_URL: https://${CMS_HOST}
+        VITE_GRANTS_API_URL: https://${SITE_HOST}/grants/api
+    restart: unless-stopped
+
+  cms:
+    image: ghcr.io/gdd-toolkit/gdd-cms:${TAG:-latest}
+    build:
+      context: ../backend/research-cms
+    restart: unless-stopped
+    env_file: .env.cms
+    # Settings that follow from the hostnames; these override .env.cms.
+    environment:
+      DATA_SOURCE: production
+      PUBLIC_URL: https://${CMS_HOST}
+      FRONTEND_URL: https://${SITE_HOST}
+      GOOGLE_AUTH_REDIRECT_URL: https://${SITE_HOST}/auth/callback/google
+      IS_PROXIED: "true"
+
+  grant-api:
+    image: ghcr.io/gdd-toolkit/gdd-grants:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: workers/grant-automation/Dockerfile
+    restart: unless-stopped
+    env_file: .env.grants
+    environment:
+      PORT: "4100"
+      STRAPI_URL: http://cms:1337
+      CORS_ORIGINS: https://${SITE_HOST}
+
+  # One-shot nightly ingestion, started by the host's cron (see deploy/README.md):
+  #   docker compose -f docker-compose.prod.yml run --rm grant-ingest
+  grant-ingest:
+    image: ghcr.io/gdd-toolkit/gdd-grants:${TAG:-latest}
+    profiles: [jobs] # not started by `up`
+    env_file: .env.grants
+    command: ["node_modules/.bin/tsx", "src/cli.ts", "ingest"]
+    volumes:
+      - grant_rejects:/app/workers/grant-automation/rejects
+
+volumes:
+  caddy_data:
+  caddy_config:
+  grant_rejects:
