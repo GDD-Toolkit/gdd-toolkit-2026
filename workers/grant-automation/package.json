@@ -13,10 +13,14 @@
     "test:db": "DB_TESTS=1 vitest run",
     "db:bootstrap": "tsx scripts/bootstrap.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "tsx src/db/migrate.ts"
+    "db:migrate": "tsx src/db/migrate.ts",
+    "api": "tsx src/api/server.ts",
+    "dev": "tsx watch src/api/server.ts"
   },
   "dependencies": {
+    "@hono/node-server": "^2.1.6",
     "drizzle-orm": "^0.45.4",
+    "hono": "^4.13.16",
     "pg": "^8.23.1"
   },
   "devDependencies": {

@@ -15,7 +15,7 @@
       "verbatimModuleSyntax": true,
       "moduleDetection": "force",
       "baseUrl": ".",
-      "paths": { "@/*": ["src/*"] },
+      "paths": { "@/*": ["src/*"], "@shared/*": ["../shared/*"] },
       "noEmit": true,
       "jsx": "react-jsx",
   

@@ -150,23 +150,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [token],
   );
 
+  // Tools are Strapi documents; grants are uuids from the grants API. Both lists
+  // come from the server profile, never from web storage.
   const isBookmarked = useCallback(
-    (kind: BookmarkKind, documentId: string) => {
-      const list = kind === "tools" ? user?.bookmarkedTools : user?.savedGrants;
-      return Boolean(list?.some((item) => item.documentId === documentId));
+    (kind: BookmarkKind, itemId: string) => {
+      if (kind === "tools") {
+        return Boolean(user?.bookmarkedTools?.some((item) => item.documentId === itemId));
+      }
+      return Boolean(user?.savedGrantIds?.includes(itemId));
     },
     [user],
   );
 
   const toggleBookmark = useCallback(
-    async (kind: BookmarkKind, documentId: string) => {
+    async (kind: BookmarkKind, itemId: string) => {
       if (!token || status !== "authenticated") {
         setAuthModal({ open: true, tab: "sign-in" });
         return;
       }
-      const next = isBookmarked(kind, documentId)
-        ? await authApi.removeBookmark(token, kind, documentId)
-        : await authApi.addBookmark(token, kind, documentId);
+      const next = isBookmarked(kind, itemId)
+        ? await authApi.removeBookmark(token, kind, itemId)
+        : await authApi.addBookmark(token, kind, itemId);
       setUser(next);
     },
     [token, status, isBookmarked],

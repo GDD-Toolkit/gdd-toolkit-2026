@@ -32,8 +32,9 @@ export interface AuthContextValue {
   refreshUser: () => Promise<void>;
   /** Saves profile fields and returns the updated user. */
   updateProfile: (payload: ProfileUpdatePayload) => Promise<UserProfile>;
-  isBookmarked: (kind: BookmarkKind, documentId: string) => boolean;
-  toggleBookmark: (kind: BookmarkKind, documentId: string) => Promise<void>;
+  /** `itemId` is a Strapi documentId for tools and a grant uuid for grants. */
+  isBookmarked: (kind: BookmarkKind, itemId: string) => boolean;
+  toggleBookmark: (kind: BookmarkKind, itemId: string) => Promise<void>;
   authModal: { open: boolean; tab: AuthModalTab };
   openAuthModal: (tab?: AuthModalTab) => void;
   closeAuthModal: () => void;

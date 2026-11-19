@@ -114,15 +114,16 @@ export function updateProfile(token: string, payload: ProfileUpdatePayload): Pro
   return request<UserProfile>("/account/profile", { method: "PUT", token, body: payload });
 }
 
-export function addBookmark(token: string, kind: BookmarkKind, documentId: string): Promise<UserProfile> {
-  return request<UserProfile>(`/account/bookmarks/${kind}/${encodeURIComponent(documentId)}`, {
+/** `itemId` is a Strapi documentId for tools and a grant uuid for grants. */
+export function addBookmark(token: string, kind: BookmarkKind, itemId: string): Promise<UserProfile> {
+  return request<UserProfile>(`/account/bookmarks/${kind}/${encodeURIComponent(itemId)}`, {
     method: "POST",
     token,
   });
 }
 
-export function removeBookmark(token: string, kind: BookmarkKind, documentId: string): Promise<UserProfile> {
-  return request<UserProfile>(`/account/bookmarks/${kind}/${encodeURIComponent(documentId)}`, {
+export function removeBookmark(token: string, kind: BookmarkKind, itemId: string): Promise<UserProfile> {
+  return request<UserProfile>(`/account/bookmarks/${kind}/${encodeURIComponent(itemId)}`, {
     method: "DELETE",
     token,
   });

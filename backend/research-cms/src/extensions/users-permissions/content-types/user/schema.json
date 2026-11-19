@@ -95,10 +95,8 @@
       "relation": "manyToMany",
       "target": "api::ai-tool.ai-tool"
     },
-    "savedGrants": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::funding-resource.funding-resource"
+    "savedGrantIds": {
+      "type": "json"
     },
     "occupation": {
       "type": "string",
