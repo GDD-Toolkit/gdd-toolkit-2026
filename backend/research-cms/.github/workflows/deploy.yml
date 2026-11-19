@@ -1,0 +1,64 @@
+# Deploys the CMS to the EC2 box whenever cms-deploy on GDD-Toolkit/gdd-cms moves.
+#
+# This file lives at backend/research-cms/.github/workflows/ in gdd-toolkit-2026.
+# `git subtree push --prefix=backend/research-cms cms cms-deploy` makes that folder
+# the repo root on gdd-cms, so GitHub finds it at .github/workflows/deploy.yml there.
+#
+# It runs on a self-hosted runner installed on the EC2 box (label: cms-ec2). The
+# runner connects out to GitHub, so the box's changing public IP and the SSH
+# security-group restriction don't matter.
+
+name: Deploy CMS
+
+on:
+  push:
+    branches: [cms-deploy]
+  workflow_dispatch:
+
+# Never run two deploys at once; queue the newer one.
+concurrency:
+  group: deploy-cms
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, cms-ec2]
+    defaults:
+      run:
+        # The live checkout pm2 runs from; its untracked .env stays in place.
+        working-directory: /home/ubuntu/gdd-cms
+    steps:
+      - name: Refuse to deploy over uncommitted edits on the box
+        run: |
+          if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+            echo "::error::~/gdd-cms has uncommitted edits to tracked files. Port them to toolkit master or discard them, then re-run."
+            git status --short --untracked-files=no
+            exit 1
+          fi
+
+      - name: Fast-forward to the pushed commit
+        run: |
+          git fetch origin cms-deploy
+          git merge --ff-only origin/cms-deploy
+          git log -1 --format='Deploying %h %s'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build admin panel
+        run: npm run build
+
+      - name: Restart Strapi
+        run: pm2 restart strapi --update-env
+
+      - name: Health check
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS -o /dev/null http://127.0.0.1:1337/_health; then
+              echo "Strapi is up"; exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::Strapi did not answer /_health within 150s"
+          pm2 logs strapi --lines 50 --nostream
+          exit 1
