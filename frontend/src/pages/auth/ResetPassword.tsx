@@ -58,8 +58,8 @@ export default function ResetPassword() {
         </p>
         <div className="mt-6 flex justify-center gap-3">
           <Button onClick={() => openAuthModal("sign-in")}>Sign in</Button>
-          <Button variant="outline" asChild>
-            <Link to="/">Back to home</Link>
+          <Button variant="outline" nativeButton={false} render={<Link to="/" />}>
+            Back to home
           </Button>
         </div>
       </div>
