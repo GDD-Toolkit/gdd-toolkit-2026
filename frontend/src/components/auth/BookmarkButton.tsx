@@ -8,8 +8,8 @@ import type { BookmarkKind } from "@/types/auth";
 
 interface BookmarkButtonProps {
   kind: BookmarkKind;
-  /** Strapi documentId of the ai-tool or funding-resource. */
-  documentId: string;
+  /** Strapi documentId of the ai-tool, or the grant uuid from the grants API. */
+  itemId: string;
   /** Item name for the accessible label. */
   label: string;
   className?: string;
@@ -17,12 +17,12 @@ interface BookmarkButtonProps {
 
 /**
  * Save / unsave toggle for tools and grants. Guests get the sign-in dialog.
- * Drop this onto any card once that module reads its items from Strapi.
+ * The saved list lives on the server profile, so it follows the account.
  */
-export function BookmarkButton({ kind, documentId, label, className }: BookmarkButtonProps) {
+export function BookmarkButton({ kind, itemId, label, className }: BookmarkButtonProps) {
   const { isAuthenticated, isBookmarked, toggleBookmark, openAuthModal } = useAuth();
   const [pending, setPending] = useState(false);
-  const saved = isBookmarked(kind, documentId);
+  const saved = isBookmarked(kind, itemId);
 
   async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     // Cards are often links; keep the click from navigating.
@@ -34,7 +34,7 @@ export function BookmarkButton({ kind, documentId, label, className }: BookmarkB
     }
     setPending(true);
     try {
-      await toggleBookmark(kind, documentId);
+      await toggleBookmark(kind, itemId);
       toast.success(saved ? `Removed "${label}" from your saved items.` : `Saved "${label}".`);
     } catch {
       toast.error("Couldn't update your saved items. Please try again.");

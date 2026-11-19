@@ -1,6 +1,11 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import type { Grant } from "@shared/types/Grants";
+import { getGrantsByIds } from "@/api/grants";
 import { Badge } from "@/components/ui/badge";
 import { BookmarkButton } from "@/components/auth/BookmarkButton";
 import { EditProfileDialog } from "@/components/auth/EditProfileDialog";
+import { DeadlineBadge } from "@/components/grants/DeadlineBadge";
 import { useAuth } from "@/hooks/useAuth";
 import { displayNameOf } from "@/types/auth";
 import { INTEREST_OPTIONS, languages } from "@/types/onboarding";
@@ -35,13 +40,85 @@ function Interests({ values }: { values?: string[] | null }) {
   );
 }
 
+/**
+ * Saved grants are uuids on the profile; titles and status come from the
+ * grants API in one request. Ids the API no longer returns stay removable.
+ */
+function SavedGrants({ ids }: { ids: string[] }) {
+  const idsKey = ids.join(",");
+  const [grants, setGrants] = useState<Grant[] | null>(null);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    const list = idsKey ? idsKey.split(",") : [];
+    if (list.length === 0) {
+      setGrants([]);
+      return;
+    }
+    let cancelled = false;
+    setGrants(null);
+    setFailed(false);
+    getGrantsByIds(list)
+      .then((found) => {
+        if (!cancelled) setGrants(found);
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [idsKey]);
+
+  if (ids.length === 0) {
+    return <p className="mt-2 text-sm text-muted-foreground">Funding opportunities you save will appear here.</p>;
+  }
+  if (failed) {
+    return (
+      <p className="mt-2 text-sm text-muted-foreground" role="alert">
+        Your saved grants could not be loaded right now.
+      </p>
+    );
+  }
+  if (grants === null) {
+    return <p className="mt-2 text-sm text-muted-foreground">Loading saved grants…</p>;
+  }
+
+  const byId = new Map(grants.map((grant) => [grant.id, grant]));
+  return (
+    <ul className="mt-3 divide-y divide-border">
+      {ids.map((id) => {
+        const grant = byId.get(id);
+        return (
+          <li key={id} className="flex items-center justify-between gap-3 py-2">
+            {grant ? (
+              <div className="min-w-0 space-y-1">
+                <Link
+                  to={`/funding-sources?grant=${encodeURIComponent(grant.id)}`}
+                  className="block truncate text-sm underline-offset-4 hover:underline"
+                >
+                  {grant.title}
+                </Link>
+                <DeadlineBadge grant={grant} />
+              </div>
+            ) : (
+              <span className="text-sm text-muted-foreground">No longer available</span>
+            )}
+            <BookmarkButton kind="grants" itemId={id} label={grant?.title ?? "this grant"} />
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 /** Minimal account page: profile summary and saved items. Guarded by ProtectedRoute. */
 export default function AccountPage() {
   const { user } = useAuth();
   if (!user) return null;
 
   const tools = user.bookmarkedTools ?? [];
-  const grants = user.savedGrants ?? [];
+  const savedGrantIds = user.savedGrantIds ?? [];
   const languageLabel = languages.find(({ code }) => code === user.language)?.label ?? user.language;
 
   return (
@@ -86,7 +163,7 @@ export default function AccountPage() {
             {tools.map((tool) => (
               <li key={tool.documentId} className="flex items-center justify-between py-2">
                 <span className="text-sm">{tool.name}</span>
-                <BookmarkButton kind="tools" documentId={tool.documentId} label={tool.name} />
+                <BookmarkButton kind="tools" itemId={tool.documentId} label={tool.name} />
               </li>
             ))}
           </ul>
@@ -95,22 +172,9 @@ export default function AccountPage() {
 
       <section aria-labelledby="grants-heading" className="rounded-xl border border-border p-6">
         <h2 id="grants-heading" className="text-lg font-medium">
-          Saved grants <span className="text-muted-foreground">({grants.length})</span>
+          Saved grants <span className="text-muted-foreground">({savedGrantIds.length})</span>
         </h2>
-        {grants.length === 0 ? (
-          <p className="mt-2 text-sm text-muted-foreground">
-            Funding opportunities you save will appear here.
-          </p>
-        ) : (
-          <ul className="mt-3 divide-y divide-border">
-            {grants.map((grant) => (
-              <li key={grant.documentId} className="flex items-center justify-between py-2">
-                <span className="text-sm">{grant.grant_name}</span>
-                <BookmarkButton kind="grants" documentId={grant.documentId} label={grant.grant_name} />
-              </li>
-            ))}
-          </ul>
-        )}
+        <SavedGrants ids={savedGrantIds} />
       </section>
     </div>
   );

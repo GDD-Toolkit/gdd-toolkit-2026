@@ -9,7 +9,15 @@ const __dirname = path.resolve();
 export default defineConfig({
   plugins: [react(), tailwind()],
   resolve: {
-    alias: { '@': path.resolve(__dirname, 'src') }
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      // Types shared with the grant-automation worker live one level up.
+      '@shared': path.resolve(__dirname, '../shared'),
+    }
+  },
+  server: {
+    // Let the dev server read ../shared (outside the Vite root).
+    fs: { allow: [path.resolve(__dirname, '..')] },
   },
   test: {
     environment: 'jsdom',

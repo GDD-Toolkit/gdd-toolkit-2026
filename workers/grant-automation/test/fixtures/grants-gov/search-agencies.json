@@ -1,0 +1,255 @@
+{
+ "errorcode": 0,
+ "msg": "Webservice Succeeds",
+ "data": {
+  "searchParams": {
+   "resultType": "json",
+   "searchOnly": false,
+   "oppNum": "",
+   "cfda": "",
+   "sortBy": "",
+   "oppStatuses": "posted|forecasted",
+   "startRecordNum": 0,
+   "eligibilities": "",
+   "fundingInstruments": "",
+   "fundingCategories": "",
+   "agencies": "DOS-PHL|DOS-VNM|DOS-KHM|USAID-PHI|DOS-ASEAN",
+   "rows": 50,
+   "keyword": "",
+   "keywordEncoded": false
+  },
+  "hitCount": 8,
+  "startRecord": 0,
+  "oppHits": [
+   {
+    "id": "343013",
+    "number": "CB600-22-PAS-0002-KH",
+    "title": "Call for Proposals &ndash; Workshops to Stop the Spread of mis/disinformation",
+    "agencyCode": "DOS-KHM",
+    "agency": "U.S. Mission to Cambodia",
+    "openDate": "08/09/2022",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "19.040"
+    ]
+   },
+   {
+    "id": "335224",
+    "number": "SCB60021PAS0002",
+    "title": "Counter Wildlife Trafficking NOFO",
+    "agencyCode": "DOS-KHM",
+    "agency": "U.S. Mission to Cambodia",
+    "openDate": "08/09/2021",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "19.124"
+    ]
+   },
+   {
+    "id": "331459",
+    "number": "PAS-CB-600-21-PAS-0002",
+    "title": "Paris Peace Agreements Report NOFO",
+    "agencyCode": "DOS-KHM",
+    "agency": "U.S. Mission to Cambodia",
+    "openDate": "02/15/2021",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "19.040"
+    ]
+   },
+   {
+    "id": "322314",
+    "number": "PAS-CB-600-20-PAS-0003",
+    "title": "Ambassadors Fund for Cultural Preservation Large Grants Program",
+    "agencyCode": "DOS-KHM",
+    "agency": "U.S. Mission to Cambodia",
+    "openDate": "11/08/2019",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "19.025"
+    ]
+   },
+   {
+    "id": "347707",
+    "number": "23-PHL-NOFO-EV",
+    "title": "2023 Emerging Voices Small Grants Program",
+    "agencyCode": "DOS-PHL",
+    "agency": "U.S. Mission to the Philippines",
+    "openDate": "04/24/2023",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "19.040"
+    ]
+   },
+   {
+    "id": "322667",
+    "number": "PAS-SCB-600-20-PAS-0001",
+    "title": "Public Affairs Section Notice of Funding Opportunity 2020",
+    "agencyCode": "DOS-KHM",
+    "agency": "U.S. Mission to Cambodia",
+    "openDate": "11/23/2019",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "19.040"
+    ]
+   },
+   {
+    "id": "348863",
+    "number": "PAS-CB600-23-0002",
+    "title": "U.S. Embassy Phnom Penh &ndash; PAS Annual Program Statement",
+    "agencyCode": "DOS-KHM",
+    "agency": "U.S. Mission to Cambodia",
+    "openDate": "06/22/2023",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "19.040"
+    ]
+   },
+   {
+    "id": "364047",
+    "number": "OFOP0003897",
+    "title": "Improved quality of life of persons with disabilities in provinces heavily sprayed with agent orange in Ca Mau and Quang Ngai",
+    "agencyCode": "DOS-VNM",
+    "agency": "U.S. Mission to Vietnam",
+    "openDate": "10/09/2026",
+    "closeDate": "11/19/2026",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "19.124"
+    ]
+   }
+  ],
+  "oppStatusOptions": [
+   {
+    "label": "posted",
+    "value": "posted",
+    "count": 1
+   },
+   {
+    "label": "closed",
+    "value": "closed",
+    "count": 21
+   },
+   {
+    "label": "archived",
+    "value": "archived",
+    "count": 149
+   },
+   {
+    "label": "forecasted",
+    "value": "forecasted",
+    "count": 7
+   }
+  ],
+  "dateRangeOptions": [
+   {
+    "label": "Posted Date - Last 4 Weeks",
+    "value": "28",
+    "count": 1
+   },
+   {
+    "label": "Posted Date - Last 5 Weeks",
+    "value": "35",
+    "count": 1
+   },
+   {
+    "label": "Posted Date - Last 6 Weeks",
+    "value": "42",
+    "count": 1
+   },
+   {
+    "label": "Posted Date - Last 7 Weeks",
+    "value": "49",
+    "count": 1
+   },
+   {
+    "label": "Posted Date - Last 8 Weeks",
+    "value": "56",
+    "count": 1
+   }
+  ],
+  "suggestion": "",
+  "eligibilities": [
+   {
+    "label": "Nonprofits having a 501(c)(3) status with the IRS, other than institutions of higher education",
+    "value": "12",
+    "count": 1
+   },
+   {
+    "label": "Others (see text field entitled \"Additional Information on Eligibility\" for clarification)",
+    "value": "25",
+    "count": 6
+   },
+   {
+    "label": "Unrestricted (i.e., open to any type of entity above), subject to any clarification in text field entitled \"Additional Information on Eligibility\"",
+    "value": "99",
+    "count": 1
+   }
+  ],
+  "fundingCategories": [
+   {
+    "label": "Education",
+    "value": "ED",
+    "count": 1
+   },
+   {
+    "label": "Other (see text field entitled \"Explanation of Other Category of Funding Activity\" for clarification)",
+    "value": "O",
+    "count": 7
+   }
+  ],
+  "fundingInstruments": [
+   {
+    "label": "Cooperative Agreement",
+    "value": "CA",
+    "count": 2
+   },
+   {
+    "label": "Grant",
+    "value": "G",
+    "count": 6
+   }
+  ],
+  "agencies": [
+   {
+    "subAgencyOptions": [
+     {
+      "label": "U.S. Mission to Cambodia",
+      "value": "DOS-KHM",
+      "count": 6
+     },
+     {
+      "label": "U.S. Mission to the Philippines",
+      "value": "DOS-PHL",
+      "count": 1
+     },
+     {
+      "label": "U.S. Mission to Vietnam",
+      "value": "DOS-VNM",
+      "count": 1
+     }
+    ],
+    "label": "Department of State",
+    "value": "DOS",
+    "count": 8
+   }
+  ],
+  "accessKey": "",
+  "errorMsgs": []
+ }
+}

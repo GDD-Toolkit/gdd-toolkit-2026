@@ -3,6 +3,8 @@
 interface ImportMetaEnv {
   readonly VITE_STRAPI_URL: string;
   readonly VITE_STRAPI_API_TOKEN?: string;
+  /** Base URL of the grants read API (workers/grant-automation), e.g. http://localhost:4100 */
+  readonly VITE_GRANTS_API_URL: string;
   /** Override plural API ID if not `cohorts` in Strapi */
   readonly VITE_STRAPI_COHORTS_PLURAL?: string;
   /** Override plural API ID if not `database-tables` in Strapi */

@@ -1,0 +1,105 @@
+{
+ "errorcode": 0,
+ "msg": "Webservice Succeeds",
+ "data": {
+  "id": 347707,
+  "revision": 0,
+  "opportunityNumber": "23-PHL-NOFO-EV",
+  "opportunityTitle": "2023 Emerging Voices Small Grants Program",
+  "owningAgencyCode": "DOS-PHL",
+  "listed": "L",
+  "publisherUid": "FergusonME",
+  "flag2006": "N",
+  "opportunityCategory": {
+   "category": "E",
+   "description": "Earmark"
+  },
+  "agencyDetails": {
+   "code": "PHL",
+   "seed": "DOS-PHL",
+   "agencyName": "U.S. Mission to the Philippines",
+   "agencyCode": "DOS-PHL",
+   "topAgencyCode": "DOS"
+  },
+  "topAgencyDetails": {
+   "code": "DOS",
+   "seed": "DOS",
+   "agencyName": "Department of State",
+   "agencyCode": "DOS",
+   "topAgencyCode": "DOS"
+  },
+  "forecast": {
+   "opportunityId": 347707,
+   "version": 1,
+   "postingDate": "Apr 24, 2023 12:00:00 AM EDT",
+   "forecastDesc": "<p><span style=\"color: black;\">The U.S. Embassy&nbsp;in the Philippines’&nbsp;Public Affairs Section (PAS&nbsp;Philippines) of the U.S. Department of State is pleased to announce that&nbsp;we are considering proposals&nbsp;for&nbsp;the 2023 Emerging Voices (EV) Small Grants Program.&nbsp;Our funding goals, strategic themes, and processes for submitting grant proposals are all outlined in this notice.&nbsp;Please read carefully and follow all instructions.&nbsp;</span><strong style=\"color: black;\">This notice is subject to the availability of funding.</strong></p>\n<p><br></p>\n<p><strong style=\"color: black;\">PRIORITY PROGRAM AREAS</strong><span style=\"color: black;\">&nbsp;</span></p>\n<p><strong>Food Security</strong></p>\n<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Increasing awareness and capacity to promote Food Security&nbsp;</p>\n<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creating networks of Youth Leaders and advocates of Food Security&nbsp;</p>\n<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Addressing Food Security&nbsp;issues</p>\n<p><strong>Cybersecurity</strong></p>\n<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Advancing innovative approaches to combating Cybersecurity issues</p>\n<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Increasing awareness and capacity to promote Cybersecurity</p>\n<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Increasing youth participation in formulating policies on Cybersecurity</p>\n<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creating networks of Youth Leaders and advocates of Cybersecurity</p>\n<p><br></p>\n<p>Please download the full announcement at the Related Documents Tab. Also, submissions are via email ONLY. </p>",
+   "fundingActivityCategoryDesc": "PAS Philippines invites youth leaders and youth-led organizations to submit project proposals that would deepen connections between the Philippines and the U.S. by highlighting shared values and promoting bilateral cooperation and objectives. Youth leaders and youth-led organizations can submit, and the budget should not be more than $20,000 in total. \r\n\r\nExamples of projects include, but are not limited to: \r\n\r\n&bull;Youth experts conducting speaking tours/public talks, roundtable discussions, and workshops; \r\n&bull;Youth-led capacity-building workshop or training aligned with the priority themes; \r\n&bull;Youth-led information campaign to raise awareness on priority program areas; and \r\n&bull;Virtual programs and other new methodologies to promote priority program areas.",
+   "costSharing": false,
+   "estimatedFunding": "40000",
+   "awardCeiling": "20000",
+   "awardFloor": "5000",
+   "agencyContactName": "redacted",
+   "agencyContactPhone": "redacted",
+   "agencyContactEmail": "redacted",
+   "agencyContactEmailDesc": "redacted",
+   "agencyCode": "DOS-PHL",
+   "sendEmail": "Y",
+   "applicantEligibilityDesc": "PAS Philippines&rsquo; target audiences include U.S.-Philippines youth, youth leaders and youth-led organizations, cultural and educational leaders, innovators, digital influencers, youth from minority groups and vulnerable communities, national and regional media, NGOs and think tanks, government officials (state, district, and municipal officials; policymakers, civil servants).  The Public Affairs Section encourages applications from youth leaders and youth-led organizations situated in the U.S. and the Philippines.  Youth leaders and youth-led organizations registered not-for-profit organizations with appropriate programming expertise, such as think tanks and civil society/non-governmental groups, are also welcome to submit.  Commercial or for-profit organizations are not eligible to apply.  Cost-sharing or matching is not required for this funding opportunity.  Pre-award costs are not an allowable expense for this funding opportunity.  Applications may be submitted for consideration at any time on or before the closing date of this funding opportunity.",
+   "estApplicationResponseDate": "May 22, 2023 12:00:00 AM EDT",
+   "fiscalYear": 2023,
+   "createTimeStamp": "Apr 23, 2023 10:06:48 PM EDT",
+   "createdDate": "Apr 23, 2023 09:46:28 PM EDT",
+   "lastUpdatedDate": "Apr 23, 2023 10:06:48 PM EDT",
+   "agencyDetails": {
+    "code": "PHL",
+    "seed": "DOS-PHL",
+    "agencyName": "U.S. Mission to the Philippines",
+    "agencyCode": "DOS-PHL",
+    "topAgencyCode": "DOS"
+   },
+   "estimatedFundingFormatted": "40,000",
+   "awardCeilingFormatted": "20,000",
+   "awardFloorFormatted": "5,000",
+   "applicantTypes": [
+    {
+     "id": "99",
+     "description": "Unrestricted (i.e., open to any type of entity above), subject to any clarification in text field entitled \"Additional Information on Eligibility\""
+    }
+   ],
+   "fundingInstruments": [
+    {
+     "id": "CA",
+     "description": "Cooperative Agreement"
+    }
+   ],
+   "fundingActivityCategories": [
+    {
+     "id": "O",
+     "description": "Other (see text field entitled \"Explanation of Other Category of Funding Activity\" for clarification)"
+    }
+   ],
+   "postingDateStr": "2023-04-24-00-00-00",
+   "estApplicationResponseDateStr": "2023-05-22-00-00-00",
+   "createTimeStampStr": "2023-04-23-22-06-48"
+  },
+  "cfdas": [
+   {
+    "id": 410431,
+    "opportunityId": 347707,
+    "cfdaNumber": "19.040",
+    "programTitle": "Public Diplomacy Programs"
+   }
+  ],
+  "synopsisModifiedFields": [],
+  "forecastModifiedFields": [],
+  "errorMessages": [],
+  "synPostDateInPast": true,
+  "docType": "forecast",
+  "forecastHistCount": 0,
+  "synopsisHistCount": 0,
+  "assistCompatible": false,
+  "assistURL": "",
+  "draftMode": "N",
+  "ost": "FORECASTED"
+ }
+}
