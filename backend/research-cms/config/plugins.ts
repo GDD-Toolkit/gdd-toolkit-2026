@@ -17,10 +17,8 @@ const config = ({
         params: { Bucket: "strapi-uploads" },
       }
     : {
-        credentials: {
-          accessKeyId: env("AWS_ACCESS_KEY_ID"),
-          secretAccessKey: env("AWS_ACCESS_SECRET"),
-        },
+        // No credentials here: the AWS SDK's default chain picks up the EC2 instance
+        // role (gdd-cms-ec2), so there is no long-lived access key to leak or rotate.
         region: env("AWS_REGION"),
         params: {
           // 'private' makes the provider report isPrivate() and serve signed URLs. The bucket
