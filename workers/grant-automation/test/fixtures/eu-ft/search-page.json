@@ -1,0 +1,1462 @@
+{
+ "apiVersion": "2.157.1",
+ "terms": "***",
+ "totalResults": 10,
+ "pageNumber": 1,
+ "pageSize": 100,
+ "sort": "[identifier:ASC]",
+ "results": [
+  {
+   "apiVersion": "2.157.1",
+   "reference": "45877948CERVLumpSumGrants1680566400000",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/CERV-2023-CITIZENS-CIV.json",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "",
+   "summary": "Citizens’ engagement and participation",
+   "weight": 0.0,
+   "groupById": "1",
+   "content": "Citizens’ engagement and participation",
+   "accessRestriction": false,
+   "checksum": "0B46B85A0C438EDAB50FC13D37D5C8E4FC18DC261F1EDB8C2BDBB4143C2CD6EE",
+   "metadata": {
+    "es_SortDate": [
+     "2023-04-04T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "[\"Solidarity\",\"Other\",\"Disinformation and media literacy\",\"Climate and environment\",\"Future of Europe\",\"poverty\",\"democratic legitimacy\",\"populism\",\"civic life\",\"journalists\",\"green deal\",\"conference\",\"solidarity\",\"inclusive policymaking\",\"cultural activities\",\"eu mobile citizens\",\"refugee crisis\",\"democratic debate\",\"societal challenges\",\"hate speech\",\"bottom-up approach\",\"workshop\",\"green way of life\",\"democratic participation\",\"reach voters\",\"e-democracy\",\"disinformation\",\"cohesion\",\"citizens\",\"citizenship\",\"youth inclusion\",\"social exclusion\",\"environment\",\"citizens-oriented\",\"Election integrity\",\"civil society\",\"european democracy\",\"climate\",\"free and fair elections\",\"CSO\",\"fake news\",\"citizens participation\",\"human rights defenders\",\"protecting journalists\",\"media literacy\",\"debate\",\"citizens engagement\",\"misinformation\",\"seminar\",\"future of europe\",\"universities\",\"campaign\",\"local authorities\",\"Regional authorities\",\"protecting human rights defenders\",\"future of european integration\",\"citizens empowerment\",\"non-profit organisations\"]"
+    ],
+    "sortStatus": [
+     "1"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "title": [
+     "Citizens’ engagement and participation"
+    ],
+    "esST_checksum": [
+     "0B46B85A0C438EDAB50FC13D37D5C8E4FC18DC261F1EDB8C2BDBB4143C2CD6EE"
+    ],
+    "focusArea": [],
+    "cftId": [
+     "0"
+    ],
+    "typeOfMGAs": [
+     "43249821"
+    ],
+    "esST_FileName": [
+     "file.txt"
+    ],
+    "callIdentifier": [
+     "CERV-2023-CITIZENS-CIV"
+    ],
+    "ccm2Id": [
+     "45877948"
+    ],
+    "callccm2Id": [
+     "45878244"
+    ],
+    "DATASOURCE": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "frameworkProgramme": [
+     "43251589"
+    ],
+    "identifier": [
+     "CERV-2023-CITIZENS-CIV"
+    ],
+    "es_ContentType": [
+     "text/plain"
+    ],
+    "programmeDivision": [
+     "43422715"
+    ],
+    "crossCuttingPriorities": [],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2023-09-05T17:00:00.000+0000"
+    ],
+    "esDA_IngestDate": [
+     "2023-04-04T00:21:50.644+0200"
+    ],
+    "typesOfAction": [
+     "CERV Lump Sum Grants"
+    ],
+    "es_Combine": [
+     "1"
+    ],
+    "corporate-search-version": [
+     "102"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/CERV-2023-CITIZENS-CIV.json"
+    ],
+    "esST_URL": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/CERV-2023-CITIZENS-CIV.json"
+    ],
+    "esDA_QueueDate": [
+     "2023-04-04T00:21:37.261+0200"
+    ],
+    "datasource": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "startDate": [
+     "2023-04-04T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "status": [
+     "31094502"
+    ]
+   },
+   "enrichedMetadata": {},
+   "children": [],
+   "highlightedFragments": [],
+   "citation": "Citizens’ engagement and participation. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/CERV-2023-CITIZENS-CIV.json"
+  },
+  {
+   "apiVersion": "2.157.1",
+   "reference": "52171134TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CERV-2026-CITIZENS-REM-GENCRIME-1",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "Strengthening the remembrance of Roma victims",
+   "weight": 0.0,
+   "groupById": "1",
+   "content": "Strengthening the remembrance of Roma victims",
+   "accessRestriction": false,
+   "checksum": "EA62A6BE0531839DFEB3F0F0EC7D4869887D0EDAEE606A2C7604E8E003EC774F",
+   "metadata": {
+    "es_SortDate": [
+     "2026-10-21T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "CERV-2026-CITIZENS-REM-GENCRIME-1",
+     "CERV-2026-CITIZENS-REM",
+     "Authoritarian regimes",
+     "Civil society",
+     "Crimes against humanity",
+     "Democracy",
+     "Discrimination",
+     "Equality",
+     "Europe in a changing world",
+     "Extremism",
+     "Fake-news",
+     "Gender",
+     "Genocide",
+     "Healing of society",
+     "Holocaust",
+     "Holocaust denial and distortion",
+     "Human rights",
+     "Inter-cultural dialogue",
+     "LGBTQ+",
+     "Minorities",
+     "Multicultural European societies",
+     "Oppression",
+     "Organised opposition",
+     "Persecution",
+     "Political systems and institutions, governance",
+     "Populism",
+     "Racism, xenophobia, and other forms of intolerance",
+     "Radicalism",
+     "Raising awarness of children and/or young people",
+     "Reconciliation",
+     "Roma",
+     "Rule of law",
+     "Societal division",
+     "Solidarity",
+     "Totalitarian regimes",
+     "Violence",
+     "War",
+     "War crimes",
+     "Youth"
+    ],
+    "sortStatus": [
+     "1"
+    ],
+    "language": [
+     "en"
+    ],
+    "title": [
+     "Strengthening the remembrance of Roma victims"
+    ],
+    "type": [
+     "1"
+    ],
+    "esST_checksum": [
+     "EA62A6BE0531839DFEB3F0F0EC7D4869887D0EDAEE606A2C7604E8E003EC774F"
+    ],
+    "focusArea": [],
+    "esST_FileName": [
+     "file.txt"
+    ],
+    "typeOfMGAs": [
+     "43249821"
+    ],
+    "callIdentifier": [
+     "CERV-2026-CITIZENS-REM"
+    ],
+    "ccm2Id": [
+     "52171134"
+    ],
+    "callccm2Id": [
+     "51474297"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "REFERENCE": [
+     "52171134TOPICSen"
+    ],
+    "callTitle": [
+     "European Remembrance - 2026"
+    ],
+    "frameworkProgramme": [
+     "43251589"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Objective:</p><p><strong>3. Strengthening the remembrance of the Holocaust, acts of genocide, war crimes and crimes against humanity to strengthen democracy in the EU.</strong></p><p><em>Projects under this topic should focus on the non-Jewish victims of the Holocaust as well as other genocides, war crimes and crimes against humanity of the 20<sup>th</sup> century’s Europe.</em><em> </em></p><p><em>Projects under this topic should NOT address the Holocaust against Jewish people which are covered by Topic 2.</em></p><p><strong>CERV-2026-CITIZENS-REM-GENCRIME-1 - Priority 1: Strengthening the remembrance of Roma victims </strong></p><p>The genocide of Roma and Sinti under Nazi rule, known as Porajmos or Samudaripen, is a defining yet insufficiently recognized legacy for the European Union. An estimated 500,000 Roma, including Sinti and Travellers, were murdered, and countless others were persecuted, deported, forcibly sterilized, and subjected to inhuman treatment. The Nazi regime implemented racial policies aimed at the systematic destruction of Roma communities across Europe, culminating in mass killings such as the liquidation of the Roma camp at Auschwitz-Birkenau on 2 August 1944, now commemorated as European Roma Holocaust Memorial Day.</p><p>The Roma Holocaust must be understood within a longer continuum of antigypsyism in Europe. Roma were enslaved for nearly five centuries in the territories of present-day Romania, deprived of legal personhood and basic rights. In the 20th century, persecution continued under fascist and communist regimes and, in several countries, through forced sedentarisation, assimilation policies, and coercive practices including forced sterilizations. These historical injustices have had lasting socio-economic consequences.</p><p>Despite this, Roma persecution remains underrepresented in school curricula, museums, and public memorials. Dedicated research centres, permanent monuments, and teaching materials on Roma history and the Roma Holocaust are limited. This structural invisibility contributes to persistent antigypsyism, distortion, and denial.</p><p>As survivor numbers decline, preserving testimonies, memorial sites, and archival materials becomes increasingly urgent. Commemorative initiatives such as 2 August – European Roma Holocaust Memorial Day – and 16 May – Romani Resistance Day require stronger institutional support and integration into European remembrance culture.</p><p>Current political developments also demonstrate the vulnerability of Roma Holocaust memory. Historical distortion, trivialization, and denial — often intertwined with broader antigypsyist narratives — undermine democratic values. Memory competition and selective recognition of victimhood risk reinforcing exclusion. Citizens must be empowered to counter distortion, denial, and the minimization of the Roma genocide. In line with the EU Roma Strategic Framework for Equality Inclusion and Participation 2020-2030, special priority will be given to projects that strengthen Roma Holocaust remembrance while addressing the deeper roots of antigypsyism.</p><p>Projects under this priority could focus on:</p><ul level=\"0\"><li>Documenting the implementation of the Roma genocide and its historical context, including slavery, post-war persecution and totalitarian persecutions.</li><li>Countering denial, distortion, trivialization, and the marginalization of Roma victimhood.</li><li>Developing networks of Roma and non-Roma youth ambassadors to promote remembrance and counter antigypsyism.</li><li>Supporting grassroots commemorative initiatives, including activities marking 2 August – European Roma Holocaust Memorial Day, 16 May – Romani Resistance Day, etc.</li><li>Developing and disseminating teaching materials that integrate Roma history and the Roma Holocaust into national curricula.</li><li>Digitalizing testimonies, archival documents, and historical research to preserve memory for future generations.</li><li>Promoting research on Roma restitution, forced displacement, and long-term consequences of historical injustice.</li><li>Collecting, documenting and disseminating stories of Roma resistance, heroes, rescuers, intellectuals, artists and community leaders, highlighting Roma agency, resilience and contribution to European history.</li><li>Applying transitional justice approaches, including truth-seeking, recognition of harm, restitution research, and guarantees of non-repetition through education and memorialization.</li><li>Developing inclusive, participatory ways to remember, educate about, and teach about these crimes in order to prevent the resurgence of hatred, including antigypsyism. This may include artistic memory projects, memory activism, and other approaches that foster an enabling learning environment.</li> </ul><p><em><strong>For further information about the call and its conditions, please see the <a href=\"https://ec.europa.eu/info/funding-tenders/opportunities/docs/2021-2027/cerv/wp-call/2026/call-fiche_cerv-2026-citizens-rem_en.pdf\">Call document</a>.</strong></em></p>"
+    ],
+    "identifier": [
+     "CERV-2026-CITIZENS-REM-GENCRIME-1"
+    ],
+    "es_ContentType": [
+     "text/plain"
+    ],
+    "programmeDivision": [
+     "43437664"
+    ],
+    "crossCuttingPriorities": [
+     "DigitalAgenda",
+     "AI"
+    ],
+    "esDA_FirstIngestDate": [
+     "2026-10-01T09:55:10.695+0200"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2027-02-24T00:00:00.000+0000"
+    ],
+    "esDA_IngestDate": [
+     "2026-10-21T10:47:07.682+0200"
+    ],
+    "typesOfAction": [
+     "CERV Lump Sum Grants"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CERV-2026-CITIZENS-REM-GENCRIME-1"
+    ],
+    "es_Combine": [
+     "1"
+    ],
+    "esST_URL": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CERV-2026-CITIZENS-REM-GENCRIME-1"
+    ],
+    "tags": [
+     "Authoritarian regimes",
+     "Civil society",
+     "Crimes against humanity",
+     "Democracy",
+     "Discrimination",
+     "Equality",
+     "Europe in a changing world",
+     "Extremism",
+     "Fake-news",
+     "Gender",
+     "Genocide",
+     "Healing of society",
+     "Holocaust",
+     "Holocaust denial and distortion",
+     "Human rights",
+     "Inter-cultural dialogue",
+     "LGBTQ+",
+     "Minorities",
+     "Multicultural European societies",
+     "Oppression",
+     "Organised opposition",
+     "Persecution",
+     "Political systems and institutions, governance",
+     "Populism",
+     "Racism, xenophobia, and other forms of intolerance",
+     "Radicalism",
+     "Raising awarness of children and/or young people",
+     "Reconciliation",
+     "Roma",
+     "Rule of law",
+     "Societal division",
+     "Solidarity",
+     "Totalitarian regimes",
+     "Violence",
+     "War",
+     "War crimes",
+     "Youth"
+    ],
+    "esDA_QueueDate": [
+     "2026-10-21T10:47:07.675+0200"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"CERV-LS CERV Lump Sum Grants\",\"typeOfMGA\":[{\"id\":43249821,\"abbreviation\":\"CERV-AG-LS\",\"description\":\"CERV Lump Sum Grant\"}]}],\"status\":{\"id\":31094502,\"abbreviation\":\"Open\",\"description\":\"Open\"},\"plannedOpeningDate\":\"2026-10-21\",\"submissionProcedure\":{\"id\":31094504,\"abbreviation\":\"single-stage\",\"description\":\"single-stage\"},\"deadlineDates\":[\"2027-02-24\"]}]"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2026\"],\"budgetTopicActionMap\":{\"114921\":[{\"action\":\"CERV-2026-CITIZENS-REM-HISTMIGRATION - CERV-LS CERV Lump Sum Grants\",\"expectedGrants\":0,\"minContribution\":0,\"maxContribution\":0,\"budgetYearMap\":{\"2026\":\"28000000\"},\"plannedOpeningDate\":\"2026-10-21\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-24\"]},{\"action\":\"CERV-2026-CITIZENS-REM-GENCRIME-1 - CERV-LS CERV Lump Sum Grants\",\"expectedGrants\":0,\"minContribution\":0,\"maxContribution\":0,\"budgetYearMap\":{\"2026\":\"28000000\"},\"plannedOpeningDate\":\"2026-10-21\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-24\"]},{\"action\":\"CERV-2026-CITIZENS-REM-TRANSITION - CERV-LS CERV Lump Sum Grants\",\"expectedGrants\":0,\"minContribution\":0,\"maxContribution\":0,\"budgetYearMap\":{\"2026\":\"28000000\"},\"plannedOpeningDate\":\"2026-10-21\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-24\"]},{\"action\":\"CERV-2026-CITIZENS-REM-GENCRIME-2 - CERV-LS CERV Lump Sum Grants\",\"expectedGrants\":0,\"minContribution\":0,\"maxContribution\":0,\"budgetYearMap\":{\"2026\":\"28000000\"},\"plannedOpeningDate\":\"2026-10-21\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-24\"]},{\"action\":\"CERV-2026-CITIZENS-REM-HOLOCAUSTJEW - CERV-LS CERV Lump Sum Grants\",\"expectedGrants\":0,\"minContribution\":0,\"maxContribution\":0,\"budgetYearMap\":{\"2026\":\"28000000\"},\"plannedOpeningDate\":\"2026-10-21\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-24\"]}]}}"
+    ],
+    "startDate": [
+     "2026-10-21T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "specificObjective": [],
+    "status": [
+     "31094502"
+    ]
+   },
+   "enrichedMetadata": {},
+   "children": [],
+   "highlightedFragments": [],
+   "citation": "Strengthening the remembrance of Roma victims. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CERV-2026-CITIZENS-REM-GENCRIME-1"
+  },
+  {
+   "apiVersion": "2.157.1",
+   "reference": "45497134HORIZONERCProofofConceptGrants1666224000000",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/ERC-2023-POC.json",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "",
+   "summary": "ERC PROOF OF CONCEPT GRANTS",
+   "weight": 0.0,
+   "groupById": "1",
+   "content": "ERC PROOF OF CONCEPT GRANTS",
+   "accessRestriction": false,
+   "metadata": {
+    "es_SortDate": [
+     "2022-10-20T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "[\"HORIZON-ERC-2023\",\"POC2023\",\"Proof of Concept\",\"ERC\",\"POC\",\"ERC-2023-POC\",\"Proof of Concept Lump Sum\",\"European Research Council\",\"Frontier Research\"]"
+    ],
+    "sortStatus": [
+     "1"
+    ],
+    "destination": [],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "title": [
+     "ERC PROOF OF CONCEPT GRANTS"
+    ],
+    "focusArea": [],
+    "cftId": [
+     "0"
+    ],
+    "typeOfMGAs": [
+     "43027849"
+    ],
+    "esST_FileName": [
+     "file.txt"
+    ],
+    "callIdentifier": [
+     "ERC-2023-POC"
+    ],
+    "ccm2Id": [
+     "45497134"
+    ],
+    "callccm2Id": [
+     "45497150"
+    ],
+    "destinationGroup": [],
+    "DATASOURCE": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "identifier": [
+     "ERC-2023-POC"
+    ],
+    "es_ContentType": [
+     "text/plain"
+    ],
+    "programmeDivision": [
+     "43108406",
+     "43108394"
+    ],
+    "crossCuttingPriorities": [],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2023-01-24T17:00:00.000+0000",
+     "2023-04-20T17:00:00.000+0000",
+     "2023-09-21T17:00:00.000+0000"
+    ],
+    "esDA_IngestDate": [
+     "2022-11-18T10:05:30.399+0100"
+    ],
+    "typesOfAction": [
+     "HORIZON ERC Proof of Concept Grants"
+    ],
+    "es_Combine": [
+     "1"
+    ],
+    "corporate-search-version": [
+     "102"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/ERC-2023-POC.json"
+    ],
+    "esST_URL": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/ERC-2023-POC.json"
+    ],
+    "esDA_QueueDate": [
+     "2022-11-18T10:05:26.948+0100"
+    ],
+    "mission": [],
+    "datasource": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "missionGroup": [],
+    "startDate": [
+     "2022-10-20T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "multiple cut-off"
+    ],
+    "status": [
+     "31094502"
+    ]
+   },
+   "enrichedMetadata": {},
+   "children": [],
+   "highlightedFragments": [],
+   "citation": "ERC PROOF OF CONCEPT GRANTS. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/ERC-2023-POC.json"
+  },
+  {
+   "apiVersion": "2.157.1",
+   "reference": "172802PROSPECTSEN",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/172802EN",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "",
+   "summary": "Support to the Ministry of Public Administration and Local Self-Government in modernizing the personnel planning procedure for State Administration and harmonizing the Catalogue of titles in State administration and Local Self-Governments",
+   "weight": 0.0,
+   "groupById": "1",
+   "content": "Support to the Ministry of Public Administration and Local Self-Government in modernizing the personnel planning procedure for State Administration and harmonizing the Catalogue of titles in State administration and Local Self-Governments",
+   "accessRestriction": false,
+   "checksum": "603A6919F561DB11B0DDC3AC4BDB25FD13B1CF80D514266713EE4B2F743B4CE6",
+   "metadata": {
+    "updateDate": [
+     "2021-09-01T14:07:35.000+0000"
+    ],
+    "es_SortDate": [
+     "2021-07-30T10:00:02.000+0000"
+    ],
+    "beneficiaryAdministration": [
+     "Ministry of Public Administration and Local Self-Government"
+    ],
+    "sortStatus": [
+     "1"
+    ],
+    "contractType": [
+     "42958121"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "2"
+    ],
+    "title": [
+     "Support to the Ministry of Public Administration and Local Self-Government in modernizing the personnel planning procedure for State Administration and harmonizing the Catalogue of titles in State administration and Local Self-Governments"
+    ],
+    "esST_checksum": [
+     "603A6919F561DB11B0DDC3AC4BDB25FD13B1CF80D514266713EE4B2F743B4CE6"
+    ],
+    "esST_FileName": [
+     "file.txt"
+    ],
+    "callIdentifier": [
+     "172802"
+    ],
+    "DATASOURCE": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "currency": [
+     "EUR"
+    ],
+    "frameworkProgramme": [
+     "111111"
+    ],
+    "budget": [
+     "250000"
+    ],
+    "identifier": [
+     "EuropeAid/172802/ID/ACT/RS"
+    ],
+    "caName": [
+     "true"
+    ],
+    "es_ContentType": [
+     "text/plain"
+    ],
+    "geographicalZones": [
+     "20001057"
+    ],
+    "programmePeriod": [
+     "2014 - 2020",
+     "2021 - 2027"
+    ],
+    "esDA_IngestDate": [
+     "2023-03-13T17:38:57.642+0100"
+    ],
+    "es_Combine": [
+     "1"
+    ],
+    "corporate-search-version": [
+     "102"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/172802EN"
+    ],
+    "esST_URL": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/172802EN"
+    ],
+    "esDA_QueueDate": [
+     "2023-03-13T17:38:39.641+0100"
+    ],
+    "programmeDivisionProspect": [
+     "42921320"
+    ],
+    "geographicalZone": [
+     "20001057"
+    ],
+    "datasource": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "startDate": [
+     "2021-07-30T10:00:02.000+0000"
+    ],
+    "status": [
+     "31094502"
+    ]
+   },
+   "enrichedMetadata": {},
+   "children": [],
+   "highlightedFragments": [],
+   "citation": "Support to the Ministry of Public Administration and Local Self-Government in modernizing the personnel planning procedure for State Administration and harmonizing the Catalogue of titles in State administration and Local Self-Governments. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/172802EN"
+  },
+  {
+   "apiVersion": "2.157.1",
+   "reference": "187757PROSPECTSEN",
+   "url": "https://webgate.ec.europa.eu/prospect/external/publishedcalls.htm?callId=187757",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "Support to Civil Society Organisations (CSOs) and Support to Human Rights and Democracy (HR&D)",
+   "weight": 0.0,
+   "groupById": "1",
+   "content": "Support to Civil Society Organisations (CSOs) and Support to Human Rights and Democracy (HR&D)",
+   "accessRestriction": false,
+   "checksum": "BE9F3C30FDE486F4DF815A7CDE3C391558FEC33CAABB17C1684BC185BB8379BA",
+   "metadata": {
+    "updateDate": [
+     "2026-10-21T10:53:51.000+0000"
+    ],
+    "es_SortDate": [
+     "2026-10-22T04:00:57.000+0000"
+    ],
+    "beneficiaryAdministration": [],
+    "sortStatus": [
+     "1"
+    ],
+    "contractType": [
+     "42893160"
+    ],
+    "language": [
+     "en"
+    ],
+    "title": [
+     "Support to Civil Society Organisations (CSOs) and Support to Human Rights and Democracy (HR&D)"
+    ],
+    "type": [
+     "2"
+    ],
+    "esST_checksum": [
+     "BE9F3C30FDE486F4DF815A7CDE3C391558FEC33CAABB17C1684BC185BB8379BA"
+    ],
+    "esST_FileName": [
+     "file.txt"
+    ],
+    "callIdentifier": [
+     "187757"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "REFERENCE": [
+     "187757PROSPECTSEN"
+    ],
+    "currency": [
+     "EUR"
+    ],
+    "frameworkProgramme": [
+     "111111"
+    ],
+    "budget": [
+     "5993000"
+    ],
+    "identifier": [
+     "EuropeAid/187757/DD/ACT/KH"
+    ],
+    "es_ContentType": [
+     "text/plain"
+    ],
+    "geographicalZones": [
+     "20000928"
+    ],
+    "esDA_FirstIngestDate": [
+     "2026-10-22T06:01:00.441+0200"
+    ],
+    "programmePeriod": [
+     "2014 - 2020",
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2026-12-11T10:00:42.000+0000"
+    ],
+    "esDA_IngestDate": [
+     "2026-10-22T06:01:00.441+0200"
+    ],
+    "url": [
+     "https://webgate.ec.europa.eu/prospect/external/publishedcalls.htm?callId=187757"
+    ],
+    "es_Combine": [
+     "1"
+    ],
+    "esST_URL": [
+     "https://webgate.ec.europa.eu/prospect/external/publishedcalls.htm?callId=187757"
+    ],
+    "esDA_QueueDate": [
+     "2026-10-22T06:01:00.435+0200"
+    ],
+    "programmeDivisionProspect": [
+     "43072409"
+    ],
+    "geographicalZone": [
+     "20000928"
+    ],
+    "startDate": [
+     "2026-10-22T04:00:57.000+0000"
+    ],
+    "status": [
+     "31094502"
+    ]
+   },
+   "enrichedMetadata": {},
+   "children": [],
+   "highlightedFragments": [],
+   "citation": "Support to Civil Society Organisations (CSOs) and Support to Human Rights and Democracy (HR&D). Available at: https://webgate.ec.europa.eu/prospect/external/publishedcalls.htm?callId=187757"
+  },
+  {
+   "apiVersion": "2.157.1",
+   "reference": "50140817TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "Open topic on reinvigorating and shielding European democracy",
+   "weight": 0.0,
+   "groupById": "2",
+   "content": "Open topic on reinvigorating and shielding European democracy",
+   "accessRestriction": false,
+   "checksum": "921CCF61EC76C9385B355B393754A6DCF6034A0981534E054EF6258E5EB21DA6",
+   "metadata": {
+    "es_SortDate": [
+     "2027-03-02T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage",
+     "HORIZON-CL2-2027-02-TWO-STAGE",
+     "Demography",
+     "Human sciences, including research and studies",
+     "Policy and Support",
+     "Political science",
+     "Political systems and institutions, governance",
+     "Political theory",
+     "Social issues",
+     "Social sciences, interdisciplinary",
+     "Transformation of societies, democratization, social movements"
+    ],
+    "sortStatus": [
+     "2"
+    ],
+    "language": [
+     "en"
+    ],
+    "title": [
+     "Open topic on reinvigorating and shielding European democracy"
+    ],
+    "type": [
+     "1"
+    ],
+    "esST_checksum": [
+     "921CCF61EC76C9385B355B393754A6DCF6034A0981534E054EF6258E5EB21DA6"
+    ],
+    "focusArea": [],
+    "esST_FileName": [
+     "file.txt"
+    ],
+    "typeOfMGAs": [
+     "43027849"
+    ],
+    "callIdentifier": [
+     "HORIZON-CL2-2027-02-TWO-STAGE"
+    ],
+    "ccm2Id": [
+     "50140817"
+    ],
+    "callccm2Id": [
+     "50140927"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "REFERENCE": [
+     "50140817TOPICSen"
+    ],
+    "callTitle": [
+     "Culture, Creativity and Inclusive Society - 2027 - Two-stage"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Outcome:</p><p>Projects should contribute to all of the following expected outcomes:</p><ul level=\"0\"><li>EU institutions and national decision-makers, civil society organisations and other societal actors and citizens at large are better equipped, with new data, knowledge and methods, to confront threats and challenges of democracies as well as to enhance their inclusiveness and participatory elan.</li><li>Strengthened citizens’ long-lasting engagement in the democratic life, including but going beyond electoral processes, and increased trust in democratic institutions.</li></ul><p class=\"topicdescriptionkind\">Scope:</p><p>The Political Guidelines for 2024-2029 of the European Commission<sup>[1]</sup> announced a new European Democracy Shield, and the communication<sup>[2]</sup> was adopted in November 2025. Building on the European Democracy Action Plan<sup>[3]</sup> and the Defence of Democracy Package<sup>[4]</sup>, this initiative aims to safeguard, strengthen and promote democracy in the EU and to reinforce public trust. The Democracy Shield will aim to reinforce citizens’ participation and engagement in the democratic life, promote free and fair elections and support free and independent media. It will also address the increasing threats to democratic systems, institutions and processes within the EU, often driven by various hostile actors aiming to undermine citizens’ trust in democracy and its institutions. In addition, the Commission has also adopted a Civil Society Strategy<sup>[5]</sup>, the LGBTIQ+ Equality Strategy 2026-2030<sup>[6]</sup>, the Anti-Racism Strategy 2026-2030<sup>[7]</sup>, the Gender Equality Strategy 2026-2030<sup>[8]</sup>, and the Roadmap for Women’s Rights<sup>[9]</sup>. The Commission has also launched a Communication to enhance<sup>[10]</sup> the Strategy for the rights of persons with disabilities 2021-2030<sup>[11]</sup>, in line with the United Nations Convention on the rights of persons with disabilities, which the EU and its Member States are parties to<sup>[12]</sup>.</p><p>Ensuring full, equal and meaningful political participation for everyone, regardless of sex, gender, racial or ethnic origin, religion or belief, disability, socioeconomic status, employment or age, fosters more stable and resilient democracies. Decision-making processes that incorporate a wider range of perspectives and experiences leads to policies that are more comprehensive and attuned to the needs of all citizens.</p><p>Under this open topic, proposals should address existing, upcoming or unforeseen challenges and/or creative or disruptive solutions for protecting European democracy, enhancing citizens’ trust and political participation, expanding inclusiveness and fairness of democratic institutions and practices and supporting and protecting civil society. Proposals are encouraged to investigate the opportunities offered by digital and other new technological solutions, notably from the civic tech sector. Proposals should address unmet research needs, complementing previous Horizon Europe calls.</p><p>In that sense, proposals should consider, build on – if appropriate – while not duplicating, previous research, including but not limited to, SSH disciplines and/or research by other Horizon Europe projects, in particular in the context of this destination. Coordination among the successful proposals from this topic should be envisaged to avoid duplication and to exploit complementarities as well as opportunities for increased impact.</p><p>Given the multifaceted character of the challenges confronted by democracies, applicants should ensure effective interdisciplinary collaborations by building consortia with the participation of all relevant disciplines, depending of course on the nature of the selected democratic challenge and research angle.</p><p>Applicants are encouraged to adopt innovative approaches, including also by considering alternative and complementary models for democratic participation and engagement, facilitating the development and potential uptake of solutions. To ensure the active involvement of and timely feedback from relevant democracy practitioners and policymakers, proposals should plan a mid-term deliverable consisting in the assessment of the project’s mid-term contributions to the expected outcomes, performed by the democracy practitioners and policymakers. Proposals should directly engage citizens, as well as civil society organisations, to enable broader public debate and explore uptake of democratic innovations and better anticipate potential risks.</p><p>Proposals are encouraged to collaborate with the JRC Competence Centre on Participatory and Deliberative Democracy, particularly with respect to demonstrating how structured opportunities for citizen participation strengthen inclusiveness and fairness of democratic institutions and practices, and foster evolution in democratic public spaces.</p><p>Where applicable, proposals should leverage the data and services available through European Research Infrastructures federated under the European Open Science Cloud (EOSC), as well as data from relevant Data Spaces. Particular efforts should be made to ensure that the data produced in the context of this topic is FAIR (Findable, Accessible, Interoperable and Re-usable).</p><p class=\"eui-u-font-s\">[1] <sup> </sup><a href=\"https://commission.europa.eu/document/download/e6cd4328-673c-4e7a-8683-f63ffb2cf648_en?filename=PoliticalGuidelines2024-2029_EN.pdf\">https://commission.europa.eu/document/download/e6cd4328-673c-4e7a-8683-f63ffb2cf648_en?filename=Political%20Guidelines%202024-2029_EN.pdf</a></p><p class=\"eui-u-font-s\">[2] <sup> </sup><a href=\"https://commission.europa.eu/document/download/2539eb53-9485-4199-bfdc-97166893ff45_en?filename=JUST_template_comingsoon_standard_1.pdf\">https://commission.europa.eu/document/download/2539eb53-9485-4199-bfdc-97166893ff45_en?filename=JUST_template_comingsoon_standard_1.pdf</a></p><p class=\"eui-u-font-s\">[3] <sup> </sup><a href=\"https://ec.europa.eu/commission/presscorner/detail/en/ip_20_2250\">https://ec.europa.eu/commission/presscorner/detail/en/ip_20_2250</a></p><p class=\"eui-u-font-s\">[4] <sup> </sup><a href=\"https://ec.europa.eu/commission/presscorner/detail/en/ip_23_6453\">https://ec.europa.eu/commission/presscorner/detail/en/ip_23_6453</a></p><p class=\"eui-u-font-s\">[5] <sup> </sup><a href=\"https://commission.europa.eu/document/download/8c30975d-bc1c-4415-8dcd-a71cb28f3662_en?filename=JUST_template_comingsoon_standard.pdf\">https://commission.europa.eu/document/download/8c30975d-bc1c-4415-8dcd-a71cb28f3662_en?filename=JUST_template_comingsoon_standard.pdf</a></p><p class=\"eui-u-font-s\">[6] <sup> </sup><a href=\"https://commission.europa.eu/document/download/b4952371-4308-47ad-b995-02c539b75dda_en?filename=JUST_template_comingsoon_standard.pdf\">https://commission.europa.eu/document/download/b4952371-4308-47ad-b995-02c539b75dda_en?filename=JUST_template_comingsoon_standard.pdf</a></p><p class=\"eui-u-font-s\">[7] <sup> </sup><a href=\"https://commission.europa.eu/document/download/f4acc4d4-689e-4db8-8c89-c7243b76ab88_en?filename=JUST_template_comingsoon_standard_0.pdf\">https://commission.europa.eu/document/download/f4acc4d4-689e-4db8-8c89-c7243b76ab88_en?filename=JUST_template_comingsoon_standard_0.pdf</a></p><p class=\"eui-u-font-s\">[8] <sup> </sup><a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52026DC0113\">https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52026DC0113</a></p><p class=\"eui-u-font-s\">[9] <sup> </sup><a href=\"https://commission.europa.eu/document/download/0c3fe55d-9e4f-4377-9d14-93d03398b434_en?filename=GenderEqualityReportChapeauCommunication.pdf\">https://commission.europa.eu/document/download/0c3fe55d-9e4f-4377-9d14-93d03398b434_en?filename=Gender%20Equality%20Report%20Chapeau%20Communication.pdf</a></p><p class=\"eui-u-font-s\">[10] <a href=\"https://commission.europa.eu/document/download/ab0bcea9-6b3a-48c1-875c-1cc687fba6d0_en?filename=EC%20Enhancing%20the%20disability%20strategy%20up%20to%202030.pdf\">Enhancing the strategy for the rights of persons with disabilities up to 2030</a></p><p class=\"eui-u-font-s\">[11] <sup> </sup><a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A52021DC0101\">https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A52021DC0101</a></p><p class=\"eui-u-font-s\">[12] <sup> </sup><a href=\"https://www.ohchr.org/en/instruments-mechanisms/instruments/convention-rights-persons-disabilities\">https://www.ohchr.org/en/instruments-mechanisms/instruments/convention-rights-persons-disabilities</a></p>"
+    ],
+    "identifier": [
+     "HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage"
+    ],
+    "es_ContentType": [
+     "text/plain"
+    ],
+    "programmeDivision": [
+     "43108390",
+     "43108541",
+     "43118846",
+     "43118851"
+    ],
+    "crossCuttingPriorities": [
+     "EoscAndFairData",
+     "AI",
+     "SocietalEngagement",
+     "SSH",
+     "DigitalAgenda"
+    ],
+    "esDA_FirstIngestDate": [
+     "2025-12-16T12:52:31.842+0100"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2027-05-04T00:00:00.000+0000",
+     "2027-09-30T00:00:00.000+0000"
+    ],
+    "esDA_IngestDate": [
+     "2026-10-07T10:58:38.795+0200"
+    ],
+    "typesOfAction": [
+     "HORIZON  Research and Innovation Actions"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage"
+    ],
+    "es_Combine": [
+     "2"
+    ],
+    "esST_URL": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage"
+    ],
+    "tags": [
+     "European Democracy Shield",
+     "anti-racism strategies",
+     "civic tech innovation",
+     "civil society engagement",
+     "democratic resilience",
+     "digital solutions for democracy",
+     "disability rights",
+     "gender equality",
+     "inclusive democratic participation",
+     "participatory governance"
+    ],
+    "esDA_QueueDate": [
+     "2026-10-07T10:58:38.784+0200"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"HORIZON-RIA HORIZON  Research and Innovation Actions\",\"typeOfMGA\":[{\"id\":43027849,\"abbreviation\":\"HORIZON-AG-LS\",\"description\":\"HORIZON Lump Sum Grant\"}]}],\"status\":{\"id\":31094501,\"abbreviation\":\"Forthcoming\",\"description\":\"Forthcoming\"},\"plannedOpeningDate\":\"2027-03-02\",\"submissionProcedure\":{\"id\":31094505,\"abbreviation\":\"two-stage\",\"description\":\"two-stage\"},\"deadlineDates\":[\"2027-05-04\",\"2027-09-30\"]}]"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2027\"],\"budgetTopicActionMap\":{\"113127\":[{\"action\":\"HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":6,\"minContribution\":2000000,\"maxContribution\":3700000,\"budgetYearMap\":{\"2027\":\"22000000\"},\"plannedOpeningDate\":\"2027-03-02\",\"deadlineModel\":\"two-stage\",\"deadlineDates\":[\"2027-05-04\",\"2027-09-30\"]}],\"113126\":[{\"action\":\"HORIZON-CL2-2027-02-TRANSFO-09-two-stage - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":5,\"minContribution\":3200000,\"maxContribution\":3200000,\"budgetYearMap\":{\"2027\":\"16000000\"},\"plannedOpeningDate\":\"2027-03-02\",\"deadlineModel\":\"two-stage\",\"deadlineDates\":[\"2027-05-04\",\"2027-09-30\"]}],\"113128\":[{\"action\":\"HORIZON-CL2-2027-02-HERITAGE-09-two-stage - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":5,\"minContribution\":2000000,\"maxContribution\":4000000,\"budgetYearMap\":{\"2027\":\"20000000\"},\"plannedOpeningDate\":\"2027-03-02\",\"deadlineModel\":\"two-stage\",\"deadlineDates\":[\"2027-05-04\",\"2027-09-30\"]}]}}"
+    ],
+    "startDate": [
+     "2027-03-02T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "two-stage"
+    ],
+    "specificObjective": [],
+    "status": [
+     "31094501"
+    ]
+   },
+   "enrichedMetadata": {},
+   "children": [],
+   "highlightedFragments": [],
+   "citation": "Open topic on reinvigorating and shielding European democracy. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage"
+  },
+  {
+   "apiVersion": "2.157.1",
+   "reference": "50128010TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "Advanced manufacturing for key products (IA) (Made in Europe partnership)",
+   "weight": 0.0,
+   "groupById": "1",
+   "content": "Advanced manufacturing for key products (IA) (Made in Europe partnership)",
+   "accessRestriction": false,
+   "checksum": "9FDC42156B56CDA90FD7150F39C42248AF3D22E5A8435C8B151BC83046C04452",
+   "metadata": {
+    "es_SortDate": [
+     "2026-10-13T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "HORIZON-CL4-2027-01-MAT-PROD-02",
+     "HORIZON-CL4-2027-01"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "focusArea": [],
+    "destinationDetails": [
+     "<p>This Destination brings together the research and innovation for a globally competitive European industry through the <strong>twin green and digital transition</strong>, and the availability, development, use, reuse and disposal of <strong>chemicals, advanced materials</strong> and <strong>critical raw materials</strong>.</p><p>The Competitiveness Compass announces initiatives that should be served directly by industry-linked activities in Cluster 4, through new, focused R&amp;I activities, but also through the activities supported up to now:</p><ul level=\"0\"><li>Clean Industrial Deal adopted in February 2025;</li><li>Critical Raw Materials Act;</li><li>Advanced Materials Communication and future Advanced Materials Act planned for 2026;</li><li>Future Circular Economy Act planned for 2026;</li><li>Steel and Metals Action Plan adopted in March 2025;</li><li>European Chemicals Industry Action Plan adopted in July 2025;</li><li>Industrial action plan for the European automotive sector adopted in March 2025; and</li><li>Strategy on research and technology infrastructures, with regard to technology infrastructures and the valorisation of knowledge.</li></ul><p>In order to better translate these policy priorities into actions, to integrate the latest inputs from the partnerships, and to achieve synergies, this Work Programme part adopts a more integrated approach. The headings used under the two industry-focused destinations in previous work programmes, reflecting different partnerships and industrial sectors, are replaced by new headings making strongly interconnected contributions to the corresponding expected impacts in the Strategic Plan 2025-27, on green and digital transition and on autonomy in raw and advanced materials.</p><p>The new approach takes into account R&amp;I investments under previous work programmes and intends to introduce more synergies with other pillars (notably the European Innovation Council under Pillar III) as well as with Cluster 5. Topics in this Work Programme increasingly combine the priorities of different partnerships to enable synergies, e.g. with the Investment fund, while continuing to address the particularities of each partnership. The development of new and cross-cutting technologies will help transform existing value chains and create new ones.</p><p>In addition to this Work Programme part, Cluster 4 participates in a horizontal <strong>Clean Industrial Deal Call</strong>, aiming to increase the competitiveness and decarbonisation of industry. The initiative will allow Horizon Europe beneficiaries to feed the EU deployment pipeline with R&amp;I solutions close to market uptake and deployment, whilst also supporting the development by 2035 of a new batch of industry-led demonstrators designed for higher market readiness.</p><p>In addition to decarbonisation, manufacturing and energy-intensive industries need to embrace the <strong>circular economy</strong> as a key pillar in the design of their value chains. This will be fundamental to their resource efficiency (in terms of materials, energy and water). Particularly important in this context is the upcycling of secondary raw materials and waste; de- and re-manufacturing; and the development of sustainable and resource-efficient industrial processes</p><p>This Work Programme continues to promote across the calls the application of Safe and Sustainable by Design approach incorporating early and parallel considerations of innovation design choices on impacts on health, environment, climate and other sustainability parameters as a way of achieving stated policy objectives and fostering quick market uptake.</p><p>Where projects are asked to contribute to the development of safe and sustainable products, projects should take into account safety concerns for consumers as well as the organisational health and safety aspects for industrial workers.</p><p>Finally, to support <strong>start-ups and scale-ups</strong>, this Work Programme includes support for technology infrastructures and valorisation of knowledge.</p><p><strong>Business cases and exploitation strategies for industrialisation</strong>:</p><p>This section applies only to those topics in this Destination, for which proposals should demonstrate the expected outcomes by including a <em>business case and exploitation strategy for industrialisation</em>.</p><p>A business case and a credible initial exploitation strategy are essential components in the ultimate success of an industry-based project, as well as its prospects to attract further investments for deployment. They will both be decisive factors under the impact criterion, and proposers are encouraged to use the extended page limit to present a carefully considered business case and exploitation strategy, backed by the management of the companies involved.</p><p>The <em>business case</em> should demonstrate the expected impact of the proposal in terms of enhanced market opportunities for the participants and deployment in the EU, in the short to medium term. It should describe the targeted market(s); estimated market size in the EU and globally; user and customer needs; and demonstrate that the solutions will match the market and user needs in a cost-effective manner; and describe the expected market position and competitive advantage.</p><p>The <em>exploitation strategy</em> should identify obstacles, requirements and necessary actions involved in reaching higher TRLs (Technology Readiness Levels), for example: securing the required investments, including through possible synergies with other programmes; accessing the required skills; matching value chains; enhancing product robustness; securing industrial integrators; and user acceptance.</p><p>For TRLs 6 and 7, a credible strategy to achieve future full-scale deployment in the EU is expected, indicating the intentions of the industrial partners after the end of the project.</p><p>Where relevant, in the context of <strong>skills</strong>, it is recommended to develop training material to endow workers with the right skillset in order to support the uptake and deployment of new innovative products, services, and processes developed in the different projects. This material should be tested and be scalable, and can potentially be up-scaled through the European Social Fund Plus (ESF+). This will help the European labour force to close the skill gaps in the relevant sectors and occupational groups and improve employment and social levels across the EU and associated countries.</p><p>Where projects are asked to contribute to the development of safe and sustainable products, projects should take into account safety concerns for consumers and the organisational health and safety aspects for industrial workers.</p><p>For topics in this destination, consortia (if selected for funding) will be called upon to cooperate with the relevant parts of the<strong> Joint Research Centre (JRC)</strong>, in order to inform the next stages of EU technology and innovation policies.</p><ul level=\"0\"><li>INnovation Centre for Industrial Transformation and Emissions (INCITE) (<a href=\"https://innovation-centre-for-industrial-transformation.ec.europa.eu/\">https://innovation-centre-for-industrial-transformation.ec.europa.eu/</a>).</li><li>The Energy and Industry Geography Lab: EIGL (<a href=\"https://energy-industry-geolab.jrc.ec.europa.eu/\">https://energy-industry-geolab.jrc.ec.europa.eu/</a>).</li></ul><p>Legal entities established in China are not eligible to participate in both Research and Innovation Actions (RIAs) and Innovation Actions (IAs) falling under this destination. For additional information please see “Restrictions on the participation of legal entities established in China” found in General Annex B of the General Annexes.</p>"
+    ],
+    "typeOfMGAs": [
+     "43027846"
+    ],
+    "callIdentifier": [
+     "HORIZON-CL4-2027-01"
+    ],
+    "callccm2Id": [
+     "50128175"
+    ],
+    "destinationGroup": [
+     "46772862"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "callTitle": [
+     "INDUSTRY"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Outcome:</p><ul level=\"0\"><li>Advanced manufacturing technology and machinery becomes available in Europe for the manufacturing of key and high-performance products;</li><li>Where relevant, production becomes increasingly circular through the reuse of secondary raw materials; and/or innovative advanced materials are incorporated in manufactured products, leading to better performance and quality; </li><li>Resource efficiency in terms of materials and energy is increased significantly; and</li><li>Circularity, productivity and competitiveness are increased, and hence resilience of European industry is enhanced. </li> </ul><p class=\"topicdescriptionkind\">Scope:</p><p>This topic addresses technologies and machinery for advanced manufacturing, focusing on manufacturing excellence and on increasing circularity, including through the better use of innovative advanced materials and secondary raw materials. The focus is on key manufactured components and products that are competitive and have enhanced performance, and contribute to Europe’s technological leadership in manufacturing, but which are at risk of being lost to Europe or rely on raw materials or parts whose supply is mostly coming from outside Europe.</p><p>Proposals should develop technologies and machinery to enable the manufacturing of these components with a minimal use of critical raw materials [reference to overall targets] or imported materials. This includes an increased use of secondary raw materials or biobased materials or revalorised components.</p><p>Where appropriate to enhance performance and quality, proposals should target the use of innovative advanced materials (such as lightweight, functionalised or self-healing materials). In this case, the development of the advanced materials should not be the main focus of proposals, nevertheless the necessary steps to adapt such innovative advanced materials to the needs of the manufacturing application should be included. These can include digital twins for materials as well as SSbD-design steps.</p><p>Examples of advanced manufacturing technologies and machinery include, but are not restricted to:</p><ul level=\"0\"><li>Innovative additive manufacturing;</li><li>Hybrid manufacturing (additive, subtractive);</li><li>Photonics;</li><li>Advanced joining technologies;</li><li>Polymer composite manufacturing; </li><li>Advanced technologies for surface treatment and structuring, to tailor surface properties for specific applications;</li><li>Manufacturing of components with lightweight materials; and</li><li>In-line testing. </li> </ul><p>Proposals should include a business case and exploitation strategy, as outlined in the introduction to this Destination. </p><p>Applications in the automotive industry may be considered. However, <em>the production of batteries is not within the scope of this topic</em>.<sup>[1]</sup></p><p>International cooperation is encouraged, especially with Japan or Taiwan.</p><p>This topic implements the co-programmed European Partnership Made in Europe.</p><p class=\"topicdescriptionkind\">Technology Readiness Level - Technology readiness level expected from completed projects</p><div class=\"eui-u-mt-s\"><p>Activities are expected to start at TRL 5 and achieve TRL 7 by the end of the project – see General Annex B.</p></div><p class=\"eui-u-font-s\">[1] The production of batteries (including for automotive use) is addressed by topic HORIZON-CL5-2026-05-D2-03: Integrated Production and Product Development for Next-Generation Lithium-based Batteries for Mobility.</p>"
+    ],
+    "identifier": [
+     "HORIZON-CL4-2027-01-MAT-PROD-02"
+    ],
+    "es_ContentType": [
+     "text/plain"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2027-02-02T00:00:00.000+0000"
+    ],
+    "es_Combine": [
+     "1"
+    ],
+    "esST_URL": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02"
+    ],
+    "tags": [],
+    "esDA_QueueDate": [
+     "2026-10-14T17:49:23.006+0200"
+    ],
+    "destinationDescription": [
+     "Achieving technological leadership for Europe’s open strategic autonomy in raw materials, chemicals and innovative materials (2026-27)"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"HORIZON-IA HORIZON Innovation Actions\",\"typeOfMGA\":[{\"id\":43027846,\"abbreviation\":\"HORIZON-AG\",\"description\":\"HORIZON Action Grant Budget-Based\"}]}],\"status\":{\"id\":31094502,\"abbreviation\":\"Open\",\"description\":\"Open\"},\"plannedOpeningDate\":\"2026-10-13\",\"submissionProcedure\":{\"id\":31094504,\"abbreviation\":\"single-stage\",\"description\":\"single-stage\"},\"deadlineDates\":[\"2027-02-02\"]}]"
+    ],
+    "startDate": [
+     "2026-10-13T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "status": [
+     "31094502"
+    ],
+    "sortStatus": [
+     "1"
+    ],
+    "destination": [
+     "48080625"
+    ],
+    "title": [
+     "Advanced manufacturing for key products (IA) (Made in Europe partnership)"
+    ],
+    "esST_checksum": [
+     "9FDC42156B56CDA90FD7150F39C42248AF3D22E5A8435C8B151BC83046C04452"
+    ],
+    "esST_FileName": [
+     "file.txt"
+    ],
+    "ccm2Id": [
+     "50128010"
+    ],
+    "REFERENCE": [
+     "50128010TOPICSen"
+    ],
+    "programmeDivision": [
+     "43108390",
+     "43108541",
+     "43120193"
+    ],
+    "crossCuttingPriorities": [
+     "INCO",
+     "DigitalAgenda",
+     "AI",
+     "PART-COPROGR"
+    ],
+    "esDA_FirstIngestDate": [
+     "2025-12-15T13:06:15.963+0100"
+    ],
+    "esDA_IngestDate": [
+     "2026-10-14T17:49:23.013+0200"
+    ],
+    "typesOfAction": [
+     "HORIZON Innovation Actions"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2027\"],\"budgetTopicActionMap\":{\"112865\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-42 - HORIZON-CSA HORIZON Coordination and Support Actions\",\"expectedGrants\":2,\"minContribution\":1000000,\"maxContribution\":1000000,\"budgetYearMap\":{\"2027\":\"2000000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}],\"112864\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-08 - HORIZON-IA HORIZON Innovation Actions\",\"expectedGrants\":3,\"minContribution\":4000000,\"maxContribution\":6000000,\"budgetYearMap\":{\"2027\":\"16000000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}],\"112867\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-06 - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":7,\"minContribution\":5000000,\"maxContribution\":6500000,\"budgetYearMap\":{\"2027\":\"36000000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}],\"112866\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-16 - HORIZON-IA HORIZON Innovation Actions\",\"expectedGrants\":4,\"minContribution\":10000000,\"maxContribution\":12500000,\"budgetYearMap\":{\"2027\":\"49000000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}],\"112869\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-02 - HORIZON-IA HORIZON Innovation Actions\",\"expectedGrants\":6,\"minContribution\":6000000,\"maxContribution\":8000000,\"budgetYearMap\":{\"2027\":\"36000000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}],\"112868\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-03 - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":6,\"minContribution\":5000000,\"maxContribution\":6500000,\"budgetYearMap\":{\"2027\":\"36000000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}],\"112870\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-47 - HORIZON-CSA HORIZON Coordination and Support Actions\",\"expectedGrants\":2,\"minContribution\":1500000,\"maxContribution\":2500000,\"budgetYearMap\":{\"2027\":\"5000000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}],\"116121\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-50 - HORIZON-CSA HORIZON Coordination and Support Actions\",\"expectedGrants\":1,\"minContribution\":1000000,\"maxContribution\":1000000,\"budgetYearMap\":{\"2027\":\"1000000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}],\"112861\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-17 - HORIZON-CSA HORIZON Coordination and Support Actions\",\"expectedGrants\":1,\"minContribution\":3000000,\"maxContribution\":3000000,\"budgetYearMap\":{\"2027\":\"3000000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}],\"112863\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-49 - HORIZON-IA HORIZON Innovation Actions\",\"expectedGrants\":24,\"minContribution\":200000,\"maxContribution\":200000,\"budgetYearMap\":{\"2027\":\"4700000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}],\"112862\":[{\"action\":\"HORIZON-CL4-2027-01-MAT-PROD-22 - HORIZON-IA HORIZON Innovation Actions\",\"expectedGrants\":6,\"minContribution\":6000000,\"maxContribution\":7500000,\"budgetYearMap\":{\"2027\":\"36000000\"},\"plannedOpeningDate\":\"2026-10-13\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}]}}"
+    ],
+    "specificObjective": []
+   },
+   "enrichedMetadata": {},
+   "children": [],
+   "highlightedFragments": [],
+   "citation": "Advanced manufacturing for key products (IA) (Made in Europe partnership). Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02"
+  },
+  {
+   "apiVersion": "2.157.1",
+   "reference": "50136868TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2026-03-DISEASE-13",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "European Partnership for Pandemic Preparedness (Phase 2)",
+   "weight": 0.0,
+   "groupById": "2",
+   "content": "European Partnership for Pandemic Preparedness (Phase 2)",
+   "accessRestriction": false,
+   "checksum": "FDB57C8C17B468BFB620E590E1A3F20FF7A6FA2176F0E55EAC044B5CAF48918B",
+   "metadata": {
+    "es_SortDate": [
+     "2027-02-10T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "HORIZON-HLTH-2026-03-DISEASE-13",
+     "HORIZON-HLTH-2026-03",
+     "Basic medicine",
+     "Clinical Pharmacology",
+     "Clinical research",
+     "Clinical trials",
+     "Cohort studies",
+     "Drug development, clinical phases",
+     "Drug development, late phases",
+     "Emergent diseases",
+     "Emerging Epidemics",
+     "Immunology",
+     "Infectious diseases",
+     "Pathogen agents",
+     "Pathology",
+     "Pharmaceutical development",
+     "Pharmacology and pharmacy",
+     "Physiology (including cytology)",
+     "Public health and epidemiology",
+     "Technologies involving identifying the functioning of DNA, proteins and enzymes and how they influence the onset of disease and maintenance of well-being (gene-based diagnostics and therapeutic interventions (pharmacogenomics, gene-based",
+     "Translational medicine",
+     "Transmission"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "focusArea": [],
+    "destinationDetails": [
+     "<p>Topics under this destination are directed towards the Key Strategic Orientation 3 “<em>A more resilient, competitive, inclusive, and democratic Europe</em>” of Horizon Europe’s strategic plan 2025-2027<sup>[1]</sup>.</p><p>Research and Innovation supported under this destination should contribute to the following expected impact, set out in the strategic plan impact summary for the Health Cluster: “<em>healthcare providers improve their ability to tackle and manage diseases (infectious diseases, including poverty-related and neglected diseases, non-communicable and rare diseases) thereby reducing the disease burden on patients and enabling healthcare systems to perform more effectively. It can be achieved through better understanding, prevention, diagnostics, treatment, management, and cure of diseases and their co- and multi-morbidities, more effective and innovative health technologies and medical countermeasures, better ability and preparedness to manage pandemic and/or epidemic outbreaks, and improved patient safety</em>”<em>.</em></p><p>Communicable and non-communicable diseases pose a significant health, societal, and economic threat worldwide, causing premature deaths and disabilities. Despite being largely preventable, only 6% of healthcare budgets are spent on prevention<sup>[2]</sup>. To address this, there is an urgent need to develop new public health interventions, preventive, diagnostic, and therapeutic approaches, alternatives to antimicrobials, as well as to improve existing preparedness and response strategies to create tangible impacts, considering sex/gender-related issues. To address these challenges, Research and Innovation will require international cooperation to leverage global expertise, access world-class research infrastructures and invest in priority needs, aligning with other funders of international cooperation in health Research and Innovation. The continuation of international partnerships and cooperation with international organisations is particularly needed to combat infectious diseases and respond to public health needs, including rare diseases and the global burden of non-communicable diseases.</p><p>In this Work Programme part, Destination “<em>Tackling diseases and reducing disease burden</em>” will focus on major societal challenges linked to the Commission's Political Guidelines for 2024-2029<sup>[3]</sup>, such as the fight against non-communicable and communicable diseases, mental health, preparedness and response to and surveillance of health threats and epidemics, reduction and treatment, of Antimicrobial-Resistant (AMR) infections, coherent also with wider EU initiatives such as the European Medical Countermeasures Strategy<sup>[4]</sup> and the forthcoming Critical Medicines Act<sup>[5]</sup>. In particular, the topics under this destination will support activities aiming at: i) new treatment and disease management options to reduce burden on non-communicable diseases and long-term conditions after post-bacterial and post-viral infections; ii) improve and protect mental health of children and young adults; iii) new prevention and treatment options for infectious diseases with epidemic potential; iv) innovative therapies for AMR critical pathogens; and v) support to second phases of the co-funded European Partnership on Rare Diseases<sup>[6]</sup> and the co-funded European Partnership for Pandemic Preparedness<sup>[7]</sup>.</p><p>To increase the impact of EU investments under Horizon Europe, the Commission encourages cooperation between EU-funded projects to enable cross-fertilisation and other synergies. This could range from networking to joint activities, such as participating in joint workshops, exchanging knowledge, developing and adopting best practices, or undertaking joint communication activities. Opportunities for potential synergies exist between projects funded under the same topic, as well as between projects funded under different topics, Clusters, or Pillars of Horizon Europe. For example, synergies could be sought with projects funded under the European health research infrastructures (Pillar I of Horizon Europe), the EIC<sup>[8]</sup> strategic challenges on health (Pillar III of Horizon Europe), or with projects on themes that cut across the Clusters under Pillar II of Horizon Europe, such as health security/emergencies under Cluster “Civil Security for Society”, Artificial Intelligence (AI)-based tools and technologies under Cluster “Digital, Industry and Space”, or antimicrobial resistance under Cluster “Food, Bioeconomy, Natural Resources, Agriculture and Environment”.</p><p>The Commission aims to foster synergies between Horizon Europe and other EU programmes. To this end, applicants are encouraged to explore the funding opportunities available through the EU4Health Programme (2021-2027)<sup>[9]</sup>,<sup> </sup>the EU's public health programme, as a means of capitalising on potential collaborations and maximising impact.</p><p><u>Expected impacts</u>:<u> </u></p><p>Proposals for topics under this destination should set out a credible pathway to contributing to tackling diseases and reducing disease burden, and more specifically to several of the following impacts:</p><ul level=\"0\"><li>Disease burden in the EU and worldwide is reduced through effective disease management, including through the development and integration of innovative preventive, diagnostic and therapeutic approaches, digital and other people-centred solutions for healthcare.</li><li>Premature mortality from non-communicable diseases is reduced by one third (by 2030), mental health and wellbeing are promoted, and the targets of the World Health Organization (WHO) Global Action Plan for the Prevention and Control of non-communicable diseases<sup>[10]</sup><sup>,</sup><sup>[11]</sup> are attained, with an immediate impact on the related disease burden (Disability-Adjusted Life Years - DALYs)<sup>[12]</sup>.</li><li>Healthcare systems benefit from strengthened Research and Innovation expertise, human capacities and know-how for combatting communicable and non-communicable diseases, including through international cooperation.</li><li>Citizens benefit from reduced (cross-border) health threat of epidemics and AMR pathogens, in the EU and worldwide<sup>[13]</sup><sup>,</sup><sup>[14]</sup><sup>,</sup><sup>[15]</sup>.</li><li>Patients and citizens are knowledgeable of disease threats, involved and empowered to make and shape decisions for their health, and better adhere to knowledge-based disease management strategies and policies (especially for controlling outbreaks and emergencies).</li> </ul><p>Legal entities established in China are not eligible to participate in both Research and Innovation Actions (RIAs) and Innovation Actions (IAs) falling under this destination. For additional information please see “Restrictions on the participation of legal entities established in China” found in the Annex B of the General Annexes of this Work Programme.</p><p>The protection of European communication networks has been identified as an important security interest of the Union and its Member States. Entities that are assessed as high-risk suppliers<sup>[16]</sup> of mobile network communication equipment (and any entities they own or control) are not eligible to participate as beneficiaries, affiliated entities and associated partners to topics identified as “subject to restrictions for the protection of European communication networks”. Please refer to the Annex B of the General Annexes of this Work Programme for further details.</p><p class=\"eui-u-font-s\">[1] <a href=\"https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe/strategic-plan_en\">https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe/strategic-plan_en</a></p><p class=\"eui-u-font-s\">[2] Preventive healthcare expenditure as a share of the current expenditure on healthcare: <a href=\"https://ec.europa.eu/eurostat/statistics-explained/index.php?title=File:Preventive_healthcare_expenditure_as_a_share_of_current_expenditure_on_healthcare,_2021_(%25)_HCE2024.png\">https://ec.europa.eu/eurostat/statistics-explained/index.php?title=File:Preventive_healthcare_expenditure_as_a_share_of_current_expenditure_on_healthcare,_2021_(%25)_HCE2024.png</a></p><p class=\"eui-u-font-s\">[3] <a href=\"https://commission.europa.eu/about/commission-2024-2029_en\">https://commission.europa.eu/about/commission-2024-2029_en</a></p><p class=\"eui-u-font-s\">[4] <a href=\"https://health.ec.europa.eu/health-emergency-preparedness-and-response-hera/preparedness/medical-countermeasures-strategy_en\">https://health.ec.europa.eu/health-emergency-preparedness-and-response-hera/preparedness/medical-countermeasures-strategy_en</a></p><p class=\"eui-u-font-s\">[5] <a href=\"https://health.ec.europa.eu/publications/proposal-critical-medicines-act_en\">https://health.ec.europa.eu/publications/proposal-critical-medicines-act_en</a></p><p class=\"eui-u-font-s\">[6] <a href=\"https://cordis.europa.eu/project/id/101156595\">https://cordis.europa.eu/project/id/101156595</a>, <a href=\"https://erdera.org\">https://erdera.org</a></p><p class=\"eui-u-font-s\">[7] <a href=\"https://cordis.europa.eu/project/id/101226682\">https://cordis.europa.eu/project/id/101226682</a>, <a href=\"https://beready4pandemics.eu\">https://beready4pandemics.eu</a></p><p class=\"eui-u-font-s\">[8] <a href=\"https://eic.ec.europa.eu\">https://eic.ec.europa.eu</a></p><p class=\"eui-u-font-s\">[9] <a href=\"https://commission.europa.eu/funding-tenders/find-funding/eu-funding-programmes/eu4health_en\">https://commission.europa.eu/funding-tenders/find-funding/eu-funding-programmes/eu4health_en</a></p><p class=\"eui-u-font-s\">[10] <a href=\"https://www.who.int/publications/i/item/9789241506236\">https://www.who.int/publications/i/item/9789241506236</a></p><p class=\"eui-u-font-s\">[11] <a href=\"https://www.who.int/publications/m/item/implementation-roadmap-2023-2030-for-the-who-global-action-plan-for-the-prevention-and-control-of-ncds-2023-2030\">https://www.who.int/publications/m/item/implementation-roadmap-2023-2030-for-the-who-global-action-plan-for-the-prevention-and-control-of-ncds-2023-2030</a></p><p class=\"eui-u-font-s\">[12] Disability-adjusted life year (DALY) is a quantitative indicator of overall disease burden, expressed as the number of years lost due to ill-health, disability or early death.</p><p class=\"eui-u-font-s\">[13] WHO global action plan on antimicrobial resistance, 2015</p><p class=\"eui-u-font-s\">[14] EU One Health Action Plan against AMR, 2017</p><p class=\"eui-u-font-s\">[15] <a href=\"https://www.ema.europa.eu/en/news/one-health-joint-framework-action-published-five-eu-agencies\">https://www.ema.europa.eu/en/news/one-health-joint-framework-action-published-five-eu-agencies</a></p><p class=\"eui-u-font-s\">[16] Entities assessed as “high-risk suppliers”, are currently set out in the second report on Member States’ progress in implementing the EU toolbox on 5G cybersecurity of 2023 (NIS Cooperation Group, Second report on Member States’ progress in implementing the EU Toolbox on 5G Cybersecurity, June 2023) and the related Communication on the implementation of the 5G cybersecurity toolbox of 2023 (Communication from the Commission: Implementation of the 5G cybersecurity Toolbox, Brussels, 15.6.2023 C(2023) 4049 final).</p>"
+    ],
+    "typeOfMGAs": [
+     "43027846"
+    ],
+    "callIdentifier": [
+     "HORIZON-HLTH-2026-03"
+    ],
+    "callccm2Id": [
+     "50139854"
+    ],
+    "destinationGroup": [
+     "45355244"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "callTitle": [
+     "Partnerships in Health (2026/2)"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Outcome:</p><p>This topic aims at supporting activities that are enabling or contributing to one or several expected impacts of destination “Tackling diseases and reducing disease burden”. Proposals under this topic should aim to deliver results that are directed at, tailored towards and contributing to all the following expected outcomes:</p><ul level=\"0\"><li>The EU offers a valued operational network of clinical research sites (both interventional and observational) that have the capacity to implement well-coordinated large-scale multi-country quality clinical studies in different target populations, which are able to smoothly transition to interventions relevant for cross-border health threats in readiness for or response to a public health emergency.</li><li>Key stakeholders, including relevant EU and national entities, the scientific communities, policymakers and funders enhance their collaboration and coordination to strengthen research on pandemic preparedness and response, forming a strong, structured and comprehensive ecosystem with shared evidence, tools and methodologies cutting across sectors.</li><li>Research funders, policymakers, relevant EU and national entities, and the research community recognise and rapidly close relevant research and related infrastructure gaps and break existing silos on pandemic preparedness research and response, adopting a One Health approach.</li><li>Healthcare authorities, regulatory authorities, policymakers and other stakeholders utilise research results to develop evidence-based strategies and policies for pandemic preparedness and response, and deploy good practices to European countries and regions, and beyond whenever relevant.</li><li>The research community benefits from and uses an improved comprehensive knowledge framework integrating the EU, national/regional data and information infrastructures to improve transnational research in the area of pandemic preparedness and response.</li><li>The EU is strengthened as an internationally recognised actor for pandemic preparedness research and response, as such substantially contributing to global cooperation and coordination.</li> </ul><p class=\"topicdescriptionkind\">Scope:</p><p>This topic targets an action under Article 24(2) HE Regulation aiming to add additional activities to existing grant agreements, together with additional partners (if relevant) that would deliver on those activities. The award of a grant to continue the partnership in accordance with this call should be based on a proposal submitted by the coordinator of the consortium funded under topic HORIZON-HLTH-2024-DISEASE-12-01: “European Partnership for Pandemic Preparedness” and the additional activities (which may include additional partners) to be funded by the grant, such as the close coordination with the Clinical Trial Coordination Mechanism (CT-CM)<sup>[1]</sup>, should be subject to an evaluation. The partnership should be firmly anchored within the framework of the European Health Union package<sup>[2]</sup> and ensure synergies with the European Health Emergency Preparedness and Response Authority (HERA) and other relevant Commission services. The partnership’s activities are expected to be key enablers of the EU Global Health Strategy<sup>[3]</sup>. Taking into account that the present action is a continuation of the topic HORIZON-HLTH-2024-DISEASE-12-01: “European Partnership for Pandemic Preparedness” and foresees an amendment to an existing grant agreement, the proposal should present the additional activities (including additional partners) to be covered by the award primarily in terms of grant agreement revisions. The existing action, the “Be Ready Now - European Partnership for Pandemic Preparedness” (BE READY NOW) can only reasonably be enhanced and enlarged on the basis of the existing consortium<sup>[4]</sup>, as the co-funded framework established cannot simply be replaced without significant disruption, given the top-quality, long-term expertise and wide coverage of the beneficiaries comprising this consortium.</p><p>The partnership should contribute to the actions proposed in the Joint Communication on the European Preparedness Union Strategy (JOIN(2025) 130 final<sup>[5]</sup>) which recognises the essential contribution of research and innovation to allow “continuously adapted, optimised and state-of-the-art responses to crisis”. It should also contribute to the “Strategy for European Life Sciences”<sup>[6]</sup>. Synergies with EU programmes such as EU4Health Programme (2021-2027)<sup>[7]</sup> or the Digital Europe Programme<sup>[8]</sup> are encouraged.</p><p>The co-funded Partnership for Pandemic Preparedness should enable improved coordination and cooperation on national and European levels (and contributing globally), building on the Strategic Research and Innovation Agenda (SRIA)<sup>[9]</sup> established in the first phase of the partnership. The partnership’s implementation is grounded in coordinating and jointly funding transnational research, combined with a strong focus on integrative ‘in-house’ activities, ultimately reinforcing the readiness of Europe’s research ecosystem. As a continuation of an existing action, the proposal should present the additional activities (including additional partners) to be covered by the award primarily in terms of grant agreement revisions.</p><p>The partnership should cover the full scope of preparedness research, ranging from basic and pre-clinical research, to clinical, public health, social sciences and implementation research. The partnership will consider the interplay between environmental, ecological and climatic factors and the emergence and spread of health threats and will adopt a One Health approach to better understand and mitigate the risks of emerging infectious diseases.</p><p>Of particular interest is the consolidation and further development of the ever-warm clinical research network, comprising both observational and interventional studies, ensuring continuous clinical research activity across diverse sites, and with the in-built capacity to rapidly respond to public health emergencies. In this regard, the partnership should ensure that provisions are in place for the close coordination with the CT-CM, which i) should facilitate providing scientific advice on the clinical research needs in preparedness and response to public health emergencies, and ii) promote a coordinated approach to the national and EU funding of identified clinical research needs.</p><p>The partnership should strengthen the European Research Area by supporting excellence in innovative research and capacity building, widening the engagement of countries not yet involved. As a demonstration of its added value, the partnership should be able to attract the engagement of a broad range of stakeholders beyond European health authorities and research funders, such as private and philanthropic actors and innovators.</p><p>The participation of start-ups, micro, small and medium-sized enterprises (SMEs)<sup>[10]</sup> is encouraged with the aim of strengthening their scientific and technological foundations, enhancing their innovation potential, and exploring possibilities for commercial exploitation.</p><p>The relevant European research infrastructures<sup>[11]</sup> in the area of health should be exploited for available services, expertise and digital tools for dataset creation, standardisation, data discovery, secure access, management, visualization, harmonization, analysis and other functions as appropriate.</p><p>When defining calls for proposals in the context of jointly funded transnational research, the partnership should consider sex and identity-related differences. If relevant, it also needs to consider the effective contribution of social sciences and humanities (SSH) disciplines and the involvement of SSH experts, institutions as well as the inclusion of relevant SSH expertise, to produce meaningful and significant effects enhancing the societal impact of the related research activities. The support and involvement of citizens and civil society should be considered.</p><p>The partnership will consolidate a suitable health research data ecosystem aligned with the European Health Data Space (EHDS)<sup>[12]</sup>, and the European Open Science Cloud (EOSC)<sup>[13]</sup> supporting the harmonisation and standardisation as well as the federated access of FAIR<sup>[14]</sup> research data in the context of pandemic preparedness and response. The partnership’s work should comply with the appropriate ethical, regulatory and legal frameworks, and should ensure the timely translation of research outcomes into effective clinical and public health policy and innovation.</p><p class=\"topicdescriptionkind\">null</p><div class=\"eui-u-mt-s\"><p>The total indicative budget for the topic is EUR 63 million committed in annual instalments over the two years, 2026 and 2027 (EUR 30 million from the 2026 budget and EUR 33 million from the 2027 budget).</p></div><p class=\"eui-u-font-s\">[1] <a href=\"https://ec.europa.eu/transparency/expert-groups-register/screen/expert-groups/consult?lang=en&amp;groupId=104872&amp;fromMeetings=true&amp;meetingId=59543\">https://ec.europa.eu/transparency/expert-groups-register/screen/expert-groups/consult?lang=en&amp;groupId=104872&amp;fromMeetings=true&amp;meetingId=59543</a></p><p class=\"eui-u-font-s\">[2] <a href=\"https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/promoting-our-european-way-life/european-health-union/health-crisis-preparedness_en\">https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/promoting-our-european-way-life/european-health-union/health-crisis-preparedness_en</a></p><p class=\"eui-u-font-s\">[3] EU Global Health Strategy: Better Health for All in a Changing World - European Commission: <a href=\"https://health.ec.europa.eu/publications/eu-global-health-strategy-better-health-all-changing-world_en\">https://health.ec.europa.eu/publications/eu-global-health-strategy-better-health-all-changing-world_en</a></p><p class=\"eui-u-font-s\">[4] Consortium which was awarded the grant under topic HORIZON-HLTH-2024-DISEASE-12-01: “European Partnership for Pandemic Preparedness”.</p><p class=\"eui-u-font-s\">[5] <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:52025JC0130\">https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:52025JC0130</a></p><p class=\"eui-u-font-s\">[6] <a href=\"https://research-and-innovation.ec.europa.eu/strategy/strategy-research-and-innovation/jobs-and-economy/towards-strategy-european-life-sciences_en\">https://research-and-innovation.ec.europa.eu/strategy/strategy-research-and-innovation/jobs-and-economy/towards-strategy-european-life-sciences_en</a>; <a href=\"https://ec.europa.eu/commission/presscorner/detail/en/ip_25_1686\">https://ec.europa.eu/commission/presscorner/detail/en/ip_25_1686</a></p><p class=\"eui-u-font-s\">[7] <a href=\"https://health.ec.europa.eu/funding/eu4health-programme-2021-2027-vision-healthier-european-union_en\">https://health.ec.europa.eu/funding/eu4health-programme-2021-2027-vision-healthier-european-union_en</a>, <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32021R0522\">https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32021R0522</a></p><p class=\"eui-u-font-s\">[8] <a href=\"https://digital-strategy.ec.europa.eu/en/activities/digital-programme\">https://digital-strategy.ec.europa.eu/en/activities/digital-programme</a></p><p class=\"eui-u-font-s\">[9] <a href=\"https://beready4pandemics.eu/sria\">https://beready4pandemics.eu/sria</a></p><p class=\"eui-u-font-s\">[10] <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32003H0361\">https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32003H0361</a></p><p class=\"eui-u-font-s\">[11] The catalogue of European Strategy Forum on Research Infrastructures (ESFRI) research infrastructures portfolio can be browsed on the ESFRI website: <a href=\"https://ri-portfolio.esfri.eu\">https://ri-portfolio.esfri.eu</a></p><p class=\"eui-u-font-s\">[12] <a href=\"https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en\">https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en</a></p><p class=\"eui-u-font-s\">[13] <a href=\"https://research-and-innovation.ec.europa.eu/strategy/strategy-2020-2024/our-digital-future/open-science/european-open-science-cloud-eosc_en\">https://research-and-innovation.ec.europa.eu/strategy/strategy-2020-2024/our-digital-future/open-science/european-open-science-cloud-eosc_en</a></p><p class=\"eui-u-font-s\">[14] See definition of FAIR data in the introduction to this Work Programme part.</p>"
+    ],
+    "identifier": [
+     "HORIZON-HLTH-2026-03-DISEASE-13"
+    ],
+    "es_ContentType": [
+     "text/plain"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2027-04-13T00:00:00.000+0000"
+    ],
+    "es_Combine": [
+     "2"
+    ],
+    "esST_URL": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2026-03-DISEASE-13"
+    ],
+    "tags": [],
+    "esDA_QueueDate": [
+     "2026-03-02T10:44:14.538+0100"
+    ],
+    "destinationDescription": [
+     "Tackling diseases and reducing disease burden (2026-27)"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"HORIZON-COFUND HORIZON Programme Cofund Actions\",\"typeOfMGA\":[{\"id\":43027846,\"abbreviation\":\"HORIZON-AG\",\"description\":\"HORIZON Action Grant Budget-Based\"}]}],\"status\":{\"id\":31094501,\"abbreviation\":\"Forthcoming\",\"description\":\"Forthcoming\"},\"plannedOpeningDate\":\"2027-02-10\",\"submissionProcedure\":{\"id\":31094504,\"abbreviation\":\"single-stage\",\"description\":\"single-stage\"},\"deadlineDates\":[\"2027-04-13\"]}]"
+    ],
+    "startDate": [
+     "2027-02-10T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "status": [
+     "31094501"
+    ],
+    "sortStatus": [
+     "2"
+    ],
+    "destination": [
+     "48080599"
+    ],
+    "title": [
+     "European Partnership for Pandemic Preparedness (Phase 2)"
+    ],
+    "esST_checksum": [
+     "FDB57C8C17B468BFB620E590E1A3F20FF7A6FA2176F0E55EAC044B5CAF48918B"
+    ],
+    "esST_FileName": [
+     "file.txt"
+    ],
+    "ccm2Id": [
+     "50136868"
+    ],
+    "REFERENCE": [
+     "50136868TOPICSen"
+    ],
+    "programmeDivision": [
+     "43108638",
+     "43108591",
+     "43108628",
+     "43108557",
+     "43108541",
+     "43108390"
+    ],
+    "crossCuttingPriorities": [
+     "PART-COFUND",
+     "DigitalAgenda",
+     "AI",
+     "SSH",
+     "INCO",
+     "EoscAndFairData"
+    ],
+    "esDA_FirstIngestDate": [
+     "2025-12-12T00:03:14.083+0100"
+    ],
+    "esDA_IngestDate": [
+     "2026-03-02T10:44:14.550+0100"
+    ],
+    "typesOfAction": [
+     "HORIZON Programme Cofund Actions"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2026-03-DISEASE-13"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2027\",\"2026\"],\"budgetTopicActionMap\":{\"113105\":[{\"action\":\"HORIZON-HLTH-2026-03-DISEASE-13 - HORIZON-COFUND HORIZON Programme Cofund Actions\",\"expectedGrants\":1,\"minContribution\":63000000,\"maxContribution\":63000000,\"budgetYearMap\":{\"2026\":\"30000000\",\"2027\":\"33000000\"},\"plannedOpeningDate\":\"2027-02-10\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-04-13\"]}]}}"
+    ],
+    "specificObjective": []
+   },
+   "enrichedMetadata": {},
+   "children": [],
+   "highlightedFragments": [],
+   "citation": "European Partnership for Pandemic Preparedness (Phase 2). Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2026-03-DISEASE-13"
+  },
+  {
+   "apiVersion": "2.157.1",
+   "reference": "50222141TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2027-03-WIDENING-01",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "ERA Fellowships",
+   "weight": 0.0,
+   "groupById": "2",
+   "content": "ERA Fellowships",
+   "accessRestriction": false,
+   "checksum": "A1031D1E829D99F7EA8991553E4AF23509ECA713D54AC47CFD52BFD4F10DF715",
+   "metadata": {
+    "es_SortDate": [
+     "2027-04-07T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "HORIZON-WIDERA-2027-03-WIDENING-01",
+     "HORIZON-WIDERA-2027-03"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "focusArea": [],
+    "destinationDetails": [
+     "<p>The ERA Communication established the need to improve access to excellence as one of the four main strategic goals. Striving towards excellence requires a stronger R&amp;I system where best practice is disseminated faster across the European Union.</p><p>The European Union’s R&amp;I system needs to promote a more inclusive approach in which all can participate and from which all can benefit. Existing disparities between R&amp;I leading and lagging countries should be tackled by introducing structural policy reforms. Closer links between research and innovation and institutional cooperation to produce high-quality knowledge are key to help bridge these disparities. By building on their pockets of excellence and connecting them to broader networks of excellence countries will be able to upgrade their R&amp;I systems, and allow the European Union as a whole to advance together.</p><p>This destination will deploy a portfolio of complementary actions to build up and strengthen R&amp;I capacities in Widening countries enabling them to advance to the competitive edge at European and international level. It will contribute to the development of pan-European innovation ecosystems. In addition, particular attention will be paid to cross-cutting objectives set for Horizon Europe, such as inclusive gender equality and open science practices.</p><p><u>Expected impact</u></p><ul level=\"0\"><li>Increased science and innovation capacities for all actors in the R&amp;I system in Widening countries;</li><li>Structural changes leading to modernised and more competitive R&amp;I systems with increased attractiveness and retention of research talents;</li><li>Mobilisation of national and European resources for strategic investments;</li><li>Higher participation in Horizon Europe and more leadership roles in collaborative projects;</li><li>Stronger linkages between academia and business and improved career permeability;</li><li>Greater involvement of regional actors in the R&amp;I process;</li><li>Excellent talents attracted to institutions including research infrastructures;</li><li>Balanced circulation of R&amp;I talents including intersectoral mobility, and improved gender equality and inclusiveness;</li><li>Improved linkages and increased mobility between academic and business, notably by overcoming sectoral barriers;</li><li>Free circulation of knowledge and expertise in line with ERA priorities.</li></ul>"
+    ],
+    "typeOfMGAs": [
+     "43251971"
+    ],
+    "callIdentifier": [
+     "HORIZON-WIDERA-2027-03"
+    ],
+    "callccm2Id": [
+     "50222159"
+    ],
+    "destinationGroup": [
+     "48271618"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "callTitle": [
+     "ERA Fellowships"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Outcome:</p><p>This action builds on the MSCA Postdoctoral Fellowships 2027 action (HORIZON-MSCA-PF-2027). The target group are host organisations located in Widening countries.</p><p>Project results are expected to contribute to the following <u>outcomes</u>:</p><p>For supported ERA Fellows:</p><ul level=\"0\"><li>Increased set of research and transferable skills and competences, leading to improved employability and career prospects of fellows within academia and beyond;</li><li>New mind-sets and approaches to R&amp;I work forged through international, inter-sectoral and interdisciplinary experience;</li><li>Enhanced networking and communication capacities with scientific peers, as well as with the general public, that will increase and broaden the research and innovation impact;</li> </ul><p>For participating organisations in the Widening countries:</p><ul level=\"0\"><li>Increased alignment of working conditions for researchers in accordance with the principles set out in the European Charter for Researchers<sup>[1]</sup>;</li><li>Enhanced quality and sustainability of research training and supervision;</li><li>Increased global attractiveness, visibility and reputation;</li><li>Stronger R&amp;I capacity and output; better transfer of knowledge.</li> </ul><p>For Widening Countries:</p><ul level=\"0\"><li>More postdoctoral researchers attracted to Widening countries with competitive grants and attractive working and employment conditions.</li> </ul><p class=\"topicdescriptionkind\">Scope:</p><p>Fellowships should be provided to excellent researchers, undertaking cross-border mobility. Applications must be made jointly by the researcher together with a legal entity in the academic or non-academic sector located in a Widening country.</p><p>ERA Fellowships should take place in a Widening Country. Fellowships are open to researchers of any nationality who wish to engage in R&amp;I projects by either coming to the EU from any country in the world or moving within the EU to a Widening country.</p><p><i>Secondments</i></p><p>Researchers receiving an ERA Fellowship may opt to include a secondment phase, within the overall duration of their fellowship in any country worldwide. The secondment phase can be a single period or be divided into shorter mobility periods. Secondments cannot exceed half of the requested duration of the action (excluding from the duration of the action any additional period for a non-academic placement) and should be in line with the project objectives, adding significant value and impact to the fellowship.</p><p><i>Placements in the non-academic sector</i></p><p>ERA Fellowships can provide an additional period of up to six months to support researchers opting for a placement at the end of the project to work on R&amp;I projects in an organisation from the non-academic sector established in an EU Member State or Horizon Europe Associated Country. While this possibility is also available to fellows recruited in the non-academic sector, such a placement should be implemented at a different non-academic host organisation established in an EU Member State or Horizon Europe Associated Country. The request for such a non-academic placement should be an integral part of the proposal, explaining the added value for the project and for the career development of the researcher, and will be subject to evaluation. This incentive aims at promoting career moves between sectors and organisations and thereby stimulate innovation and knowledge transfer while expanding career opportunities for researchers.</p><p><i>Training activities</i></p><p>The training activities implemented under the ERA Fellowships should include training for key transferable skills<sup>[2]</sup>, foster innovation and entrepreneurship, (e.g., commercialisation of results, Intellectual Property Rights, communication, public engagement and citizen science), foster good scientific conduct such as research integrity and promote Open Science practices (open access to publications and to other research outputs, including data, FAIR data management, societal engagement and citizen science, etc.).</p><p><i>Career Development Plan</i></p><p>In order to equip ERA Fellows with skills that enhance and expand their career opportunities inside and outside academia, a Career Development Plan should be established jointly by the supervisor(s) and the researcher. In addition to research objectives, this plan should comprise the researcher's training and career needs, including training on transferable skills, teaching, planning for publications and participation in conferences and events aiming at opening science and research to citizens. The Plan has to be submitted as a project deliverable at the beginning of the action and can be updated when needed.</p><p class=\"eui-u-font-s\">[1] <sup> </sup>Charter for Researchers, annexed to the Council recommendation C/2023/1640 of 18 December 2023 on a European framework to attract and retain research, innovation and entrepreneurial talents in Europe (OJ C, C/2023/1640, 29.12.2023), https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:C_202301640.</p><p class=\"eui-u-font-s\">[2] As an illustration, Eurodoc published a list of such transferable skills at: http://eurodoc.net/skills-report-2018.pdf</p>"
+    ],
+    "identifier": [
+     "HORIZON-WIDERA-2027-03-WIDENING-01"
+    ],
+    "es_ContentType": [
+     "text/plain"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2027-09-08T00:00:00.000+0000"
+    ],
+    "es_Combine": [
+     "2"
+    ],
+    "esST_URL": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2027-03-WIDENING-01"
+    ],
+    "tags": [],
+    "esDA_QueueDate": [
+     "2026-10-07T12:17:38.572+0200"
+    ],
+    "destinationDescription": [
+     "Widening participation and spreading excellence (2026-27) (WIDENING-26-27)"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"HORIZON-TMA-MSCA-PF-EF HORIZON TMA MSCA Postdoctoral Fellowships - European Fellowships\",\"typeOfMGA\":[{\"id\":43251971,\"abbreviation\":\"HORIZON-AG-UN\",\"description\":\"HORIZON Unit Grant\"}]}],\"status\":{\"id\":31094501,\"abbreviation\":\"Forthcoming\",\"description\":\"Forthcoming\"},\"plannedOpeningDate\":\"2027-04-07\",\"submissionProcedure\":{\"id\":31094504,\"abbreviation\":\"single-stage\",\"description\":\"single-stage\"},\"deadlineDates\":[\"2027-09-08\"]}]"
+    ],
+    "startDate": [
+     "2027-04-07T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "status": [
+     "31094501"
+    ],
+    "sortStatus": [
+     "2"
+    ],
+    "destination": [
+     "48271616"
+    ],
+    "title": [
+     "ERA Fellowships"
+    ],
+    "esST_checksum": [
+     "A1031D1E829D99F7EA8991553E4AF23509ECA713D54AC47CFD52BFD4F10DF715"
+    ],
+    "esST_FileName": [
+     "file.txt"
+    ],
+    "ccm2Id": [
+     "50222141"
+    ],
+    "REFERENCE": [
+     "50222141TOPICSen"
+    ],
+    "programmeDivision": [
+     "43121707",
+     "43121702",
+     "43108390"
+    ],
+    "crossCuttingPriorities": [
+     "DigitalAgenda",
+     "AI"
+    ],
+    "esDA_FirstIngestDate": [
+     "2025-12-18T14:59:03.791+0100"
+    ],
+    "esDA_IngestDate": [
+     "2026-10-07T12:17:38.579+0200"
+    ],
+    "typesOfAction": [
+     "HORIZON TMA MSCA Postdoctoral Fellowships - European Fellowships"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2027-03-WIDENING-01"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2027\"],\"budgetTopicActionMap\":{\"113421\":[{\"action\":\"HORIZON-WIDERA-2027-03-WIDENING-01 - HORIZON-TMA-MSCA-PF-EF HORIZON TMA MSCA Postdoctoral Fellowships - European Fellowships\",\"expectedGrants\":50,\"minContribution\":100000,\"maxContribution\":500000,\"budgetYearMap\":{\"2027\":\"8000000\"},\"plannedOpeningDate\":\"2027-04-07\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-09-08\"]}]}}"
+    ],
+    "specificObjective": []
+   },
+   "enrichedMetadata": {},
+   "children": [],
+   "highlightedFragments": [],
+   "citation": "ERA Fellowships. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2027-03-WIDENING-01"
+  },
+  {
+   "apiVersion": "2.157.1",
+   "reference": "52616142TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/NDICI-2026-MOBAF",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "Intra-Africa Academic Mobility Scheme",
+   "weight": 0.0,
+   "groupById": "1",
+   "content": "Intra-Africa Academic Mobility Scheme",
+   "accessRestriction": false,
+   "checksum": "EA85D0FF072870294D5407A753DE4E264611745BB71C60CD264EC4E5D78B2477",
+   "metadata": {
+    "es_SortDate": [
+     "2026-11-03T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "NDICI-2026-MOBAF",
+     "NDICI-2026-MOBAF",
+     "Climate and Energy",
+     "Digital",
+     "Health",
+     "Transport"
+    ],
+    "sortStatus": [
+     "1"
+    ],
+    "language": [
+     "en"
+    ],
+    "title": [
+     "Intra-Africa Academic Mobility Scheme"
+    ],
+    "type": [
+     "1"
+    ],
+    "esST_checksum": [
+     "EA85D0FF072870294D5407A753DE4E264611745BB71C60CD264EC4E5D78B2477"
+    ],
+    "focusArea": [],
+    "esST_FileName": [
+     "file.txt"
+    ],
+    "typeOfMGAs": [
+     "45876750"
+    ],
+    "callIdentifier": [
+     "NDICI-2026-MOBAF"
+    ],
+    "ccm2Id": [
+     "52616142"
+    ],
+    "callccm2Id": [
+     "52616173"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "REFERENCE": [
+     "52616142TOPICSen"
+    ],
+    "callTitle": [
+     "NDICI-2026-MOBAF"
+    ],
+    "frameworkProgramme": [
+     "45876777"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Impact:</p><p>The outputs to be delivered by this action and contributing to the Specific Objectives are:</p><p><i>At system level</i></p><ul level=\"0\"><li>Improved mechanisms for the international transparency and recognition of studies/degrees and qualifications in the participating HEIs.</li><li>Improved knowledge transfer between HEIs, quality of higher education and information exchange on study opportunities in the African Higher Education and Research Space, to enhance regional integration and cross-border skills circulation.</li></ul><p><i>At institutional level</i></p><ul level=\"0\"><li>Strengthened HEIs capacity to manage international partnerships, mobility flows and career services.</li><li>Increased number of partnerships and networks among HEIs in Africa, in partnership with EU Higher Education Institutions, in particular in the research area at regional and continental level.</li><li>Enhanced cooperation between HEIs and business.</li></ul><p><i>At individual level</i></p><ul level=\"0\"><li>Enhanced knowledge, competences, skills and employability of scholarship holders, in the Global Gateway priorities across countries and stakeholders.</li><li>Increased participation of women and increased number of African women holding a post-graduate degree.</li><li>Access to post-graduate degrees is diversified with special attention to students with special needs or vulnerable status (e.g., coming from disadvantaged socio-economic backgrounds, fragile and least developed countries/regions, with a refugee status).</li></ul><p class=\"topicdescriptionkind\">Objective:</p><p>The Overall Objective of this action is to increase skills and qualifications across the African continent.</p><p>The Specific Objectives of this action are to: </p><ol style=\"padding-left:47.6px;\" level=\"0\"><li>Promote inclusive learning mobility opportunities, with a focus on the Global Gateway priority sectors, building human capital and promoting skills circulation.</li><li>Increase the employability of higher education students and trainees in Global Gateway priority sectors through advanced skills (including entrepreneurship skills). </li><li>Improve the quality, relevance, internationalisation of higher education and innovation in Africa, as well as its focus on Global Gateway priority sectors, in line with employment and investment opportunities.</li></ol><p class=\"topicdescriptionkind\">Scope:</p><p>The Intra-Africa Academic Mobility Scheme is the EU’s programme to encourage <strong>international learning mobility across the African continent</strong>. It aims to contribute to the socio-economic development of Africa by strengthening higher education’s role in supporting economic growth, innovation and competitiveness, notably through the development of skilled graduates, highly qualified professionals and talented researchers.</p><p>The action supports learning mobility opportunities for students, trainees and staff among African higher education institutions (HEIs), to enhance knowledge, skills and competences, including in fields not available at home institutions, while also improving the quality, relevance and inclusiveness of teaching and learning through exchanges of practices.</p><p><strong>Implemented</strong> <strong>through partnerships of Sub-Saharan African HEIs, with EU HEIs acting as technical partners and possible participation of associated partners, the scheme will support mobility projects in the priority sectors of the Global Gateway, relevant for productive and sustainable employment, decent jobs, entrepreneurship and innovation.</strong></p><p>The action is part of the Youth Mobility for Africa flagship in the field of Education and Training under the <a href=\"https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/stronger-europe-world/global-gateway/eu-africa-global-gateway-investment-package_en\">Global Gateway Africa-Europe Investment Package</a>. The initiative supports cooperation in higher education and skills development, strengthens regional and continental harmonisation mechanisms and, ultimately, promotes Africa as an attractive study destination, while supporting transformational change towards a knowledge-based economy, in line with Africa’s Agenda 2063.</p><p><strong>This call </strong>is open to<strong> proposals aligning with Global Gateway priorities at country/regional levels in the sectors Climate and Energy, Digital, Transport and Health.</strong></p><p>Proposals should address <strong>a maximum of two Global Gateway priorities</strong> relevant to the countries involved in the proposals.</p><p><strong>Proposals must be submitted by a consortium of at least 5 and maximum 7 applicants</strong> (beneficiaries; not affiliated entities), which complies with the following conditions: </p><ul level=\"0\"><li>Minimum 4 and maximum 6 HEIs from the eligible countries in the following Sub-Saharan African regions: East and Central Africa, Southern Africa and Indian Ocean, Western Africa</li><li>One HEI from one of the EU Member States (EU technical partner)</li><li>Maximum 2 HEIs from the same eligible country in Sub-Saharan Africa.</li><li>Minimum <strong>three</strong> (3) different eligible countries in Sub-Saharan Africa representing at least <strong>two </strong>(2) of the<strong> three </strong>(3) eligibleregions, i.e. East and Central Africa; Southern Africa and Indian Ocean; Western Africa.</li></ul><p>The applicant acting as coordinator must be a Higher Education Institution established in Sub-Saharan Africa. As such, this is not a call for scholarship applications.</p><p>Applicants have to demonstrate:</p><ul level=\"0\"><li>how they will address needs and the critical gaps through academic mobility and skills development, based on a sound needs assessment.</li><li>why they selected the priority (country and/or regional) and how they will contribute to its implementation.</li><li>what concrete and unique benefits and added-value they will bring to the two priorities (maximum) at country/regional level and to their sectors (e.g., innovation, scalability, local impact, multi-country cooperation, HEI-business cooperation).</li></ul><p>It is expected that the selected projects will foster the development of skills and competencies in targeted areas of academia to:</p><ol style=\"list-style-type:lower-roman;\" level=\"0\"><li>increase the role of Higher Education in the Global Gateway country and/or regional priorities, and</li><li>maximise the benefit for mobile students and trainees by offering quality academic programmes and traineeships, notably with an applied and practical focus, providing real-world experience and direct exposure via fieldwork and research.</li></ol><p>To find out which priorities apply to your country, consult <a href=\"https://www.eacea.ec.europa.eu/document/download/de56fb24-2e51-471f-be17-913f6638e4e0_en?filename=Global%20Gateway%20Priorities_Mapping%202026.pdf\">this document</a> presenting priorities per country in each sector and those at regional level (Sub-saharan Africa). Applicants, who connect their proposal to a Sub-Saharan Africa regional priority, are responsible for demonstrating its relevance to the country/ies concerned. Applicants are also expected to consult the <a href=\"https://www.eacea.ec.europa.eu/document/download/5b23ab12-7137-47da-a0e0-9eba1411850c_en?filename=SSA%20Regional%20TEI%20and%20GG%20Flagships%20List%202026%20%28002%29.pdf\">Team Europe Initiatives (TEI) and Regional Global Gateway flagship list</a> and, if applicable, link their proposal to a Regional Sub-Saharan Africa flagship or TEI.</p>"
+    ],
+    "identifier": [
+     "NDICI-2026-MOBAF"
+    ],
+    "es_ContentType": [
+     "text/plain"
+    ],
+    "programmeDivision": [
+     "45921399"
+    ],
+    "crossCuttingPriorities": [
+     "DigitalAgenda",
+     "AI"
+    ],
+    "esDA_FirstIngestDate": [
+     "2026-10-21T00:00:05.599+0200"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2027-02-02T00:00:00.000+0000"
+    ],
+    "esDA_IngestDate": [
+     "2026-11-03T16:39:06.367+0100"
+    ],
+    "typesOfAction": [
+     "NDICI MOBAF Unit Grants"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/NDICI-2026-MOBAF"
+    ],
+    "es_Combine": [
+     "1"
+    ],
+    "esST_URL": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/NDICI-2026-MOBAF"
+    ],
+    "tags": [
+     "Cooperation HEIs and business",
+     "Cross regional cooperation",
+     "Harmonisation of curricula",
+     "Higher education cooperation",
+     "Internationalisation",
+     "Intra-Africa",
+     "Mobility",
+     "Scholarship",
+     "Study and Research in Africa",
+     "Traineeships"
+    ],
+    "esDA_QueueDate": [
+     "2026-11-03T16:39:06.359+0100"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"NDICI-MOBAF-UN NDICI MOBAF Unit Grants\",\"typeOfMGA\":[{\"id\":45876750,\"abbreviation\":\"NDICI-AG-UN\",\"description\":\"NDICI Unit Grant\"}]}],\"status\":{\"id\":31094502,\"abbreviation\":\"Open\",\"description\":\"Open\"},\"plannedOpeningDate\":\"2026-11-03\",\"submissionProcedure\":{\"id\":31094504,\"abbreviation\":\"single-stage\",\"description\":\"single-stage\"},\"deadlineDates\":[\"2027-02-02\"]}]"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2026\"],\"budgetTopicActionMap\":{\"115801\":[{\"action\":\"NDICI-2026-MOBAF - NDICI-MOBAF-UN NDICI MOBAF Unit Grants\",\"expectedGrants\":0,\"minContribution\":0,\"maxContribution\":0,\"budgetYearMap\":{\"2026\":\"24750000\"},\"plannedOpeningDate\":\"2026-11-03\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-02-02\"]}]}}"
+    ],
+    "startDate": [
+     "2026-11-03T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "specificObjective": [],
+    "status": [
+     "31094502"
+    ]
+   },
+   "enrichedMetadata": {},
+   "children": [],
+   "highlightedFragments": [],
+   "citation": "Intra-Africa Academic Mobility Scheme. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/NDICI-2026-MOBAF"
+  }
+ ]
+}

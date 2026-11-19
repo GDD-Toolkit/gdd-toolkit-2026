@@ -11,15 +11,19 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:db": "DB_TESTS=1 vitest run",
+    "test:live": "LIVE_TESTS=1 vitest run",
     "db:bootstrap": "tsx scripts/bootstrap.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/db/migrate.ts",
     "api": "tsx src/api/server.ts",
-    "dev": "tsx watch src/api/server.ts"
+    "dev": "tsx watch src/api/server.ts",
+    "ingest": "tsx src/cli.ts ingest",
+    "seed:sample": "tsx scripts/seed-sample.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.6",
     "drizzle-orm": "^0.45.4",
+    "entities": "^6.0.1",
     "hono": "^4.13.16",
     "pg": "^8.23.1"
   },

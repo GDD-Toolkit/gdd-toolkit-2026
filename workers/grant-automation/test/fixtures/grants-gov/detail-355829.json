@@ -1,0 +1,157 @@
+{
+ "errorcode": 0,
+ "msg": "Webservice Succeeds",
+ "data": {
+  "id": 355829,
+  "revision": 4,
+  "opportunityNumber": "MP-CPI-25-003",
+  "opportunityTitle": "Coordinating Center for Language Access Services",
+  "owningAgencyCode": "HHS-OPHS",
+  "listed": "L",
+  "publisherUid": "118326514881534227629527284060330603604",
+  "modifiedComments": "Synopsis revision",
+  "flag2006": "N",
+  "opportunityCategory": {
+   "category": "D",
+   "description": "Discretionary"
+  },
+  "agencyDetails": {
+   "code": "OPHS",
+   "seed": "HHS-OPHS",
+   "agencyName": "Office of the Assistant Secretary for Health",
+   "agencyCode": "HHS-OPHS",
+   "topAgencyCode": "HHS"
+  },
+  "topAgencyDetails": {
+   "code": "HHS",
+   "seed": "HHS",
+   "agencyName": "Department of Health and Human Services",
+   "agencyCode": "HHS",
+   "topAgencyCode": "HHS"
+  },
+  "forecast": {
+   "opportunityId": 355829,
+   "version": 5,
+   "postingDate": "Aug 01, 2024 12:00:00 AM EDT",
+   "forecastDesc": "The Office of Minority Health announces the anticipated availability of funds for Fiscal Year (FY) 2025 under the authority of 42 U.S.C. § 300u-6 (Section 1707 of the Public Health Service Act) for a demonstration project that supports the development of a National Coordinating Center for Language Access Services . Demonstration projects are time-limited projects for the purpose of assessing the effectiveness of an approach or intervention toward reaching a desired outcome. We expect award recipients under this opportunity to consider approaches to sustainability beyond the end of the support provided by OMH.  This initiative aligns with Make America Healthy Again Commission goals and supports Executive Order 14224 by improving new Americans’ access to healthcare.Individuals with limited English proficiency face barriers to health care and social services that increase their risk for poor health outcomes. We intend for the funded project to create a National Coordinating Center to connect health and human service professionals with qualified health language interpreters and translators to improve access to language services for individuals limited English proficiency. The funded project will develop technical components needed to host the Center, connect and engage a collaborative network of community-based organizations, and promote the Center nationally to health and human service organizations and agencies. OMH also expects the project to address gaps in access to language services and improve the quality of care and health outcomes for individuals with limited English proficiency. Eligible applicants include any private nonprofit or public entity located in a State. “State” includes, in addition to the several States, only the District of Columbia, Guam, the Commonwealth of Puerto Rico, the Northern Mariana Islands, the Virgin Islands, American Samoa, the Trust Territory of the Pacific Islands, and any agency or instrumentality thereof exclusive of local governments. (42 U.S.C. § 201(f) (PHS Act, Section 2(f)), 45 C.F.R. § 75.2). Eligible entities include private nonprofit or public faith-based organizations, community-based organizations, and American Indian/Alaska Native/Native American (AI/AN/NA) organizations. Award recipients must not restrict participation in the project on the basis of race, color, religion, sex, national origin, or another protected characteristic.Applications must be submitted through Grants.gov, and applicants must have an active SAM.gov registration when submitting an application.  Interested applicants are strongly encouraged begin the registration process for both systems early.",
+   "costSharing": false,
+   "numberOfAwards": "1",
+   "estimatedFunding": "700000",
+   "awardCeiling": "700000",
+   "awardFloor": "600000",
+   "agencyContactName": "redacted",
+   "agencyContactPhone": "redacted",
+   "agencyContactEmail": "redacted",
+   "agencyContactEmailDesc": "redacted",
+   "agencyCode": "HHS-OPHS",
+   "sendEmail": "Y",
+   "estSynopsisPostingDate": "Apr 21, 2025 12:00:00 AM EDT",
+   "estApplicationResponseDate": "Jul 01, 2025 12:00:00 AM EDT",
+   "estApplicationResponseDateDesc": "Applications must be submitted electronically no later than 6:00 pm Eastern Time.",
+   "estAwardDate": "Sep 15, 2025 12:00:00 AM EDT",
+   "estProjectStartDate": "Sep 30, 2025 12:00:00 AM EDT",
+   "fiscalYear": 2025,
+   "modComments": "Synopsis revision",
+   "createTimeStamp": "Mar 20, 2025 10:28:33 AM EDT",
+   "createdDate": "Aug 01, 2024 03:26:36 PM EDT",
+   "lastUpdatedDate": "Mar 20, 2025 10:28:33 AM EDT",
+   "agencyDetails": {
+    "code": "OPHS",
+    "seed": "HHS-OPHS",
+    "agencyName": "Office of the Assistant Secretary for Health",
+    "agencyCode": "HHS-OPHS",
+    "topAgencyCode": "HHS"
+   },
+   "estimatedFundingFormatted": "700,000",
+   "awardCeilingFormatted": "700,000",
+   "awardFloorFormatted": "600,000",
+   "applicantTypes": [
+    {
+     "id": "00",
+     "description": "State governments"
+    },
+    {
+     "id": "02",
+     "description": "City or township governments"
+    },
+    {
+     "id": "01",
+     "description": "County governments"
+    },
+    {
+     "id": "07",
+     "description": "Native American tribal governments (Federally recognized)"
+    },
+    {
+     "id": "06",
+     "description": "Public and State controlled institutions of higher education"
+    },
+    {
+     "id": "12",
+     "description": "Nonprofits having a 501(c)(3) status with the IRS, other than institutions of higher education"
+    },
+    {
+     "id": "08",
+     "description": "Public housing authorities/Indian housing authorities"
+    },
+    {
+     "id": "11",
+     "description": "Native American tribal organizations (other than Federally recognized tribal governments)"
+    },
+    {
+     "id": "13",
+     "description": "Nonprofits that do not have a 501(c)(3) status with the IRS, other than institutions of higher education"
+    },
+    {
+     "id": "05",
+     "description": "Independent school districts"
+    },
+    {
+     "id": "04",
+     "description": "Special district governments"
+    }
+   ],
+   "fundingInstruments": [
+    {
+     "id": "G",
+     "description": "Grant"
+    }
+   ],
+   "fundingActivityCategories": [
+    {
+     "id": "HL",
+     "description": "Health"
+    }
+   ],
+   "postingDateStr": "2024-08-01-00-00-00",
+   "estSynopsisPostingDateStr": "2025-04-21-00-00-00",
+   "estApplicationResponseDateStr": "2025-07-01-00-00-00",
+   "estAwardDateStr": "2025-09-15-00-00-00",
+   "estProjectStartDateStr": "2025-09-30-00-00-00",
+   "createTimeStampStr": "2025-03-20-10-28-33"
+  },
+  "cfdas": [
+   {
+    "id": 422873,
+    "opportunityId": 355829,
+    "cfdaNumber": "93.137",
+    "programTitle": "Community Programs to Improve Minority Health"
+   }
+  ],
+  "synopsisModifiedFields": [],
+  "forecastModifiedFields": [
+   "revision",
+   "version",
+   "opportunityTitle"
+  ],
+  "errorMessages": [],
+  "synPostDateInPast": true,
+  "docType": "forecast",
+  "forecastHistCount": 4,
+  "synopsisHistCount": 0,
+  "assistCompatible": false,
+  "assistURL": "",
+  "draftMode": "N",
+  "ost": "FORECASTED"
+ }
+}
