@@ -42,6 +42,15 @@ jobs:
           git merge --ff-only origin/cms-deploy
           git log -1 --format='Deploying %h %s'
 
+      # SSM Parameter Store (/gdd/prod/backend/*) is the source of truth for production
+      # config; the box reads it through its IAM role. To change a value, edit it in the
+      # SSM console, then re-run this workflow (Actions > Deploy CMS > Run workflow).
+      - name: Write .env from SSM
+        run: |
+          node scripts/env-from-ssm.mjs .env.ssm.tmp
+          if [ -f .env ]; then cp -p .env ~/gdd-cms.env.bak; fi
+          mv .env.ssm.tmp .env
+
       - name: Install dependencies
         run: npm ci
 
