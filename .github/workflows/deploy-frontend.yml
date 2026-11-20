@@ -1,0 +1,84 @@
+# Builds the frontend and ships it to the EC2 box that serves devethicstoolkit.umd.edu.
+#
+# This repo is public, so it never runs code on the box itself. A GitHub-hosted runner
+# builds frontend/dist and pushes it, with deploy/site-deploy/publish-site.yml, as one
+# commit to the `site-deploy` branch of the private GDD-Toolkit/gdd-cms repo. That
+# branch's workflow runs on the box's self-hosted runner and publishes the files.
+#
+# Needs the CMS_DEPLOY_KEY secret: the private half of a write deploy key on gdd-cms.
+# Secrets are not given to pull requests from forks, and this only runs on master.
+
+name: Deploy frontend
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "frontend/**"
+      - "shared/**"
+      - "deploy/site-deploy/**"
+      - ".github/workflows/deploy-frontend.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-frontend
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-ship:
+    runs-on: ubuntu-latest
+    env:
+      # Compiled into the public JS bundle, so these are public by design: never put a
+      # secret in a VITE_ variable.
+      VITE_STRAPI_URL: https://cms.devethicstoolkit.umd.edu
+      VITE_GRANTS_API_URL: https://devethicstoolkit.umd.edu/grants/api
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # frontend/public/ToolkitHomeVideo.mp4 (home page) is stored in Git LFS; without
+          # this the build ships a 133-byte pointer file instead of the video.
+          lfs: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build
+        working-directory: frontend
+        run: npm run build
+
+      - name: Push the build to gdd-cms site-deploy
+        env:
+          CMS_DEPLOY_KEY: ${{ secrets.CMS_DEPLOY_KEY }}
+        run: |
+          out=$(mktemp -d)
+          mkdir -p "$out/site" "$out/.github/workflows"
+          cp -a frontend/dist/. "$out/site/"
+          cp deploy/site-deploy/publish-site.yml "$out/.github/workflows/"
+          echo "$GITHUB_SHA" > "$out/SOURCE_SHA"
+
+          key=$(mktemp)
+          hosts=$(mktemp)
+          printf '%s\n' "$CMS_DEPLOY_KEY" > "$key"
+          # GitHub's published host key (https://api.github.com/meta), pinned so the push
+          # can't be redirected to an impostor.
+          echo "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl" > "$hosts"
+          export GIT_SSH_COMMAND="ssh -i $key -o IdentitiesOnly=yes -o UserKnownHostsFile=$hosts -o StrictHostKeyChecking=yes"
+
+          cd "$out"
+          git init -q -b site-deploy
+          git add -A
+          git -c user.name="deploy-frontend" -c user.email="actions@users.noreply.github.com" \
+            commit -q -m "site from gdd-toolkit-2026@${GITHUB_SHA::8}"
+          # One commit per build, replacing the last: the branch carries no history.
+          git push -q --force git@github.com:GDD-Toolkit/gdd-cms.git site-deploy
+          rm -f "$key" "$hosts"
