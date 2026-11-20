@@ -1,7 +1,27 @@
 import path from 'path';
 import type { Core } from '@strapi/strapi';
+import { isLocalDataSource } from '../src/utils/data-source';
 
 const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Database => {
+  if (isLocalDataSource(env)) {
+    // Matches the postgres service in docker-compose.yml.
+    return {
+      connection: {
+        client: 'postgres',
+        connection: {
+          host: '127.0.0.1',
+          port: 5532,
+          database: 'strapi',
+          user: 'strapi',
+          password: 'strapi',
+          ssl: false,
+        },
+        pool: { min: 2, max: 10 },
+        acquireConnectionTimeout: 60000,
+      },
+    };
+  }
+
   const client = env('DATABASE_CLIENT', 'postgres');
 
   const connections = {

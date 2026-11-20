@@ -1,0 +1,102 @@
+{
+ "errorcode": 0,
+ "msg": "Webservice Succeeds",
+ "data": {
+  "id": 363872,
+  "revision": 0,
+  "opportunityNumber": "PAR-28-070",
+  "opportunityTitle": "Emerging Global Leader Award (K43)",
+  "owningAgencyCode": "HHS-NIH11",
+  "publisherUid": "1643657692",
+  "flag2006": "N",
+  "opportunityCategory": {
+   "category": "D",
+   "description": "Discretionary"
+  },
+  "agencyDetails": {
+   "code": "NIH",
+   "seed": "HHS-NIH11",
+   "agencyName": "National Institutes of Health",
+   "agencyCode": "HHS-NIH11",
+   "topAgencyCode": "HHS"
+  },
+  "topAgencyDetails": {
+   "code": "HHS",
+   "seed": "HHS",
+   "agencyName": "Department of Health and Human Services",
+   "agencyCode": "HHS",
+   "topAgencyCode": "HHS"
+  },
+  "forecast": {
+   "opportunityId": 363872,
+   "version": 1,
+   "postingDate": "Sep 16, 2026 12:00:00 AM EDT",
+   "forecastDesc": "<p>This initiative will provide salary and research support to Low- and Middle-Income Country (LMIC) junior faculty and research scientists who are based at LMIC academic or research institutions for intensive mentored research and career development activities focused on biomedical, behavioral, and/or clinical research in LMICs. Proposals will leverage special opportunities not present in the U.S. and result in generalizable knowledge applicable to the health of U.S. and LMIC populations. Recipients are required to receive mentoring from senior U.S. and LMIC researchers, and projects must leverage existing NIH research investments. A sustained period of research career development will enable recipients to become global research leaders at their LMIC institutions, serve as mentors to the next generation of investigators, and strengthen international networks that support NIH research investments.</p>",
+   "costSharing": false,
+   "agencyContactName": "redacted",
+   "agencyContactPhone": "redacted",
+   "agencyContactEmail": "redacted",
+   "agencyContactEmailDesc": "redacted",
+   "agencyCode": "HHS-NIH11",
+   "applicantEligibilityDesc": "Only non-domestic (non-U.S.) Entities (Foreign Institutions) in Low- or Middle-Income Countries are eligible to apply.  Entities must be academic education or research institutions.Non-domestic (non-U.S.) components of U.S. Organizations are not eligible to apply.Foreign components, as defined in the NIH Grants Policy Statement, are allowed.",
+   "estSynopsisPostingDate": "Apr 07, 2027 12:00:00 AM EDT",
+   "estApplicationResponseDate": "Oct 12, 2027 12:00:00 AM EDT",
+   "estAwardDate": "Jul 06, 2028 12:00:00 AM EDT",
+   "estProjectStartDate": "Jul 06, 2028 12:00:00 AM EDT",
+   "fiscalYear": 2028,
+   "createTimeStamp": "Sep 16, 2026 02:52:29 PM EDT",
+   "createdDate": "Sep 16, 2026 02:52:29 PM EDT",
+   "lastUpdatedDate": "Sep 16, 2026 02:52:29 PM EDT",
+   "agencyDetails": {
+    "code": "NIH",
+    "seed": "HHS-NIH11",
+    "agencyName": "National Institutes of Health",
+    "agencyCode": "HHS-NIH11",
+    "topAgencyCode": "HHS"
+   },
+   "applicantTypes": [
+    {
+     "id": "25",
+     "description": "Others (see text field entitled \"Additional Information on Eligibility\" for clarification)"
+    }
+   ],
+   "fundingInstruments": [
+    {
+     "id": "G",
+     "description": "Grant"
+    }
+   ],
+   "fundingActivityCategories": [
+    {
+     "id": "HL",
+     "description": "Health"
+    }
+   ],
+   "postingDateStr": "2026-09-16-00-00-00",
+   "estSynopsisPostingDateStr": "2027-04-07-00-00-00",
+   "estApplicationResponseDateStr": "2027-10-12-00-00-00",
+   "estAwardDateStr": "2028-07-06-00-00-00",
+   "estProjectStartDateStr": "2028-07-06-00-00-00",
+   "createTimeStampStr": "2026-09-16-14-52-29"
+  },
+  "cfdas": [
+   {
+    "id": 435418,
+    "opportunityId": 363872,
+    "cfdaNumber": "93.989",
+    "programTitle": "International Research and Research Training"
+   }
+  ],
+  "synopsisModifiedFields": [],
+  "forecastModifiedFields": [],
+  "errorMessages": [],
+  "synPostDateInPast": true,
+  "docType": "forecast",
+  "forecastHistCount": 0,
+  "synopsisHistCount": 0,
+  "assistCompatible": false,
+  "assistURL": "",
+  "draftMode": "N",
+  "ost": "FORECASTED"
+ }
+}

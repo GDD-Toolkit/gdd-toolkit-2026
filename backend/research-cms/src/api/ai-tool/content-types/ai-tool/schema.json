@@ -50,6 +50,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::ai-tool.ai-tool"
+    },
+    "price_matrix_link": {
+      "type": "string"
     }
   }
 }

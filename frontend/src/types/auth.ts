@@ -24,12 +24,6 @@ export interface BookmarkedTool {
   name: string;
 }
 
-export interface SavedGrant {
-  id: number;
-  documentId: string;
-  grant_name: string;
-}
-
 export interface UserProfile {
   id: number;
   documentId: string;
@@ -56,7 +50,8 @@ export interface UserProfile {
   onboardingComplete?: boolean;
   avatar?: StrapiMedia | null;
   bookmarkedTools?: BookmarkedTool[];
-  savedGrants?: SavedGrant[];
+  /** Grant uuids saved on the funding page; titles come from the grants API (`getGrantsByIds`). */
+  savedGrantIds?: string[];
   createdAt: string;
   updatedAt: string;
 }

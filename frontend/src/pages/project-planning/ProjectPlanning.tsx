@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, easeOut } from "framer-motion";
 import "./ProjectPlanning.css";
-
+import { getProjects } from "@/api/strapi";
 import agileData from "./tools_data/agile.json";
 import dmaicData from "./tools_data/dmaic.json";
 import leanData from "./tools_data/lean.json";
@@ -63,6 +63,22 @@ const planningBenefits = [
 ];
 
 const ProjectPlanning: React.FC = () => {
+    const [projects, setProjects] = useState([])
+
+    useEffect(() => {
+        try {
+            const fetchProjects = async () => {
+                const projectsData = await getProjects()
+                setProjects(projectsData)
+            }
+            fetchProjects()
+        } catch (e) {
+            console.log(e)
+        }
+
+    }, [])
+    console.log(projects)
+    console.log("HERLJKHASs")
     const [step, setStep] = useState(1);
     const [evaluationPhase, setEvaluationPhase] = useState<EvaluationPhase>("design");
     const [evaluationAnswers, setEvaluationAnswers] = useState<EvaluationAnswers>({});
@@ -140,9 +156,9 @@ const ProjectPlanning: React.FC = () => {
         const term = search.trim().toLowerCase();
         return (
             (selectedKeywords.length === 0 || selectedKeywords.some((keyword) => t.type.includes(keyword) || t.time.includes(keyword))) && (
-            t.name.toLowerCase().includes(term) ||
-            t.type.some((ty) => ty.toLowerCase().includes(term)) ||
-            t.time.some((ti) => ti.toLowerCase().includes(term)))
+                t.name.toLowerCase().includes(term) ||
+                t.type.some((ty) => ty.toLowerCase().includes(term)) ||
+                t.time.some((ti) => ti.toLowerCase().includes(term)))
         );
     });
     // Round up to complete rows at every responsive grid width.
@@ -201,7 +217,7 @@ const ProjectPlanning: React.FC = () => {
                 >
                     Project planning is the <b>organization of people, deadlines, methodology, and objectives</b> to streamline the production
                     of a good, product, or goal. In a development context, that means planning to create an <b>effective, sustainable, and
-                    worthwhile project</b>, from infrastructure to social services.
+                        worthwhile project</b>, from infrastructure to social services.
                 </motion.p>
             </header>
 
@@ -242,247 +258,247 @@ const ProjectPlanning: React.FC = () => {
                     </div>
                 </div>
 
-            {/* --- Section 1: Project Plannng Process --- */}
-            <TabsContent value="1" className="planning-step-panel">
-                <section className="content-section">
-                    <div className="content-card">
-                        <h2 ref={simulationRef} className="simulation-title">
-                            Project Planning Process
-                        </h2>
-                        <motion.p
-                            className="simulation-text"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.6, ease: easeOut }}
-                        >
-                            Effective project planning aims to properly document managerial elements needed for the successful completion of projects. Identifying primary aspects of project planning allows project management to control each stage of the project development and allows for the project timeline, roles, and responsibilities to be effectively designed and implemented.
-                        </motion.p>
-                        <div className="planning-intro-video">
-                            <AspectRatio ratio={16 / 9}>
-                            <iframe
-                                src="https://youtube.com/embed/EiaChYQll-0"
-                                title="Project Planning Process Tutorial Video"
-                                loading="lazy"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                            </AspectRatio>
-                        </div>
-                    </div>
-                </section>
-                <section className="content-section planning-benefits" aria-labelledby="planning-benefits-title">
-                    <h2 id="planning-benefits-title" className="simulation-title">Why Project Plan?</h2>
-                    <div className="planning-benefits-grid">
-                        {planningBenefits.map(({ title, icon: Icon, description }) => (
-                            <Card key={title} className="planning-benefit-card">
-                                <CardHeader>
-                                    <Icon className="planning-benefit-icon" size={28} aria-hidden="true" />
-                                    <h3>{title}</h3>
-                                </CardHeader>
-                                <CardContent><p>{description}</p></CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </section>
-            </TabsContent>
-
-            {/* --- Section 2: Project Planning Tools Intro --- */}
-            <TabsContent value="2" className="planning-step-panel">
-                <section className="content-section">
-                    <div className="content-card">
-                        <h2 className="simulation-title">
-                            Project Planning Tools
-                        </h2>
-                        <motion.p
-                            className="simulation-text"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.6, ease: easeOut }}
-                        >
-                        These are various types of software, tables, charts, infographics, and method of thought to help
-                        our users develop their own projects. They can help you understand how to manage your own
-                        enterprises, track your progress, and organize every piece of our business or project
-                        development process. Each box is a different tool, and if you click on the name, you’ll be taken to
-                        a free training module to teach you to use this tool, and how it can apply to your specific goal or
-                        idea.
-                        </motion.p>
-
-                        {/* SEARCH BAR */}
-                        <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
-                            <input
-                                type="text"
-                                placeholder="Search tools or type a keyword..."
-                                value={search}
-                                aria-label="Search planning tools"
-                                aria-describedby="planning-keyword-feedback"
-                                onChange={(e) => { setSearch(e.target.value); setKeywordFeedback(""); setVisibleCount(toolsBatchSize); }}
-                                onKeyDown={(event) => {
-                                    if (event.key === "Enter" && !event.nativeEvent.isComposing) {
-                                        event.preventDefault();
-                                        addTypedKeywords();
-                                    }
-                                }}
-                                className="planning-search-bar"
-                            />
-                            <p id="planning-keyword-feedback" role="status" className="mt-2 text-sm text-slate-600">
-                                {keywordFeedback || "Press Enter to add matching keywords. Partial names and minor typos work too."}
-                            </p>
-                            <div className="planning-keyword-filter">
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <Button variant="outline" type="button" aria-label="Filter tools by keywords">
-                                            {selectedKeywords.length ? `${selectedKeywords.length} keywords selected` : "All keywords"}
-                                            <ChevronDown size={16} aria-hidden="true" />
-                                        </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="planning-keyword-options" collisionPadding={16}>
-                                        <Button type="button" variant="outline" onClick={() => { setSelectedKeywords([]); setSearch(""); setKeywordFeedback(""); setVisibleCount(toolsBatchSize); }}>
-                                            All keywords
-                                        </Button>
-                                        <p>Match any selected keyword.</p>
-                                        {keywords.map((value) => (
-                                            <label key={value} className="planning-keyword-option">
-                                                <Checkbox checked={selectedKeywords.includes(value)} onCheckedChange={() => toggleKeyword(value)} />
-                                                <span>{value}</span>
-                                            </label>
-                                        ))}
-                                    </PopoverContent>
-                                </Popover>
-                                {selectedKeywords.length > 0 && (
-                                    <ul className="planning-keyword-chips" aria-label="Selected keywords">
-                                        {selectedKeywords.map((value) => (
-                                            <li key={value}>
-                                                <span>{value}</span>
-                                                <button type="button" aria-label={`Remove ${value} filter`} onClick={() => toggleKeyword(value)}>
-                                                    <X size={16} aria-hidden="true" />
-                                                </button>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                {/* Tool cards shown in step 2 */}
-                <div
-                    className="planning-tools-viewport"
-                    role="region"
-                    aria-label="Available planning tools"
-                >
-                <div id="planning-tools-grid" className="tools-grid" ref={setToolsGrid}>
-                    {filteredTools.length === 0 && (
-                        <p className="planning-tools-empty" role="status">No tools match your search.</p>
-                    )}
-                    {visibleTools.map((tool) => (
-                        <HoverCard key={tool.name} openDelay={150} closeDelay={150}>
-                        <HoverCardTrigger asChild>
-                        <ToolCardTrigger
-                            className="tool-card"
-                            onPointerEnter={(event) => updatePreviewSide(event.currentTarget)}
-                            onFocusCapture={(event) => updatePreviewSide(event.currentTarget)}
-                        >
-                            {tool.image && <img
-                                src={tool.image}
-                                alt={tool.name}
-                                className="tool-image"
-                            />}
-
-                            <h3 className="tool-name">
-                                <button className="planning-tool-details-trigger" type="button" aria-label={`View ${tool.name} details`} aria-haspopup="dialog" onClick={(event) => { toolTriggerRef.current = event.currentTarget; setSelectedTool(tool); }}>
-                                    {tool.name}
-                                </button>
-
-                            </h3>
-                            <Button
-                                className="planning-tool-select"
-                                type="button"
-                                variant={selectedToolNames.includes(tool.name) ? "default" : "outline"}
-                                aria-pressed={selectedToolNames.includes(tool.name)}
-                                aria-label={`Select ${tool.name}`}
-                                onClick={() => toggleToolSelection(tool.name)}
+                {/* --- Section 1: Project Plannng Process --- */}
+                <TabsContent value="1" className="planning-step-panel">
+                    <section className="content-section">
+                        <div className="content-card">
+                            <h2 ref={simulationRef} className="simulation-title">
+                                Project Planning Process
+                            </h2>
+                            <motion.p
+                                className="simulation-text"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.6, ease: easeOut }}
                             >
-                                {selectedToolNames.includes(tool.name) ? "Selected" : "Select tool"}
-                            </Button>
-
-                            <div className="tool-badges">
-                                {tool.type.map((type) => (
-                                    <span
-                                        key={type}
-                                        className="tool-badge"
-                                        style={{ backgroundColor: typeColors[type] }}
-                                    >
-                                        {type}
-                                    </span>
-                    ))}
-
-                                {tool.time.map((time) => (
-                                    <span
-                                        key={time}
-                                        className="tool-badge"
-                                        style={{ backgroundColor: timeColors[time] }}
-                                    >
-                                        {time}
-                                    </span>
-                                ))}
+                                Effective project planning aims to properly document managerial elements needed for the successful completion of projects. Identifying primary aspects of project planning allows project management to control each stage of the project development and allows for the project timeline, roles, and responsibilities to be effectively designed and implemented.
+                            </motion.p>
+                            <div className="planning-intro-video">
+                                <AspectRatio ratio={16 / 9}>
+                                    <iframe
+                                        src="https://youtube.com/embed/EiaChYQll-0"
+                                        title="Project Planning Process Tutorial Video"
+                                        loading="lazy"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                </AspectRatio>
                             </div>
-                        </ToolCardTrigger>
+                        </div>
+                    </section>
+                    <section className="content-section planning-benefits" aria-labelledby="planning-benefits-title">
+                        <h2 id="planning-benefits-title" className="simulation-title">Why Project Plan?</h2>
+                        <div className="planning-benefits-grid">
+                            {planningBenefits.map(({ title, icon: Icon, description }) => (
+                                <Card key={title} className="planning-benefit-card">
+                                    <CardHeader>
+                                        <Icon className="planning-benefit-icon" size={28} aria-hidden="true" />
+                                        <h3>{title}</h3>
+                                    </CardHeader>
+                                    <CardContent><p>{description}</p></CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    </section>
+                </TabsContent>
+
+                {/* --- Section 2: Project Planning Tools Intro --- */}
+                <TabsContent value="2" className="planning-step-panel">
+                    <section className="content-section">
+                        <div className="content-card">
+                            <h2 className="simulation-title">
+                                Project Planning Tools
+                            </h2>
+                            <motion.p
+                                className="simulation-text"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.6, ease: easeOut }}
+                            >
+                                These are various types of software, tables, charts, infographics, and method of thought to help
+                                our users develop their own projects. They can help you understand how to manage your own
+                                enterprises, track your progress, and organize every piece of our business or project
+                                development process. Each box is a different tool, and if you click on the name, you’ll be taken to
+                                a free training module to teach you to use this tool, and how it can apply to your specific goal or
+                                idea.
+                            </motion.p>
+
+                            {/* SEARCH BAR */}
+                            <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
+                                <input
+                                    type="text"
+                                    placeholder="Search tools or type a keyword..."
+                                    value={search}
+                                    aria-label="Search planning tools"
+                                    aria-describedby="planning-keyword-feedback"
+                                    onChange={(e) => { setSearch(e.target.value); setKeywordFeedback(""); setVisibleCount(toolsBatchSize); }}
+                                    onKeyDown={(event) => {
+                                        if (event.key === "Enter" && !event.nativeEvent.isComposing) {
+                                            event.preventDefault();
+                                            addTypedKeywords();
+                                        }
+                                    }}
+                                    className="planning-search-bar"
+                                />
+                                <p id="planning-keyword-feedback" role="status" className="mt-2 text-sm text-slate-600">
+                                    {keywordFeedback || "Press Enter to add matching keywords. Partial names and minor typos work too."}
+                                </p>
+                                <div className="planning-keyword-filter">
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                            <Button variant="outline" type="button" aria-label="Filter tools by keywords">
+                                                {selectedKeywords.length ? `${selectedKeywords.length} keywords selected` : "All keywords"}
+                                                <ChevronDown size={16} aria-hidden="true" />
+                                            </Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="planning-keyword-options" collisionPadding={16}>
+                                            <Button type="button" variant="outline" onClick={() => { setSelectedKeywords([]); setSearch(""); setKeywordFeedback(""); setVisibleCount(toolsBatchSize); }}>
+                                                All keywords
+                                            </Button>
+                                            <p>Match any selected keyword.</p>
+                                            {keywords.map((value) => (
+                                                <label key={value} className="planning-keyword-option">
+                                                    <Checkbox checked={selectedKeywords.includes(value)} onCheckedChange={() => toggleKeyword(value)} />
+                                                    <span>{value}</span>
+                                                </label>
+                                            ))}
+                                        </PopoverContent>
+                                    </Popover>
+                                    {selectedKeywords.length > 0 && (
+                                        <ul className="planning-keyword-chips" aria-label="Selected keywords">
+                                            {selectedKeywords.map((value) => (
+                                                <li key={value}>
+                                                    <span>{value}</span>
+                                                    <button type="button" aria-label={`Remove ${value} filter`} onClick={() => toggleKeyword(value)}>
+                                                        <X size={16} aria-hidden="true" />
+                                                    </button>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    {/* Tool cards shown in step 2 */}
+                    <div
+                        className="planning-tools-viewport"
+                        role="region"
+                        aria-label="Available planning tools"
+                    >
+                        <div id="planning-tools-grid" className="tools-grid" ref={setToolsGrid}>
+                            {filteredTools.length === 0 && (
+                                <p className="planning-tools-empty" role="status">No tools match your search.</p>
+                            )}
+                            {visibleTools.map((tool) => (
+                                <HoverCard key={tool.name} openDelay={150} closeDelay={150}>
+                                    <HoverCardTrigger asChild>
+                                        <ToolCardTrigger
+                                            className="tool-card"
+                                            onPointerEnter={(event) => updatePreviewSide(event.currentTarget)}
+                                            onFocusCapture={(event) => updatePreviewSide(event.currentTarget)}
+                                        >
+                                            {tool.image && <img
+                                                src={tool.image}
+                                                alt={tool.name}
+                                                className="tool-image"
+                                            />}
+
+                                            <h3 className="tool-name">
+                                                <button className="planning-tool-details-trigger" type="button" aria-label={`View ${tool.name} details`} aria-haspopup="dialog" onClick={(event) => { toolTriggerRef.current = event.currentTarget; setSelectedTool(tool); }}>
+                                                    {tool.name}
+                                                </button>
+
+                                            </h3>
+                                            <Button
+                                                className="planning-tool-select"
+                                                type="button"
+                                                variant={selectedToolNames.includes(tool.name) ? "default" : "outline"}
+                                                aria-pressed={selectedToolNames.includes(tool.name)}
+                                                aria-label={`Select ${tool.name}`}
+                                                onClick={() => toggleToolSelection(tool.name)}
+                                            >
+                                                {selectedToolNames.includes(tool.name) ? "Selected" : "Select tool"}
+                                            </Button>
+
+                                            <div className="tool-badges">
+                                                {tool.type.map((type) => (
+                                                    <span
+                                                        key={type}
+                                                        className="tool-badge"
+                                                        style={{ backgroundColor: typeColors[type] }}
+                                                    >
+                                                        {type}
+                                                    </span>
+                                                ))}
+
+                                                {tool.time.map((time) => (
+                                                    <span
+                                                        key={time}
+                                                        className="tool-badge"
+                                                        style={{ backgroundColor: timeColors[time] }}
+                                                    >
+                                                        {time}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </ToolCardTrigger>
                                     </HoverCardTrigger>
-                                <HoverCardContent
-                                    className="planning-tool-preview"
-                                    side={previewSide}
-                                    align="start"
-                                    sideOffset={12}
-                                    collisionPadding={{ top: previewTopInset, right: 16, bottom: 16, left: 16 }}
-                                    avoidCollisions
-                                    sticky="always"
-                                >
-                                    <p className="font-semibold">{tool.name}</p>
-                                    {tool.image && <img src={tool.image} alt={`${tool.name} diagram`} className="my-2 w-full max-h-40 object-contain" />}
-                                    <p className="text-sm">{tool.learning_obj[0]?.text || "Open this tool to explore its process and benefits."}</p>
-                                    <p className="mt-2 text-sm">Click or tap the card for the full guide.</p>
-                                </HoverCardContent>
+                                    <HoverCardContent
+                                        className="planning-tool-preview"
+                                        side={previewSide}
+                                        align="start"
+                                        sideOffset={12}
+                                        collisionPadding={{ top: previewTopInset, right: 16, bottom: 16, left: 16 }}
+                                        avoidCollisions
+                                        sticky="always"
+                                    >
+                                        <p className="font-semibold">{tool.name}</p>
+                                        {tool.image && <img src={tool.image} alt={`${tool.name} diagram`} className="my-2 w-full max-h-40 object-contain" />}
+                                        <p className="text-sm">{tool.learning_obj[0]?.text || "Open this tool to explore its process and benefits."}</p>
+                                        <p className="mt-2 text-sm">Click or tap the card for the full guide.</p>
+                                    </HoverCardContent>
 
-                        </HoverCard>
-                    ))}
-                </div>
-                </div>
-                <div className="planning-show-more">
-                    <div className="planning-tools-status" role="status" aria-atomic="true">
-                        Showing {visibleTools.length} of {filteredTools.length} tools
+                                </HoverCard>
+                            ))}
+                        </div>
                     </div>
-                    {visibleTools.length < filteredTools.length && (
-                        <Button type="button" aria-controls="planning-tools-grid" onClick={() => setVisibleCount(fullRowCount + toolsBatchSize)}>
-                            Show more
-                        </Button>
-                    )}
-                </div>
-            </TabsContent>
-
-            {/* --- Section 3: Project evaluation tool --- */}
-            <TabsContent value="3" className="planning-step-panel">
-                <section className="content-section">
-                    <div className="content-card">
-                        <h2 className="simulation-title">Evaluation</h2>
-                        <PlanningEvaluation
-                            phase={evaluationPhase}
-                            onPhaseChange={setEvaluationPhase}
-                            answers={evaluationAnswers}
-                            onAnswerChange={(phase, answer) => setEvaluationAnswers((previous) => ({
-                                ...previous, [phase]: answer,
-                            }))}
-                            weights={evaluationWeights}
-                            onWeightChange={(phase, weight) => setEvaluationWeights((previous) => ({ ...previous, [phase]: weight }))}
-                        />
-                        <h3>Selected tools</h3>
-                        {selectedToolNames.length > 0 ? (
-                            <ul>{selectedToolNames.map((name) => <li key={name}>{name}</li>)}</ul>
-                        ) : (
-                            <p>No tools selected. Go back to Select Tools to choose tools.</p>
+                    <div className="planning-show-more">
+                        <div className="planning-tools-status" role="status" aria-atomic="true">
+                            Showing {visibleTools.length} of {filteredTools.length} tools
+                        </div>
+                        {visibleTools.length < filteredTools.length && (
+                            <Button type="button" aria-controls="planning-tools-grid" onClick={() => setVisibleCount(fullRowCount + toolsBatchSize)}>
+                                Show more
+                            </Button>
                         )}
                     </div>
-                </section>
-            </TabsContent>
+                </TabsContent>
+
+                {/* --- Section 3: Project evaluation tool --- */}
+                <TabsContent value="3" className="planning-step-panel">
+                    <section className="content-section">
+                        <div className="content-card">
+                            <h2 className="simulation-title">Evaluation</h2>
+                            <PlanningEvaluation
+                                phase={evaluationPhase}
+                                onPhaseChange={setEvaluationPhase}
+                                answers={evaluationAnswers}
+                                onAnswerChange={(phase, answer) => setEvaluationAnswers((previous) => ({
+                                    ...previous, [phase]: answer,
+                                }))}
+                                weights={evaluationWeights}
+                                onWeightChange={(phase, weight) => setEvaluationWeights((previous) => ({ ...previous, [phase]: weight }))}
+                            />
+                            <h3>Selected tools</h3>
+                            {selectedToolNames.length > 0 ? (
+                                <ul>{selectedToolNames.map((name) => <li key={name}>{name}</li>)}</ul>
+                            ) : (
+                                <p>No tools selected. Go back to Select Tools to choose tools.</p>
+                            )}
+                        </div>
+                    </section>
+                </TabsContent>
             </Tabs>
 
             {/* === Modal Component === */}

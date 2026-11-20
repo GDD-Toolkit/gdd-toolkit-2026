@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_shared_cultural_freedoms",
+  "info": {
+    "displayName": "cultural_freedom"
+  },
+  "options": {},
+  "attributes": {
+    "official_language": {
+      "type": "string"
+    },
+    "gri": {
+      "type": "decimal"
+    },
+    "shi": {
+      "type": "decimal"
+    },
+    "political_rights": {
+      "type": "integer"
+    },
+    "civil_liberties": {
+      "type": "integer"
+    },
+    "type_of_government": {
+      "type": "text"
+    },
+    "assembly": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
