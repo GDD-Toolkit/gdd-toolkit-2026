@@ -7,6 +7,8 @@ import React from "react";
 import type { CaseStudy } from "@/types/caseStudies";
 import { s3UriToHttps } from "@/utils/s3";
 import { X, MapPin, Star, Target, Key, Zap, HeartPulse, ShieldCheck, Palette, Scale, CheckCircle2, Leaf } from "lucide-react";
+import { Card } from "../ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface CaseStudyModalProps {
   caseStudy: CaseStudy | null;
@@ -26,8 +28,8 @@ function InfoSection({
 }) {
   if (!items || items.length === 0) return null;
   return (
-    <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-      <div className="flex items-center gap-2 mb-2">
+    <Card className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+      <div className="flex items-center gap-2">
         {icon}
         <h3 className="font-semibold text-gray-900 text-sm">{title}</h3>
       </div>
@@ -36,7 +38,7 @@ function InfoSection({
           <p key={idx} className="text-sm text-gray-700">{item}</p>
         ))}
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -97,10 +99,10 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
         onClick={(e) => e.stopPropagation()}
       >
         {/* Green Header */}
-        <div className="bg-gradient-to-r from-[#A07CFF] to-[#6D83F2] text-white py-6 px-6 relative">
+        <div className="bg-[#43673B] text-white py-6 px-6 relative">
           <button
             onClick={onClose}
-            className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5"
+            className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             <X className="w-4 h-4" />
             Back
@@ -151,17 +153,17 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
               />
             )}
             {Array.isArray(caseStudy.sdgs) && caseStudy.sdgs.length > 0 && (
-              <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-                <div className="flex items-center gap-2 mb-2">
+              <Card className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                <div className="flex items-center gap-2">
                   <Target className="w-5 h-5 text-red-500" />
                   <h3 className="font-semibold text-gray-900 text-sm">Sustainable Development Goals</h3>
                 </div>
-                <div className="space-y-1">
+                <div className="">
                   {(caseStudy.sdgs as (string | number)[]).map((sdg, idx) => (
                     <p key={idx} className="text-sm text-gray-700">SDG {sdg}</p>
                   ))}
                 </div>
-              </div>
+              </Card>
             )}
             {Array.isArray(caseStudy.keywords) && caseStudy.keywords.length > 0 && (
               <InfoSection
@@ -253,7 +255,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
                       const shouldCenter = shouldCenterLast && isLast;
 
                       return (
-                        <div
+                        <Card
                           key={key}
                           className={`bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow ${
                             shouldCenter ? 'md:col-span-2 md:max-w-2xl md:mx-auto' : ''
@@ -294,7 +296,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
                               </ul>
                             </div>
                           )}
-                        </div>
+                        </Card>
                       );
                     })}
                   </div>
@@ -313,41 +315,33 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
             <div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">References</h3>
 
-                <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                <Card className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
                 <ul className="space-y-2">
+                <Accordion className="max-w-">
                     {caseStudy.references.map((ref, idx) => {
                     const url = extractUrl(ref);
                     const before = url ? ref.split(url)[0] : ref;
-                    const after = url ? ref.split(url)[1] : "";
+                    // const after = url ? ref.split(url)[1] : "";  // --- Not currently in use.
 
                     return (
-                        <li
-                        key={idx}
-                        className="text-sm text-gray-700 leading-relaxed flex gap-2"
-                        >
-                        <span className="text-[#6D83F2] font-semibold">
-                            [{idx + 1}]
-                        </span>
-
-                        <span>
-                            {before}
-                            {url && (
-                            <a
-                                href={url}
-                                target="_blank"
+                      <AccordionItem value={"ref_"+idx}>
+                        <AccordionTrigger className="text-sm text-gray-700 font-normal leading-relaxed flex gap-2"><span className="text-[#6D83F2] font-semibold">[{idx+1}] </span>{before}</AccordionTrigger>
+                        <AccordionContent>
+                          {url ? 
+                              <a 
+                                target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-emerald-700 underline hover:text-emerald-800 break-all"
-                            >
-                                {url}
-                            </a>
-                            )}
-                            {after}
-                        </span>
-                        </li>
+                                className="text-emerald-700 underline hover:text-emerald-800 break-all" 
+                                href={url}
+                              >{url}
+                              </a> : <span>Link not found</span>}
+                        </AccordionContent>
+                      </AccordionItem>
                     );
-                    })}
+                  })}
+                </Accordion>
                 </ul>
-                </div>
+                </Card>
             </div>
             )}
           </div>

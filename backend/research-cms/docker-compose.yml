@@ -1,0 +1,67 @@
+# Local stand-ins for the services Strapi talks to in production.
+# Every service listens on its default port + 100, so the stack never clashes with a
+# Postgres, MinIO or Mailpit you may already run.
+# Strapi uses them when DATA_SOURCE=local (see config/database.ts, config/plugins.ts).
+#
+#   docker compose up -d      start in the background
+#   docker compose down       stop (data is kept in the volumes below)
+#   docker compose down -v    stop and wipe all data
+services:
+  # Stands in for the AWS RDS database.
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi
+      POSTGRES_DB: strapi
+    ports:
+      - "5532:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U strapi -d strapi"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Stands in for the AWS S3 uploads bucket (same API).
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9100:9000" # S3 API, where Strapi uploads go
+      - "9101:9001" # Web console: http://localhost:9101
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # One-shot: creates the bucket and makes its files publicly readable, like production.
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      sh -c "
+      mc alias set local http://minio:9000 minioadmin minioadmin &&
+      mc mb --ignore-existing local/strapi-uploads &&
+      mc anonymous set download local/strapi-uploads
+      "
+
+  # Catches every email Strapi sends instead of delivering it.
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "1125:1025" # SMTP, where Strapi sends mail
+      - "8125:8025" # Inbox UI: http://localhost:8125
+
+volumes:
+  postgres_data:
+  minio_data:

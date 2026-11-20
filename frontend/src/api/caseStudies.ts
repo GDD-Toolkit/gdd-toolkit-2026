@@ -4,12 +4,12 @@
  */
 
 import type { CaseStudy } from "@/types/caseStudies";
+import { getMaldevelopment as getStrapiMaldevelopment } from "./strapi.ts";
 
 const BASE_API_URL = "https://xwo9yyyg6c.execute-api.us-east-2.amazonaws.com/dev";
 
 const PROJECTS_API_URL = `${BASE_API_URL}/casestudies`;
 const POLICIES_API_URL = `${BASE_API_URL}/policies`;
-const MALDEVELOPMENT_API_URL = `${BASE_API_URL}/maldevelopment`;
 
 /**
  * Generic function to fetch case studies from an API endpoint
@@ -61,7 +61,8 @@ export async function fetchPolicies(): Promise<CaseStudy[]> {
  * @throws Error if the request fails
  */
 export async function fetchMaldevelopment(): Promise<CaseStudy[]> {
-  return fetchFromEndpoint(MALDEVELOPMENT_API_URL);
+  const data = await getStrapiMaldevelopment();
+  return data as CaseStudy[];
 }
 
 /**

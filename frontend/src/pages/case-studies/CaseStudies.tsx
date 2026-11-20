@@ -11,7 +11,10 @@ import CaseStudyModal from "@/components/case-studies/CaseStudyModal";
 import { fetchWorthwhile, fetchMaldevelopment } from "@/api/caseStudies";
 import type { CaseStudy } from "@/types/caseStudies";
 import "./CaseStudies.css";
-import { easeOut, motion } from "framer-motion";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Button } from "@/components/ui/button";
+
+const CASE_STUDIES_PER_PAGE = 8;
 
 // Extended CaseStudy type with segment label
 type CaseStudyWithSegment = CaseStudy & {
@@ -31,6 +34,7 @@ export default function CaseStudies() {
   
     const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(CASE_STUDIES_PER_PAGE);
 
   // Fetch all case studies (both worthwhile and maldevelopment)
   useEffect(() => {
@@ -40,7 +44,7 @@ export default function CaseStudies() {
         setError(null);
         const [worthwhile, maldevelopment] = await Promise.all([
           fetchWorthwhile().catch(() => []),
-          fetchMaldevelopment().catch(() => []),
+          fetchMaldevelopment().catch(() => []), // !!! Failed to load resource: the server responded with a status of 404 (Not Found)
         ]);
 
         // Combine and label each case study with its segment
@@ -71,17 +75,26 @@ export default function CaseStudies() {
       }
     }
 
-    const anyFilterActive =
-      selectedValues.length || selectedRegions.length || selectedSdgs.length;
+    const matchesValues =
+    selectedValues.length === 0 ||
+    selectedValues.some(v => study.values?.includes(v));
 
-    if (!anyFilterActive) return true;
+    const matchesRegions =
+    selectedRegions.length === 0 ||
+    selectedRegions.some(r => study.regions?.includes(r));
 
-    return (
-      study.values?.some(v => selectedValues.includes(v)) ||
-      study.regions?.some(r => selectedRegions.includes(r)) ||
-      study.sdgs?.some(s => selectedSdgs.includes(s))
-    );
+    const matchesSdgs =
+    selectedSdgs.length === 0 ||
+    selectedSdgs.some(s => study.sdgs?.includes(s));
+
+    return matchesValues && matchesRegions && matchesSdgs;
   });
+
+  useEffect(() => {
+    setVisibleCount(CASE_STUDIES_PER_PAGE);
+  }, [searchQuery, selectedValues, selectedRegions, selectedSdgs]);
+
+  const visibleCaseStudies = filteredCaseStudies.slice(0, visibleCount);
   
   const allValues = Array.from(
     new Set(allCaseStudies.flatMap(cs => cs.values ?? []))
@@ -94,43 +107,6 @@ export default function CaseStudies() {
   const allSdgs = Array.from(
     new Set(allCaseStudies.flatMap(cs => cs.sdgs ?? []))
   ).sort((a, b) => a - b);
-
-  function SelectedChips<T extends string | number>({
-    items,
-    onRemove,
-    format,
-    variant,
-  }: {
-    items: T[];
-    onRemove: (item: T) => void;
-    format?: (item: T) => string;
-    variant: "values" | "regions" | "sdgs";
-  }) {
-    const styles = {
-        values: "bg-sky-100 text-sky-700",
-        regions: "bg-slate-100 text-slate-700",
-        sdgs: "bg-orange-100 text-orange-700",
-      };      
-
-    return (
-      <div className="flex flex-wrap gap-2 ml-3">
-        {items.map(item => (
-          <span
-            key={item.toString()}
-            className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${styles[variant]}`}
-          >
-            {format ? format(item) : item}
-            <button
-              className="ml-1 opacity-70 hover:opacity-100"
-              onClick={() => onRemove(item)}
-            >
-              ×
-            </button>
-          </span>
-        ))}
-      </div>
-    );
-  }
   
   // Check for case study ID in URL and open modal
   useEffect(() => {
@@ -169,7 +145,7 @@ export default function CaseStudies() {
   const renderContent = () => {
     if (loading) {
       return (
-        <div className="text-center py-12">
+        <div className="text-center py-12 mx-auto">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#6D83F2]"></div>
           <p className="mt-4 text-gray-600">Loading case studies...</p>
         </div>
@@ -178,7 +154,7 @@ export default function CaseStudies() {
 
     if (error) {
       return (
-        <div className="text-center py-12">
+        <div className="text-center py-12 mx-auto">
           <p className="text-red-600 text-lg mb-2">Failed to load case studies.</p>
           <p className="text-gray-500">Please try again later.</p>
           {import.meta.env.DEV && (
@@ -188,174 +164,134 @@ export default function CaseStudies() {
       );
     }
 
-    return <CaseStudiesGrid caseStudies={filteredCaseStudies} searchQuery={searchQuery} />;
+    return (
+    <div className="flex flex-col gap-5 md:w-2/3 lg:w-2/3">
+      <span className="mx-auto text-gray-500 size-xs">Showing {visibleCaseStudies.length} of {filteredCaseStudies.length} case studies</span>
+      <CaseStudiesGrid caseStudies={visibleCaseStudies} searchQuery={searchQuery} />
+      {visibleCount < filteredCaseStudies.length && (
+        <Button
+          className="self-center"
+          onClick={() => setVisibleCount(count => count + CASE_STUDIES_PER_PAGE)}
+        >
+          Load more
+        </Button>
+      )}
+    </div>
+    );
   };
 
     return (
     <div className="min-h-screen bg-gray-50">
       {/* Page Header */}
-      <header className="bg-gradient-to-r from-[#A07CFF] to-[#6D83F2] text-white py-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-center">Case Studies</h1>
-        </div>
-            </header>
-        
-            <section className="content-section">
-                <div className="content-card">
-                    <motion.p
-                    className="simulation-text"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, ease: easeOut }}
-                    >
-                    This tool includes a dedicated library of case studies that highlight both exemplary development practices and real-world instances of maldevelopment. These cases give users a grounded understanding of how ethical challenges unfold in practice—and how values-based, human-centered approaches can lead to better outcomes. By learning from successes and missteps alike, users of our toolkit can more confidently apply these lessons and principles to their own projects.
-                    <br /><br />
-                    See the <a
+      <header className="bg-[#43673B] text-white py-12">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col gap-5 pb-20">
+          <h1 className="text-4xl md:text-5xl font-bold">Case Studies</h1>
+          <div className="text-lg">This tool includes a dedicated library of case studies that highlight both exemplary development practices and real-world instances of maldevelopment. These cases give users a grounded understanding of how ethical challenges unfold in practice—and how values-based, human-centered approaches can lead to better outcomes. By learning from successes and missteps alike, users of our toolkit can more confidently apply these lessons and principles to their own projects.</div>
+          <div> See the <a
                         href="/projectevaloldinternal.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="!text-[#6D83F2] font-semibold underline !hover:text-[#5f72d8] transition-colors"
-                    >
-                        case study evaluation methodology
-                    </a> for more details.
-                    <br /><br />
-                    Below is a tutorial on how to navigate and utilize the case studies effectively:
-                    {/* Embedded Video */}
-                    <motion.div
-                    className="w-full flex justify-center mt-6"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, ease: easeOut }}
-                    >
+                        className="font-semibold underline transition-colors"
+                    >case study evaluation methodology</a> for more details.
+          </div>
+          <div>Below is a tutorial on how to navigate and utilize the case studies effectively.</div>
+        </div>
+      </header>
+        
+            <section className="content-section">
+                <div className="flex justify-center -mt-20">
                     <video
                         src="/Case_study_video.mp4" // Local video URL
-                        width="80%"
+                        width="100%"
                         height="480"
                         controls // adds play/pause buttons
                         style={{ border: "1px solid #ccc", borderRadius: "8px", display: "block" }}
                         title="Case Study Tutorial"
                     ></video>
-                    </motion.div>
-                    <br /><br />
-                    Explore our comprehensive collection of case studies using the search bar or dropdowns. Each entry is thoughtfully categorized as either "Worthwhile Development" or "Maldevelopment," providing clear insights into ethical practices and challenges in the field. Dive in to learn from real-world examples and enhance your understanding of value-driven development.
-                    </motion.p>
+
                 </div>
             </section>
         
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 py-10">
+      <main className="max-w-1024 mx-auto p-10 flex flex-col md:flex-row lg:flex-row gap-6 md:gap-10 lg:gap-10">
         {/* Search */}
-        <div className="mb-6 flex justify-center">
-          <input
-            type="text"
-            placeholder="Search by case study name…"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full max-w-xl rounded-full px-4 py-2 shadow-sm
-            border border-[#6D83F2]
-            text-[#6D83F2]
-            placeholder-[#6D83F2]
-            focus:ring-[#A07CFF]"            
-          />
-        </div>
+        <div className="flex flex-col gap-5 border border-[#AACDBB] bg-[#E1EDDD] p-5 z-10 md:sticky lg:sticky top-25 md:w-1/3 lg:w-1/3 h-fit rounded-lg">
+          <h2 className="text-xl">Filter Case Studies</h2>
+          <ul className="flex flex-col gap-5">
+            <li>
+              <h3>Search</h3>
+              <input
+                type="text"
+                placeholder="Search by case study name…"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full max-w-xl rounded-lg px-4 py-2
+                border border-slate-400
+                bg-gray-100
+                text-gray-800
+                placeholder-gray-500
+                focus:outline-none focus:ring-1 "
+              />
+            </li>
 
-        {/* Filters */}
-        <div className="max-w-5xl mx-auto space-y-4 mb-8">
-          {/* Values */}
-          <div className="flex items-center flex-wrap gap-3">
-            <label className="w-20 text-sm font-medium text-[#6D83F2]">
-              Values
-            </label>
-            <select
-              className="w-48 rounded-full px-3 py-1.5 text-sm
-              border border-[#6D83F2] text-[#6D83F2]
-              focus:ring-[#A07CFF]"
-              onChange={(e) => {
-                const v = e.target.value;
-                if (v && !selectedValues.includes(v)) {
-                  setSelectedValues([...selectedValues, v]);
+            <li>
+              <h3>Values</h3>
+              <ToggleGroup 
+                size="sm" 
+                variant="outline"
+                className="gap-2 p-1 rounded-lg flex-wrap"
+                multiple
+                onValueChange={(v) => {
+                if (v) {
+                  setSelectedValues(v);
                 }
-                e.target.value = "";
               }}
-            >
-              <option value="">Select Values …</option>
-              {allValues.map(v => (
-                <option key={v}>{v}</option>
-              ))}
-            </select>
-            <SelectedChips
-              items={selectedValues}
-              variant="values"
-              onRemove={(v) =>
-                setSelectedValues(selectedValues.filter(x => x !== v))
-              }
-            />
-          </div>
+              >
+                {allValues.map((v) => 
+                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="border border-gray-300">{v}</ToggleGroupItem>
+                )}
+              </ToggleGroup>
+            </li>
 
-          {/* Regions */}
-          <div className="flex items-center flex-wrap gap-3">
-            <label className="w-20 text-sm font-medium text-[#6D83F2]">
-              Regions
-            </label>
-            <select
-              className="w-48 rounded-full px-3 py-1.5 text-sm
-              border border-[#6D83F2] text-[#6D83F2]
-              focus:ring-[#A07CFF]"
-              onChange={(e) => {
-                const r = e.target.value;
-                if (r && !selectedRegions.includes(r)) {
-                  setSelectedRegions([...selectedRegions, r]);
+            <li>
+              <h3>Regions</h3>
+              <ToggleGroup 
+                size="sm" 
+                variant="outline"
+                className="gap-2 p-1 rounded-lg flex-wrap"
+                multiple
+                onValueChange={(v) => {
+                if (v) {
+                  setSelectedRegions(v);
                 }
-                e.target.value = "";
               }}
-            >
-              <option value="">Select Regions…</option>
-              {allRegions.map(r => (
-                <option key={r}>{r}</option>
-              ))}
-            </select>
-            <SelectedChips
-              items={selectedRegions}
-              variant="regions"
-              onRemove={(r) =>
-                setSelectedRegions(selectedRegions.filter(x => x !== r))
-              }
-            />
-          </div>
+              >
+                {allRegions.map((v) => 
+                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="border border-gray-300">{v}</ToggleGroupItem>
+                )}
+              </ToggleGroup>
+            </li>
 
-          {/* SDGs */}
-          <div className="flex items-center flex-wrap gap-3">
-            <label className="w-20 text-sm font-medium text-[#6D83F2]">
-              SDGs
-            </label>
-            <select
-              className="w-48 rounded-full px-3 py-1.5 text-sm
-              border border-[#6D83F2] text-[#6D83F2]
-              focus:ring-[#A07CFF]"
-              onChange={(e) => {
-                const s = Number(e.target.value);
-                if (s && !selectedSdgs.includes(s)) {
-                  setSelectedSdgs([...selectedSdgs, s]);
+            <li>
+              <h3>SDGs</h3>
+              <ToggleGroup 
+                size="sm" 
+                variant="outline"
+                className="gap-2 p-1 rounded-lg flex-wrap"
+                multiple
+                onValueChange={(v) => {
+                if (v) {
+                  const sdgs = v.map((s) => Number(s));
+                  setSelectedSdgs(sdgs);
                 }
-                e.target.value = "";
               }}
-            >
-              <option value="">Select SDGs…</option>
-              {allSdgs.map(s => (
-                <option key={s} value={s}>
-                  SDG {s}
-                </option>
-              ))}
-            </select>
-            <SelectedChips
-              items={selectedSdgs}
-              variant="sdgs"
-              format={(s) => `SDG ${s}`}
-              onRemove={(s) =>
-                setSelectedSdgs(selectedSdgs.filter(x => x !== s))
-              }
-            />
-          </div>
+              >
+                {allSdgs.map((v) => 
+                  <ToggleGroupItem key={v} value={""+v} aria-label={"Toggle " + v} className="border border-gray-300">{"SDG " + v}</ToggleGroupItem>
+                )}
+              </ToggleGroup>
+            </li>
+          </ul>
         </div>
 
         {renderContent()}

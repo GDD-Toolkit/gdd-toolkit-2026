@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_shared_environmental_sustainabilities",
+  "info": {
+    "displayName": "environmental_sustainability",
+    "icon": "earth"
+  },
+  "options": {},
+  "attributes": {
+    "precipitation": {
+      "type": "decimal"
+    },
+    "average_air_temperature": {
+      "type": "decimal"
+    },
+    "terrain": {
+      "type": "text"
+    },
+    "ghg_emissions": {
+      "type": "decimal"
+    },
+    "co2_emissions_per_capita": {
+      "type": "decimal"
+    },
+    "paris_climate_agreement": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

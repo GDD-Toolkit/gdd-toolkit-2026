@@ -29,7 +29,6 @@ const SITE_ROLES = [
 const PUBLIC_CONTENT_TYPES = [
   "ai-tool",
   "cohert",
-  "funding-resource",
   "geopolitical-analysis",
   "podcast",
   "project-planning",

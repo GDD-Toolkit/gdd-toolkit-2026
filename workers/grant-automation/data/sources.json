@@ -1,0 +1,23 @@
+[
+  {
+    "id": "grants-gov",
+    "name": "Grants.gov",
+    "adapter": "grants-gov",
+    "config": {},
+    "license_note": "This product uses the Grants.gov API but is not endorsed or certified by the U.S. Department of Health and Human Services. Summaries are excerpts of the official listing."
+  },
+  {
+    "id": "eu-ft",
+    "name": "EU Funding & Tenders Portal",
+    "adapter": "eu-ft",
+    "config": {},
+    "license_note": "Source: European Commission, Funding & Tenders Portal, © European Union. Reused under CC BY 4.0; summaries are shortened excerpts."
+  },
+  {
+    "id": "curated",
+    "name": "Curated by the research module",
+    "adapter": "curated",
+    "config": {},
+    "license_note": "Hand-written summaries; every entry links to its original source page."
+  }
+]
