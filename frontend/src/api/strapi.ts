@@ -1,3 +1,31 @@
+import type { ProjectPlanningTool } from "../pages/project-planning/ToolModal";
+import { parsePlanningTool } from "./planningToolValidation";
+
+export async function getProjectPlanningTools(signal?: AbortSignal): Promise<ProjectPlanningTool[]> {
+  const base = getStrapiBaseUrl();
+  const api = base.endsWith("/api") ? base : `${base}/api`;
+  const tools: ProjectPlanningTool[] = [];
+  let page = 1;
+  let pageCount = 1;
+  do {
+    const query = new URLSearchParams({
+      "pagination[page]": String(page), "pagination[pageSize]": "100",
+      "sort[0]": "sort_order:asc", "sort[1]": "slug:asc", status: "published",
+    });
+    const response = await fetch(`${api}/project-planning-tools?${query}`, { headers: buildStrapiHeaders(), signal });
+    if (!response.ok) throw new Error(`Could not load planning tools (${response.status}).`);
+    const json = await response.json();
+    const count = json?.meta?.pagination?.pageCount;
+    if (!Array.isArray(json?.data) || !Number.isInteger(count) || count < 0) {
+      throw new Error("Invalid project planning response from Strapi.");
+    }
+    tools.push(...json.data.map(parsePlanningTool));
+    pageCount = count;
+    page += 1;
+  } while (page <= pageCount);
+  return tools;
+}
+
 function getStrapiBaseUrl(): string {
   const url = import.meta.env.VITE_STRAPI_URL;
   if (!url) {
