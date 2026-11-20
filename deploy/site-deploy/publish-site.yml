@@ -1,0 +1,56 @@
+# Publishes the built frontend on the EC2 box. This file is NOT run from gdd-toolkit-2026:
+# .github/workflows/deploy-frontend.yml copies it into the commit it pushes to the
+# `site-deploy` branch of the private GDD-Toolkit/gdd-cms repo, where it runs on the box's
+# self-hosted runner (label cms-ec2).
+#
+# Each build goes into its own releases/<commit> folder and the `current` symlink nginx
+# serves is switched in one step, so a failed publish never takes the site down. To roll
+# back, point `current` at an older folder in /var/www/devethicstoolkit/releases.
+
+name: Publish site
+
+on:
+  push:
+    branches: [site-deploy]
+
+concurrency:
+  group: publish-site
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: [self-hosted, cms-ec2]
+    env:
+      SITE_DIR: /var/www/devethicstoolkit
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publish release and switch the live symlink
+        run: |
+          test -f site/index.html || { echo "::error::build has no index.html"; exit 1; }
+          sha=$(cat SOURCE_SHA)
+          release="$SITE_DIR/releases/$sha"
+          rm -rf "$release"
+          mkdir -p "$release"
+          cp -a site/. "$release/"
+          # mv -T over the old symlink is a single rename, so nginx never sees a half-switched site.
+          ln -sfn "$release" "$SITE_DIR/current.tmp"
+          mv -T "$SITE_DIR/current.tmp" "$SITE_DIR/current"
+          echo "Live: gdd-toolkit-2026@$sha"
+
+      - name: Keep the 3 newest releases
+        run: |
+          cd "$SITE_DIR/releases"
+          ls -1t | tail -n +4 | xargs -r rm -rf
+
+      - name: Check the site answers
+        run: |
+          # Hit this box's nginx (not DNS), following the HTTP -> HTTPS redirect once it exists.
+          h=devethicstoolkit.umd.edu
+          code=$(curl -s -L -o /dev/null -w '%{http_code}' \
+            --resolve "$h:80:127.0.0.1" --resolve "$h:443:127.0.0.1" "http://$h/")
+          echo "GET / -> $code"
+          test "$code" = 200

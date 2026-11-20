@@ -1,12 +1,17 @@
 {
   "name": "gdd-toolkit-2026",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "concurrently -k -n backend,frontend -c blue,green \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev": "concurrently -k -n backend,frontend,grants -c blue,green,magenta \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:grants\"",
     "dev:backend": "npm run dev --prefix backend/research-cms",
-    "dev:frontend": "npm run dev --prefix frontend"
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:grants": "npm run dev --prefix workers/grant-automation"
   },
   "devDependencies": {
     "concurrently": "^10.0.6"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
   }
 }

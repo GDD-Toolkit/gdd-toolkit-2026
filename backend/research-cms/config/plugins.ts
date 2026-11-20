@@ -17,15 +17,14 @@ const config = ({
         params: { Bucket: "strapi-uploads" },
       }
     : {
-        credentials: {
-          accessKeyId: env("AWS_ACCESS_KEY_ID"),
-          secretAccessKey: env("AWS_ACCESS_SECRET"),
-        },
+        // No credentials here: the AWS SDK's default chain picks up the EC2 instance
+        // role (gdd-cms-ec2), so there is no long-lived access key to leak or rotate.
         region: env("AWS_REGION"),
         params: {
-          // No ACL header: the bucket has ACLs disabled (bucket owner enforced), so public read
-          // access comes from the bucket policy. Without this the provider sends "public-read".
-          ACL: null,
+          // 'private' makes the provider report isPrivate() and serve signed URLs. The bucket
+          // has ACLs disabled (bucket owner enforced), so actionOptions below keep the ACL
+          // header off uploads. Mirrors the hotfix that was live on the EC2 box (2026-11).
+          ACL: "private",
           Bucket: env("AWS_BUCKET"),
           signedUrlExpires: env.int("AWS_SIGNED_URL_EXPIRES", 15 * 60),
         },
@@ -52,8 +51,8 @@ const config = ({
         provider: "aws-s3",
         providerOptions: { s3Options },
         actionOptions: {
-          upload: {},
-          uploadStream: {},
+          upload: { ACL: undefined },
+          uploadStream: { ACL: undefined },
           delete: {},
         },
       },

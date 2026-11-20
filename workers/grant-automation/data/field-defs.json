@@ -1,0 +1,147 @@
+[
+  {
+    "key": "eligibility",
+    "label": "Eligibility",
+    "type": "string",
+    "filterable": false,
+    "facet": false,
+    "display_order": 10,
+    "sources": ["curated", "grants-gov"]
+  },
+  {
+    "key": "timeline",
+    "label": "Timeline",
+    "type": "string",
+    "filterable": false,
+    "facet": false,
+    "display_order": 20,
+    "sources": ["curated"]
+  },
+  {
+    "key": "past_awards",
+    "label": "Past awards",
+    "type": "string",
+    "filterable": false,
+    "facet": false,
+    "display_order": 30,
+    "sources": ["curated"]
+  },
+  {
+    "key": "funder_type",
+    "label": "Funder type",
+    "type": "enum",
+    "options": ["government", "multilateral", "foundation", "corporate", "academic", "other"],
+    "filterable": true,
+    "facet": false,
+    "display_order": 40,
+    "sources": ["curated", "grants-gov", "eu-ft"]
+  },
+  {
+    "key": "applicant_types",
+    "label": "Applicant types (as published by the source)",
+    "type": "list",
+    "filterable": false,
+    "facet": false,
+    "display_order": 50,
+    "sources": ["curated", "grants-gov"]
+  },
+  {
+    "key": "opportunity_number",
+    "label": "Opportunity number",
+    "type": "string",
+    "filterable": false,
+    "facet": false,
+    "display_order": 60,
+    "sources": ["curated", "grants-gov", "eu-ft"]
+  },
+  {
+    "key": "department",
+    "label": "Department",
+    "type": "string",
+    "filterable": false,
+    "facet": false,
+    "display_order": 70,
+    "sources": ["grants-gov"]
+  },
+  {
+    "key": "programme",
+    "label": "Programme",
+    "type": "string",
+    "filterable": false,
+    "facet": false,
+    "display_order": 80,
+    "sources": ["eu-ft"]
+  },
+  {
+    "key": "call",
+    "label": "Call",
+    "type": "string",
+    "filterable": false,
+    "facet": false,
+    "display_order": 90,
+    "sources": ["eu-ft"]
+  },
+  {
+    "key": "types_of_action",
+    "label": "Type of action",
+    "type": "list",
+    "filterable": false,
+    "facet": false,
+    "display_order": 100,
+    "sources": ["eu-ft"]
+  },
+  {
+    "key": "assistance_listings",
+    "label": "Assistance listings",
+    "type": "list",
+    "filterable": false,
+    "facet": false,
+    "display_order": 110,
+    "sources": ["grants-gov"]
+  },
+  {
+    "key": "estimated_total_funding",
+    "label": "Total funding available",
+    "type": "money",
+    "filterable": false,
+    "facet": false,
+    "display_order": 120,
+    "sources": ["grants-gov", "eu-ft"]
+  },
+  {
+    "key": "expected_awards",
+    "label": "Expected number of awards",
+    "type": "number",
+    "filterable": false,
+    "facet": false,
+    "display_order": 130,
+    "sources": ["grants-gov", "eu-ft"]
+  },
+  {
+    "key": "cost_sharing",
+    "label": "Cost sharing or matching",
+    "type": "string",
+    "filterable": false,
+    "facet": false,
+    "display_order": 140,
+    "sources": ["grants-gov"]
+  },
+  {
+    "key": "deadline_model",
+    "label": "Submission procedure",
+    "type": "string",
+    "filterable": false,
+    "facet": false,
+    "display_order": 150,
+    "sources": ["eu-ft"]
+  },
+  {
+    "key": "all_deadlines",
+    "label": "All deadlines",
+    "type": "list",
+    "filterable": false,
+    "facet": false,
+    "display_order": 160,
+    "sources": ["eu-ft"]
+  }
+]

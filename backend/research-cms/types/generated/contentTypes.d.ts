@@ -526,42 +526,6 @@ export interface ApiCohertCohert extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiFundingResourceFundingResource
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'funding_resources';
-  info: {
-    displayName: 'Funding_Resource';
-    pluralName: 'funding-resources';
-    singularName: 'funding-resource';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.String & Schema.Attribute.Required;
-    eligibility: Schema.Attribute.Text & Schema.Attribute.Required;
-    grant_name: Schema.Attribute.String & Schema.Attribute.Required;
-    grant_site: Schema.Attribute.String & Schema.Attribute.Required;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::funding-resource.funding-resource'
-    > &
-      Schema.Attribute.Private;
-    max_grant_amount: Schema.Attribute.BigInteger & Schema.Attribute.Required;
-    min_grant_amount: Schema.Attribute.BigInteger & Schema.Attribute.Required;
-    past_awards: Schema.Attribute.Text & Schema.Attribute.Required;
-    publishedAt: Schema.Attribute.DateTime;
-    time_period: Schema.Attribute.Text & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiGeopoliticalAnalysisGeopoliticalAnalysis
   extends Struct.CollectionTypeSchema {
   collectionName: 'geopolitical_analyses';
@@ -574,9 +538,24 @@ export interface ApiGeopoliticalAnalysisGeopoliticalAnalysis
     draftAndPublish: true;
   };
   attributes: {
+    agency_and_empowerment: Schema.Attribute.Component<
+      'shared.agency-and-empowerment',
+      false
+    >;
+    country_name: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    cultural_freedom: Schema.Attribute.Component<
+      'shared.cultural-freedom',
+      false
+    >;
+    environmental_sustainability: Schema.Attribute.Component<
+      'shared.environmental-sustainability',
+      false
+    >;
+    equality: Schema.Attribute.Component<'shared.equality', false>;
+    human_rights: Schema.Attribute.Component<'shared.human-rights', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -584,9 +563,11 @@ export interface ApiGeopoliticalAnalysisGeopoliticalAnalysis
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    responsibility: Schema.Attribute.Component<'shared.responsibility', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    well_being: Schema.Attribute.Component<'shared.well-being', false>;
   };
 }
 
@@ -1283,10 +1264,7 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    savedGrants: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::funding-resource.funding-resource'
-    >;
+    savedGrantIds: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1312,7 +1290,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::ai-tool.ai-tool': ApiAiToolAiTool;
       'api::cohert.cohert': ApiCohertCohert;
-      'api::funding-resource.funding-resource': ApiFundingResourceFundingResource;
       'api::geopolitical-analysis.geopolitical-analysis': ApiGeopoliticalAnalysisGeopoliticalAnalysis;
       'api::podcast.podcast': ApiPodcastPodcast;
       'api::project-planning.project-planning': ApiProjectPlanningProjectPlanning;

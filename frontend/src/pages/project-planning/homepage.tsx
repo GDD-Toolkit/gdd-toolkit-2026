@@ -2,7 +2,6 @@
 import { getProjects } from "@/api/strapi";
 import React from "react";
 import { motion, easeOut } from "framer-motion";
-import { projectDevelopmentTypes } from "../ai-ethics-dashboard/data/toolFilters";
 import { useEffect, useState } from "react";
 
 type Tool = {

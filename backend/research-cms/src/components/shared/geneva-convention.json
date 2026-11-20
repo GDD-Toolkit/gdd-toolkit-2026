@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shared_geneva_conventions",
+  "info": {
+    "displayName": "geneva_convention"
+  },
+  "options": {},
+  "attributes": {
+    "participation": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

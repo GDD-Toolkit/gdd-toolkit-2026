@@ -27,15 +27,33 @@ const ExistingEcosystems = lazy(
   () => import("@/pages/tools/ethics-of-innovation/ExistingEcosystems"),
 );
 const Scale = lazy(() => import("@/pages/tools/ethics-of-innovation/Scale"));
-const Sustainability = lazy(() => import("@/pages/tools/ethics-of-innovation/Sustainability"));
-const DataDriven = lazy(() => import("@/pages/tools/ethics-of-innovation/DataDriven"));
-const OpenStandards = lazy(() => import("@/pages/tools/ethics-of-innovation/OpenStandards"));
-const ReuseImprove = lazy(() => import("@/pages/tools/ethics-of-innovation/ReuseImprove"));
-const AddressSecurity = lazy(() => import("@/pages/tools/ethics-of-innovation/AddressSecurity"));
-const Collaborative = lazy(() => import("@/pages/tools/ethics-of-innovation/Collaborative"));
-const HumanCenteredDesign = lazy(() => import("@/pages/tools-remaining/HumanCenteredDesign"));
-const ProjectPlanning = lazy(() => import("@/pages/project-planning/ProjectPlanning"));
-const GeopoliticalAnalysis = lazy(() => import("@/pages/geopolitcal-analysis/GeopoliticalAnalysis"));
+const Sustainability = lazy(
+  () => import("@/pages/tools/ethics-of-innovation/Sustainability"),
+);
+const DataDriven = lazy(
+  () => import("@/pages/tools/ethics-of-innovation/DataDriven"),
+);
+const OpenStandards = lazy(
+  () => import("@/pages/tools/ethics-of-innovation/OpenStandards"),
+);
+const ReuseImprove = lazy(
+  () => import("@/pages/tools/ethics-of-innovation/ReuseImprove"),
+);
+const AddressSecurity = lazy(
+  () => import("@/pages/tools/ethics-of-innovation/AddressSecurity"),
+);
+const Collaborative = lazy(
+  () => import("@/pages/tools/ethics-of-innovation/Collaborative"),
+);
+const HumanCenteredDesign = lazy(
+  () => import("@/pages/tools-remaining/HumanCenteredDesign"),
+);
+const ProjectPlanning = lazy(
+  () => import("@/pages/project-planning/ProjectPlanning"),
+);
+const GeopoliticalAnalysis = lazy(
+  () => import("@/pages/geopolitcal-analysis/GeopoliticalAnalysis"),
+);
 const ProjectEvaluation = lazy(() => import("@/pages/tools/ProjectEvaluation"));
 const CaseStudies = lazy(() => import("@/pages/case-studies/CaseStudies"));
 const CaseStudyDetail = lazy(
