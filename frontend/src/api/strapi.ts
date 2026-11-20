@@ -8,20 +8,6 @@ function getStrapiBaseUrl(): string {
   return url.replace(/\/$/, "");
 }
 
-function buildStrapiHeaders(): HeadersInit {
-  const token = import.meta.env.VITE_STRAPI_API_TOKEN;
-
-  // If no token is set, return an empty headers object.
-  if (!token) {
-    return {};
-  }
-
-  // Send the Strapi API token as a Bearer token.
-  return {
-    Authorization: `Bearer ${token}`,
-  };
-}
-
 /**
  * Fetch all Cohorts from Strapi.
  *
@@ -36,10 +22,9 @@ export async function getCohorts() {
   const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
   const url = `${apiBase}/${pluralApiId}?populate=*`;
 
-  // Send a GET request to Strapi with the token header if available.
+  // Public content: the Strapi Public role has read access, so no token is sent.
   const response = await fetch(url, {
     method: "GET",
-    headers: buildStrapiHeaders(),
   });
 
   // If the request failed, throw an error so the component can handle it.
@@ -72,11 +57,10 @@ export async function getPodcasts() {
 
   const response = await fetch(url, {
     method: "GET",
-    headers: buildStrapiHeaders(),
   });
-  
 
-  if(!response.ok) {
+
+  if (!response.ok) {
     const body = await response.text().catch(() => "");
     const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
 
@@ -98,10 +82,9 @@ export async function getTeams() {
   const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
   const url = `${apiBase}/${pluralApiId}?populate=*`;
 
-  // Send a GET request to Strapi with the token header if available.
+  // Public content: the Strapi Public role has read access, so no token is sent.
   const response = await fetch(url, {
     method: "GET",
-    headers: buildStrapiHeaders(),
   });
 
   if (!response.ok) {
@@ -129,7 +112,6 @@ export async function getMaldevelopment() {
 
   const response = await fetch(url, {
     method: "GET",
-    headers: buildStrapiHeaders(),
   });
 
   if (!response.ok) {
@@ -138,6 +120,35 @@ export async function getMaldevelopment() {
 
     throw new Error(
       `Failed to fetch Maldevelopment.
+URL: ${url}
+Status: ${response.status} ${response.statusText}
+Body: ${snippet}`
+    );
+  }
+
+  const json = await response.json();
+  return Array.isArray(json.data) ? json.data : [];
+}
+
+export async function getProjects() {
+  const baseUrl = getStrapiBaseUrl();
+  const pluralApiId = "project-plannings";
+
+  // If the env already ends with /api, do not add /api again.
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+  const url = `${apiBase}/${pluralApiId}?populate=*`;
+
+  // Public content: the Strapi Public role has read access, so no token is sent.
+  const response = await fetch(url, {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    const body = await response.text().catch(() => "");
+    const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
+
+    throw new Error(
+      `Failed to fetch projects.
 URL: ${url}
 Status: ${response.status} ${response.statusText}
 Body: ${snippet}`

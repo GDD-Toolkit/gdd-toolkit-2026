@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Bookmark } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
@@ -7,8 +8,8 @@ import type { BookmarkKind } from "@/types/auth";
 
 interface BookmarkButtonProps {
   kind: BookmarkKind;
-  /** Strapi documentId of the ai-tool or funding-resource. */
-  documentId: string;
+  /** Strapi documentId of the ai-tool, or the grant uuid from the grants API. */
+  itemId: string;
   /** Item name for the accessible label. */
   label: string;
   className?: string;
@@ -16,22 +17,27 @@ interface BookmarkButtonProps {
 
 /**
  * Save / unsave toggle for tools and grants. Guests get the sign-in dialog.
- * Drop this onto any card once that module reads its items from Strapi.
+ * The saved list lives on the server profile, so it follows the account.
  */
-export function BookmarkButton({ kind, documentId, label, className }: BookmarkButtonProps) {
-  const { isBookmarked, toggleBookmark } = useAuth();
+export function BookmarkButton({ kind, itemId, label, className }: BookmarkButtonProps) {
+  const { isAuthenticated, isBookmarked, toggleBookmark, openAuthModal } = useAuth();
   const [pending, setPending] = useState(false);
-  const saved = isBookmarked(kind, documentId);
+  const saved = isBookmarked(kind, itemId);
 
   async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     // Cards are often links; keep the click from navigating.
     event.preventDefault();
     event.stopPropagation();
+    if (!isAuthenticated) {
+      openAuthModal("sign-in");
+      return;
+    }
     setPending(true);
     try {
-      await toggleBookmark(kind, documentId);
-    } catch (error) {
-      console.error("Bookmark update failed:", error);
+      await toggleBookmark(kind, itemId);
+      toast.success(saved ? `Removed "${label}" from your saved items.` : `Saved "${label}".`);
+    } catch {
+      toast.error("Couldn't update your saved items. Please try again.");
     } finally {
       setPending(false);
     }

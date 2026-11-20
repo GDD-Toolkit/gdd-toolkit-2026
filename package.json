@@ -1,11 +1,17 @@
 {
-  "dependencies": {
-    "d3": "^7.9.0"
+  "name": "gdd-toolkit-2026",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n backend,frontend,grants -c blue,green,magenta \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:grants\"",
+    "dev:backend": "npm run dev --prefix backend/research-cms",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:grants": "npm run dev --prefix workers/grant-automation"
   },
   "devDependencies": {
-    "@types/d3": "^7.4.3",
-    "@types/d3-drag": "^3.0.7",
-    "@types/d3-geo": "^3.1.1",
-    "@types/d3-zoom": "^3.0.8"
+    "concurrently": "^10.0.6"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
   }
 }

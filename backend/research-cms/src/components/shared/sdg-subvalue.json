@@ -7,6 +7,9 @@
   "attributes": {
     "sdg_subvalue": {
       "type": "integer"
+    },
+    "sub_value_letter": {
+      "type": "string"
     }
   },
   "config": {}

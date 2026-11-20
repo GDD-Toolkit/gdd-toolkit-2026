@@ -1,0 +1,130 @@
+{
+ "errorcode": 0,
+ "msg": "Webservice Succeeds",
+ "data": {
+  "id": 364047,
+  "revision": 1,
+  "opportunityNumber": "OFOP0003897",
+  "opportunityTitle": "Improved quality of life of persons with disabilities in provinces heavily sprayed with agent orange in Ca Mau and Quang Ngai",
+  "owningAgencyCode": "DOS-VNM",
+  "listed": "L",
+  "publisherUid": "4449340775911576642",
+  "flag2006": "N",
+  "opportunityCategory": {
+   "category": "E",
+   "description": "Earmark"
+  },
+  "synopsis": {
+   "opportunityId": 364047,
+   "version": 2,
+   "agencyCode": "DOS-VNM",
+   "agencyName": "U.S. Mission to Vietnam",
+   "agencyPhone": "redacted",
+   "agencyAddressDesc": "redacted",
+   "agencyDetails": {
+    "code": "VNM",
+    "seed": "DOS-VNM",
+    "agencyName": "U.S. Mission to Vietnam",
+    "agencyCode": "DOS-VNM",
+    "topAgencyCode": "DOS"
+   },
+   "topAgencyDetails": {
+    "code": "DOS",
+    "seed": "DOS",
+    "agencyName": "Department of State",
+    "agencyCode": "DOS",
+    "topAgencyCode": "DOS"
+   },
+   "agencyContactPhone": "redacted",
+   "agencyContactName": "redacted",
+   "agencyContactDesc": "redacted",
+   "agencyContactEmail": "redacted",
+   "agencyContactEmailDesc": "redacted",
+   "synopsisDesc": "<p>Improve quality of life of persons with disabilities in provinces heavily sprayed with agent orange in Ca Mau and Quang Ngai</p>",
+   "responseDate": "Nov 19, 2026 12:00:00 AM EST",
+   "responseDateDesc": "",
+   "fundingDescLinkUrl": "https://mygrants.servicenowservices.com/mygrants?id=mygrants_form&table=x_g_usd4_o_grant_funding_opportunity&sys_id=fade2bdc87e34b90d95c42e50cbb3576&view=Default",
+   "fundingDescLinkDesc": "Link to Opportunity in MyGrants",
+   "postingDate": "Oct 09, 2026 12:00:00 AM EDT",
+   "fundingActivityCategoryDesc": "War Legacy Disability Programming",
+   "costSharing": false,
+   "numberOfAwards": "1",
+   "estimatedFunding": "0",
+   "estimatedFundingFormatted": "0",
+   "awardCeiling": "28500000",
+   "awardCeilingFormatted": "28,500,000",
+   "awardFloor": "0",
+   "awardFloorFormatted": "0",
+   "applicantEligibilityDesc": "Nonprofit and nongovernmental organizations",
+   "sendEmail": "Y",
+   "createTimeStamp": "Oct 22, 2026 04:39:37 AM EDT",
+   "modComments": "Modification to provide answers to questions received and budget guidelines and templates",
+   "createdDate": "Oct 09, 2026 12:20:42 AM EDT",
+   "lastUpdatedDate": "Oct 22, 2026 04:19:59 AM EDT",
+   "applicantTypes": [
+    {
+     "id": "25",
+     "description": "Others (see text field entitled \"Additional Information on Eligibility\" for clarification)"
+    }
+   ],
+   "fundingInstruments": [
+    {
+     "id": "CA",
+     "description": "Cooperative Agreement"
+    }
+   ],
+   "fundingActivityCategories": [
+    {
+     "id": "O",
+     "description": "Other (see text field entitled \"Explanation of Other Category of Funding Activity\" for clarification)"
+    }
+   ],
+   "responseDateStr": "2026-11-19-00-00-00",
+   "postingDateStr": "2026-10-09-00-00-00",
+   "createTimeStampStr": "2026-10-22-04-39-37"
+  },
+  "agencyDetails": {
+   "code": "VNM",
+   "seed": "DOS-VNM",
+   "agencyName": "U.S. Mission to Vietnam",
+   "agencyCode": "DOS-VNM",
+   "topAgencyCode": "DOS"
+  },
+  "topAgencyDetails": {
+   "code": "DOS",
+   "seed": "DOS",
+   "agencyName": "Department of State",
+   "agencyCode": "DOS",
+   "topAgencyCode": "DOS"
+  },
+  "cfdas": [
+   {
+    "id": 435721,
+    "opportunityId": 364047,
+    "cfdaNumber": "19.124",
+    "programTitle": "East Asia and Pacific Grants Program"
+   }
+  ],
+  "originalDueDate": "Nov 19, 2026 12:00:00 AM EST",
+  "originalDueDateDesc": "",
+  "synopsisModifiedFields": [
+   "revision",
+   "version",
+   "agencyAddressDesc",
+   "agencyContactEmail",
+   "agencyContactEmailDesc",
+   "synopsisDesc",
+   "createTimeStamp"
+  ],
+  "forecastModifiedFields": [],
+  "errorMessages": [],
+  "synPostDateInPast": true,
+  "docType": "synopsis",
+  "forecastHistCount": 0,
+  "synopsisHistCount": 0,
+  "assistCompatible": false,
+  "assistURL": "",
+  "draftMode": "N",
+  "ost": "POSTED"
+ }
+}

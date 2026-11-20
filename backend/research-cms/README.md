@@ -17,8 +17,9 @@ It manages content types, data relations, and site roles (RBAC) for:
 - [Quick Start Guide](#-quick-start-guide)
   - [1. Install Dependencies](#1-install-dependencies)
   - [2. Environment Configuration](#2-environment-configuration)
-  - [3. Feeding the Database (Seed Data)](#3-feeding-the-database-seed-data)
-  - [4. Running Strapi](#4-running-strapi)
+  - [3. Start the Local Services (Docker)](#3-start-the-local-services-docker)
+  - [4. Feeding the Database (Seed Data)](#4-feeding-the-database-seed-data)
+  - [5. Running Strapi](#5-running-strapi)
 - [Logging In to the Admin Panel](#-logging-in-to-the-admin-panel)
   - [First-Time Admin Setup](#first-time-admin-setup)
   - [Creating an Admin Account via CLI](#creating-an-admin-account-via-cli)
@@ -41,6 +42,7 @@ Ensure your local development environment meets the required versions:
 - **Node.js**: `>= 20.0.0 <= 24.x.x` (Recommended: `v20.x LTS`)
 - **npm**: `>= 6.0.0`
 - **Git**
+- **Docker Desktop** (or Docker Engine with the Compose plugin): runs the local Postgres, MinIO and Mailpit services
 
 Check versions in your terminal:
 ```bash
@@ -65,7 +67,7 @@ Create your local environment file by copying `.env.example`:
 cp .env.example .env
 ```
 
-For **local development**, SQLite is the default and recommended database. Ensure your `.env` contains at least:
+Set `DATA_SOURCE=local`. This one switch makes Strapi use the Docker services from the next step for its database, file uploads and outgoing email, and ignores the `DATABASE_*`, `AWS_*` and `SMTP_*` values. A minimal `.env` for local work:
 ```dotenv
 HOST=0.0.0.0
 PORT=1337
@@ -77,20 +79,37 @@ ADMIN_JWT_SECRET=localDevAdminJwtSecret
 TRANSFER_TOKEN_SALT=localDevTransferTokenSalt
 JWT_SECRET=localDevJwtSecret
 
-# Local SQLite Database (recommended for local dev)
-DATABASE_CLIENT=sqlite
-DATABASE_FILENAME=.tmp/data.db
+# Local services (see step 3)
+DATA_SOURCE=local
 
 # Frontend URL
 FRONTEND_URL=http://localhost:5173
 ```
 
 > [!NOTE]
-> When `DATABASE_CLIENT=sqlite`, Strapi automatically writes to `.tmp/data.db`. You do not need to configure Postgres or AWS credentials for local feature development.
+> `DATA_SOURCE=production` makes Strapi use the real services named by `DATABASE_*`, `AWS_*` and `SMTP_*` instead. That is what the deployed server runs with. Only use it on your machine when you really need the live data: anything you change or upload goes straight to production.
 
 ---
 
-### 3. Feeding the Database (Seed Data)
+### 3. Start the Local Services (Docker)
+
+`docker-compose.yml` in this folder runs the same kinds of services as production, on your machine. Each listens on its default port + 100 so it never clashes with a Postgres, MinIO or Mailpit you may already run:
+
+| Service | Stands in for | Address |
+| :--- | :--- | :--- |
+| Postgres 16 | AWS RDS database | `localhost:5532` (user, password and database are all `strapi`) |
+| MinIO | AWS S3 uploads bucket | API `http://localhost:9100`, console [http://localhost:9101](http://localhost:9101) (login `minioadmin` / `minioadmin`) |
+| Mailpit | SMTP email | Inbox [http://localhost:8125](http://localhost:8125) |
+
+```bash
+docker compose up -d
+```
+
+Data lives in Docker volumes, so it survives restarts and `docker compose down`. Uploads appear in the `strapi-uploads` bucket in the MinIO console, and every email Strapi sends (confirmation, password reset) lands in the Mailpit inbox instead of a real mailbox.
+
+---
+
+### 4. Feeding the Database (Seed Data)
 
 To populate your database with existing schemas, relations, permissions, and sample data (AI tools, case studies, podcasts, funding resources, etc.):
 
@@ -103,21 +122,22 @@ Under the hood, this runs:
 ```bash
 strapi import -f ./data/seed_data.tar.gz --force --exclude files
 ```
-- It loads all content entities, configurations, and users-permissions mappings from `data/seed_data.tar.gz` into your local SQLite database.
+- It loads all content entities, configurations, and users-permissions mappings from `data/seed_data.tar.gz` into the local Postgres database.
 - It ensures your local CMS is immediately populated with realistic mock data matching the frontend application.
 
 > [!IMPORTANT]
-> **Always stop the Strapi server (`Ctrl+C`) before running `npm run seed:local`!** If Strapi is running, the SQLite file will be locked and the import will fail with `SQLITE_BUSY`.
+> **Stop the Strapi server (`Ctrl+C`) before running `npm run seed:local`.** The import wipes and refills the database.
 >
-> If you ever want a clean reset, delete the SQLite file and re-import:
+> If you ever want a clean reset, recreate the Docker volumes and re-import:
 > ```bash
-> rm -f .tmp/data.db
+> docker compose down -v
+> docker compose up -d
 > npm run seed:local
 > ```
 
 ---
 
-### 4. Running Strapi
+### 5. Running Strapi
 
 Start Strapi in **development mode** (with auto-reload and Content-Type Builder enabled):
 ```bash
@@ -260,6 +280,7 @@ git push origin <your-feature-branch>
 
 | Command | Description |
 | :--- | :--- |
+| `docker compose up -d` | Starts the local Postgres, MinIO and Mailpit services (`docker compose down` stops them, `down -v` also wipes their data) |
 | `npm run develop` / `npm run dev` | Starts Strapi with auto-reload and Content-Type Builder at `http://localhost:1337/admin` |
 | `npm run seed:local` | Imports seed data from `data/seed_data.tar.gz` into local database |
 | `npm run seed:export` | Exports current local database & schema to `data/seed_data.tar.gz` |
@@ -273,9 +294,17 @@ git push origin <your-feature-branch>
 
 ## ❓ Troubleshooting & FAQ
 
-#### `SQLITE_BUSY: database is locked` during `npm run seed:local`
-- **Cause**: Strapi or another process is currently running and holding a lock on `.tmp/data.db`.
-- **Solution**: Stop the Strapi server (`Ctrl + C` in the running terminal) before executing `npm run seed:local`.
+#### `connect ECONNREFUSED 127.0.0.1:5532` on startup, or uploads fail
+- **Cause**: `DATA_SOURCE=local` but the Docker services are not running.
+- **Solution**: Run `docker compose up -d` in `backend/research-cms`, then start Strapi again.
+
+#### `Bind for 0.0.0.0:5532 failed: port is already allocated` from `docker compose up`
+- **Cause**: Something else on your machine is already using one of the stack's ports (5532, 9100, 9101, 1125, 8125).
+- **Solution**: Stop the other program, then run `docker compose up -d` again.
+
+#### `DATA_SOURCE must be "local" or "production"`
+- **Cause**: The switch is missing from `.env`.
+- **Solution**: Add `DATA_SOURCE=local` to `backend/research-cms/.env`.
 
 #### `strapi: command not found`
 - **Cause**: Dependencies are not installed or `node_modules` is missing.
@@ -287,8 +316,9 @@ git push origin <your-feature-branch>
 #### How do I wipe everything and start from scratch?
 ```bash
 # 1. Stop Strapi
-# 2. Delete the SQLite file
-rm -f .tmp/data.db
+# 2. Delete the Docker volumes (database + uploads) and start fresh services
+docker compose down -v
+docker compose up -d
 # 3. Re-import clean seed data
 npm run seed:local
 # 4. Restart Strapi
