@@ -1,7 +1,9 @@
 function getStrapiBaseUrl(): string {
   const url = import.meta.env.VITE_STRAPI_URL;
   if (!url) {
-    throw new Error("Missing VITE_STRAPI_URL. Add it to your frontend .env file.");
+    throw new Error(
+      "Missing VITE_STRAPI_URL. Add it to your frontend .env file.",
+    );
   }
 
   // Remove trailing slash so URL building stays clean.
@@ -33,7 +35,7 @@ export async function getCohorts() {
     const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
 
     throw new Error(
-      `Failed to fetch cohorts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
+      `Failed to fetch cohorts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`,
     );
   }
 
@@ -44,8 +46,6 @@ export async function getCohorts() {
   // { data: [{ id, documentId, year, ... }], meta: {...} }
   return Array.isArray(json.data) ? json.data : [];
 }
-
-
 
 export async function getPodcasts() {
   const baseUrl = getStrapiBaseUrl();
@@ -65,7 +65,7 @@ export async function getPodcasts() {
     const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
 
     throw new Error(
-      `Failed to fetch podcasts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`
+      `Failed to fetch podcasts.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`,
     );
   }
 
@@ -95,7 +95,7 @@ export async function getTeams() {
       `Failed to fetch teams.
 URL: ${url}
 Status: ${response.status} ${response.statusText}
-Body: ${snippet}`
+Body: ${snippet}`,
     );
   }
 
@@ -122,7 +122,7 @@ export async function getMaldevelopment() {
       `Failed to fetch Maldevelopment.
 URL: ${url}
 Status: ${response.status} ${response.statusText}
-Body: ${snippet}`
+Body: ${snippet}`,
     );
   }
 
