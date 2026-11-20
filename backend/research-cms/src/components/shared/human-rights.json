@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_shared_human_rights",
+  "info": {
+    "displayName": "human_rights",
+    "icon": "walk"
+  },
+  "options": {},
+  "attributes": {
+    "literacy_rate_adult": {
+      "type": "decimal"
+    },
+    "literacy_rate_youth": {
+      "type": "decimal"
+    },
+    "poverty_rate_at_3_usd": {
+      "type": "decimal"
+    },
+    "poverty_rate_at_povery_line": {
+      "type": "decimal"
+    },
+    "homelessness_count": {
+      "type": "biginteger"
+    },
+    "homelessness_rate": {
+      "type": "decimal"
+    },
+    "poverty_gap_at_3_usd_a_day": {
+      "type": "decimal"
+    }
+  },
+  "config": {}
+}
