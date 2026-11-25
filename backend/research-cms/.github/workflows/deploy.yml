@@ -25,7 +25,7 @@ jobs:
     runs-on: [self-hosted, cms-ec2]
     defaults:
       run:
-        # The live checkout pm2 runs from; its untracked .env stays in place.
+        # The live checkout pm2 runs from. It has no .env; config comes from SSM.
         working-directory: /home/ubuntu/gdd-cms
     steps:
       - name: Refuse to deploy over uncommitted edits on the box
@@ -43,22 +43,62 @@ jobs:
           git log -1 --format='Deploying %h %s'
 
       # SSM Parameter Store (/gdd/prod/backend/*) is the source of truth for production
-      # config; the box reads it through its IAM role. To change a value, edit it in the
-      # SSM console, then re-run this workflow (Actions > Deploy CMS > Run workflow).
-      - name: Write .env from SSM
+      # config; the box reads it through its IAM role. Nothing is written to disk:
+      # scripts/with-ssm-env.mjs loads it into the build and into Strapi at every start.
+      # To change a value, edit it in the SSM console, then re-run this workflow
+      # (Actions > Deploy CMS > Run workflow).
+      #
+      # One-time migration: the old flow left a .env here. Delete it only when SSM has
+      # every key it had, so nothing silently disappears from the running config.
+      - name: Remove the old .env once SSM covers it
         run: |
-          node scripts/env-from-ssm.mjs .env.ssm.tmp
-          if [ -f .env ]; then cp -p .env ~/gdd-cms.env.bak; fi
-          mv .env.ssm.tmp .env
+          if [ -f .env ]; then
+            aws ssm get-parameters-by-path --region us-east-2 --path /gdd/prod/backend \
+              --query 'Parameters[].Name' --output text | tr '\t' '\n' \
+              | sed 's|^/gdd/prod/backend/||' | sort -u > "$RUNNER_TEMP/ssm-keys"
+            if [ ! -s "$RUNNER_TEMP/ssm-keys" ]; then
+              echo "::error::Could not list any keys under /gdd/prod/backend in SSM."
+              exit 1
+            fi
+            sed -n 's/^[[:space:]]*\(export[[:space:]]\+\)\?\([A-Za-z_][A-Za-z0-9_]*\)[[:space:]]*=.*/\2/p' .env \
+              | sort -u > "$RUNNER_TEMP/env-keys"
+            missing=$(comm -23 "$RUNNER_TEMP/env-keys" "$RUNNER_TEMP/ssm-keys")
+            if [ -n "$missing" ]; then
+              echo "::error::.env has keys that SSM /gdd/prod/backend lacks. Add them to SSM, or delete them from ~/gdd-cms/.env if unused, then re-run:"
+              echo "$missing"
+              exit 1
+            fi
+            rm -f .env ~/gdd-cms.env.bak
+            echo "Removed .env and ~/gdd-cms.env.bak; config now comes only from SSM"
+          fi
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build admin panel
-        run: npm run build
+        run: node scripts/with-ssm-env.mjs npm run build
 
       - name: Restart Strapi
-        run: pm2 restart strapi --update-env
+        run: |
+          # The runner kills processes carrying its RUNNER_TRACKING_ID when the job ends.
+          # --update-env copies this shell's env into Strapi (and into the pm2 dump), so
+          # clear it; that also covers a pm2 daemon started from here after a reboot.
+          export RUNNER_TRACKING_ID=""
+          # `pm2 restart` keeps a process's original script, so a `strapi` entry that was
+          # not started from ecosystem.config.cjs would keep running without the SSM
+          # wrapper. Replace it once; after that startOrRestart just restarts it.
+          script=$(pm2 jlist | tail -n 1 | node -e '
+            const list = JSON.parse(require("fs").readFileSync(0, "utf8"));
+            const app = list.find((p) => p.name === "strapi");
+            process.stdout.write(app ? app.pm2_env.pm_exec_path : "");')
+          if [ -n "$script" ] && [ "$script" != "$PWD/scripts/with-ssm-env.mjs" ]; then
+            echo "Replacing the old strapi process ($script) with the ecosystem one"
+            pm2 delete strapi
+          fi
+          pm2 startOrRestart ecosystem.config.cjs --update-env
+          # Saved list is what `pm2 resurrect` starts at boot; it now holds the wrapper,
+          # which fetches SSM again on every start.
+          pm2 save
 
       - name: Health check
         run: |
