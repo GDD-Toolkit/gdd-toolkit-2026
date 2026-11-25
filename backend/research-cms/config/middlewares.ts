@@ -9,6 +9,14 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Middlewar
     ? ['http://localhost:9100', 'https://*.amazonaws.com']
     : [`https://${env('AWS_BUCKET')}.s3.${env('AWS_REGION')}.amazonaws.com`];
 
+  // Browser origins allowed to call this API. Any other Origin (including `null`)
+  // gets no Access-Control-Allow-Origin header, so the browser blocks the response.
+  const corsOrigins = env.array('CORS_ORIGINS', [
+    'https://devethicstoolkit.umd.edu',
+    'https://cms.devethicstoolkit.umd.edu',
+    'http://localhost:5173',
+  ]);
+
   return [
     'strapi::logger',
     'strapi::errors',
@@ -26,8 +34,15 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Middlewar
         },
       },
     },
-    'strapi::cors',
-    'strapi::poweredBy',
+    {
+      name: 'strapi::cors',
+      config: {
+        origin: corsOrigins,
+        credentials: true,
+        // Seconds a browser may cache a preflight. Chrome caps this at 2 hours anyway.
+        maxAge: 3600,
+      },
+    },
     'strapi::query',
     'strapi::body',
     'strapi::session',
