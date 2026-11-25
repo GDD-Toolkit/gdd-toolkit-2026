@@ -24,9 +24,17 @@ export const env = {
   get DATABASE_READER_URL() {
     return process.env.DATABASE_READER_URL;
   },
-  /** Bootstrap only: the compose superuser locally, the RDS master user in production. */
+  /**
+   * Bootstrap only: the compose superuser locally, the RDS master user in production.
+   * In production it is built from Strapi's own DATABASE_* keys (SSM /gdd/prod/backend),
+   * so the master password is never copied anywhere.
+   */
   get DATABASE_ADMIN_URL() {
-    return need("DATABASE_ADMIN_URL");
+    if (process.env.DATABASE_ADMIN_URL) return process.env.DATABASE_ADMIN_URL;
+    const { DATABASE_HOST: host, DATABASE_USERNAME: user, DATABASE_PASSWORD: password, DATABASE_NAME: name } = process.env;
+    if (!host || !user || !password || !name) return need("DATABASE_ADMIN_URL");
+    const port = process.env.DATABASE_PORT ?? "5432";
+    return `postgres://${encodeURIComponent(user)}:${encodeURIComponent(password)}@${host}:${port}/${encodeURIComponent(name)}`;
   },
   get DATABASE_SSL() {
     return process.env.DATABASE_SSL === "true";
