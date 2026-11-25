@@ -26,21 +26,31 @@ function initialsOf(user: UserProfile): string {
 interface UserDropdownProps {
   /** Always show the name next to the avatar (used in the mobile drawer). */
   showName?: boolean;
+  /** "dark" adapts the trigger pill for dark navigation bars. */
+  tone?: "light" | "dark";
 }
 
-export function UserDropdown({ showName = false }: UserDropdownProps) {
+export function UserDropdown({
+  showName = false,
+  tone = "light",
+}: UserDropdownProps) {
   const { user, logout } = useAuth();
   if (!user) return null;
 
   const name = displayNameOf(user);
   const roleName = user.role?.name ?? "Member";
+  const isDark = tone === "dark";
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="h-10 gap-2 rounded-full pl-1 pr-3"
+          className={cn(
+            "h-10 gap-2 rounded-full pl-1 pr-3",
+            isDark &&
+              "border-white/15 bg-[#12141C] text-slate-100 hover:border-[#A07CFF]/50 hover:bg-[#1B1E2B] hover:text-white",
+          )}
           aria-label={`Account menu for ${name}`}
         >
           <Avatar>

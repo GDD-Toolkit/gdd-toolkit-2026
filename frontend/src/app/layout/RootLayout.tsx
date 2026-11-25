@@ -1,15 +1,24 @@
-import { Outlet } from "react-router-dom";   // for nested routes
-import Navbar from "@/components/layout/navbar"; // adjust path if lowercase
-import Footer from "@/components/layout/footer"; // adjust path if lowercase
+import { Outlet, useLocation } from "react-router-dom";
+import Navbar from "@/components/layout/navbar";
+import Footer from "@/components/layout/footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { OnboardingDialog } from "@/components/auth/OnboardingDialog";
 import { Toaster } from "@/components/ui/sonner";
+import { cn } from "@/lib/utils";
 
 export default function RootLayout() {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+
   return (
     <AuthProvider>
-      <div className="flex min-h-screen flex-col w-full bg-white text-gray-900">
+      <div
+        className={cn(
+          "flex min-h-screen w-full flex-col",
+          isHome ? "bg-[#09090B] text-white" : "bg-white text-gray-900",
+        )}
+      >
         <Navbar />
         <main className="flex-1 w-full">
           <Outlet />
@@ -22,4 +31,3 @@ export default function RootLayout() {
     </AuthProvider>
   );
 }
-
