@@ -15,7 +15,7 @@ Ingests grant opportunities into the `grants` schema of the toolkit's Postgres d
 - `rejects/` (gitignored) — `<source>.jsonl`, rewritten on every run: the records the last run left out and why.
 - `src/api/` — the Hono read API (`app.ts` routes, `auth.ts` admin check, `server.ts` entrypoint). `src/db/queries.ts` holds every query; the listing and the facets share one WHERE builder.
 - `src/dev/sample-entries.ts`, `scripts/seed-sample.ts` — six sample grants for local development.
-- `ecosystem.config.cjs` — pm2 processes for the EC2.
+- `ecosystem.config.cjs`, `scripts/with-ssm-env.mjs` — pm2 processes for the EC2, started with their config from SSM (see "Production").
 
 ## Commands
 
@@ -120,59 +120,73 @@ Never edit a migration that has been applied anywhere; add a new one.
 
 Append to `data/curated.json` (shape: `CuratedEntry` in `src/adapters/curated.ts`; `src/dev/sample-entries.ts` shows six complete examples). `external_id` is a stable lowercase slug, `verified_at` is the day you checked the page, `url` is the official page. `npm test` must pass; then `npm run ingest -- --source curated`.
 
-## Production runbook — P0 (schema and roles)
+## Production
 
-Run on the Strapi EC2, which sits inside the RDS security group (RDS is not reachable from elsewhere).
+The worker runs on the CMS EC2 box (the only host inside the RDS security group), from a clone of this repo at `/opt/gdd-toolkit-2026`; the CMS itself runs from `~/gdd-cms`. Production has no `.env`: every command runs under `scripts/with-ssm-env.mjs`, which reads SSM Parameter Store through the box's IAM role. Strapi's own config is `/gdd/prod/backend`; the worker's is `/gdd/prod/grants`. The runbooks below use
 
-0. Take an RDS snapshot first.
-1. `git pull` the deployed branch, then `npm ci` at the repo root and again in `workers/grant-automation`.
-2. Create `workers/grant-automation/.env` from `.env.example`:
-   - `DATABASE_ADMIN_URL=postgres://<master user>:<master password>@<rds endpoint>:5432/<DATABASE_NAME from Strapi's .env>`
-   - three new random passwords, for example `openssl rand -base64 24` each
-   - the three role URLs with those passwords, the same host and the same database
-   - `DATABASE_SSL=true`
-3. `npm run db:bootstrap -- --print` and read the SQL that is about to run.
-4. `npm run db:bootstrap`. Expected: `grants schema owned by grants_owner; roles: grants_owner, grants_reader, grants_worker`.
-5. `npm run db:migrate`. Expected: `grants: migrations applied`.
-6. `npm run test:db`. Every write is rolled back or removed; it proves the schema, the search column, the facets, the CHECK constraints, the API, that `grants_reader` cannot write and that `grants_worker` cannot read `public.up_users`.
-7. Remove `DATABASE_ADMIN_URL` from `.env` (the worker never needs the master credentials) and `chmod 600 .env`.
-8. `pm2 restart` the Strapi process and check `pm2 logs` for a clean boot with no schema changes.
+```
+cd /opt/gdd-toolkit-2026/workers/grant-automation
+SSM="node scripts/with-ssm-env.mjs --path /gdd/prod/grants"
+```
+
+### SSM parameters (`/gdd/prod/grants/`, region us-east-2)
+
+Created by someone with AWS access, not from the box. Passwords as `SecureString`, generated with `openssl rand -hex 24` (hex, so they need no escaping inside a URL). The host is Strapi's `DATABASE_HOST`, the database Strapi's `DATABASE_NAME`.
+
+| Name | Value |
+|---|---|
+| `GRANTS_OWNER_PASSWORD`, `GRANTS_WORKER_PASSWORD`, `GRANTS_READER_PASSWORD` | three new passwords (bootstrap gives them to the roles) |
+| `DATABASE_OWNER_URL` | `postgres://grants_owner:<owner password>@<host>:5432/<database>` |
+| `DATABASE_URL` | `postgres://grants_worker:<worker password>@<host>:5432/<database>` |
+| `DATABASE_READER_URL` | `postgres://grants_reader:<reader password>@<host>:5432/<database>` |
+| `DATABASE_SSL` | `true` |
+| `PORT` | `4100` |
+| `STRAPI_URL` | `http://127.0.0.1:1337` |
+| `CORS_ORIGINS` | `https://devethicstoolkit.umd.edu` |
+
+The box's IAM role must be allowed `ssm:GetParametersByPath` (and `kms:Decrypt` for the key) on `/gdd/prod/grants` as it is on `/gdd/prod/backend`. Check from the box: `aws ssm get-parameters-by-path --region us-east-2 --path /gdd/prod/grants --query 'Parameters[].Name'` lists the names above.
+
+### P0: schema and roles (once)
+
+0. Take an RDS snapshot.
+1. `sudo git clone https://github.com/GDD-Toolkit/gdd-toolkit-2026.git /opt/gdd-toolkit-2026 && sudo chown -R ubuntu: /opt/gdd-toolkit-2026`, then `npm ci` at the repo root and again in `workers/grant-automation`.
+2. `npm run db:bootstrap -- --print` and read the SQL that is about to run (no config needed).
+3. Bootstrap as the RDS master user. It is Strapi's database user, so load Strapi's parameters first: `env.ts` builds the admin URL from its `DATABASE_HOST`, `DATABASE_USERNAME`, `DATABASE_PASSWORD` and `DATABASE_NAME`, and the master password is never copied anywhere.
+
+   ```
+   node scripts/with-ssm-env.mjs --path /gdd/prod/backend --path /gdd/prod/grants npm run db:bootstrap
+   ```
+
+   Expected: `grants schema owned by grants_owner; roles: grants_owner, grants_reader, grants_worker`. Safe to re-run (it resets the role passwords to the SSM values).
+4. `$SSM npm run db:migrate`. Expected: `grants: migrations applied`.
+5. `$SSM npm run test:db`. Every write is rolled back or removed; it proves the schema, the search column, the facets, the CHECK constraints, the API, that `grants_reader` cannot write and that `grants_worker` cannot read `public.up_users`.
+6. `pm2 restart strapi` and check `pm2 logs strapi` for a clean boot with no schema changes.
 
 Rollback, as the master user: `DROP OWNED BY grants_owner, grants_worker, grants_reader CASCADE; DROP ROLE grants_owner, grants_worker, grants_reader;`, or restore the snapshot.
 
-## Production runbook — P1 (read API, page, Strapi cleanup)
+### P1: read API, page, Strapi cleanup
 
-Waits for the EC2's DNS name; until then the page is verified locally only.
-
-1. In `workers/grant-automation/.env` set `PORT=4100`, `STRAPI_URL=http://127.0.0.1:1337`, `CORS_ORIGINS=<the site origin>`.
-2. `pm2 start ecosystem.config.cjs` (process `grant-api`), then `curl http://127.0.0.1:4100/healthz`.
-3. nginx: inside the existing `server` block add
-
-   ```
-   location /grants/api/ {
-       proxy_pass http://127.0.0.1:4100/;
-       proxy_set_header Host $host;
-       proxy_set_header X-Forwarded-Proto $scheme;
-   }
-   ```
-
-   then `nginx -t && systemctl reload nginx`, and `curl https://<dns name>/grants/api/healthz`.
-4. Frontend build with `VITE_GRANTS_API_URL=https://<dns name>/grants/api`.
+1. `pm2 start ecosystem.config.cjs --only grant-api`, `pm2 logs grant-api --lines 5` (expect `loaded 10 keys` and `grants api listening`), then `curl http://127.0.0.1:4100/healthz`: `{"ok":true,"db":true,...}`.
+2. `pm2 save`, so a reboot brings it back.
+3. nginx: `deploy/nginx/devethicstoolkit.conf` mirrors the live file, certbot lines included. `diff /etc/nginx/sites-available/devethicstoolkit /opt/gdd-toolkit-2026/deploy/nginx/devethicstoolkit.conf` should show only the `location ^~ /grants/api/` block; if it shows more, reconcile first. Then back up the live file, `sudo cp` the repo file over it, `sudo nginx -t && sudo systemctl reload nginx`, and `curl https://devethicstoolkit.umd.edu/grants/api/healthz` returns JSON, not the site's `index.html`.
+4. The frontend is built with `VITE_GRANTS_API_URL=https://devethicstoolkit.umd.edu/grants/api`; no rebuild is needed.
 5. Before deploying the Strapi change, as the master user: `select count(*) from up_users_saved_grants_lnk;` — expected 0 (the seed had no grants and the old page never wrote to Strapi). If not 0, export the rows and accept the loss: those grants no longer exist anywhere.
 6. Take an RDS snapshot, deploy the Strapi change, restart. Strapi's schema sync drops `funding_resources`, its component tables and `up_users_saved_grants_lnk`, and adds `up_users.saved_grant_ids`. Rolling back means restoring the snapshot, not re-adding files.
 7. Check: the admin panel no longer lists Funding_Resource; `POST /api/account/bookmarks/grants/<uuid>` with a user JWT returns the profile with `savedGrantIds`.
 
-## Production runbook — P2 (ingestion)
+Rollback: `pm2 delete grant-api && pm2 save`, and remove the nginx block.
+
+### P2: ingestion
 
 After P0 and P1. Nothing here touches Strapi.
 
-1. `git pull`, then `npm ci` in `workers/grant-automation`. No migration: P2 adds no tables or columns.
-2. `npm run test:live` — both APIs are reachable from the server and still have the shape the adapters expect.
-3. `npm run ingest -- --dry-run` — expected: three summary lines (`grants-gov`, `eu-ft`, `curated`) ending in `dry run, nothing written`, and `select count(*) from grants.ingest_runs` unchanged.
-4. `npm run ingest` — the first real run, about 45 seconds. Expected on 2026-11-05: roughly 20 Grants.gov and 90 EU rows inserted.
-5. `npm run ingest` again — expected: `inserted 0, updated 0` and every row unchanged.
+1. `git pull`, then `npm ci` in `workers/grant-automation`.
+2. `npm run test:live` — both APIs are reachable from the server and still have the shape the adapters expect (no config needed).
+3. `$SSM npm run ingest -- --dry-run` — expected: three summary lines (`grants-gov`, `eu-ft`, `curated`) ending in `dry run, nothing written`.
+4. `$SSM npm run ingest` — the first real run, about 45 seconds.
+5. `$SSM npm run ingest` again — expected: `inserted 0, updated 0` and every row unchanged.
 6. `curl http://127.0.0.1:4100/sources` shows the three sources with today's `last_run_at`; the page shows "Grants.gov · verified <today>" on cards and the "Data sources" notices at the bottom.
-7. Schedule it. pm2 evaluates `cron_restart` in the time zone of the pm2 daemon, so run `date +%Z` first. On UTC keep `0 8 * * *` in `ecosystem.config.cjs` (03:00 Eastern in winter, 04:00 in summer); on Eastern time change it to `0 3 * * *`. Then:
+7. Schedule it. pm2 evaluates `cron_restart` in the time zone of the pm2 daemon; the box is on UTC (`date +%Z`), so `0 8 * * *` in `ecosystem.config.cjs` is 03:00 Eastern in winter and 04:00 in summer. Then:
 
    ```
    pm2 start ecosystem.config.cjs --only grant-ingest
@@ -182,7 +196,7 @@ After P0 and P1. Nothing here touches Strapi.
    Starting it runs one ingest immediately; after that the process sits in `stopped` between runs, which is expected (`autorestart: false`).
 8. The next morning: `pm2 logs grant-ingest --lines 20` shows the three summary lines, and `select source_id, status, started_at, stats from grants.ingest_runs order by started_at desc limit 3;` shows three `ok` rows.
 
-If a source misbehaves: `update grants.grant_sources set enabled = false where id = '<id>';`. To stop the schedule: `pm2 delete grant-ingest`.
+If a source misbehaves: `update grants.grant_sources set enabled = false where id = '<id>';`. To stop the schedule: `pm2 delete grant-ingest && pm2 save`.
 
 ## Tearing down locally
 
