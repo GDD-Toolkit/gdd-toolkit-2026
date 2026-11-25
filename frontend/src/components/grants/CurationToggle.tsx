@@ -45,7 +45,7 @@ export function CurationToggle({ grant, onChanged, className }: CurationTogglePr
   }
 
   return (
-    <div className={cn("flex items-center gap-1", className)} role="group" aria-label={`Curation for ${grant.title}`}>
+    <div className={cn("flex items-center gap-1.5", className)} role="group" aria-label={`Curation for ${grant.title}`}>
       {/* Visible text stays short; the accessible name carries the title so five cards are not five "Hide" buttons. */}
       <Button
         type="button"
@@ -55,6 +55,12 @@ export function CurationToggle({ grant, onChanged, className }: CurationTogglePr
         aria-label={current === "hidden" ? `Unhide ${grant.title}` : `Hide ${grant.title}`}
         disabled={pending}
         onClick={() => apply(current === "hidden" ? "auto" : "hidden")}
+        className={cn(
+          "cursor-pointer rounded-full",
+          current === "hidden"
+            ? "bg-[#394838] text-white hover:bg-[#202B20]"
+            : "border-[#B2C9A8] text-[#394838] hover:border-[#3F673C] hover:bg-[#EDF4E8]",
+        )}
       >
         {current === "hidden" ? <EyeOff /> : <Eye />}
         {current === "hidden" ? "Hidden" : "Hide"}
@@ -67,6 +73,12 @@ export function CurationToggle({ grant, onChanged, className }: CurationTogglePr
         aria-label={current === "featured" ? `Unfeature ${grant.title}` : `Feature ${grant.title}`}
         disabled={pending}
         onClick={() => apply(current === "featured" ? "auto" : "featured")}
+        className={cn(
+          "cursor-pointer rounded-full",
+          current === "featured"
+            ? "bg-[#3F673C] text-[#E9E6B2] hover:bg-[#284B26]"
+            : "border-[#B2C9A8] text-[#284B26] hover:border-[#3F673C] hover:bg-[#EDF4E8]",
+        )}
       >
         <Star />
         {current === "featured" ? "Featured" : "Feature"}
@@ -79,6 +91,7 @@ export function CurationToggle({ grant, onChanged, className }: CurationTogglePr
           aria-label={`Clear curation for ${grant.title}`}
           disabled={pending}
           onClick={() => apply("auto")}
+          className="cursor-pointer rounded-full text-[#596556] hover:bg-[#EDF4E8] hover:text-[#202B20]"
         >
           Clear
         </Button>

@@ -8,79 +8,93 @@
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Geist Variable", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light;
+  color: #202b20;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
 
-/* Global link styles removed - using Tailwind classes in components */
+  /* Forest & Sage Editorial Brand Tokens */
+  --editorial-forest: #3f673c;
+  --editorial-forest-deep: #284b26;
+  --editorial-forest-dark: #2e502b;
+  --editorial-emerald: #187347;
+  --editorial-emerald-hover: #105c37;
+  --editorial-ink: #202b20;
+  --editorial-body: #394838;
+  --editorial-muted: #596556;
+  --editorial-cream: #e9e6b2;
+  --editorial-cream-soft: #f6f4d8;
+  --editorial-cream-tint: #faf8e4;
+  --editorial-sage-wash: #f2f6ef;
+  --editorial-sage-tint: #edf4e8;
+  --editorial-sage-hover: #fafdf8;
+  --editorial-border: #b2c9a8;
+  --editorial-border-strong: #94b985;
+  --editorial-border-subtle: #d5e3d9;
+  --font-serif-editorial: "Noto Serif", Georgia, Cambria, "Times New Roman", serif;
+
+  /* Shadcn Semantic Tokens aligned to Forest & Sage Editorial Theme */
+  --background: #ffffff;
+  --foreground: #202b20;
+  --card: #ffffff;
+  --card-foreground: #202b20;
+  --popover: #ffffff;
+  --popover-foreground: #202b20;
+  --primary: #3f673c;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f6ef;
+  --secondary-foreground: #284b26;
+  --muted: #f2f6ef;
+  --muted-foreground: #596556;
+  --accent: #edf4e8;
+  --accent-foreground: #187347;
+  --destructive: #c6362f;
+  --border: #b2c9a8;
+  --input: #b2c9a8;
+  --ring: #3f673c;
+  --chart-1: #3f673c;
+  --chart-2: #187347;
+  --chart-3: #94b985;
+  --chart-4: #d6ce8a;
+  --chart-5: #284b26;
+  --radius: 0.75rem;
+  --sidebar: #f2f6ef;
+  --sidebar-foreground: #202b20;
+  --sidebar-primary: #3f673c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #edf4e8;
+  --sidebar-accent-foreground: #284b26;
+  --sidebar-border: #b2c9a8;
+  --sidebar-ring: #3f673c;
+}
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #ffffff;
+  color: #202b20;
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-/* Global button styles removed - using Tailwind classes in components */
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: "Geist Variable", sans-serif;
+  --font-heading: var(--font-serif-editorial);
+  --font-serif: var(--font-serif-editorial);
+  --font-sans: "Geist Variable", system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -121,38 +135,26 @@ h1 {
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+.font-editorial {
+  font-family: "Noto Serif", Georgia, Cambria, "Times New Roman", serif;
+}
+
+.editorial-grid-texture {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(233, 230, 178, 0.14) 1px,
+    transparent 0
+  );
+  background-size: 28px 28px;
+}
+
+.editorial-sage-dots {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(63, 103, 60, 0.08) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
 }
 
 @layer base {
@@ -166,5 +168,12 @@ h1 {
 
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

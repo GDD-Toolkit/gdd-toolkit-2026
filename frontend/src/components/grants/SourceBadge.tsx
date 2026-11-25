@@ -14,7 +14,13 @@ interface SourceBadgeProps {
 /** Provenance: where the row came from and when the worker last checked it. */
 export function SourceBadge({ sourceId, sources, lastVerifiedAt, className }: SourceBadgeProps) {
   return (
-    <Badge variant="outline" className={cn("h-6 px-2 font-normal text-muted-foreground", className)}>
+    <Badge
+      variant="outline"
+      className={cn(
+        "h-6 rounded-full border-[#B2C9A8] bg-[#FAFDF8] px-2.5 text-[11px] font-normal text-[#596556]",
+        className,
+      )}
+    >
       {sourceName(sourceId, sources)} · verified {formatDate(lastVerifiedAt)}
     </Badge>
   );

@@ -12,7 +12,7 @@ interface AmountSliderProps {
 }
 
 const THUMB =
-  "relative block size-4 shrink-0 rounded-full border border-[#6D83F2] bg-white ring-ring/50 transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3";
+  "relative block size-4 shrink-0 cursor-pointer rounded-full border-2 border-[#3F673C] bg-white shadow-sm ring-[#3F673C]/30 transition-[color,box-shadow,transform] select-none after:absolute after:-inset-2 hover:scale-110 hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden active:ring-4";
 
 /** Two-thumb amount range. Labels its thumbs itself, which the shared Slider wrapper cannot. */
 export function AmountSlider({ min, max, value, format, onCommit }: AmountSliderProps) {
@@ -30,17 +30,17 @@ export function AmountSlider({ min, max, value, format, onCommit }: AmountSlider
         value={local}
         onValueChange={(next) => setLocal([next[0] ?? min, next[1] ?? max])}
         onValueCommit={(next) => onCommit([next[0] ?? min, next[1] ?? max])}
-        className="relative flex w-full touch-none items-center py-2 select-none"
+        className="relative flex w-full touch-none items-center py-2.5 select-none"
       >
-        <SliderPrimitive.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-muted">
-          <SliderPrimitive.Range className="absolute h-full bg-[#6D83F2]" />
+        <SliderPrimitive.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-[#E3EBDE]">
+          <SliderPrimitive.Range className="absolute h-full bg-gradient-to-r from-[#3F673C] to-[#187347]" />
         </SliderPrimitive.Track>
         <SliderPrimitive.Thumb className={THUMB} aria-label="Minimum amount" aria-valuetext={format(local[0])} />
         <SliderPrimitive.Thumb className={THUMB} aria-label="Maximum amount" aria-valuetext={format(local[1])} />
       </SliderPrimitive.Root>
-      <div className="flex justify-between text-xs text-muted-foreground tabular-nums">
-        <span>{format(local[0])}</span>
-        <span>
+      <div className="mt-1 flex justify-between font-mono text-xs font-medium text-[#284B26] tabular-nums">
+        <span className="rounded-md border border-[#D5E3D9] bg-[#F2F6EF] px-2 py-0.5">{format(local[0])}</span>
+        <span className="rounded-md border border-[#D5E3D9] bg-[#F2F6EF] px-2 py-0.5">
           {format(local[1])}
           {local[1] >= max ? "+" : ""}
         </span>

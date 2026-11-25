@@ -1,223 +1,74 @@
+/* Editorial green-outlined modal styles for ToolModal */
+
 .planning-tool-dialog[data-slot="dialog-content"] {
-    width: calc(100% - 2rem);
-    max-width: 900px;
-    max-height: 90dvh;
-    overflow-y: auto;
-    padding: 2rem 1rem;
-    color: #374151;
-    background: white;
-    overflow-wrap: anywhere;
+  width: calc(100% - 2rem);
+  max-width: 56rem;
+  max-height: 90dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  color: #202b20;
+  background: #ffffff;
+  border: 1.5px solid #94b985;
+  border-radius: 1rem;
+  box-shadow: 0 24px 60px rgba(32, 43, 32, 0.24);
+  overflow-wrap: anywhere;
+  gap: 0;
 }
 
-@media (max-width: 639px) {
-    .planning-tool-dialog .modal-grid-2 {
-        grid-template-columns: minmax(0, 1fr);
-    }
+.planning-tool-dialog [data-slot="dialog-close"] {
+  top: 1rem;
+  right: 1rem;
+  color: #edf4e8;
+  background: rgba(46, 80, 43, 0.75);
+  border: 1px solid rgba(154, 184, 135, 0.55);
+  border-radius: 9999px;
 }
 
-/* === Modal Overlay === */
-.tool-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    z-index: 9999;
+.planning-tool-dialog [data-slot="dialog-close"]:hover {
+  background: #254223;
+  color: #e9e6b2;
 }
 
-/* === Modal Box === */
-.tool-modal {
-    max-width: 900px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: white;
-    border-radius: 1rem;
-    padding: 2rem;
-    color: #374151;
+/* Nested bullet lists inside modal sections */
+.tool-modal-bullets {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+  color: #394838;
+  font-size: 0.925rem;
+  line-height: 1.65;
 }
 
-/* === Header === */
-.modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    background: linear-gradient(to right, #047857, #059669, #0d9488);
-    padding: 1rem 2rem;
-    border-radius: 0.75rem;
+.tool-modal-bullets > li + li {
+  margin-top: 0.4rem;
 }
 
-.modal-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #ffffff;
+.tool-modal-bullets li::marker {
+  color: #187347;
 }
 
-/* === Image === */
-.modal-main-image {
-    width: 100%;
-    height: 300px; /* fixed height, adjust as needed */
-    object-fit: contain; /* or 'cover' if you want it cropped */
-    align-items: center;
-    margin: 1rem 0;
-    border-radius: 0.75rem;
+.tool-modal-sub-bullets {
+  margin-top: 0.35rem;
+  padding-left: 1.25rem;
+  list-style-type: circle;
+  font-size: 0.875rem;
+  color: #596556;
 }
 
-/* === Sections === */
-.modal-section {
-    margin-top: 1.5rem;
+.tool-modal-sub-bullets > li + li {
+  margin-top: 0.25rem;
 }
 
-.modal-card {
-    background-color: #ffffff;
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    margin-top: 1rem;
-    min-width: 0;        /* prevents overflow */
-    width: 100%;         /* ensures consistent width */
-    height: auto;        /* allows different heights */
-    box-sizing: border-box;
+.tool-modal-bullets a {
+  color: #187347;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  word-break: break-word;
+  transition: color 0.15s ease;
 }
 
-.modal-section h3,
-.modal-card h3 {
-    font-size: 1.25rem;
-    color: #065f46;
-    margin-bottom: 0.75rem;
-    font-weight: 700;
-    text-align: center;
-}
-.modal-card a {
-    word-break: break-all;
-}
-/* Resource links */
-.bullet-list a {
-    color: #047857;
-    text-decoration: none;
-}
-
-.bullet-list a:hover {
-    text-decoration: underline;
-}
-
-/* === Grid 2 columns === */
-.modal-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-/* === Video === */
-.modal-video {
-    width: 100%;
-    height: 220px;
-    border: none;
-    border-radius: 0.75rem;
-}
-
-/* === Bullet Lists === */
-.bullet-list {
-    padding-left: 1.25rem;
-    list-style: disc;
-}
-
-.sub-bullet-list {
-    padding-left: 1.25rem;
-    margin-top: 0.25rem;
-    font-size: 0.95rem;
-    color: #4b5563;
-    list-style: circle;
-}
-
-/* === Keywords Badge === */
-.keywords-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.keyword-badge {
-    padding: 0.35rem 0.65rem;
-    border-radius: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #374151;
-}
-
-/* === Modal Overlay === */
-.tool-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    z-index: 9999;
-}
-
-/* === Modal Box === */
-.tool-modal {
-    max-width: 900px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: white;
-    border-radius: 1rem;
-    padding: 2rem;
-    color: #374151;
-}
-
-/* === Header === */
-.modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    background: linear-gradient(to right, #A07CFF, #8b7df5, #6D83F2);
-    padding: 1rem 2rem;
-    border-radius: 0.75rem;
-}
-
-.modal-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-/* === Sections === */
-.modal-section h3,
-.modal-card h3 {
-    font-size: 1.25rem;
-    color: #6D83F2;
-    margin-bottom: 0.75rem;
-    font-weight: 700;
-    text-align: center;
-}
-
-/* Resource links */
-.bullet-list a {
-    color: #6D83F2;
-    text-decoration: none;
-}
-
-.bullet-list a:hover {
-    text-decoration: underline;
-}
-
-/* === Keywords Badge === */
-.keyword-badge {
-    padding: 0.35rem 0.65rem;
-    border-radius: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #374151;
+.tool-modal-bullets a:hover {
+  color: #284b26;
 }

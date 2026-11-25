@@ -20,17 +20,21 @@ export function Chip({ pressed, onClick, children, count, disabled, className }:
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "inline-flex h-7 items-center gap-1 rounded-full border px-2.5 text-xs font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50",
-        // Filled state uses the darker accent: white 12px text on #6D83F2 is only 3.4:1.
+        "inline-flex h-7 cursor-pointer items-center gap-1.5 rounded-full border px-3 text-xs font-medium transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#3F673C]/50 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50",
         pressed
-          ? "border-[#4B5FD9] bg-[#4B5FD9] text-white hover:bg-[#3F52C8]"
-          : "border-border bg-background text-foreground hover:bg-muted",
+          ? "border-[#3F673C] bg-gradient-to-r from-[#3F673C] to-[#187347] text-white shadow-xs hover:brightness-110"
+          : "border-[#B2C9A8] bg-white text-[#284B26] hover:border-[#3F673C] hover:bg-[#EDF4E8]",
         className,
       )}
     >
       {children}
       {count !== undefined && (
-        <span className={cn("text-[10px] tabular-nums", pressed ? "text-white/80" : "text-muted-foreground")}>
+        <span
+          className={cn(
+            "font-mono text-[10px] tabular-nums",
+            pressed ? "text-[#E9E6B2]" : "text-[#596556]",
+          )}
+        >
           {count}
         </span>
       )}

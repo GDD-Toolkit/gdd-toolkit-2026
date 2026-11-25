@@ -5,20 +5,23 @@ import { cn } from "@/lib/utils";
 import { deadlineText, type DeadlineInfo } from "./format";
 
 const TONE: Record<Grant["status"], string> = {
-  open: "border-emerald-200 bg-emerald-50 text-emerald-800",
-  closing_soon: "border-amber-200 bg-amber-50 text-amber-900",
-  forecasted: "border-sky-200 bg-sky-50 text-sky-900",
-  rolling: "border-violet-200 bg-violet-50 text-violet-900",
-  closed: "border-border bg-muted text-muted-foreground",
-  archived: "border-border bg-muted text-muted-foreground",
+  open: "border-[#94B985] bg-[#EDF4E8] text-[#187347]",
+  closing_soon: "border-[#D6CE8A] bg-[#FAF8E4] text-amber-900",
+  forecasted: "border-[#B2C9A8] bg-[#F2F6EF] text-[#284B26]",
+  rolling: "border-[#94B985] bg-[#F6F4D8] text-[#284B26]",
+  closed: "border-[#D5E3D9] bg-[#F2F6EF]/70 text-[#596556]",
+  archived: "border-[#D5E3D9] bg-[#F2F6EF]/70 text-[#596556]",
 };
 
 /** Open · closing soon · forecast · rolling · closed, with the date that matters. */
 export function DeadlineBadge({ grant, className }: { grant: DeadlineInfo; className?: string }) {
   const Icon = grant.status === "forecasted" ? CalendarDays : Hourglass;
   return (
-    <Badge variant="outline" className={cn("h-6 gap-1 px-2", TONE[grant.status], className)}>
-      <Icon aria-hidden="true" />
+    <Badge
+      variant="outline"
+      className={cn("h-6 gap-1 rounded-full px-2.5 font-mono text-[11px] font-medium", TONE[grant.status], className)}
+    >
+      <Icon className="size-3 shrink-0" aria-hidden="true" />
       {deadlineText(grant)}
     </Badge>
   );

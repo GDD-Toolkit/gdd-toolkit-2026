@@ -1,5 +1,6 @@
 import type { Grant } from "@shared/types/Grants";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { geographyLabel } from "./format";
 
 type Alignment = Pick<Grant, "sdgs" | "values" | "geographies">;
@@ -13,18 +14,19 @@ export function AlignmentChips({ grant, className }: { grant: Alignment; classNa
   ];
   if (chips.length === 0) return null;
   return (
-    <ul className={className ? `flex flex-wrap gap-1.5 ${className}` : "flex flex-wrap gap-1.5"} aria-label="Alignment">
+    <ul className={cn("flex flex-wrap gap-1.5", className)} aria-label="Alignment">
       {chips.map((chip) => (
         <li key={chip.key}>
           <Badge
             variant="outline"
-            className={
+            className={cn(
+              "rounded-full px-2.5 py-0.5 text-[11px] font-medium",
               chip.tone === "sdg"
-                ? "border-[#6D83F2]/40 bg-[#6D83F2]/10 text-[#4C5FD4]"
+                ? "border-[#94B985] bg-[#EDF4E8] text-[#187347]"
                 : chip.tone === "value"
-                  ? "border-border bg-muted text-foreground"
-                  : "border-border text-muted-foreground"
-            }
+                  ? "border-[#D6CE8A] bg-[#F6F4D8] text-[#284B26]"
+                  : "border-[#B2C9A8] bg-white text-[#596556]",
+            )}
           >
             {chip.label}
           </Badge>
