@@ -17,7 +17,6 @@ export default function Footer() {
               <li><a className="hover:text-[#A07CFF]" href="https://main.dn6y4rvhmhz3f.amplifyapp.com/"> AI Business Ethics Canvas</a></li>
               <li><a className="hover:text-[#A07CFF]" href="https://main.dc0y8ib3ovhbx.amplifyapp.com/"> AI Dashboard</a></li>
               <li><a className="hover:text-[#A07CFF]" href="/ethics-of-innovation">Ethics of Innovation</a></li>
-              <li><a className="hover:text-[#A07CFF]" href="/human-centered-design">Human Centered Design</a></li>
               <li><a className="hover:text-[#A07CFF]" href="/project-planning">Project Planning</a></li>
               <li><a className="hover:text-[#A07CFF]" href="/project-evaluation">Project Evaluation</a></li>
             </ul>

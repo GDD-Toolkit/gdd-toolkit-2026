@@ -1,7 +1,7 @@
 import RootLayout from "@/app/layout/RootLayout";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { lazy } from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 const HomePage = lazy(() => import("@/pages/home"));
 const AIEthicsDashboard = lazy(() => import("@/pages/ai-ethics-dashboard"));
@@ -82,6 +82,10 @@ const router = createBrowserRouter([
       { path: "about", element: <AboutPage /> },
       { path: "development-ethics", element: <DevelopmentEthics /> },
       {
+        path: "human-centred-innovation",
+        element: <Navigate to="/development-ethics" replace />,
+      },
+      {
         path: "worthwhile-development",
         element: <WorthwhileDevelopmentPage />,
       },
@@ -106,6 +110,10 @@ const router = createBrowserRouter([
         element: <Collaborative />,
       },
       { path: "human-centered-design", element: <HumanCenteredDesign /> },
+      {
+        path: "human-centred-design",
+        element: <Navigate to="/human-centered-design" replace />,
+      },
       { path: "project-planning", element: <ProjectPlanning /> },
       { path: "geopolitical-analysis", element: <GeopoliticalAnalysis /> },
       { path: "project-evaluation", element: <ProjectEvaluation /> },

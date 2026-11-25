@@ -14,12 +14,8 @@ type Menu = {
 const MENUS: Menu[] = [
   { label: "Home", href: "/" },
   {
-    label: "Development Ethics",
-    items: [
-      { label: "Development Ethics", href: "/development-ethics" },
-      { label: "Worthwhile Development", href: "/worthwhile-development" },
-      { label: "The Capability Approach", href: "/capability-approach" },
-    ],
+    label: "Human Centered Innovations",
+    href: "/development-ethics",
   },
   {
     label: "Tools",
@@ -30,7 +26,6 @@ const MENUS: Menu[] = [
       },
       { label: "AI Ethics Dashboard", href: "/ai-ethics-dashboard" },
       { label: "Ethics of Innovation", href: "/ethics-of-innovation" },
-      { label: "Human Centered Design", href: "/human-centered-design" },
       { label: "Project Planning", href: "/project-planning" },
       { label: "Project Evaluation", href: "/project-evaluation" },
     ],
