@@ -47,20 +47,23 @@ const planningBenefits = [
 ];
 
 const ProjectPlanning: React.FC = () => {
-    const [step, setStep] = useState(1);
-    const [projects, setProjects] = useState<any[]>([]);
+    const [tools, setTools] = useState<ProjectPlanningTool[]>([]);
+    const [loadingTools, setLoadingTools] = useState(true);
+    const [toolsError, setToolsError] = useState<string | null>(null);
+    const [loadAttempt, setLoadAttempt] = useState(0);
     useEffect(() => {
-        let active = true;
-        getProjects()
-            .then((projects) => {
-                if (active) setProjects(projects);
+        const controller = new AbortController();
+        setLoadingTools(true);
+        setToolsError(null);
+        getProjectPlanningTools(controller.signal)
+            .then((data) => { if (!controller.signal.aborted) setTools(data); })
+            .catch(() => {
+                if (!controller.signal.aborted) setToolsError("We couldn’t load the planning tools. Please try again.");
             })
-            .catch((error: unknown) => {
-                if (active) console.error("Could not load Strapi projects:", error);
-            });
-        return () => { active = false; };
-    }, []);
-    console.log("projects", projects);
+            .finally(() => { if (!controller.signal.aborted) setLoadingTools(false); });
+        return () => controller.abort();
+    }, [loadAttempt]);
+    const [step, setStep] = useState(1);
     const [evaluationPhase, setEvaluationPhase] = useState<EvaluationPhase>("design");
     const [evaluationAnswers, setEvaluationAnswers] = useState<EvaluationAnswers>({});
     const [evaluationWeights, setEvaluationWeights] = useState<EvaluationWeights>({ design: "1", implementation: "1", outcomes: "1" });
