@@ -198,7 +198,8 @@ export function GrantFilters({ query, facets, sources, fieldDefs, onChange, onCl
       <Group title="Source">
         <Select
           value={query.source?.[0] ?? ANY}
-          onValueChange={(next) => onChange({ source: next === ANY ? undefined : [next] })}
+          items={{ [ANY]: "All sources", ...Object.fromEntries(sources.map((source) => [source.id, source.name])) }}
+          onValueChange={(next) => onChange({ source: next === null || next === ANY ? undefined : [next] })}
         >
           <SelectTrigger aria-label="Source" className="w-full">
             <SelectValue placeholder="All sources" />
@@ -220,7 +221,11 @@ export function GrantFilters({ query, facets, sources, fieldDefs, onChange, onCl
         return (
           <Group key={def.key} title={def.label}>
             {def.type === "enum" ? (
-              <Select value={current || ANY} onValueChange={(next) => setExtra(def.key, next === ANY ? undefined : next)}>
+              <Select
+                value={current || ANY}
+                items={{ [ANY]: "Any" }}
+                onValueChange={(next) => setExtra(def.key, next === null || next === ANY ? undefined : next)}
+              >
                 <SelectTrigger id={id} aria-label={def.label} className="w-full">
                   <SelectValue placeholder="Any" />
                 </SelectTrigger>

@@ -12,7 +12,7 @@ export async function getProjectPlanningTools(signal?: AbortSignal): Promise<Pro
       "pagination[page]": String(page), "pagination[pageSize]": "100",
       "sort[0]": "sort_order:asc", "sort[1]": "slug:asc", status: "published",
     });
-    const response = await fetch(`${api}/project-planning-tools?${query}`, { headers: buildStrapiHeaders(), signal });
+    const response = await fetch(`${api}/project-planning-tools?${query}`, { signal });
     if (!response.ok) throw new Error(`Could not load planning tools (${response.status}).`);
     const json = await response.json();
     const count = json?.meta?.pagination?.pageCount;
@@ -75,7 +75,16 @@ export async function getCohorts() {
   return Array.isArray(json.data) ? json.data : [];
 }
 
-export async function getPodcasts() {
+export type StrapiPodcast = {
+  id: number;
+  title: string;
+  description: string;
+  release_date?: string | null;
+  createdAt: string;
+  podcast_audio?: { id: number; url: string }[] | null;
+};
+
+export async function getPodcasts(): Promise<StrapiPodcast[]> {
   const baseUrl = getStrapiBaseUrl();
   const pluralApiId = "podcasts";
 

@@ -1,0 +1,80 @@
+# Checks every pull request before it can merge: the frontend must build and pass its
+# tests, and the CMS must install and build. Deploy frontend and Deploy CMS run the same
+# install and build steps after a merge, so a PR that fails here would fail to deploy.
+#
+# No secrets are used, so this is safe for pull requests from forks.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lockfiles:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Web-editor merges have left these as invalid JSON before; fail fast with a clear message.
+      - name: Lockfiles are valid JSON
+        run: |
+          for f in frontend/package-lock.json backend/research-cms/package-lock.json; do
+            node -e 'JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"))' "$f" \
+              || { echo "::error file=$f::$f is not valid JSON. Regenerate it with npm install instead of hand-merging it."; exit 1; }
+          done
+
+  frontend:
+    needs: lockfiles
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    env:
+      # Same public values as the deploy; the build only bakes them into the bundle.
+      VITE_STRAPI_URL: https://cms.devethicstoolkit.umd.edu
+      VITE_GRANTS_API_URL: https://devethicstoolkit.umd.edu/grants/api
+    steps:
+      # No LFS: the build doesn't need the real home video, and LFS bandwidth is metered.
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+
+  cms:
+    needs: lockfiles
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend/research-cms
+    env:
+      # strapi build loads config/*.ts, which needs these set; dummy values are fine.
+      DATA_SOURCE: local
+      APP_KEYS: ci1,ci2
+      ADMIN_JWT_SECRET: ci
+      API_TOKEN_SALT: ci
+      TRANSFER_TOKEN_SALT: ci
+      ENCRYPTION_KEY: ci
+      JWT_SECRET: ci
+      PUBLIC_URL: http://localhost:1337
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/research-cms/package-lock.json
+      - run: npm ci
+      - run: npm run build
