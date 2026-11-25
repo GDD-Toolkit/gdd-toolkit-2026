@@ -87,7 +87,7 @@ FRONTEND_URL=http://localhost:5173
 ```
 
 > [!NOTE]
-> `DATA_SOURCE=production` makes Strapi use the real services named by `DATABASE_*`, `AWS_*` and `SMTP_*` instead. That is what the deployed server runs with. Only use it on your machine when you really need the live data: anything you change or upload goes straight to production.
+> `DATA_SOURCE=production` makes Strapi use the real services named by `DATABASE_*`, `AWS_*` and `SMTP_*` instead. That is what the deployed server runs with. The server keeps no `.env`: its values live in AWS SSM Parameter Store under `/gdd/prod/backend/` and `scripts/with-ssm-env.mjs` loads them at every build and start. To change one, edit it in SSM, then re-run the Deploy CMS workflow. Only use it on your machine when you really need the live data: anything you change or upload goes straight to production.
 
 ---
 

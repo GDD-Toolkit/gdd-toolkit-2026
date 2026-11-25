@@ -13,6 +13,6 @@ export function isLocalDataSource(env: Env): boolean {
   if (value === "local") return true;
   if (value === "production") return false;
   throw new Error(
-    `DATA_SOURCE must be "local" or "production" (got ${value ?? "nothing"}). Set it in backend/research-cms/.env`
+    `DATA_SOURCE must be "local" or "production" (got ${value ?? "nothing"}). Set it in backend/research-cms/.env locally, or in SSM (/gdd/prod/backend/DATA_SOURCE) for production`
   );
 }
