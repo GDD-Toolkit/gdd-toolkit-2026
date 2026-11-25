@@ -4,8 +4,8 @@ import { exchangeProviderToken, RETURN_TO_KEY } from "@/api/auth";
 import { useAuth } from "@/hooks/useAuth";
 
 /**
- * OAuth landing route (/auth/callback/:provider). Strapi redirects here with
- * ?access_token=<provider token>; we exchange it for a Strapi JWT and continue.
+ * OAuth landing route (/auth/callback/:provider). Strapi redirects here after the
+ * provider sign-in (with ?error= on failure); we exchange it for a Strapi JWT and continue.
  */
 export default function AuthCallback() {
   const { provider = "google" } = useParams();
@@ -19,15 +19,13 @@ export default function AuthCallback() {
     if (started.current) return;
     started.current = true;
 
-    const accessToken = searchParams.get("access_token");
-    if (!accessToken) {
-      setError(
-        searchParams.get("error_description") ??
-          searchParams.get("error") ??
-          "The sign-in provider did not return a token.",
-      );
+    const providerError = searchParams.get("error_description") ?? searchParams.get("error");
+    if (providerError) {
+      setError(providerError);
       return;
     }
+    // Older Strapi versions send ?access_token=; newer ones keep it in the session cookie.
+    const accessToken = searchParams.get("access_token");
 
     (async () => {
       try {
