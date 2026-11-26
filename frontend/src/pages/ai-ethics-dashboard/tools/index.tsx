@@ -20,11 +20,18 @@ import ToolFilters, {
   type ToolFilterValues,
 } from "../../../components/ai-ethics-dashboard/ToolFilters";
 import { getAITools } from "../../../api/strapi";
+import {
+  getToolCategory,
+  groupToolsByCategory,
+  TOOL_CATEGORIES,
+} from "../data/toolCategories";
 
 type StrapiAITool = {
   id: number;
   documentId?: string;
   name: string;
+  about_section?: string;
+  category?: string | null;
   total_score: number;
   logo?: Array<{
     url: string;
@@ -147,25 +154,34 @@ export default function AIEthicsTools() {
     });
   };
 
+  const toolsByCategory = groupToolsByCategory(tools);
+
+  const handleSelectCategory = (nextCategory: string | null) => {
+    const nextParams = new URLSearchParams(searchParams);
+    if (nextCategory) {
+      nextParams.set("category", nextCategory);
+    } else {
+      nextParams.delete("category");
+    }
+    setSearchParams(nextParams);
+  };
+
   /**
-   * TODO: Future developers
-   *
-   * Category, Tool Type, Research, Project Development,
-   * and Price filters require additional Strapi fields.
-   *
-   * The filter UI is implemented, but the corresponding
-   * classification data is not currently available.
-   *
-   * Coordinate with the AI Ethics module before implementing
-   * the remaining filter logic.
-   *
-   * See ../README.md for the developer handoff notes.
+   * Filters live Strapi tools by category (native Strapi `category` when
+   * present, or mapped/inferred via `getToolCategory`), search query,
+   * ethicality score tier, and saved bookmarks.
    */
   const filteredTools = tools.filter((tool) => {
-    const normalizedSearch = search.trim().toLowerCase();
+    const toolCategory = getToolCategory(tool);
+    const matchesCategory =
+      !category ||
+      toolCategory.toLowerCase() === category.trim().toLowerCase();
 
+    const normalizedSearch = search.trim().toLowerCase();
     const matchesSearch =
-      !normalizedSearch || tool.name.toLowerCase().includes(normalizedSearch);
+      !normalizedSearch ||
+      tool.name.toLowerCase().includes(normalizedSearch) ||
+      toolCategory.toLowerCase().includes(normalizedSearch);
 
     const score = tool.total_score;
     let matchesScore = true;
@@ -186,7 +202,7 @@ export default function AIEthicsTools() {
 
     const matchesSaved = !showSavedOnly || bookmarks.includes(tool.name);
 
-    return matchesSearch && matchesScore && matchesSaved;
+    return matchesCategory && matchesSearch && matchesScore && matchesSaved;
   });
 
   const handleSearch = () => {
@@ -338,6 +354,68 @@ export default function AIEthicsTools() {
           </div>
 
           <div className="border-t border-[#D5E3D9] pt-4">
+            <p className="mb-2.5 font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-[#187347]">
+              Explore by Category
+            </p>
+            <div
+              role="tablist"
+              aria-label="Filter tools by category"
+              className="flex flex-wrap items-center gap-2"
+            >
+              <button
+                type="button"
+                role="tab"
+                aria-selected={!category}
+                onClick={() => handleSelectCategory(null)}
+                className={`inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
+                  !category
+                    ? "bg-gradient-to-r from-[#3F673C] to-[#187347] text-white shadow-xs"
+                    : "border border-[#94B985] bg-white text-[#284B26] hover:border-[#3F673C] hover:bg-[#EDF4E8]"
+                }`}
+              >
+                <span>All Tools</span>
+                <span
+                  className={`font-mono text-[10px] ${
+                    !category ? "text-[#E9E6B2]" : "text-[#596556]"
+                  }`}
+                >
+                  {loading ? "…" : tools.length}
+                </span>
+              </button>
+
+              {TOOL_CATEGORIES.map((cat) => {
+                const isSelected =
+                  category?.trim().toLowerCase() === cat.toLowerCase();
+                const count = toolsByCategory[cat]?.length ?? 0;
+
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    role="tab"
+                    aria-selected={isSelected}
+                    onClick={() => handleSelectCategory(cat)}
+                    className={`inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all ${
+                      isSelected
+                        ? "bg-gradient-to-r from-[#3F673C] to-[#187347] font-semibold text-white shadow-xs"
+                        : "border border-[#94B985] bg-white text-[#284B26] hover:border-[#3F673C] hover:bg-[#EDF4E8]"
+                    }`}
+                  >
+                    <span>{cat}</span>
+                    <span
+                      className={`font-mono text-[10px] ${
+                        isSelected ? "text-[#E9E6B2]" : "text-[#596556]"
+                      }`}
+                    >
+                      {loading ? "…" : count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="border-t border-[#D5E3D9] pt-4">
             <ToolFilters
               filters={filters}
               onFilterChange={setFilters}
@@ -485,9 +563,15 @@ export default function AIEthicsTools() {
                                   {tool.name}
                                 </h3>
                               </Link>
-                              <span className="font-mono text-[10px] uppercase tracking-wider text-[#596556]">
-                                {scoreTheme.label}
-                              </span>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleSelectCategory(getToolCategory(tool))
+                                }
+                                className="mt-0.5 inline-block cursor-pointer truncate font-mono text-[10px] uppercase tracking-wider text-[#187347] hover:underline"
+                              >
+                                {getToolCategory(tool)}
+                              </button>
                             </div>
                           </div>
 

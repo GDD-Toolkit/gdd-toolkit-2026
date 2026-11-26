@@ -1,22 +1,18 @@
+import {
+  getToolCategory,
+  TOOL_CATEGORIES,
+  type ToolCategory,
+} from "./toolCategories";
 
-export const toolGroups = [
-  "General Purpose",
-  "Image and Video Generators",
-  "Audio Generators",
-  "Research",
-  "Writing and Text",
-  "Another Topic",
-  "Data Analysis",
-  "Education",
-  "Design and Creativity",
-  "Other Tools",
-];
+export const toolGroups: readonly ToolCategory[] = TOOL_CATEGORIES;
 
 export type SearchableAITool = {
   id: number;
   documentId?: string;
   name: string;
   total_score: number;
+  about_section?: string;
+  category?: string | null;
 };
 
 export type SearchResultType =
@@ -33,8 +29,7 @@ export type SearchResult = {
   tools: SearchableAITool[];
 };
 
-const normalize = (value: string) =>
-  value.trim().toLowerCase();
+const normalize = (value: string) => value.trim().toLowerCase();
 
 export function searchDashboard(
   query: string,
@@ -54,9 +49,13 @@ export function searchDashboard(
     normalize(group).includes(normalizedQuery),
   );
 
-  const matchedTools = tools.filter((tool) =>
-    normalize(tool.name).includes(normalizedQuery),
-  );
+  const matchedTools = tools.filter((tool) => {
+    const category = getToolCategory(tool);
+    return (
+      normalize(tool.name).includes(normalizedQuery) ||
+      normalize(category).includes(normalizedQuery)
+    );
+  });
 
   if (matchedCategory && matchedTools.length > 0) {
     return {

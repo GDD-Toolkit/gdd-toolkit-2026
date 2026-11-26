@@ -192,7 +192,7 @@ export default function ModuleTeamsCarousel() {
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-[#596556] sm:text-base">
             Each toolkit module is built by a dedicated UMD FIRE research
-            squad—structured around a{" "}
+            squad, structured around a{" "}
             <span className="font-semibold text-[#284B26]">
               Peer Research Mentor (PRM)
             </span>{" "}

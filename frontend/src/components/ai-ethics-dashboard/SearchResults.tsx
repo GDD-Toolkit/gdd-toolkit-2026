@@ -5,6 +5,7 @@ import {
   EDITORIAL_SERIF_STYLE,
 } from "@/components/editorial/EditorialPagePrimitives";
 import type { SearchableAITool } from "../../pages/ai-ethics-dashboard/data/searchTools";
+import { getToolCategory } from "../../pages/ai-ethics-dashboard/data/toolCategories";
 
 type SearchResultsProps = {
   query: string;
@@ -164,8 +165,9 @@ export default function SearchResults({
                     <p className="truncate text-sm font-semibold text-[#202B20] group-hover:text-[#187347]">
                       {tool.name}
                     </p>
-                    <p className="text-xs text-[#596556]">
-                      Ethicality Score: {tool.total_score}/50
+                    <p className="truncate text-xs text-[#596556]">
+                      {getToolCategory(tool)} &middot; Ethicality Score:{" "}
+                      {tool.total_score}/50
                     </p>
                   </div>
                 </div>

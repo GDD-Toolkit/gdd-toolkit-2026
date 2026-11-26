@@ -84,7 +84,7 @@ const TOOLS: Tool[] = [
   },
   {
     name: "Garvin's 8",
-    summary: "Quality dimensions overview—module summary and examples coming soon.",
+    summary: "Quality dimensions overview: module summary and examples coming soon.",
     href: "#",
     icon: ICONS.chart,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"

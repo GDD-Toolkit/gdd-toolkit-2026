@@ -376,7 +376,7 @@ export default function GeopoliticalAnalysis() {
             Analysis
           </>
         }
-        subtitle="Compare World Bank regions and nations across all seven worthwhile development values—helping practitioners ground ethical project design in real regional context."
+        subtitle="Compare World Bank regions and nations across all seven worthwhile development values, helping practitioners ground ethical project design in real regional context."
         actions={
           <>
             <button

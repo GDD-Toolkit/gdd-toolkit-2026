@@ -32,7 +32,7 @@ const timelineEvents = [
     year: "1948",
     title: "International Manuscript",
     description:
-      "The UN publishes the Universal Declaration of Human Rights — a global standard for equality and dignity. This document was called the “Universal Declaration of Human Rights” and merely outlined standards for human rights from an international perspective.",
+      "The UN publishes the Universal Declaration of Human Rights, a global standard for equality and dignity. This document was called the “Universal Declaration of Human Rights” and merely outlined standards for human rights from an international perspective.",
   },
   {
     year: "1997",

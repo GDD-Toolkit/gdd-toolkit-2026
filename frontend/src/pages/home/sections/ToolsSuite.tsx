@@ -26,7 +26,7 @@ const SIX_TOOLS = [
     code: "03 · INTERACTIVE EXPLORER",
     title: "Ethics of Innovation",
     description:
-      "Master the 9 Principles for Digital Development—from Designing with Users to Open Standards and Privacy.",
+      "Master the 9 Principles for Digital Development, from Designing with Users to Open Standards and Privacy.",
     cta: "Explore 9 Principles",
     href: "/ethics-of-innovation",
     Icon: Compass,
@@ -126,7 +126,7 @@ export default function ToolsSuite() {
             <p className="text-sm leading-relaxed text-[#394838] sm:text-base">
               Turn guided questionnaire responses into a polished,
               values-aligned PDF project proposal grounded in global development
-              case studies—highlighting ethical risks, affected stakeholders,
+              case studies, highlighting ethical risks, affected stakeholders,
               and recommended design pathways in minutes.
             </p>
 
@@ -155,7 +155,7 @@ export default function ToolsSuite() {
               className="mt-1.5 text-lg font-semibold text-[#202B20]"
               style={{ fontFamily: '"Noto Serif", Georgia, serif' }}
             >
-              Clean Water Micro-Grid — Rift Valley
+              Clean Water Micro-Grid: Rift Valley
             </h4>
             <div className="mt-3 flex flex-wrap gap-1.5">
               <span className="rounded-full border border-[#94B985] bg-[#EDF4E8] px-2.5 py-0.5 text-[11px] font-medium text-[#187347]">

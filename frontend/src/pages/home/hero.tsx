@@ -39,7 +39,7 @@ export default function Hero() {
           <p className="max-w-xl text-base leading-relaxed text-[#E8F0E5] sm:text-lg">
             A free, open-access platform uniting practical tools, AI-guided
             proposal generation, and student-led global development
-            research—built to expand human capabilities and prevent
+            research, built to expand human capabilities and prevent
             maldevelopment.
           </p>
 

@@ -12,7 +12,7 @@ const values = [
   {
     title: "Equality",
     description:
-      "Design and evaluate interventions to close gaps in outcomes and opportunity. Address structural barriers that disproportionately affect marginalized groups and track distributional effects—not only averages.",
+      "Design and evaluate interventions to close gaps in outcomes and opportunity. Address structural barriers that disproportionately affect marginalized groups and track distributional effects, not only averages.",
     icon: "equality",
   },
   {
@@ -165,7 +165,7 @@ export default function Worthwhile() {
           <div className="wd-intro-heading">
             <h2>
               A people-centered approach to development that avoids
-              disempowerment, reduces inequality, and strengthens communities —
+              disempowerment, reduces inequality, and strengthens communities,
               guided by seven key values.
             </h2>
           </div>

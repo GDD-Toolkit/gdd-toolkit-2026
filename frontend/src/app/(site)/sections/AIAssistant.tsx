@@ -30,7 +30,7 @@ export default function AIAssistant() {
           viewport={{ once: true }}
           className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed"
         >
-          Our AI Assistant automatically generates a polished, values-aligned project proposal based on your responses to our guided questionnaire and insights drawn from our curated database of global development case studies. By combining structured inputs with evidence-based examples, it produces a customized PDF proposal that highlights risks, ethical considerations, affected stakeholders, and recommended design pathways—helping practitioners plan responsible, human-centered projects in minutes.
+          Our AI Assistant automatically generates a polished, values-aligned project proposal based on your responses to our guided questionnaire and insights drawn from our curated database of global development case studies. By combining structured inputs with evidence-based examples, it produces a customized PDF proposal that highlights risks, ethical considerations, affected stakeholders, and recommended design pathways, helping practitioners plan responsible, human-centered projects in minutes.
         </motion.p>
 
         <motion.button
