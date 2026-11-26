@@ -344,3 +344,51 @@ Body: ${snippet}`
   const json = await response.json();
   return Array.isArray(json.data) ? json.data : [];
 }
+
+
+export async function getAITools() {
+  const baseUrl = getStrapiBaseUrl();
+  const apiBase = baseUrl.endsWith("/api")
+    ? baseUrl
+    : `${baseUrl}/api`;
+
+  const allTools = [];
+  let page = 1;
+  let pageCount = 1;
+
+  do {
+    const params = new URLSearchParams({
+      populate: "*",
+      "pagination[page]": String(page),
+      "pagination[pageSize]": "25",
+      sort: "id:asc",
+    });
+
+    const response = await fetch(
+      `${apiBase}/ai-tools?${params}`,
+      {
+        method: "GET",
+        signal: AbortSignal.timeout(15000),
+      }
+    );
+
+    if (!response.ok) {
+      const body = await response.text().catch(() => "");
+
+      throw new Error(
+        `Failed to fetch AI tools. Status: ${response.status}. Body: ${body.slice(0, 200)}`
+      );
+    }
+
+    const json = await response.json();
+
+    if (Array.isArray(json.data)) {
+      allTools.push(...json.data);
+    }
+
+    pageCount = json.meta?.pagination?.pageCount ?? 1;
+    page++;
+  } while (page <= pageCount);
+
+  return allTools;
+}

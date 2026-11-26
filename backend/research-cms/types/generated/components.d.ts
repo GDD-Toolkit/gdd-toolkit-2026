@@ -302,6 +302,8 @@ export interface SharedTeammates extends Struct.ComponentSchema {
     displayName: 'teammates';
   };
   attributes: {
+    full_body_photo: Schema.Attribute.Media<'images'>;
+    headshot: Schema.Attribute.Media<'images'>;
     member_name: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }

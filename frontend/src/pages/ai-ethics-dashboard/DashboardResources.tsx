@@ -1,5 +1,11 @@
 import { useState } from "react";
-
+/**
+ * TODO: Replace placeholder resource content with the
+ * final methodology document and infographics provided
+ * by the AI Ethics module.
+ *
+ * See README.md for additional handoff information.
+ */
 export default function DashboardResources() {
   const [showSupportingDocument, setShowSupportingDocument] = useState(false);
   const [showCommunityResource, setShowCommunityResource] = useState(false);

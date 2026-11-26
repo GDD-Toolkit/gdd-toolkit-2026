@@ -180,6 +180,13 @@ export default function Footer() {
             University of Maryland FIRE
           </span>
           <nav className="flex items-center gap-4 text-[#B8C7B4]">
+            <Link
+              to="/terms"
+              className="transition-colors hover:text-[#E9E6B2]"
+            >
+              Terms of Use
+            </Link>
+            <span aria-hidden="true">&middot;</span>
             <a
               href="/Privacy_Statement.pdf"
               target="_blank"
