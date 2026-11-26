@@ -38,6 +38,155 @@ function getStrapiBaseUrl(): string {
   return url.replace(/\/$/, "");
 }
 
+export type StrapiTeammate = {
+  id?: number;
+  member_name?: string | null;
+};
+
+export type StrapiTeam = {
+  id?: number;
+  documentId?: string;
+  Team_name?: string | null;
+  purpose?: string | null;
+  description?: string | null;
+  teammates?: StrapiTeammate[] | null;
+  attributes?: {
+    Team_name?: string | null;
+    purpose?: string | null;
+    description?: string | null;
+    teammates?: StrapiTeammate[] | null;
+  };
+};
+
+export type StrapiCohort = {
+  id?: number;
+  documentId?: string;
+  year?: number | null;
+  teams?: StrapiTeam[] | { data?: StrapiTeam[] } | null;
+  attributes?: {
+    year?: number | null;
+    teams?: StrapiTeam[] | { data?: StrapiTeam[] } | null;
+  };
+};
+
+function unwrapStrapiTeams(
+  raw: StrapiTeam[] | { data?: StrapiTeam[] } | null | undefined,
+): StrapiTeam[] {
+  if (Array.isArray(raw)) return raw;
+  if (raw && Array.isArray(raw.data)) return raw.data;
+  return [];
+}
+
+/**
+ * Fetch all published Cohorts from Strapi with nested Teams and Teammates,
+ * sorted in descending year order (newest cohort first).
+ *
+ * Uses deep populate (`populate[teams][populate][teammates]=true`) for Strapi v5,
+ * and merges from `/api/teams?populate=*` if a Strapi instance omits nested teammates.
+ */
+export async function getCohortsWithTeams(
+  signal?: AbortSignal,
+): Promise<StrapiCohort[]> {
+  const baseUrl = getStrapiBaseUrl();
+  const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+
+  const cohorts: StrapiCohort[] = [];
+  let page = 1;
+  let pageCount = 1;
+
+  do {
+    const query = new URLSearchParams({
+      "populate[teams][populate][teammates]": "true",
+      "sort[0]": "year:desc",
+      "pagination[page]": String(page),
+      "pagination[pageSize]": "100",
+    });
+    const url = `${apiBase}/coherts?${query.toString()}`;
+    const response = await fetch(url, { method: "GET", signal });
+
+    if (!response.ok) {
+      const body = await response.text().catch(() => "");
+      const snippet = body.slice(0, 200).replace(/\s+/g, " ").trim();
+      throw new Error(
+        `Failed to fetch cohorts with teams.\nURL: ${url}\nStatus: ${response.status} ${response.statusText}\nBody: ${snippet}`,
+      );
+    }
+
+    const json = await response.json();
+    const batch = Array.isArray(json?.data) ? (json.data as StrapiCohort[]) : [];
+    cohorts.push(...batch);
+
+    const count = json?.meta?.pagination?.pageCount;
+    pageCount = Number.isInteger(count) && count > 0 ? count : 1;
+    page += 1;
+  } while (page <= pageCount);
+
+  // Check whether any team lacked nested teammates; if so, enrich from /api/teams?populate=*
+  const needsTeamHydration = cohorts.some((cohort) => {
+    const teams = unwrapStrapiTeams(cohort.teams ?? cohort.attributes?.teams);
+    return teams.some((team) => {
+      const mates = team.teammates ?? team.attributes?.teammates;
+      return !Array.isArray(mates);
+    });
+  });
+
+  if (needsTeamHydration) {
+    try {
+      const teamQuery = new URLSearchParams({
+        populate: "*",
+        "pagination[pageSize]": "100",
+      });
+      const teamRes = await fetch(`${apiBase}/teams?${teamQuery.toString()}`, {
+        method: "GET",
+        signal,
+      });
+      if (teamRes.ok) {
+        const teamJson = await teamRes.json();
+        const allTeams: StrapiTeam[] = Array.isArray(teamJson?.data)
+          ? teamJson.data
+          : [];
+        const byDocId = new Map<string, StrapiTeam>();
+        const byId = new Map<number, StrapiTeam>();
+        for (const t of allTeams) {
+          if (t.documentId) byDocId.set(t.documentId, t);
+          if (typeof t.id === "number") byId.set(t.id, t);
+        }
+        for (const cohort of cohorts) {
+          const teams = unwrapStrapiTeams(
+            cohort.teams ?? cohort.attributes?.teams,
+          );
+          const merged = teams.map((team) => {
+            const mates = team.teammates ?? team.attributes?.teammates;
+            if (Array.isArray(mates)) return team;
+            const full =
+              (team.documentId ? byDocId.get(team.documentId) : undefined) ??
+              (typeof team.id === "number" ? byId.get(team.id) : undefined);
+            if (!full) return team;
+            return {
+              ...team,
+              Team_name:
+                team.Team_name ??
+                team.attributes?.Team_name ??
+                full.Team_name ??
+                full.attributes?.Team_name,
+              teammates: full.teammates ?? full.attributes?.teammates ?? [],
+            };
+          });
+          cohort.teams = merged;
+        }
+      }
+    } catch {
+      // Non-fatal: keep whatever cohort/team data we already received.
+    }
+  }
+
+  return cohorts.sort((a, b) => {
+    const yearA = Number(a.year ?? a.attributes?.year ?? 0);
+    const yearB = Number(b.year ?? b.attributes?.year ?? 0);
+    return yearB - yearA;
+  });
+}
+
 /**
  * Fetch all Cohorts from Strapi.
  *
