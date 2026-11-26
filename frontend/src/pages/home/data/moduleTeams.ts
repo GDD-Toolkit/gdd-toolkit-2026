@@ -41,7 +41,7 @@ const MODULE_METADATA: Record<string, ModuleMetadata> = {
     toolHref: "https://main.dn6y4rvhmhz3f.amplifyapp.com/",
     toolExternal: true,
     purpose:
-      "Builds and trains the AI Business Ethics Canvas—transforming guided practitioner prompts and curated case studies into customized, values-aligned PDF project proposals.",
+      "Builds and trains the AI Business Ethics Canvas, transforming guided practitioner prompts and curated case studies into customized, values-aligned PDF project proposals.",
     prmFocus:
       "Leads sprint direction, AI proposal architecture & student mentorship.",
   },
@@ -68,7 +68,7 @@ const MODULE_METADATA: Record<string, ModuleMetadata> = {
     toolName: "Project Planning",
     toolHref: "/project-planning",
     purpose:
-      "Curates practical project methodologies—including Agile, Lean, DMAIC, Waterfall, and Journey Mapping—paired with ethical accountability checklists.",
+      "Curates practical project methodologies, including Agile, Lean, DMAIC, Waterfall, and Journey Mapping, paired with ethical accountability checklists.",
     prmFocus:
       "Guides planning framework curation, keyword matching & milestone checklists.",
   },
@@ -113,7 +113,7 @@ const MODULE_METADATA: Record<string, ModuleMetadata> = {
     toolName: "Ethics of Innovation",
     toolHref: "/ethics-of-innovation",
     purpose:
-      "Researches the 9 Principles for Digital Development—covering open standards, privacy, scale, and sustainability for ethical technology design.",
+      "Researches the 9 Principles for Digital Development, covering open standards, privacy, scale, and sustainability for ethical technology design.",
     prmFocus:
       "Mentors digital ethics case research & interactive principle checklists.",
   },

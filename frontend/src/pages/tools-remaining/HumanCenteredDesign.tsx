@@ -451,7 +451,7 @@ export default function HumanCenteredDesign() {
               creating projects, products, and policies that starts with people
               and stays with them throughout the entire design process. Instead
               of designing for communities from a distance, HCD focuses on
-              designing with them—listening to their experiences, inviting their
+              designing with them, listening to their experiences, inviting their
               input, and treating them as experts in their own lives.
             </p>
             <p>

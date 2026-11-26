@@ -190,7 +190,7 @@ const ProjectEvaluation: React.FC = () => {
             <em className="font-normal italic text-[#E9E6B2]">Evaluation</em>
           </>
         }
-        subtitle="Assess the ethicality of development projects, programs, and policies using Jay Drydyk’s 7 Values of Worthwhile Development—grounded in a normative, percent-scale rubric."
+        subtitle="Assess the ethicality of development projects, programs, and policies using Jay Drydyk’s 7 Values of Worthwhile Development, grounded in a normative, percent-scale rubric."
         actions={
           <>
             <a

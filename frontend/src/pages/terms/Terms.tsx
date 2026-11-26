@@ -14,7 +14,7 @@ const content = {
     language: "Language",
     home: "Home",
     title: "Terms of Use",
-    draft: "DRAFT — PENDING UMD COUNSEL REVIEW",
+    draft: "DRAFT: PENDING UMD COUNSEL REVIEW",
     updated: "Last updated: Pending approval",
     intro:
       "These draft Terms describe the proposed rules for using the Development Ethics Toolkit. They are not final and must be reviewed and approved by University of Maryland counsel before publication as official terms.",
@@ -63,7 +63,7 @@ const content = {
     language: "Idioma",
     home: "Inicio",
     title: "Términos de uso",
-    draft: "BORRADOR — PENDIENTE DE REVISIÓN JURÍDICA DE UMD",
+    draft: "BORRADOR: PENDIENTE DE REVISIÓN JURÍDICA DE UMD",
     updated: "Última actualización: Pendiente de aprobación",
     intro:
       "Este borrador describe las reglas propuestas para utilizar el Development Ethics Toolkit. No es definitivo y debe ser revisado y aprobado por el asesoramiento jurídico de la Universidad de Maryland antes de publicarse como términos oficiales.",

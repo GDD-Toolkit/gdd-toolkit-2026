@@ -194,7 +194,7 @@ export default function CaseStudies() {
             </span>
           </div>
           <h1 className="font-editorial text-4xl md:text-5xl font-semibold tracking-tight text-white">Case <em className="font-normal italic text-[#E9E6B2]">Studies</em></h1>
-          <div className="text-base md:text-lg leading-relaxed text-[#E8F0E5]">This tool includes a dedicated library of case studies that highlight both exemplary development practices and real-world instances of maldevelopment. These cases give users a grounded understanding of how ethical challenges unfold in practice—and how values-based, human-centered approaches can lead to better outcomes. By learning from successes and missteps alike, users of our toolkit can more confidently apply these lessons and principles to their own projects.</div>
+          <div className="text-base md:text-lg leading-relaxed text-[#E8F0E5]">This tool includes a dedicated library of case studies that highlight both exemplary development practices and real-world instances of maldevelopment. These cases give users a grounded understanding of how ethical challenges unfold in practice, and how values-based, human-centered approaches can lead to better outcomes. By learning from successes and missteps alike, users of our toolkit can more confidently apply these lessons and principles to their own projects.</div>
           <div className="text-sm md:text-base text-[#E8F0E5]"> See the <a
                         href="/projectevaloldinternal.pdf"
                         target="_blank"

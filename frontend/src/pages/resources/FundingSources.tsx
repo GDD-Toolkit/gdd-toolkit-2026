@@ -250,7 +250,7 @@ export default function FundingSources() {
             <em className="font-normal italic text-[#E9E6B2]">Funding</em> Sources Tracker
           </>
         }
-        subtitle="Discover open grants, fellowships, and funding calls for global development practitioners—gathered from verified public funders and searchable by deadline, amount, and ethical alignment."
+        subtitle="Discover open grants, fellowships, and funding calls for global development practitioners, gathered from verified public funders and searchable by deadline, amount, and ethical alignment."
         footnote="Automated nightly ingestion · Searchable across SDGs, development values, and regions"
         aside={
           <MetricBadges

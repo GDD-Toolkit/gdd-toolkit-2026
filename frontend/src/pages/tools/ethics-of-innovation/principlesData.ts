@@ -98,7 +98,7 @@ export const DIGITAL_PRINCIPLES: DigitalPrincipleDetail[] = [
         citationPrefix: "Grocki, M. (2014). ",
         linkLabel: "How to create a Customer Journey Map",
         linkHref: "https://www.youtube.com/watch?v=mSxpVRo3BLg&t=175s",
-        citationSuffix: " — UX Mastery, YouTube.",
+        citationSuffix: ", UX Mastery, YouTube.",
         description:
           "In this short video, Megan Grocki details the step-by-step process of thinking through customer journey mapping. While the resource uses a market, for-profit driven example, the same process is useful to explore user experience for developing project deliverables.",
         embedUrl: "https://www.youtube.com/embed/mSxpVRo3BLg?start=175",
@@ -109,7 +109,7 @@ export const DIGITAL_PRINCIPLES: DigitalPrincipleDetail[] = [
         eyebrow: "Video guide",
         linkLabel: "What is an Empathy Map?",
         linkHref: "https://www.youtube.com/watch?v=QwF9a56WFWA",
-        citationSuffix: " — PlaybookUX, YouTube.",
+        citationSuffix: ", PlaybookUX, YouTube.",
         description:
           "This video by PlaybookUX provides a guide to empathy mapping strategies in order to understand and later be able to build a relationship with the recipients of the project.",
         embedUrl: "https://www.youtube.com/embed/QwF9a56WFWA",
@@ -121,9 +121,9 @@ export const DIGITAL_PRINCIPLES: DigitalPrincipleDetail[] = [
         citationPrefix: "Altitude (2017). ",
         linkLabel: "Design Thinking Video from MIT and Altitude",
         linkHref: "https://www.youtube.com/watch?v=kq2kd3CXi1o",
-        citationSuffix: " — YouTube.",
+        citationSuffix: ", YouTube.",
         description:
-          "This resource takes an inside journey through MIT and Altitude’s process of designing a functional walker for the elderly. It gives a good look at the interview and review process with the very demographic the product is intended for. By interacting one-on-one with potential consumers, Altitude and MIT make sure that the product truly suits their needs. Though ethical development projects may have different needs and aims than companies with a for-profit mission, we can use some of the same considerations that help involve the consumer as for-profit and industry-driven products — because in the end, we are designing a product or service that should be functional and something people feel ownership of and want to use.",
+          "This resource takes an inside journey through MIT and Altitude’s process of designing a functional walker for the elderly. It gives a good look at the interview and review process with the very demographic the product is intended for. By interacting one-on-one with potential consumers, Altitude and MIT make sure that the product truly suits their needs. Though ethical development projects may have different needs and aims than companies with a for-profit mission, we can use some of the same considerations that help involve the consumer as for-profit and industry-driven products, because in the end, we are designing a product or service that should be functional and something people feel ownership of and want to use.",
         embedUrl: "https://www.youtube.com/embed/kq2kd3CXi1o",
         embedTitle: "Design Thinking Video from MIT and Altitude",
       },
@@ -503,7 +503,7 @@ export const DIGITAL_PRINCIPLES: DigitalPrincipleDetail[] = [
       {
         heading: "IDEO Asili Project",
         eyebrow: "Case study",
-        linkLabel: "Design Kit — Asili Project Case Study",
+        linkLabel: "Design Kit: Asili Project Case Study",
         linkHref: "https://www.designkit.org/case-studies/6",
         description:
           "In the Asili Project, the team addressed privacy and security by being transparent about their project with community members. The project minimized the collection of information to key details surrounding the project and ensured that the outcome would be in the best interest of the community members only.",

@@ -272,7 +272,7 @@ export default function AIEthicsDashboard() {
             <em className="font-normal italic text-[#E9E6B2]">Dashboard</em>
           </>
         }
-        subtitle="Discover and explore AI tools for ethical research and project development—evaluated live across viability, bias mitigation, privacy, transparency, and low-tech readiness."
+        subtitle="Discover and explore AI tools for ethical research and project development, evaluated live across viability, bias mitigation, privacy, transparency, and low-tech readiness."
         actions={
           <div className="flex w-full max-w-2xl flex-col gap-4">
             {/* Live Search Bar + Animated Dropdown */}
@@ -585,7 +585,7 @@ export default function AIEthicsDashboard() {
           eyebrow="02 / Research & Methodology"
           title="How Ethicality Scores Are Built"
           titleId="resources-heading"
-          description="Every rating is grounded in the GDD Toolkit's student-led research rubric—openly documented for educators, researchers, and field practitioners."
+          description="Every rating is grounded in the GDD Toolkit's student-led research rubric, openly documented for educators, researchers, and field practitioners."
         />
 
         <div className="mt-10">

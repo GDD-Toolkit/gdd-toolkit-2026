@@ -132,7 +132,7 @@ const PLATFORM_DESTINATIONS = [
     eyebrow: "02 · 9 PRINCIPLES",
     title: "Ethics of Innovation",
     description:
-      "Interactive explorer for the Principles for Digital Development—from user design to privacy and open standards.",
+      "Interactive explorer for the Principles for Digital Development, from user design to privacy and open standards.",
     href: "/ethics-of-innovation",
     Icon: Compass,
   },
@@ -304,7 +304,7 @@ export default function AboutPage() {
                 have built an open-access suite spanning AI ethics benchmarking,
                 3D geopolitical indicator analysis, human-centered design kits,
                 planning methodology matchers, ethical evaluation rubrics, and
-                real-world case studies—free for students, NGOs, policymakers,
+                real-world case studies, free for students, NGOs, policymakers,
                 and community leaders alike.
               </p>
             </div>
@@ -314,8 +314,8 @@ export default function AboutPage() {
                 How Our Research Squads Work
               </p>
               <p className="mt-1.5 text-xs leading-relaxed text-[#394838] sm:text-sm">
-                Each year, specialized module teams—led by returning Peer
-                Research Mentors—conduct primary research, partner with global
+                Each year, specialized module teams, led by returning Peer
+                Research Mentors, conduct primary research, partner with global
                 counterparts, and ship open-access updates directly to this
                 platform.
               </p>

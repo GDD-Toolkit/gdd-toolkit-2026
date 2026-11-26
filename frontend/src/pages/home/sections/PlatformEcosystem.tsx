@@ -160,7 +160,7 @@ export default function PlatformEcosystem() {
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-[#596556]">
                 Discover open grants, fellowships, and funding calls from
-                verified public international funders—searchable by amount,
+                verified public international funders, searchable by amount,
                 deadline, and thematic alignment.
               </p>
 

@@ -846,7 +846,7 @@ const Acknowledgements: React.FC = () => {
           align="center"
           description={
             <>
-              Browse every UMD FIRE research cohort from 2020 to 2025—featuring{" "}
+              Browse every UMD FIRE research cohort from 2020 to 2025, featuring{" "}
               <span className="font-semibold text-[#284B26]">
                 Peer Research Mentors (PRMs)
               </span>{" "}
