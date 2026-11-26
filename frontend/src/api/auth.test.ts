@@ -96,6 +96,7 @@ describe("register", () => {
     expect(body).toEqual({
       username: "ada@example.com",
       email: "ada@example.com",
+      termsAccepted: true,
       password: "secret123",
       firstName: "Ada",
       lastName: "Lovelace",

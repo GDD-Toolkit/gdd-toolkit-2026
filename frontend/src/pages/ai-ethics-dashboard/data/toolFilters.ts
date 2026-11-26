@@ -25,7 +25,7 @@ export const priceTypes = [
 ];
 
 export const scoreTypes = [
-  "90–100",
-  "70–89",
-  "Below 70",
+  "45–50",
+  "35–44",
+  "Below 35",
 ];

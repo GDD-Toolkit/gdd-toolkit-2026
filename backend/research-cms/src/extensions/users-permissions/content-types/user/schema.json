@@ -81,6 +81,10 @@
       "type": "string",
       "maxLength": 200
     },
+    "termsAccepted": {
+      "type": "boolean",
+      "default": false
+    },
     "bio": {
       "type": "text",
       "maxLength": 1000

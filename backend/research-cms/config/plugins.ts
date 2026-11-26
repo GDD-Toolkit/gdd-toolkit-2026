@@ -75,7 +75,7 @@ const config = ({
         // in the body is rejected by Strapi with "Invalid parameters".
         // Role is never accepted: new users always get the default role (Student).
         register: {
-          allowedFields: ["firstName", "lastName", "institution", "department"],
+          allowedFields: ["firstName", "lastName", "institution", "department", "termsAccepted"],
         },
       },
     },

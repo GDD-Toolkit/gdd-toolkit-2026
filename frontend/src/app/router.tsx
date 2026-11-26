@@ -69,12 +69,14 @@ const AuthCallback = lazy(() => import("@/pages/auth/AuthCallback"));
 const ResetPassword = lazy(() => import("@/pages/auth/ResetPassword"));
 const EmailConfirmed = lazy(() => import("@/pages/auth/EmailConfirmed"));
 const AccountPage = lazy(() => import("@/pages/account/Account"));
+const TermsPage = lazy(() => import("@/pages/terms/Terms"));
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
+      { path: "terms", element: <TermsPage /> },
       { path: "ai-ethics-dashboard", element: <AIEthicsDashboard /> },
       { path: "ai-ethics-dashboard/tools", element: <AIEthicsTools /> },
       { path: "ai-ethics-dashboard/tool", element: <AIEthicsTool /> },

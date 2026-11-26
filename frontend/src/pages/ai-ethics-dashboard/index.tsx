@@ -4,7 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import DashboardResources from "./DashboardResources";
 import ToolSearch from "../../components/ai-ethics-dashboard/ToolSearch";
 import SearchResults from "../../components/ai-ethics-dashboard/SearchResults";
-import { searchDashboard, toolGroups } from "./data/searchTools";
+import {
+  searchDashboard,
+  toolGroups,
+  type SearchableAITool,
+} from "./data/searchTools";
+
+import { getAITools } from "../../api/strapi";
 
 export default function AIEthicsDashboard() {
   const navigate = useNavigate();
@@ -23,7 +29,41 @@ export default function AIEthicsDashboard() {
 
   const searchContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const searchResult = searchDashboard(search);
+  const [tools, setTools] = useState<SearchableAITool[]>([]);
+  const [toolsLoading, setToolsLoading] = useState(true);
+  const [toolsError, setToolsError] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadTools() {
+      try {
+        const data = await getAITools();
+
+        if (!cancelled) {
+          setTools(data as SearchableAITool[]);
+        }
+      } catch (err) {
+        console.error("Failed to load AI tools:", err);
+
+        if (!cancelled) {
+          setToolsError("Unable to load AI tools.");
+        }
+      } finally {
+        if (!cancelled) {
+          setToolsLoading(false);
+        }
+      }
+    }
+
+    loadTools();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const searchResult = searchDashboard(search, tools);
 
   const faqs = [
     {
@@ -176,14 +216,24 @@ export default function AIEthicsDashboard() {
 
           {showSearchResults && search.trim() && (
             <div className="absolute left-1/2 top-full z-30 w-full max-w-3xl -translate-x-1/2">
-              <SearchResults
-                query={search}
-                category={searchResult.category}
-                tools={searchResult.tools}
-                onCategoryClick={handleCategoryClick}
-                onToolClick={handleToolClick}
-                onViewAll={handleViewAll}
-              />
+              {toolsLoading ? (
+                <div className="mt-2 rounded-xl border bg-white p-5 shadow-lg">
+                  Loading AI tools...
+                </div>
+              ) : toolsError ? (
+                <div className="mt-2 rounded-xl border bg-white p-5 shadow-lg text-red-600">
+                  {toolsError}
+                </div>
+              ) : (
+                <SearchResults
+                  query={search}
+                  category={searchResult.category}
+                  tools={searchResult.tools}
+                  onCategoryClick={handleCategoryClick}
+                  onToolClick={handleToolClick}
+                  onViewAll={handleViewAll}
+                />
+              )}
             </div>
           )}
         </div>

@@ -1,4 +1,3 @@
-import { tools, type AITool } from "./aiTools";
 
 export const toolGroups = [
   "General Purpose",
@@ -13,6 +12,13 @@ export const toolGroups = [
   "Other Tools",
 ];
 
+export type SearchableAITool = {
+  id: number;
+  documentId?: string;
+  name: string;
+  total_score: number;
+};
+
 export type SearchResultType =
   | "category"
   | "tool"
@@ -24,12 +30,16 @@ export type SearchResult = {
   type: SearchResultType;
   query: string;
   category?: string;
-  tools: AITool[];
+  tools: SearchableAITool[];
 };
 
-const normalize = (value: string) => value.trim().toLowerCase();
+const normalize = (value: string) =>
+  value.trim().toLowerCase();
 
-export function searchDashboard(query: string): SearchResult {
+export function searchDashboard(
+  query: string,
+  tools: SearchableAITool[],
+): SearchResult {
   const normalizedQuery = normalize(query);
 
   if (!normalizedQuery) {
@@ -40,45 +50,14 @@ export function searchDashboard(query: string): SearchResult {
     };
   }
 
-  /*
-   * Check whether the search matches one of the main dashboard blocks.
-   */
   const matchedCategory = toolGroups.find((group) =>
     normalize(group).includes(normalizedQuery),
   );
 
-  /*
-   * Search tool information.
-   *
-   * A tool matches if the query appears in:
-   * - tool name
-   * - category
-   * - tool type
-   * - research
-   * - project development
-   * - price
-   * - score
-   */
-  const matchedTools = tools.filter((tool) => {
-    const searchableInformation = [
-      tool.name,
-      tool.category,
-      tool.type,
-      tool.research,
-      tool.projectDevelopment,
-      tool.price,
-      String(tool.score),
-    ];
+  const matchedTools = tools.filter((tool) =>
+    normalize(tool.name).includes(normalizedQuery),
+  );
 
-    return searchableInformation.some((value) =>
-      normalize(value).includes(normalizedQuery),
-    );
-  });
-
-  /*
-   * If the query matches both a main-page category
-   * and tool information, go to the Tools page.
-   */
   if (matchedCategory && matchedTools.length > 0) {
     return {
       type: "mixed",
@@ -88,10 +67,6 @@ export function searchDashboard(query: string): SearchResult {
     };
   }
 
-  /*
-   * If only a main-page block matches,
-   * stay on the main dashboard.
-   */
   if (matchedCategory) {
     return {
       type: "category",
@@ -101,10 +76,6 @@ export function searchDashboard(query: string): SearchResult {
     };
   }
 
-  /*
-   * If only tool information / tags match,
-   * go to the Tools page.
-   */
   if (matchedTools.length > 0) {
     return {
       type: "tool",
