@@ -25,6 +25,10 @@
     },
     "linkedin_url": {
       "type": "string"
+    },
+    "is_prm": {
+      "type": "boolean",
+      "default": false
     }
   },
   "config": {}

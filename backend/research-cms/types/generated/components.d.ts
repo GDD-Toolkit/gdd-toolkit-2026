@@ -304,6 +304,7 @@ export interface SharedTeammates extends Struct.ComponentSchema {
   attributes: {
     full_body_photo: Schema.Attribute.Media<'images'>;
     headshot: Schema.Attribute.Media<'images'>;
+    is_prm: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     linkedin_url: Schema.Attribute.String;
     member_name: Schema.Attribute.String & Schema.Attribute.Required;
   };
