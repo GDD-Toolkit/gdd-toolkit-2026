@@ -76,26 +76,57 @@ export default function AIEthicsTools() {
       cancelled = true;
     };
   }, []);
-
+  /**
+   * TODO: Future developers
+   *
+   * Category, Tool Type, Research, Project Development,
+   * and Price filters require additional Strapi fields.
+   *
+   * The filter UI is implemented, but the corresponding
+   * classification data is not currently available.
+   *
+   * Coordinate with the AI Ethics module before implementing
+   * the remaining filter logic.
+   *
+   * See ../README.md for the developer handoff notes.
+   */
   const filteredTools = tools.filter((tool) => {
     const normalizedSearch = search.trim().toLowerCase();
 
-    return normalizedSearch
-      ? tool.name?.toLowerCase().includes(normalizedSearch)
-      : true;
+    const matchesSearch =
+      !normalizedSearch || tool.name.toLowerCase().includes(normalizedSearch);
+
+    const score = tool.total_score;
+    let matchesScore = true;
+
+    switch (filters.score) {
+      case "45–50":
+        matchesScore = score >= 45 && score <= 50;
+        break;
+
+      case "35–44":
+        matchesScore = score >= 35 && score <= 44;
+        break;
+
+      case "Below 35":
+        matchesScore = score < 35;
+        break;
+    }
+
+    return matchesSearch && matchesScore;
   });
 
   const handleSearch = () => {
     const query = search.trim();
+    const nextParams = new URLSearchParams(searchParams);
 
-    if (!query) {
-      const nextParams = new URLSearchParams(searchParams);
+    if (query) {
+      nextParams.set("search", query);
+    } else {
       nextParams.delete("search");
-      setSearchParams(nextParams);
-      return;
     }
 
-    setSearchParams({ search: query });
+    setSearchParams(nextParams);
   };
 
   return (

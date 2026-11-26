@@ -1,11 +1,11 @@
-import type { AITool } from "../../pages/ai-ethics-dashboard/data/aiTools";
+import type { SearchableAITool } from "../../pages/ai-ethics-dashboard/data/searchTools";
 
 type SearchResultsProps = {
   query: string;
   category?: string;
-  tools: AITool[];
+  tools: SearchableAITool[];
   onCategoryClick: () => void;
-  onToolClick: (tool: AITool) => void;
+  onToolClick: (tool: SearchableAITool) => void;
   onViewAll: () => void;
 };
 
@@ -77,7 +77,7 @@ export default function SearchResults({
           <div className="mt-2">
             {tools.slice(0, 5).map((tool) => (
               <button
-                key={tool.name}
+                key={tool.documentId || tool.id}
                 type="button"
                 onClick={() => onToolClick(tool)}
                 className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-left hover:bg-gray-100 transition"
@@ -86,9 +86,7 @@ export default function SearchResults({
                   <p className="font-medium text-black">{tool.name}</p>
 
                   <p className="mt-1 text-sm text-gray-500">
-                    {tool.type}
-                    {" · "}
-                    {tool.price}
+                    Ethicality Score: {tool.total_score}/50
                   </p>
                 </div>
 

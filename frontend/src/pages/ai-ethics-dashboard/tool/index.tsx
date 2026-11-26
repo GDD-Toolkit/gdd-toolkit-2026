@@ -41,6 +41,7 @@ type StrapiAITool = {
   price?: {
     url?: string;
   };
+  price_matrix_link?: string | null;
   logo?: Array<{
     url: string;
     formats?: {
@@ -49,6 +50,12 @@ type StrapiAITool = {
     };
   }>;
   ethical_consideration?: EthicalConsideration[];
+  similar_tools?: Array<{
+    id: number;
+    documentId?: string;
+    name: string;
+    total_score?: number;
+  }>;
 };
 
 const considerationFields: {
@@ -246,6 +253,18 @@ export default function AIEthicsTool() {
               <ExternalLink size={18} />
             </a>
           )}
+
+          {tool.price_matrix_link && (
+            <a
+              href={tool.price_matrix_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 ml-3 border border-black rounded-md px-7 py-2 inline-flex items-center gap-2"
+            >
+              View Price Matrix
+              <ExternalLink size={18} />
+            </a>
+          )}
         </div>
 
         {/* Description */}
@@ -360,6 +379,34 @@ export default function AIEthicsTool() {
                       </div>
                     ))}
                 </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Similar Tools */}
+        {(tool.similar_tools?.length ?? 0) > 0 && (
+          <section className="mt-12">
+            <h2 className="text-2xl font-medium">Similar Tools</h2>
+
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {tool.similar_tools?.map((similarTool) => (
+                <Link
+                  key={similarTool.documentId || similarTool.id}
+                  to={`/ai-ethics-dashboard/tool?name=${encodeURIComponent(
+                    similarTool.name,
+                  )}`}
+                  onClick={() => window.scrollTo(0, 0)}
+                  className="bg-gray-200 rounded-md p-6 hover:bg-gray-300 transition"
+                >
+                  <h3 className="text-lg font-medium">{similarTool.name}</h3>
+
+                  {typeof similarTool.total_score === "number" && (
+                    <p className="mt-3 text-gray-700">
+                      Ethicality Score: {similarTool.total_score}/50
+                    </p>
+                  )}
+                </Link>
               ))}
             </div>
           </section>
