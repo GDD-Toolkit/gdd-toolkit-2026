@@ -4,14 +4,21 @@
 @import "@fontsource/noto-serif/600.css";
 
 .hci-scope {
-  --hci-primary: #44693a;
+  --hci-primary: #3f673c;
   --hci-neutral: #e9e6b2;
   --hci-neutral-variant: #6f6057;
   --hci-tertiary: #a2b7d8;
   --hci-secondary: #9ab887;
+  --hci-ink: #202b20;
+  --hci-body: #394838;
+  --hci-muted: #596556;
+  --hci-emerald: #187347;
+  --hci-serif: "Noto Serif", Georgia, Cambria, "Times New Roman", serif;
+  --hci-sans: "Geist Variable", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --hci-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   background: white;
-  color: var(--hci-primary);
-  font-family: "Noto Serif", Georgia, serif;
+  color: var(--hci-ink);
+  font-family: var(--hci-sans);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -25,7 +32,15 @@
 .hci-scope input,
 .hci-scope select,
 .hci-scope textarea {
-  font-family: "Noto Serif", Georgia, serif;
+  font-family: var(--hci-sans);
+}
+
+.hci-scope h1,
+.hci-scope h2,
+.hci-scope h3,
+.hci-scope h4,
+.hci-scope blockquote {
+  font-family: var(--hci-serif);
 }
 
 .hci-scope a {
@@ -3605,4 +3620,118 @@
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* === Site-Wide Editorial Typography Harmony (layout preserved) === */
+
+.hci-scope .hero h1,
+.hci-scope .wd-hero h1,
+.hci-scope .hcd-hero h1,
+.hci-scope .ca-hero h1,
+.hci-scope .eoi-hero h1 {
+  color: #ffffff;
+  font-family: var(--hci-serif);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+.hci-scope .hero h1 em,
+.hci-scope .wd-hero h1 em,
+.hci-scope .hcd-hero h1 em,
+.hci-scope .ca-hero h1 em,
+.hci-scope .eoi-hero h1 em {
+  color: #e9e6b2;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hci-scope .hero-intro,
+.hci-scope .hcd-hero blockquote,
+.hci-scope .ca-hero-intro {
+  color: #e8f0e5;
+}
+
+.hci-scope .hcd-hero cite,
+.hci-scope .scroll-cue,
+.hci-scope .wd-back,
+.hci-scope .eoi-detail-eyebrow,
+.hci-scope .eoi-hero-note,
+.hci-scope .wd-hero-note {
+  font-family: var(--hci-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hci-scope .wd-hero-number,
+.hci-scope .wd-slide-ghost,
+.hci-scope .eoi-hero-disc,
+.hci-scope .ca-year-badge {
+  font-family: var(--hci-serif);
+}
+
+.hci-scope .section-label,
+.hci-scope .article-eyebrow,
+.hci-scope .article-number,
+.hci-scope .visual-word,
+.hci-scope .wd-slide-eyebrow,
+.hci-scope .wd-slide-count,
+.hci-scope .hcd-section-title > span,
+.hci-scope .hcd-model-heading > span,
+.hci-scope .hcd-detail-heading > span,
+.hci-scope .hcd-fields-heading > span,
+.hci-scope .hcd-quiz-heading > span,
+.hci-scope .hcd-question-heading > span,
+.hci-scope .ca-section-heading > span,
+.hci-scope .ca-pioneers-heading > span,
+.hci-scope .ca-human-rights-copy > span,
+.hci-scope .eoi-section-title > span,
+.hci-scope .eoi-principles-heading > span,
+.hci-scope .eoi-detail-summary-copy > span,
+.hci-scope .eoi-detail-checklist-header span,
+.hci-scope .eoi-card-number,
+.hci-scope .eoi-case-eyebrow,
+.hci-scope .eoi-pager-link small {
+  font-family: var(--hci-mono);
+  letter-spacing: 0.14em;
+}
+
+.hci-scope .article-copy h2,
+.hci-scope .wd-intro-heading h2,
+.hci-scope .wd-section-heading h2,
+.hci-scope .wd-value-copy h3,
+.hci-scope .hcd-section-title h2,
+.hci-scope .hcd-model-heading h2,
+.hci-scope .hcd-detail-heading h3,
+.hci-scope .hcd-fields-heading h2,
+.hci-scope .hcd-quiz-heading h2,
+.hci-scope .hcd-question-heading h3,
+.hci-scope .ca-section-heading h2,
+.hci-scope .ca-pioneers-heading h2,
+.hci-scope .ca-human-rights-copy h2,
+.hci-scope .ca-timeline h3,
+.hci-scope .eoi-section-title h2,
+.hci-scope .eoi-principles-heading h2,
+.hci-scope .eoi-detail-summary-copy h2,
+.hci-scope .eoi-detail-checklist-header h2,
+.hci-scope .eoi-card-body h3,
+.hci-scope .eoi-case-copy h3 {
+  font-family: var(--hci-serif);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.hci-scope .wd-intro-copy p,
+.hci-scope .hcd-intro-copy p,
+.hci-scope .hcd-model-heading p,
+.hci-scope .hcd-detail-copy p,
+.hci-scope .hcd-detail-list li,
+.hci-scope .ca-section-heading p,
+.hci-scope .ca-human-rights-copy p,
+.hci-scope .eoi-simulation-copy p,
+.hci-scope .eoi-principles-heading p,
+.hci-scope .eoi-detail-summary-copy p,
+.hci-scope .eoi-case-description {
+  color: var(--hci-body);
+  font-family: var(--hci-sans);
 }

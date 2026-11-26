@@ -26,11 +26,11 @@ function InfoSection({
     <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
       <div className="flex items-center gap-2 mb-2">
         {icon}
-        <h3 className="font-semibold text-gray-900 text-sm">{title}</h3>
+        <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[#284B26]">{title}</h3>
       </div>
       <div className="space-y-1">
         {items.map((item, idx) => (
-          <p key={idx} className="text-sm text-gray-700">{item}</p>
+          <p key={idx} className="text-sm text-[#394838]">{item}</p>
         ))}
       </div>
     </div>
@@ -147,7 +147,7 @@ export default function CaseStudyDetail() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Green Header */}
-      <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-6 px-6 relative">
+      <div className="bg-[#3F673C] text-white py-6 px-6 relative">
         <button
           onClick={() => navigate("/case-studies")}
           className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5"
@@ -155,7 +155,7 @@ export default function CaseStudyDetail() {
           <X className="w-4 h-4" />
           Back
         </button>
-        <h2 className="text-3xl font-bold text-center pr-12">{caseStudy.name}</h2>
+        <h2 className="font-editorial text-3xl font-semibold tracking-tight text-center pr-12">{caseStudy.name}</h2>
       </div>
 
       <div className="max-w-4xl mx-auto">
@@ -205,11 +205,11 @@ export default function CaseStudyDetail() {
               <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
                   <Target className="w-5 h-5 text-red-500" />
-                  <h3 className="font-semibold text-gray-900 text-sm">Sustainable Development Goals</h3>
+                  <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[#284B26]">Sustainable Development Goals</h3>
                 </div>
                 <div className="space-y-1">
                   {(caseStudy.sdgs as (string | number)[]).map((sdg, idx) => (
-                    <p key={idx} className="text-sm text-gray-700">SDG {sdg}</p>
+                    <p key={idx} className="text-sm text-[#394838]">SDG {sdg}</p>
                   ))}
                 </div>
               </div>
@@ -227,22 +227,22 @@ export default function CaseStudyDetail() {
           <div className="p-6 space-y-6">
             {caseStudy.description && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Description</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.description}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Description</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.description}</p>
               </div>
             )}
 
             {caseStudy.summary && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Summary</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.summary}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Summary</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.summary}</p>
               </div>
             )}
 
             {caseStudy.lessons_learned && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Lessons Learned</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.lessons_learned}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Lessons Learned</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.lessons_learned}</p>
               </div>
             )}
 
@@ -259,8 +259,8 @@ export default function CaseStudyDetail() {
 
             {caseStudy.relation_sdgs_values && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Relation to SDGs and Values</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.relation_sdgs_values}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Relation to SDGs and Values</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.relation_sdgs_values}</p>
               </div>
             )}
 
@@ -276,7 +276,7 @@ export default function CaseStudyDetail() {
 
               return (
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Evaluation</h3>
+                  <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-4">Evaluation</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {entries.map(({ key, value }, index) => {
                       const evaluationItem = value as { summary?: string; score?: string; indicators_checked?: string[] };
@@ -296,7 +296,7 @@ export default function CaseStudyDetail() {
                           <div className="flex items-start justify-between mb-3">
                             <div className="flex items-center gap-2">
                               {getIcon(key)}
-                              <h4 className="text-lg font-semibold text-gray-900">
+                              <h4 className="font-editorial text-lg font-semibold text-[#202B20]">
                                 {formatKey(key)}
                               </h4>
                             </div>
@@ -308,20 +308,20 @@ export default function CaseStudyDetail() {
                           </div>
                           
                           {summary && (
-                            <p className="text-sm text-gray-700 mb-3 leading-relaxed">
+                            <p className="text-sm text-[#394838] mb-3 leading-relaxed">
                               {summary}
                             </p>
                           )}
                           
                           {indicators.length > 0 && (
                             <div className="mt-3 pt-3 border-t border-gray-200">
-                              <p className="text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
+                              <p className="font-mono text-[11px] font-medium text-[#187347] mb-2 uppercase tracking-[0.14em]">
                                 Indicators Checked:
                               </p>
                               <ul className="space-y-1.5">
                                 {indicators.map((indicator, idx) => (
-                                  <li key={idx} className="text-xs text-gray-600 flex items-start gap-2">
-                                    <span className="text-emerald-600 mt-1">•</span>
+                                  <li key={idx} className="text-xs text-[#596556] flex items-start gap-2">
+                                    <span className="text-[#187347] mt-1">•</span>
                                     <span>{indicator}</span>
                                   </li>
                                 ))}
@@ -338,8 +338,8 @@ export default function CaseStudyDetail() {
 
             {caseStudy.evaluation && typeof caseStudy.evaluation === 'string' && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Evaluation</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.evaluation}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Evaluation</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.evaluation}</p>
               </div>
             )}
           </div>

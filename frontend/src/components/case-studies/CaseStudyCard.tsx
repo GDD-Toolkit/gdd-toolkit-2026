@@ -30,7 +30,7 @@ function PlaceholderImage({ name }: { name: string }) {
     .toUpperCase() || "CS";
 
   return (
-    <div className="w-full h-48 bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center text-white font-bold text-3xl">
+    <div className="w-full h-48 bg-gradient-to-br from-[#3F673C] to-[#187347] flex items-center justify-center font-editorial text-[#E9E6B2] font-semibold text-3xl">
       {initials}
     </div>
   );
@@ -73,7 +73,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
         {/* Content */}
         <div className="p-5 flex-1 flex flex-col">
           {/* Title */}
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 line-clamp-2">
+          <h3 className="font-editorial text-lg font-semibold leading-snug mb-3 text-[#202B20] line-clamp-2">
             {caseStudy.name}
           </h3>
 
@@ -122,7 +122,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
           </div>
 
           {/* Description (scrollable) */}
-            <div className="text-sm text-gray-600 mb-4 flex-1 max-h-28 overflow-y-auto pr-1">
+            <div className="text-sm text-[#596556] mb-4 flex-1 max-h-28 overflow-y-auto pr-1">
             <p className="leading-relaxed">
                 {caseStudy.description} {/* Projects */}
                 {caseStudy.summary} {/* Maldevelopment */}
@@ -133,7 +133,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
           {/* View Details Button */}
           <div className="flex justify-end">
             <span
-              className="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors"
+              className="text-sm font-semibold text-[#3F673C] hover:text-[#187347] transition-colors"
             >
               View details →
             </span>

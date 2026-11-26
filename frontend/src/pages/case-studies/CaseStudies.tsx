@@ -166,7 +166,7 @@ export default function CaseStudies() {
 
     return (
     <div className="flex flex-col gap-5 md:w-2/3 lg:w-2/3">
-      <span className="mx-auto text-gray-500 size-xs">Showing {visibleCaseStudies.length} of {filteredCaseStudies.length} case studies</span>
+      <span className="mx-auto font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#596556]">Showing {visibleCaseStudies.length} of {filteredCaseStudies.length} case studies</span>
       <CaseStudiesGrid caseStudies={visibleCaseStudies} searchQuery={searchQuery} />
       {visibleCount < filteredCaseStudies.length && (
         <Button
@@ -181,20 +181,20 @@ export default function CaseStudies() {
   };
 
     return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 text-[#202B20]">
       {/* Page Header */}
-      <header className="bg-[#43673B] text-white py-12">
+      <header className="bg-[#3F673C] text-white py-12">
         <div className="max-w-6xl mx-auto px-4 flex flex-col gap-5 pb-20">
-          <h1 className="text-4xl md:text-5xl font-bold">Case Studies</h1>
-          <div className="text-lg">This tool includes a dedicated library of case studies that highlight both exemplary development practices and real-world instances of maldevelopment. These cases give users a grounded understanding of how ethical challenges unfold in practice—and how values-based, human-centered approaches can lead to better outcomes. By learning from successes and missteps alike, users of our toolkit can more confidently apply these lessons and principles to their own projects.</div>
-          <div> See the <a
+          <h1 className="font-editorial text-4xl md:text-5xl font-semibold tracking-tight text-white">Case <em className="font-normal italic text-[#E9E6B2]">Studies</em></h1>
+          <div className="text-base md:text-lg leading-relaxed text-[#E8F0E5]">This tool includes a dedicated library of case studies that highlight both exemplary development practices and real-world instances of maldevelopment. These cases give users a grounded understanding of how ethical challenges unfold in practice—and how values-based, human-centered approaches can lead to better outcomes. By learning from successes and missteps alike, users of our toolkit can more confidently apply these lessons and principles to their own projects.</div>
+          <div className="text-sm md:text-base text-[#E8F0E5]"> See the <a
                         href="/projectevaloldinternal.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-semibold underline transition-colors"
+                        className="font-semibold text-[#E9E6B2] underline underline-offset-4 transition-colors hover:text-[#f2efbf]"
                     >case study evaluation methodology</a> for more details.
           </div>
-          <div>Below is a tutorial on how to navigate and utilize the case studies effectively.</div>
+          <div className="text-sm md:text-base text-[#E8F0E5]">Below is a tutorial on how to navigate and utilize the case studies effectively.</div>
         </div>
       </header>
         
@@ -216,26 +216,26 @@ export default function CaseStudies() {
       <main className="max-w-1024 mx-auto p-10 flex flex-col md:flex-row lg:flex-row gap-6 md:gap-10 lg:gap-10">
         {/* Search */}
         <div className="flex flex-col gap-5 border border-[#AACDBB] bg-[#E1EDDD] p-5 z-10 md:sticky lg:sticky top-25 md:w-1/3 lg:w-1/3 h-fit rounded-lg">
-          <h2 className="text-xl">Filter Case Studies</h2>
+          <h2 className="font-editorial text-xl font-semibold tracking-tight text-[#202B20]">Filter Case Studies</h2>
           <ul className="flex flex-col gap-5">
             <li>
-              <h3>Search</h3>
+              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">Search</h3>
               <input
                 type="text"
                 placeholder="Search by case study name…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full max-w-xl rounded-lg px-4 py-2
-                border border-slate-400
-                bg-gray-100
-                text-gray-800
-                placeholder-gray-500
-                focus:outline-none focus:ring-1 "
+                border border-[#B2C9A8]
+                bg-white
+                text-sm text-[#202B20]
+                placeholder-[#596556]
+                focus:outline-none focus:ring-1 focus:ring-[#3F673C]"
               />
             </li>
 
             <li>
-              <h3>Values</h3>
+              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">Values</h3>
               <ToggleGroup 
                 size="sm" 
                 variant="outline"
@@ -248,13 +248,13 @@ export default function CaseStudies() {
               }}
               >
                 {allValues.map((v) => 
-                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="border border-gray-300">{v}</ToggleGroupItem>
+                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="border border-gray-300 text-xs font-medium text-[#284B26]">{v}</ToggleGroupItem>
                 )}
               </ToggleGroup>
             </li>
 
             <li>
-              <h3>Regions</h3>
+              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">Regions</h3>
               <ToggleGroup 
                 size="sm" 
                 variant="outline"
@@ -267,13 +267,13 @@ export default function CaseStudies() {
               }}
               >
                 {allRegions.map((v) => 
-                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="border border-gray-300">{v}</ToggleGroupItem>
+                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="border border-gray-300 text-xs font-medium text-[#284B26]">{v}</ToggleGroupItem>
                 )}
               </ToggleGroup>
             </li>
 
             <li>
-              <h3>SDGs</h3>
+              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">SDGs</h3>
               <ToggleGroup 
                 size="sm" 
                 variant="outline"
@@ -287,7 +287,7 @@ export default function CaseStudies() {
               }}
               >
                 {allSdgs.map((v) => 
-                  <ToggleGroupItem key={v} value={""+v} aria-label={"Toggle " + v} className="border border-gray-300">{"SDG " + v}</ToggleGroupItem>
+                  <ToggleGroupItem key={v} value={""+v} aria-label={"Toggle " + v} className="border border-gray-300 text-xs font-medium text-[#284B26]">{"SDG " + v}</ToggleGroupItem>
                 )}
               </ToggleGroup>
             </li>
