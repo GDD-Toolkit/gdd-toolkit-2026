@@ -1,11 +1,18 @@
 import { useState } from "react";
+import { ExternalLink, Globe, ShieldAlert } from "lucide-react";
+import {
+  EDITORIAL_SERIF_STYLE,
+  EditorialPageHero,
+  EditorialReveal,
+  EditorialSection,
+} from "@/components/editorial/EditorialPagePrimitives";
 
 type Language = "en" | "es";
 
 const content = {
   en: {
     language: "Language",
-    home: "← Home",
+    home: "Home",
     title: "Terms of Use",
     draft: "DRAFT — PENDING UMD COUNSEL REVIEW",
     updated: "Last updated: Pending approval",
@@ -54,7 +61,7 @@ const content = {
   },
   es: {
     language: "Idioma",
-    home: "← Inicio",
+    home: "Inicio",
     title: "Términos de uso",
     draft: "BORRADOR — PENDIENTE DE REVISIÓN JURÍDICA DE UMD",
     updated: "Última actualización: Pendiente de aprobación",
@@ -108,64 +115,90 @@ export default function Terms() {
   const page = content[language];
 
   return (
-    <main className="min-h-screen bg-black px-4 py-12 text-white sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-4xl">
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <a
-            href="/"
-            className="text-sm text-white/70 transition hover:text-[#A07CFF]"
-          >
-            {page.home}
-          </a>
+    <div className="w-full bg-white text-[#202B20]">
+      <EditorialPageHero
+        compact
+        backLink={{ label: page.home, to: "/" }}
+        badges={[
+          { label: "Legal & Governance", tone: "cream" },
+          { label: page.updated, tone: "sage" },
+        ]}
+        title={
+          language === "en" ? (
+            <>
+              Terms of{" "}
+              <em className="font-normal italic text-[#E9E6B2]">Use</em>
+            </>
+          ) : (
+            <>
+              Términos de{" "}
+              <em className="font-normal italic text-[#E9E6B2]">uso</em>
+            </>
+          )
+        }
+        subtitle={page.intro}
+        aside={
+          <div className="rounded-2xl border-[1.5px] border-[#E9E6B2]/75 bg-[#284B26]/90 p-5 text-white shadow-xl">
+            <div className="flex items-center gap-2 font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-[#E9E6B2]">
+              <Globe className="h-3.5 w-3.5" aria-hidden="true" />
+              <span>{page.language}</span>
+            </div>
+            <label className="mt-3 block">
+              <span className="sr-only">{page.language}</span>
+              <select
+                value={language}
+                onChange={(event) =>
+                  setLanguage(event.target.value as Language)
+                }
+                aria-label={page.language}
+                className="w-full cursor-pointer rounded-xl border border-[#9AB887] bg-[#203D1F] px-3.5 py-2.5 text-sm font-medium text-white focus:border-[#E9E6B2] focus:outline-none focus:ring-2 focus:ring-[#E9E6B2]/40"
+              >
+                <option value="en">English</option>
+                <option value="es">Español</option>
+              </select>
+            </label>
+            <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-[#D6CE8A]/50 bg-[#E9E6B2]/15 px-3.5 py-3 text-xs leading-relaxed text-[#E9E6B2]">
+              <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+              <span className="font-mono text-[10px] font-medium uppercase tracking-wider">
+                {page.draft}
+              </span>
+            </div>
+          </div>
+        }
+      />
 
-          <label className="flex items-center gap-3 text-sm text-white/80">
-            {page.language}
-            <select
-              value={language}
-              onChange={(event) => setLanguage(event.target.value as Language)}
-              className="rounded-lg border border-white/20 bg-[#171717] px-3 py-2 text-white"
-              aria-label={page.language}
-            >
-              <option value="en">English</option>
-              <option value="es">Español</option>
-            </select>
-          </label>
-        </div>
-
-        <header className="mb-10">
-          <h1 className="text-4xl font-bold text-[#A07CFF] sm:text-5xl">
-            {page.title}
-          </h1>
-          <p className="mt-4 text-sm font-semibold tracking-wide text-amber-300">
-            {page.draft}
-          </p>
-          <p className="mt-2 text-sm text-white/50">{page.updated}</p>
-          <p className="mt-6 leading-7 text-white/80">{page.intro}</p>
-        </header>
-
-        <div className="space-y-8">
-          {page.sections.map((section) => (
-            <section key={section.title}>
-              <h2 className="mb-3 text-xl font-semibold text-[#A07CFF]">
-                {section.title}
-              </h2>
-              <p className="leading-7 text-white/80">{section.body}</p>
-            </section>
+      <EditorialSection tone="sage" compact>
+        <div className="mx-auto max-w-4xl space-y-5">
+          {page.sections.map((section, idx) => (
+            <EditorialReveal key={section.title} delay={Math.min(idx * 0.03, 0.2)}>
+              <section className="rounded-2xl border-[1.5px] border-[#B2C9A8] bg-white p-6 shadow-xs sm:p-7">
+                <h2
+                  className="text-xl font-semibold tracking-tight text-[#202B20]"
+                  style={EDITORIAL_SERIF_STYLE}
+                >
+                  {section.title}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-[#394838] sm:text-base">
+                  {section.body}
+                </p>
+              </section>
+            </EditorialReveal>
           ))}
-        </div>
 
-        <div className="mt-10 border-t border-white/15 pt-6 text-sm text-white/70">
-          <p>{page.privacy}</p>
-          <a
-            href="/Privacy_Statement.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 inline-block text-[#A07CFF] underline hover:text-white"
-          >
-            {page.privacyLink}
-          </a>
+          <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border-[1.5px] border-[#94B985] bg-[#F6F4D8] p-6 sm:flex-row sm:items-center">
+            <p className="text-sm font-medium text-[#202B20]">{page.privacy}</p>
+            <a
+              href="/Privacy_Statement.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#3F673C] to-[#187347] px-5 py-2.5 text-xs font-semibold text-white transition-all hover:brightness-110"
+            >
+              <span>{page.privacyLink}</span>
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+          </div>
         </div>
-      </div>
-    </main>
+      </EditorialSection>
+    </div>
   );
 }

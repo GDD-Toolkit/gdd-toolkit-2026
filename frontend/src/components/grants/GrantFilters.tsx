@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { RotateCcw, SlidersHorizontal } from "lucide-react";
 import { SDGS, VALUES } from "@shared/types/Common";
 import { GEOGRAPHIES, type GrantFieldDef } from "@shared/types/Grants";
 import {
@@ -8,6 +9,7 @@ import {
   type GrantQueryInput,
   type SourceSummary,
 } from "@shared/types/GrantsApi";
+import { EDITORIAL_SERIF_STYLE } from "@/components/editorial/EditorialPagePrimitives";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -31,9 +33,11 @@ type Status = (typeof DEFAULT_STATUSES)[number];
 
 function Group({ title, hint, children }: { title: string; hint?: string; children: ReactNode }) {
   return (
-    <fieldset className="space-y-2">
-      <legend className="text-sm font-semibold">{title}</legend>
-      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
+    <fieldset className="space-y-2.5 border-t border-[#E3EBDE] pt-4 first:border-t-0 first:pt-0">
+      <legend className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#187347]">
+        {title}
+      </legend>
+      {hint && <p className="text-xs leading-relaxed text-[#596556]">{hint}</p>}
       {children}
     </fieldset>
   );
@@ -77,6 +81,7 @@ function CommitInput({
       onKeyDown={(event) => {
         if (event.key === "Enter") commit();
       }}
+      className="rounded-xl border-[#B2C9A8] bg-[#FAFDF8] text-[#202B20] focus-visible:border-[#3F673C] focus-visible:ring-[#3F673C]/25"
     />
   );
 }
@@ -112,10 +117,22 @@ export function GrantFilters({ query, facets, sources, fieldDefs, onChange, onCl
   const filterable = fieldDefs.filter((def) => def.filterable);
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold">Filters</h2>
-        <Button type="button" variant="ghost" size="sm" onClick={onClear}>
+    <div className="space-y-5">
+      <div className="flex items-center justify-between border-b border-[#E3EBDE] pb-3.5">
+        <div className="flex items-center gap-2">
+          <SlidersHorizontal className="size-4 text-[#187347]" aria-hidden="true" />
+          <h2 className="text-lg font-semibold text-[#202B20]" style={EDITORIAL_SERIF_STYLE}>
+            Filters
+          </h2>
+        </div>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={onClear}
+          className="h-7 cursor-pointer gap-1 rounded-full px-2.5 text-xs font-medium text-[#187347] hover:bg-[#EDF4E8] hover:text-[#105C37]"
+        >
+          <RotateCcw className="size-3" aria-hidden="true" />
           Clear all
         </Button>
       </div>
@@ -201,10 +218,13 @@ export function GrantFilters({ query, facets, sources, fieldDefs, onChange, onCl
           items={{ [ANY]: "All sources", ...Object.fromEntries(sources.map((source) => [source.id, source.name])) }}
           onValueChange={(next) => onChange({ source: next === null || next === ANY ? undefined : [next] })}
         >
-          <SelectTrigger aria-label="Source" className="w-full">
+          <SelectTrigger
+            aria-label="Source"
+            className="w-full rounded-xl border-[#B2C9A8] bg-[#FAFDF8] text-[#202B20] focus-visible:border-[#3F673C] focus-visible:ring-[#3F673C]/25"
+          >
             <SelectValue placeholder="All sources" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="rounded-xl border-[#B2C9A8]">
             <SelectItem value={ANY}>All sources</SelectItem>
             {sources.map((source) => (
               <SelectItem key={source.id} value={source.id}>
@@ -226,10 +246,14 @@ export function GrantFilters({ query, facets, sources, fieldDefs, onChange, onCl
                 items={{ [ANY]: "Any" }}
                 onValueChange={(next) => setExtra(def.key, next === null || next === ANY ? undefined : next)}
               >
-                <SelectTrigger id={id} aria-label={def.label} className="w-full">
+                <SelectTrigger
+                  id={id}
+                  aria-label={def.label}
+                  className="w-full rounded-xl border-[#B2C9A8] bg-[#FAFDF8] text-[#202B20] focus-visible:border-[#3F673C] focus-visible:ring-[#3F673C]/25"
+                >
                   <SelectValue placeholder="Any" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="rounded-xl border-[#B2C9A8]">
                   <SelectItem value={ANY}>Any</SelectItem>
                   {(def.options ?? []).map((option) => (
                     <SelectItem key={option} value={option}>

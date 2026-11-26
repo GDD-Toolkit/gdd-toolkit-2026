@@ -1,4 +1,6 @@
 import { useState, type FormEvent } from "react";
+import { MailCheck } from "lucide-react";
+import { EDITORIAL_SERIF_STYLE } from "@/components/editorial/EditorialPagePrimitives";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,6 +9,9 @@ import type { RegisterPayload } from "@/types/auth";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORD_LENGTH = 8;
+
+const EDITORIAL_INPUT_CLASS =
+  "h-10 rounded-xl border-[1.5px] border-[#B2C9A8] bg-white px-3 text-sm text-[#202B20] placeholder:text-[#596556]/65 transition-colors focus-visible:border-[#3F673C] focus-visible:ring-3 focus-visible:ring-[#3F673C]/15 aria-invalid:border-destructive";
 
 type FieldErrors = Partial<Record<keyof RegisterPayload, string>>;
 
@@ -74,12 +79,25 @@ export function RegisterForm() {
 
   if (confirmationSent) {
     return (
-      <div role="status" className="space-y-2 text-sm">
-        <p className="font-medium">Check your email</p>
-        <p className="text-muted-foreground">
+      <div
+        role="status"
+        className="space-y-2.5 rounded-2xl border-[1.5px] border-[#94B985] bg-[#F2F6EF] p-5 text-sm"
+      >
+        <div className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#94B985] bg-white text-[#187347]">
+            <MailCheck className="h-4 w-4" aria-hidden="true" />
+          </span>
+          <p
+            className="text-base font-semibold text-[#202B20]"
+            style={EDITORIAL_SERIF_STYLE}
+          >
+            Check your email
+          </p>
+        </div>
+        <p className="leading-relaxed text-[#394838]">
           We sent a confirmation link to{" "}
-          <span className="font-medium">{values.email}</span>. Open it to
-          activate your account, then sign in.
+          <span className="font-semibold text-[#202B20]">{values.email}</span>.
+          Open it to activate your account, then sign in.
         </p>
       </div>
     );
@@ -91,12 +109,18 @@ export function RegisterForm() {
     props: React.ComponentProps<typeof Input> = {},
   ) => (
     <div className="space-y-1.5">
-      <Label htmlFor={`register-${name}`}>{label}</Label>
+      <Label
+        htmlFor={`register-${name}`}
+        className="text-xs font-semibold text-[#284B26]"
+      >
+        {label}
+      </Label>
       <Input
         id={`register-${name}`}
         value={values[name]}
         onChange={update(name)}
         aria-invalid={fieldErrors[name] ? true : undefined}
+        className={EDITORIAL_INPUT_CLASS}
         required
         {...props}
       />
@@ -121,16 +145,19 @@ export function RegisterForm() {
         type: "password",
         autoComplete: "new-password",
       })}
-      <p className="text-xs text-muted-foreground">
+      <p className="rounded-xl border border-[#D5E3D9] bg-[#F2F6EF] px-3.5 py-2.5 text-xs leading-relaxed text-[#394838]">
         New accounts start with the Student role. An administrator can upgrade
         you to Researcher.
       </p>
-      <label className="flex items-start gap-2 text-sm">
+      <label className="flex cursor-pointer items-start gap-2.5 rounded-xl border border-[#D5E3D9] bg-[#FAFDF8] px-3.5 py-2.5 text-xs leading-relaxed text-[#394838]">
         <input
           type="checkbox"
           checked={termsAccepted}
-          onChange={(event) => setTermsAccepted(event.target.checked)}
-          className="mt-1"
+          onChange={(event) => {
+            setTermsAccepted(event.target.checked);
+            if (event.target.checked) setError(null);
+          }}
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-[#94B985] accent-[#187347]"
           required
         />
         <span>
@@ -139,7 +166,7 @@ export function RegisterForm() {
             href="/terms"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline text-primary"
+            className="font-semibold text-[#187347] underline underline-offset-2 hover:text-[#105C37]"
           >
             Terms of Use
           </a>{" "}
@@ -148,7 +175,7 @@ export function RegisterForm() {
             href="/Privacy_Statement.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline text-primary"
+            className="font-semibold text-[#187347] underline underline-offset-2 hover:text-[#105C37]"
           >
             Privacy Policy
           </a>
@@ -156,11 +183,18 @@ export function RegisterForm() {
         </span>
       </label>
       {error && (
-        <p role="alert" className="text-sm text-destructive">
+        <p
+          role="alert"
+          className="rounded-xl border border-destructive/25 bg-destructive/5 px-3.5 py-2.5 text-sm text-destructive"
+        >
           {error}
         </p>
       )}
-      <Button type="submit" className="w-full" disabled={submitting}>
+      <Button
+        type="submit"
+        className="h-10 w-full rounded-full bg-gradient-to-r from-[#3F673C] to-[#187347] font-semibold text-white shadow-xs hover:brightness-110"
+        disabled={submitting}
+      >
         {submitting ? "Creating account…" : "Create account"}
       </Button>
     </form>

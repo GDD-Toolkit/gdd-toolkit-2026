@@ -123,8 +123,32 @@ export default function Navbar() {
             aria-label="Primary navigation"
             className="hidden items-center gap-2 lg:flex"
           >
-            {MENUS.map((m, i) =>
-              m.items ? (
+            {MENUS.map((m, i) => {
+              const isGroupActive = Boolean(
+                m.items?.some(
+                  (it) =>
+                    !it.external &&
+                    (pathname === it.href || pathname.startsWith(`${it.href}/`)),
+                ),
+              );
+              const isDirectActive =
+                m.href === "/"
+                  ? pathname === "/"
+                  : m.href === "/development-ethics"
+                    ? [
+                        "/development-ethics",
+                        "/worthwhile-development",
+                        "/capability-approach",
+                        "/human-centered-design",
+                      ].some(
+                        (p) => pathname === p || pathname.startsWith(`${p}/`),
+                      )
+                    : Boolean(
+                        m.href &&
+                          (pathname === m.href ||
+                            pathname.startsWith(`${m.href}/`)),
+                      );
+              return m.items ? (
                 <div
                   key={m.label}
                   className="relative"
@@ -135,7 +159,12 @@ export default function Navbar() {
                     type="button"
                     onClick={() => setOpen(open === i ? null : i)}
                     aria-expanded={open === i}
-                    className="group inline-flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border border-[#D5E3D9] bg-white px-4 py-2 text-sm font-medium text-[#284B26] transition-all duration-200 hover:border-[#3F673C] hover:bg-[#EDF4E8]"
+                    className={cn(
+                      "group inline-flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200",
+                      isGroupActive
+                        ? "border-[#3F673C] bg-[#EDF4E8] font-semibold text-[#284B26]"
+                        : "border-[#D5E3D9] bg-white text-[#284B26] hover:border-[#3F673C] hover:bg-[#EDF4E8]",
+                    )}
                   >
                     <span>{m.label}</span>
                     <motion.span
@@ -185,7 +214,13 @@ export default function Navbar() {
                                 <Link
                                   to={it.href}
                                   onClick={() => setOpen(null)}
-                                  className="block px-5 py-2.5 text-sm text-[#394838] transition-colors duration-150 hover:bg-[#EDF4E8] hover:text-[#187347]"
+                                  className={cn(
+                                    "block px-5 py-2.5 text-sm transition-colors duration-150 hover:bg-[#EDF4E8] hover:text-[#187347]",
+                                    pathname === it.href ||
+                                      pathname.startsWith(`${it.href}/`)
+                                      ? "bg-[#F2F6EF] font-semibold text-[#187347]"
+                                      : "text-[#394838]",
+                                  )}
                                 >
                                   {it.label}
                                 </Link>
@@ -203,15 +238,15 @@ export default function Navbar() {
                   to={m.href || "/"}
                   className={cn(
                     "inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200",
-                    pathname === m.href
+                    isDirectActive
                       ? "border-[#3F673C] bg-[#EDF4E8] font-semibold text-[#284B26]"
                       : "border-[#D5E3D9] bg-white text-[#394838] hover:border-[#3F673C] hover:bg-[#EDF4E8] hover:text-[#284B26]",
                   )}
                 >
                   {m.label}
                 </Link>
-              ),
-            )}
+              );
+            })}
 
             {/* Prerelease info toggle */}
             <div className="relative ml-2">

@@ -30,7 +30,7 @@ function PlaceholderImage({ name }: { name: string }) {
     .toUpperCase() || "CS";
 
   return (
-    <div className="w-full h-48 bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center text-white font-bold text-3xl">
+    <div className="w-full h-48 bg-gradient-to-br from-[#3F673C] to-[#187347] flex items-center justify-center font-editorial text-[#E9E6B2] font-semibold text-3xl">
       {initials}
     </div>
   );
@@ -49,16 +49,16 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
   return (
     <>
       <Card 
-        className="bg-white p-0 rounded-xl shadow-md overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer"
+        className="group bg-white p-0 rounded-2xl border-[1.5px] border-[#B2C9A8] shadow-xs overflow-hidden flex flex-col hover:border-[#3F673C] hover:bg-[#FAFDF8] hover:shadow-md hover:-translate-y-1 transition-all duration-200 cursor-pointer"
         onClick={() => navigate(`/case-studies?id=${caseStudy.id}`)}
       >
         {/* Image */}
         {imgUrl && !imageError ? (
-          <div className="w-full h-48 relative">
+          <div className="w-full h-48 relative overflow-hidden">
             <img
               src={imgUrl}
               alt={caseStudy.name}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
               onError={() => {
                 // Fallback: show placeholder when image fails to load
@@ -73,18 +73,18 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
         {/* Content */}
         <div className="p-5 flex-1 flex flex-col">
           {/* Title */}
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 line-clamp-2">
+          <h3 className="font-editorial text-lg font-semibold leading-snug mb-3 text-[#202B20] group-hover:text-[#187347] transition-colors line-clamp-2">
             {caseStudy.name}
           </h3>
 
           {/* Segment Label */}
           {caseStudy.segment && (
-            <div className="mb-2">
+            <div className="mb-2.5">
               <span
-                className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${
+                className={`inline-flex items-center rounded-full border px-3 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider ${
                   caseStudy.segment === "worthwhile"
-                    ? "bg-emerald-100 text-emerald-700"
-                    : "bg-red-100 text-red-700"
+                    ? "border-[#94B985] bg-[#EDF4E8] text-[#187347]"
+                    : "border-[#D6CE8A] bg-[#FAF8E4] text-[#6F6057]"
                 }`}
               >
                 {caseStudy.segment === "worthwhile" ? "Worthwhile Development" : "Maldevelopment"}
@@ -93,11 +93,11 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
           )}
 
           {/* Badges - Values, Regions, SDGs */}
-          <div className="flex flex-wrap gap-2 mb-3">
+          <div className="flex flex-wrap gap-1.5 mb-3">
             {caseStudy.values?.map((value, idx) => (
               <Badge
                 key={`value-${idx}`}
-                className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-sky-100 text-sky-700"
+                className="inline-flex items-center rounded-full border border-[#B2C9A8] bg-[#F2F6EF] px-2.5 py-0.5 text-[11px] font-medium text-[#284B26]"
               >
                 {value}
               </Badge>
@@ -105,7 +105,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
             {caseStudy.regions?.map((region, idx) => (
               <Badge
                 key={`region-${idx}`}
-                className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-purple-100 text-purple-700"
+                className="inline-flex items-center rounded-full border border-[#A2B7D8] bg-[#EFF4FA] px-2.5 py-0.5 text-[11px] font-medium text-[#395273]"
               >
                 {region}
               </Badge>
@@ -114,7 +114,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
             {caseStudy.sdgs?.map((sdg, idx) => (
                 <Badge
                 key={`sdg-${idx}`}
-                className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-orange-100 text-orange-700"
+                className="inline-flex items-center rounded-full border border-[#D6CE8A] bg-[#FAF8E4] px-2.5 py-0.5 text-[11px] font-medium text-[#6F6057]"
                 >
                 SDG {sdg}
                 </Badge>
@@ -122,7 +122,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
           </div>
 
           {/* Description (scrollable) */}
-            <div className="text-sm text-gray-600 mb-4 flex-1 max-h-28 overflow-y-auto pr-1">
+            <div className="text-sm text-[#596556] mb-4 flex-1 max-h-28 overflow-y-auto pr-1">
             <p className="leading-relaxed">
                 {caseStudy.description} {/* Projects */}
                 {caseStudy.summary} {/* Maldevelopment */}
@@ -133,7 +133,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
           {/* View Details Button */}
           <div className="flex justify-end">
             <span
-              className="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors"
+              className="text-sm font-semibold text-[#3F673C] hover:text-[#187347] transition-colors"
             >
               View details →
             </span>

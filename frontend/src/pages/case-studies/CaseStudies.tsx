@@ -146,8 +146,8 @@ export default function CaseStudies() {
     if (loading) {
       return (
         <div className="text-center py-12 mx-auto">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#6D83F2]"></div>
-          <p className="mt-4 text-gray-600">Loading case studies...</p>
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-[#B2C9A8] border-t-[#187347]"></div>
+          <p className="mt-4 text-sm text-[#596556]">Loading case studies...</p>
         </div>
       );
     }
@@ -155,10 +155,10 @@ export default function CaseStudies() {
     if (error) {
       return (
         <div className="text-center py-12 mx-auto">
-          <p className="text-red-600 text-lg mb-2">Failed to load case studies.</p>
-          <p className="text-gray-500">Please try again later.</p>
+          <p className="font-editorial text-lg font-semibold text-[#9a2f26] mb-2">Failed to load case studies.</p>
+          <p className="text-sm text-[#596556]">Please try again later.</p>
           {import.meta.env.DEV && (
-            <p className="text-xs text-gray-400 mt-2">{error}</p>
+            <p className="text-xs text-[#596556] mt-2">{error}</p>
           )}
         </div>
       );
@@ -166,11 +166,11 @@ export default function CaseStudies() {
 
     return (
     <div className="flex flex-col gap-5 md:w-2/3 lg:w-2/3">
-      <span className="mx-auto text-gray-500 size-xs">Showing {visibleCaseStudies.length} of {filteredCaseStudies.length} case studies</span>
+      <span className="mx-auto font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#596556]">Showing {visibleCaseStudies.length} of {filteredCaseStudies.length} case studies</span>
       <CaseStudiesGrid caseStudies={visibleCaseStudies} searchQuery={searchQuery} />
       {visibleCount < filteredCaseStudies.length && (
         <Button
-          className="self-center"
+          className="self-center rounded-full bg-gradient-to-r from-[#3F673C] to-[#187347] px-7 text-sm font-semibold text-white hover:brightness-110"
           onClick={() => setVisibleCount(count => count + CASE_STUDIES_PER_PAGE)}
         >
           Load more
@@ -181,20 +181,28 @@ export default function CaseStudies() {
   };
 
     return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white text-[#202B20]">
       {/* Page Header */}
-      <header className="bg-[#43673B] text-white py-12">
+      <header className="editorial-grid-texture bg-[#3F673C] text-white py-14">
         <div className="max-w-6xl mx-auto px-4 flex flex-col gap-5 pb-20">
-          <h1 className="text-4xl md:text-5xl font-bold">Case Studies</h1>
-          <div className="text-lg">This tool includes a dedicated library of case studies that highlight both exemplary development practices and real-world instances of maldevelopment. These cases give users a grounded understanding of how ethical challenges unfold in practice—and how values-based, human-centered approaches can lead to better outcomes. By learning from successes and missteps alike, users of our toolkit can more confidently apply these lessons and principles to their own projects.</div>
-          <div> See the <a
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="inline-flex items-center rounded-full border border-[#9AB887] bg-[#2E502B] px-3.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-[#E9E6B2]">
+              03 · Global Case Library
+            </span>
+            <span className="inline-flex items-center rounded-full border border-[#9AB887]/60 bg-[#355832] px-3.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-[#EDF4E8]">
+              Worthwhile &amp; Maldevelopment
+            </span>
+          </div>
+          <h1 className="font-editorial text-4xl md:text-5xl font-semibold tracking-tight text-white">Case <em className="font-normal italic text-[#E9E6B2]">Studies</em></h1>
+          <div className="text-base md:text-lg leading-relaxed text-[#E8F0E5]">This tool includes a dedicated library of case studies that highlight both exemplary development practices and real-world instances of maldevelopment. These cases give users a grounded understanding of how ethical challenges unfold in practice—and how values-based, human-centered approaches can lead to better outcomes. By learning from successes and missteps alike, users of our toolkit can more confidently apply these lessons and principles to their own projects.</div>
+          <div className="text-sm md:text-base text-[#E8F0E5]"> See the <a
                         href="/projectevaloldinternal.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-semibold underline transition-colors"
+                        className="font-semibold text-[#E9E6B2] underline underline-offset-4 transition-colors hover:text-[#f2efbf]"
                     >case study evaluation methodology</a> for more details.
           </div>
-          <div>Below is a tutorial on how to navigate and utilize the case studies effectively.</div>
+          <div className="text-sm md:text-base text-[#E8F0E5]">Below is a tutorial on how to navigate and utilize the case studies effectively.</div>
         </div>
       </header>
         
@@ -205,7 +213,7 @@ export default function CaseStudies() {
                         width="100%"
                         height="480"
                         controls // adds play/pause buttons
-                        style={{ border: "1px solid #ccc", borderRadius: "8px", display: "block" }}
+                        className="block rounded-2xl border-[1.5px] border-[#94B985] bg-[#202B20] shadow-xl"
                         title="Case Study Tutorial"
                     ></video>
 
@@ -213,29 +221,29 @@ export default function CaseStudies() {
             </section>
         
       {/* Main Content */}
-      <main className="max-w-1024 mx-auto p-10 flex flex-col md:flex-row lg:flex-row gap-6 md:gap-10 lg:gap-10">
+      <main className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 flex flex-col md:flex-row lg:flex-row gap-6 md:gap-10 lg:gap-10">
         {/* Search */}
-        <div className="flex flex-col gap-5 border border-[#AACDBB] bg-[#E1EDDD] p-5 z-10 md:sticky lg:sticky top-25 md:w-1/3 lg:w-1/3 h-fit rounded-lg">
-          <h2 className="text-xl">Filter Case Studies</h2>
+        <div className="flex flex-col gap-5 border-[1.5px] border-[#B2C9A8] bg-[#F2F6EF] p-6 z-10 md:sticky lg:sticky top-25 md:w-1/3 lg:w-1/3 h-fit rounded-2xl shadow-xs">
+          <h2 className="font-editorial text-xl font-semibold tracking-tight text-[#202B20]">Filter Case Studies</h2>
           <ul className="flex flex-col gap-5">
             <li>
-              <h3>Search</h3>
+              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">Search</h3>
               <input
                 type="text"
                 placeholder="Search by case study name…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full max-w-xl rounded-lg px-4 py-2
-                border border-slate-400
-                bg-gray-100
-                text-gray-800
-                placeholder-gray-500
-                focus:outline-none focus:ring-1 "
+                className="w-full max-w-xl rounded-full px-4 py-2
+                border-[1.5px] border-[#B2C9A8]
+                bg-white
+                text-sm text-[#202B20]
+                placeholder-[#596556]
+                focus:border-[#3F673C] focus:outline-none focus:ring-2 focus:ring-[#3F673C]/25"
               />
             </li>
 
             <li>
-              <h3>Values</h3>
+              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">Values</h3>
               <ToggleGroup 
                 size="sm" 
                 variant="outline"
@@ -248,13 +256,13 @@ export default function CaseStudies() {
               }}
               >
                 {allValues.map((v) => 
-                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="border border-gray-300">{v}</ToggleGroupItem>
+                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="!rounded-full border border-[#94B985] bg-white px-3 text-xs font-medium text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#EDF4E8] aria-pressed:border-[#3F673C] aria-pressed:bg-[#3F673C] aria-pressed:text-white data-[state=on]:border-[#3F673C] data-[state=on]:bg-[#3F673C] data-[state=on]:text-white">{v}</ToggleGroupItem>
                 )}
               </ToggleGroup>
             </li>
 
             <li>
-              <h3>Regions</h3>
+              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">Regions</h3>
               <ToggleGroup 
                 size="sm" 
                 variant="outline"
@@ -267,13 +275,13 @@ export default function CaseStudies() {
               }}
               >
                 {allRegions.map((v) => 
-                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="border border-gray-300">{v}</ToggleGroupItem>
+                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="!rounded-full border border-[#94B985] bg-white px-3 text-xs font-medium text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#EDF4E8] aria-pressed:border-[#3F673C] aria-pressed:bg-[#3F673C] aria-pressed:text-white data-[state=on]:border-[#3F673C] data-[state=on]:bg-[#3F673C] data-[state=on]:text-white">{v}</ToggleGroupItem>
                 )}
               </ToggleGroup>
             </li>
 
             <li>
-              <h3>SDGs</h3>
+              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">SDGs</h3>
               <ToggleGroup 
                 size="sm" 
                 variant="outline"
@@ -287,7 +295,7 @@ export default function CaseStudies() {
               }}
               >
                 {allSdgs.map((v) => 
-                  <ToggleGroupItem key={v} value={""+v} aria-label={"Toggle " + v} className="border border-gray-300">{"SDG " + v}</ToggleGroupItem>
+                  <ToggleGroupItem key={v} value={""+v} aria-label={"Toggle " + v} className="!rounded-full border border-[#94B985] bg-white px-3 text-xs font-medium text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#EDF4E8] aria-pressed:border-[#3F673C] aria-pressed:bg-[#3F673C] aria-pressed:text-white data-[state=on]:border-[#3F673C] data-[state=on]:bg-[#3F673C] data-[state=on]:text-white">{"SDG " + v}</ToggleGroupItem>
                 )}
               </ToggleGroup>
             </li>

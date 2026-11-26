@@ -28,14 +28,14 @@ function InfoSection({
 }) {
   if (!items || items.length === 0) return null;
   return (
-    <Card className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+    <Card className="bg-white rounded-xl p-4 shadow-xs border-[1.5px] border-[#B2C9A8]">
       <div className="flex items-center gap-2">
         {icon}
-        <h3 className="font-semibold text-gray-900 text-sm">{title}</h3>
+        <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[#284B26]">{title}</h3>
       </div>
       <div className="space-y-1">
         {items.map((item, idx) => (
-          <p key={idx} className="text-sm text-gray-700">{item}</p>
+          <p key={idx} className="text-sm text-[#394838]">{item}</p>
         ))}
       </div>
     </Card>
@@ -91,28 +91,28 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto"
+      className="fixed inset-0 bg-[#192419]/65 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl max-w-4xl w-full my-8 shadow-2xl overflow-hidden"
+        className="bg-white rounded-2xl border-[1.5px] border-[#94B985] max-w-4xl w-full my-8 shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Green Header */}
-        <div className="bg-[#43673B] text-white py-6 px-6 relative">
+        <div className="bg-[#3F673C] text-white py-6 px-6 relative">
           <button
             onClick={onClose}
-            className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="absolute top-4 left-4 rounded-full border border-[#9AB887] bg-[#2E502B] hover:bg-[#254223] text-[#EDF4E8] px-3.5 py-1.5 text-xs font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5" />
             Back
           </button>
-          <h2 className="text-3xl font-bold text-center pr-12">{caseStudy.name}</h2>
+          <h2 className="font-editorial text-3xl font-semibold tracking-tight text-center pr-12">{caseStudy.name}</h2>
         </div>
 
         <div className="overflow-y-auto max-h-[calc(100vh-12rem)]">
           {/* Main Image */}
-          <div className="w-full bg-gray-100">
+          <div className="w-full bg-[#F2F6EF]">
             {imgUrl ? (
               <img
                 src={imgUrl}
@@ -123,8 +123,8 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
                 }}
               />
             ) : (
-              <div className="w-full h-80 bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center">
-                <div className="text-white text-6xl font-bold">
+              <div className="w-full h-80 bg-gradient-to-br from-[#3F673C] to-[#187347] flex items-center justify-center">
+                <div className="font-editorial text-[#E9E6B2] text-6xl font-semibold">
                   {caseStudy.name
                     ?.split(" ")
                     .map((w) => w[0])
@@ -137,37 +137,37 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
           </div>
 
           {/* Info Sections Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-gray-50 border-b">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-[#F2F6EF] border-y border-[#B2C9A8]">
             {Array.isArray(caseStudy.regions) && caseStudy.regions.length > 0 && (
               <InfoSection
-                icon={<MapPin className="w-5 h-5 text-emerald-600" />}
+                icon={<MapPin className="w-5 h-5 text-[#187347]" />}
                 title="Region"
                 items={caseStudy.regions as string[]}
               />
             )}
             {Array.isArray(caseStudy.values) && caseStudy.values.length > 0 && (
               <InfoSection
-                icon={<Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />}
+                icon={<Star className="w-5 h-5 text-[#3F673C] fill-[#E9E6B2]" />}
                 title="Values of Worthwhile Development"
                 items={caseStudy.values as string[]}
               />
             )}
             {Array.isArray(caseStudy.sdgs) && caseStudy.sdgs.length > 0 && (
-              <Card className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+              <Card className="bg-white rounded-xl p-4 shadow-xs border-[1.5px] border-[#B2C9A8]">
                 <div className="flex items-center gap-2">
-                  <Target className="w-5 h-5 text-red-500" />
-                  <h3 className="font-semibold text-gray-900 text-sm">Sustainable Development Goals</h3>
+                  <Target className="w-5 h-5 text-[#187347]" />
+                  <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[#284B26]">Sustainable Development Goals</h3>
                 </div>
                 <div className="">
                   {(caseStudy.sdgs as (string | number)[]).map((sdg, idx) => (
-                    <p key={idx} className="text-sm text-gray-700">SDG {sdg}</p>
+                    <p key={idx} className="text-sm text-[#394838]">SDG {sdg}</p>
                   ))}
                 </div>
               </Card>
             )}
             {Array.isArray(caseStudy.keywords) && caseStudy.keywords.length > 0 && (
               <InfoSection
-                icon={<Key className="w-5 h-5 text-yellow-500" />}
+                icon={<Key className="w-5 h-5 text-[#187347]" />}
                 title="Keywords"
                 items={caseStudy.keywords as string[]}
               />
@@ -178,57 +178,57 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
           <div className="p-6 space-y-6">
             {caseStudy.description && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Description</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.description}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Description</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.description}</p>
               </div>
             )}
 
             {caseStudy.lessons_learned && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Lessons Learned</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.lessons_learned}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Lessons Learned</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.lessons_learned}</p>
               </div>
             )}
 
             {caseStudy.summary && typeof caseStudy.summary === 'string' && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Summary</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.summary}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Summary</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.summary}</p>
               </div>
             )}
 
             {caseStudy.issue && typeof caseStudy.issue === 'string' && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Issue</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.issue}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Issue</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.issue}</p>
               </div>
             )}
 
             {caseStudy.introduction && typeof caseStudy.introduction === 'string' && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Introduction</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.introduction}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Introduction</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.introduction}</p>
               </div>
             )}
 
             {caseStudy.goal && typeof caseStudy.goal === 'string' && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Goal</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.goal}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Goal</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.goal}</p>
               </div>
             )}
 
             {caseStudy.findings_implications && typeof caseStudy.findings_implications === 'string' && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Findings and Implications</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.findings_implications}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Findings and Implications</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.findings_implications}</p>
               </div>
             )}
 
             {caseStudy.relation_sdgs_values && typeof caseStudy.relation_sdgs_values === 'string' && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Relation to SDGs and Values</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.relation_sdgs_values}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Relation to SDGs and Values</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.relation_sdgs_values}</p>
               </div>
             )}
 
@@ -244,7 +244,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
 
               return (
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Evaluation</h3>
+                  <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-4">Evaluation</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {entries.map(({ key, value }, index) => {
                       const evaluationItem = value as { summary?: string; score?: string; indicators_checked?: string[] };
@@ -257,14 +257,14 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
                       return (
                         <Card
                           key={key}
-                          className={`bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow ${
+                          className={`bg-white border-[1.5px] border-[#B2C9A8] rounded-xl p-5 shadow-xs hover:border-[#3F673C] hover:bg-[#FAFDF8] transition-all ${
                             shouldCenter ? 'md:col-span-2 md:max-w-2xl md:mx-auto' : ''
                           }`}
                         >
                           <div className="flex items-start justify-between mb-3">
                             <div className="flex items-center gap-2">
                               {getIcon(key)}
-                              <h4 className="text-lg font-semibold text-gray-900">
+                              <h4 className="font-editorial text-lg font-semibold text-[#202B20]">
                                 {formatKey(key)}
                               </h4>
                             </div>
@@ -276,20 +276,20 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
                           </div>
                           
                           {summary && (
-                            <p className="text-sm text-gray-700 mb-3 leading-relaxed">
+                            <p className="text-sm text-[#394838] mb-3 leading-relaxed">
                               {summary}
                             </p>
                           )}
                           
                           {indicators.length > 0 && (
                             <div className="mt-3 pt-3 border-t border-gray-200">
-                              <p className="text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
+                              <p className="font-mono text-[11px] font-medium text-[#187347] mb-2 uppercase tracking-[0.14em]">
                                 Indicators Checked:
                               </p>
                               <ul className="space-y-1.5">
                                 {indicators.map((indicator, idx) => (
-                                  <li key={idx} className="text-xs text-gray-600 flex items-start gap-2">
-                                    <span className="text-[#6D83F2] mt-1">•</span>
+                                  <li key={idx} className="text-xs text-[#596556] flex items-start gap-2">
+                                    <span className="text-[#187347] mt-1">•</span>
                                     <span>{indicator}</span>
                                   </li>
                                 ))}
@@ -306,16 +306,16 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
 
             {caseStudy.evaluation && typeof caseStudy.evaluation === 'string' && (
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Evaluation</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.evaluation}</p>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-3">Evaluation</h3>
+                <p className="text-[#394838] leading-relaxed whitespace-pre-wrap">{caseStudy.evaluation}</p>
               </div>
             )}
 
             {Array.isArray(caseStudy.references) && caseStudy.references.length > 0 && (
             <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">References</h3>
+                <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-4">References</h3>
 
-                <Card className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                <Card className="bg-white border-[1.5px] border-[#B2C9A8] rounded-xl p-5 shadow-xs">
                 <ul className="space-y-2">
                 <Accordion className="max-w-">
                     {caseStudy.references.map((ref, idx) => {
@@ -325,13 +325,13 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
 
                     return (
                       <AccordionItem value={"ref_"+idx}>
-                        <AccordionTrigger className="text-sm text-gray-700 font-normal leading-relaxed flex gap-2"><span className="text-[#6D83F2] font-semibold">[{idx+1}] </span>{before}</AccordionTrigger>
+                        <AccordionTrigger className="text-sm text-[#394838] font-normal leading-relaxed flex gap-2"><span className="font-mono text-[#187347] font-semibold">[{idx+1}] </span>{before}</AccordionTrigger>
                         <AccordionContent>
                           {url ? 
                               <a 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-emerald-700 underline hover:text-emerald-800 break-all" 
+                                className="text-[#187347] underline hover:text-[#105C37] break-all" 
                                 href={url}
                               >{url}
                               </a> : <span>Link not found</span>}
