@@ -28,7 +28,7 @@ function InfoSection({
 }) {
   if (!items || items.length === 0) return null;
   return (
-    <Card className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+    <Card className="bg-white rounded-xl p-4 shadow-xs border-[1.5px] border-[#B2C9A8]">
       <div className="flex items-center gap-2">
         {icon}
         <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[#284B26]">{title}</h3>
@@ -91,20 +91,20 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto"
+      className="fixed inset-0 bg-[#192419]/65 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl max-w-4xl w-full my-8 shadow-2xl overflow-hidden"
+        className="bg-white rounded-2xl border-[1.5px] border-[#94B985] max-w-4xl w-full my-8 shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Green Header */}
         <div className="bg-[#3F673C] text-white py-6 px-6 relative">
           <button
             onClick={onClose}
-            className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="absolute top-4 left-4 rounded-full border border-[#9AB887] bg-[#2E502B] hover:bg-[#254223] text-[#EDF4E8] px-3.5 py-1.5 text-xs font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5" />
             Back
           </button>
           <h2 className="font-editorial text-3xl font-semibold tracking-tight text-center pr-12">{caseStudy.name}</h2>
@@ -112,7 +112,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
 
         <div className="overflow-y-auto max-h-[calc(100vh-12rem)]">
           {/* Main Image */}
-          <div className="w-full bg-gray-100">
+          <div className="w-full bg-[#F2F6EF]">
             {imgUrl ? (
               <img
                 src={imgUrl}
@@ -123,8 +123,8 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
                 }}
               />
             ) : (
-              <div className="w-full h-80 bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center">
-                <div className="text-white text-6xl font-bold">
+              <div className="w-full h-80 bg-gradient-to-br from-[#3F673C] to-[#187347] flex items-center justify-center">
+                <div className="font-editorial text-[#E9E6B2] text-6xl font-semibold">
                   {caseStudy.name
                     ?.split(" ")
                     .map((w) => w[0])
@@ -137,25 +137,25 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
           </div>
 
           {/* Info Sections Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-gray-50 border-b">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-[#F2F6EF] border-y border-[#B2C9A8]">
             {Array.isArray(caseStudy.regions) && caseStudy.regions.length > 0 && (
               <InfoSection
-                icon={<MapPin className="w-5 h-5 text-emerald-600" />}
+                icon={<MapPin className="w-5 h-5 text-[#187347]" />}
                 title="Region"
                 items={caseStudy.regions as string[]}
               />
             )}
             {Array.isArray(caseStudy.values) && caseStudy.values.length > 0 && (
               <InfoSection
-                icon={<Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />}
+                icon={<Star className="w-5 h-5 text-[#3F673C] fill-[#E9E6B2]" />}
                 title="Values of Worthwhile Development"
                 items={caseStudy.values as string[]}
               />
             )}
             {Array.isArray(caseStudy.sdgs) && caseStudy.sdgs.length > 0 && (
-              <Card className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+              <Card className="bg-white rounded-xl p-4 shadow-xs border-[1.5px] border-[#B2C9A8]">
                 <div className="flex items-center gap-2">
-                  <Target className="w-5 h-5 text-red-500" />
+                  <Target className="w-5 h-5 text-[#187347]" />
                   <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[#284B26]">Sustainable Development Goals</h3>
                 </div>
                 <div className="">
@@ -167,7 +167,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
             )}
             {Array.isArray(caseStudy.keywords) && caseStudy.keywords.length > 0 && (
               <InfoSection
-                icon={<Key className="w-5 h-5 text-yellow-500" />}
+                icon={<Key className="w-5 h-5 text-[#187347]" />}
                 title="Keywords"
                 items={caseStudy.keywords as string[]}
               />
@@ -257,7 +257,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
                       return (
                         <Card
                           key={key}
-                          className={`bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow ${
+                          className={`bg-white border-[1.5px] border-[#B2C9A8] rounded-xl p-5 shadow-xs hover:border-[#3F673C] hover:bg-[#FAFDF8] transition-all ${
                             shouldCenter ? 'md:col-span-2 md:max-w-2xl md:mx-auto' : ''
                           }`}
                         >
@@ -315,7 +315,7 @@ export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudy
             <div>
                 <h3 className="font-editorial text-xl font-semibold text-[#202B20] mb-4">References</h3>
 
-                <Card className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                <Card className="bg-white border-[1.5px] border-[#B2C9A8] rounded-xl p-5 shadow-xs">
                 <ul className="space-y-2">
                 <Accordion className="max-w-">
                     {caseStudy.references.map((ref, idx) => {

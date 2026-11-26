@@ -3622,7 +3622,23 @@
   }
 }
 
-/* === Site-Wide Editorial Typography Harmony (layout preserved) === */
+/* === Site-Wide Forest & Sage Green-Outline Editorial Skin (layout preserved) === */
+
+/* Heroes: Forest Green (#3F673C) + subtle editorial dot texture */
+.hci-scope .hero,
+.hci-scope .wd-hero,
+.hci-scope .hcd-hero,
+.hci-scope .ca-hero,
+.hci-scope .eoi-hero {
+  background-color: #3f673c;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(233, 230, 178, 0.14) 1px,
+    transparent 0
+  );
+  background-size: 28px 28px;
+  color: #ffffff;
+}
 
 .hci-scope .hero h1,
 .hci-scope .wd-hero h1,
@@ -3652,28 +3668,89 @@
   color: #e8f0e5;
 }
 
-.hci-scope .hcd-hero cite,
-.hci-scope .scroll-cue,
-.hci-scope .wd-back,
-.hci-scope .eoi-detail-eyebrow,
-.hci-scope .eoi-hero-note,
-.hci-scope .wd-hero-note {
+.hci-scope .hcd-hero cite {
+  color: #e9e6b2;
+}
+
+/* Back links & hero badges styled as editorial pills */
+.hci-scope .wd-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(154, 184, 135, 0.7);
+  background: rgba(46, 80, 43, 0.85);
+  color: #edf4e8;
+  padding: 0.45rem 0.9rem;
+  font-family: var(--hci-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.hci-scope .wd-back:hover {
+  border-color: #e9e6b2;
+  background: #254223;
+  color: #e9e6b2;
+}
+
+.hci-scope .wd-hero-note,
+.hci-scope .eoi-hero-note {
+  border-radius: 9999px;
+  border: 1px solid #9ab887;
+  background: #2e502b;
+  color: #e9e6b2;
   font-family: var(--hci-mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .hci-scope .wd-hero-number,
+.hci-scope .eoi-hero-disc {
+  background: #e9e6b2;
+  color: #202b20;
+  border: 2px solid #94b985;
+  font-family: var(--hci-serif);
+  font-weight: 600;
+}
+
+.hci-scope .visual-word {
+  border-radius: 9999px;
+  border: 1px solid #94b985;
+  background: #e9e6b2;
+  color: #202b20;
+  font-family: var(--hci-mono);
+  letter-spacing: 0.14em;
+}
+
+.hci-scope .scroll-cue {
+  color: #e9e6b2;
+  font-family: var(--hci-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hci-scope .eoi-detail-eyebrow,
+.hci-scope .hcd-hero cite {
+  font-family: var(--hci-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hci-scope .eoi-detail-eyebrow {
+  color: #e9e6b2;
+}
+
 .hci-scope .wd-slide-ghost,
-.hci-scope .eoi-hero-disc,
 .hci-scope .ca-year-badge {
   font-family: var(--hci-serif);
 }
 
+/* Eyebrows & metadata labels: Emerald monospace */
 .hci-scope .section-label,
 .hci-scope .article-eyebrow,
 .hci-scope .article-number,
-.hci-scope .visual-word,
 .hci-scope .wd-slide-eyebrow,
 .hci-scope .wd-slide-count,
 .hci-scope .hcd-section-title > span,
@@ -3696,6 +3773,27 @@
   letter-spacing: 0.14em;
 }
 
+.hci-scope .section-label,
+.hci-scope .article-eyebrow,
+.hci-scope .hcd-section-title > span,
+.hci-scope .hcd-model-heading > span,
+.hci-scope .hcd-detail-heading > span,
+.hci-scope .hcd-fields-heading > span,
+.hci-scope .hcd-quiz-heading > span,
+.hci-scope .hcd-question-heading > span,
+.hci-scope .ca-section-heading > span,
+.hci-scope .ca-pioneers-heading > span,
+.hci-scope .ca-human-rights-copy > span,
+.hci-scope .eoi-section-title > span,
+.hci-scope .eoi-principles-heading > span,
+.hci-scope .eoi-detail-summary-copy > span,
+.hci-scope .eoi-detail-checklist-header > div > span,
+.hci-scope .eoi-case-eyebrow,
+.hci-scope .eoi-pager-link small {
+  color: #187347;
+}
+
+/* Section headings & emerald italic emphasis */
 .hci-scope .article-copy h2,
 .hci-scope .wd-intro-heading h2,
 .hci-scope .wd-section-heading h2,
@@ -3716,22 +3814,435 @@
 .hci-scope .eoi-detail-checklist-header h2,
 .hci-scope .eoi-card-body h3,
 .hci-scope .eoi-case-copy h3 {
+  color: #202b20;
   font-family: var(--hci-serif);
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
+.hci-scope .wd-section-heading h2 em,
+.hci-scope .hcd-section-title h2 em,
+.hci-scope .hcd-model-heading h2 em,
+.hci-scope .hcd-fields-heading h2 em,
+.hci-scope .hcd-quiz-heading h2 em,
+.hci-scope .ca-section-heading h2 em,
+.hci-scope .ca-pioneers-heading h2 em,
+.hci-scope .ca-human-rights-copy h2 em,
+.hci-scope .eoi-section-title h2 em,
+.hci-scope .eoi-principles-heading h2 em,
+.hci-scope .eoi-detail-summary-copy h2 em,
+.hci-scope .eoi-detail-checklist-header h2 em {
+  color: #187347;
+  font-style: italic;
+}
+
+/* Soft, readable Forest-ink body prose instead of harsh #000 */
+.hci-scope .article-description,
 .hci-scope .wd-intro-copy p,
+.hci-scope .wd-value-copy p,
 .hci-scope .hcd-intro-copy p,
 .hci-scope .hcd-model-heading p,
 .hci-scope .hcd-detail-copy p,
 .hci-scope .hcd-detail-list li,
+.hci-scope .hcd-fields-heading p,
+.hci-scope .hcd-quiz-heading p,
+.hci-scope .hcd-option,
+.hci-scope .hcd-feedback,
 .hci-scope .ca-section-heading p,
+.hci-scope .ca-pioneers-heading p,
 .hci-scope .ca-human-rights-copy p,
+.hci-scope .ca-timeline p,
 .hci-scope .eoi-simulation-copy p,
 .hci-scope .eoi-principles-heading p,
+.hci-scope .eoi-card-body p,
 .hci-scope .eoi-detail-summary-copy p,
-.hci-scope .eoi-case-description {
-  color: var(--hci-body);
+.hci-scope .eoi-check-text,
+.hci-scope .eoi-resource-description,
+.hci-scope .eoi-case-description,
+.hci-scope .eoi-case-source {
+  color: #394838;
   font-family: var(--hci-sans);
 }
+
+/* Hub Topic Cards: Green-outlined editorial surfaces (layout unchanged) */
+.hci-scope .article-card.secondary,
+.hci-scope .article-card.tertiary,
+.hci-scope .article-card.neutral,
+.hci-scope .article-card.primary {
+  background: #ffffff;
+  border: 1.5px solid #b2c9a8;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hci-scope .article-card:hover {
+  border-color: #3f673c;
+  background: #fafdf8;
+  box-shadow: 0 12px 28px rgba(32, 43, 32, 0.08);
+}
+
+.hci-scope .article-number,
+.hci-scope .eoi-card-number {
+  background: #e9e6b2;
+  color: #202b20;
+  border: 1.5px solid #94b985;
+  border-radius: 9999px;
+}
+
+.hci-scope .article-copy a {
+  color: #284b26;
+  font-weight: 600;
+}
+
+.hci-scope .article-copy a:hover {
+  color: #187347;
+}
+
+.hci-scope .arrow-circle {
+  border: 1.5px solid #94b985;
+  background: #f2f6ef;
+  color: #187347;
+}
+
+.hci-scope .article-copy a:hover .arrow-circle,
+.hci-scope .eoi-card:hover .arrow-circle,
+.hci-scope .eoi-resource-link:hover .arrow-circle,
+.hci-scope .eoi-pager-link:hover .arrow-circle {
+  background: linear-gradient(to right, #3f673c, #187347);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+/* Alternating Sage Wash sections (#F2F6EF with #B2C9A8 hairlines) replacing periwinkle/taupe */
+.hci-scope .wd-values-section,
+.hci-scope .hcd-model-section,
+.hci-scope .hcd-quiz-section,
+.hci-scope .ca-explained,
+.hci-scope .ca-human-rights,
+.hci-scope .eoi-principles,
+.hci-scope .eoi-detail-checklist,
+.hci-scope .eoi-detail-cases {
+  background: #f2f6ef;
+  border-top: 1px solid #b2c9a8;
+  border-bottom: 1px solid #b2c9a8;
+}
+
+.hci-scope .wd-callout {
+  background: #f6f4d8;
+  border: 1.5px solid #94b985;
+  border-left: 4px solid #3f673c;
+  border-radius: 14px;
+  color: #202b20;
+}
+
+/* Worthwhile Carousel Card & Controls */
+.hci-scope .wd-slide {
+  background: #ffffff;
+  border: 1.5px solid #94b985;
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(32, 43, 32, 0.06);
+}
+
+.hci-scope .wd-slide-eyebrow,
+.hci-scope .wd-slide-count {
+  color: #187347;
+}
+
+.hci-scope .wd-nav-btn {
+  background: linear-gradient(to right, #3f673c, #187347);
+  color: #ffffff;
+  border-radius: 9999px;
+}
+
+.hci-scope .wd-nav-btn:hover {
+  filter: brightness(1.08);
+  background: linear-gradient(to right, #3f673c, #187347);
+}
+
+.hci-scope .wd-dot {
+  border-color: #94b985;
+  background: #ffffff;
+}
+
+.hci-scope .wd-dot.is-active {
+  background: #187347;
+  border-color: #187347;
+}
+
+/* Capability Approach: Video Frame, Pioneer Flip Cards & Timeline */
+.hci-scope .ca-video-frame {
+  background: #202b20;
+  border: 2px solid #94b985;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 14px 32px rgba(32, 43, 32, 0.12);
+}
+
+.hci-scope .ca-pioneer-face {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.hci-scope .ca-pioneer-front {
+  background: #202b20;
+  border: 1.5px solid #94b985;
+}
+
+.hci-scope .ca-pioneer-front > strong,
+.hci-scope .ca-pioneer-cue {
+  background: #3f673c;
+  color: #ffffff;
+}
+
+.hci-scope .ca-pioneer-back {
+  background: #f6f4d8;
+  border: 1.5px solid #94b985;
+  color: #202b20;
+}
+
+.hci-scope .ca-pioneer-back > span:first-child {
+  color: #187347;
+  font-family: var(--hci-mono);
+}
+
+.hci-scope .ca-pioneer-back li {
+  color: #394838;
+}
+
+.hci-scope .ca-timeline::before {
+  background: #b2c9a8;
+}
+
+.hci-scope .ca-timeline li > span {
+  background: #187347;
+  border-color: #edf4e8;
+}
+
+.hci-scope .ca-timeline li > span::before {
+  background: #94b985;
+}
+
+.hci-scope .ca-timeline article {
+  background: #ffffff;
+  border: 1.5px solid #b2c9a8;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(32, 43, 32, 0.04);
+}
+
+.hci-scope .ca-timeline time {
+  color: #187347;
+  font-family: var(--hci-mono);
+}
+
+/* Human Centred Design: Detail Panel, Persona, Field Cards & Quiz */
+.hci-scope .hcd-stage-detail,
+.hci-scope .hcd-survey {
+  background: #ffffff;
+  border: 1.5px solid #b2c9a8;
+  border-radius: 18px;
+}
+
+.hci-scope .hcd-persona-sidebar,
+.hci-scope .hcd-persona-main,
+.hci-scope .hcd-persona-insights {
+  background: #f2f6ef;
+  border: 1px solid #b2c9a8;
+  border-radius: 14px;
+}
+
+.hci-scope .hcd-persona-sidebar blockquote {
+  background: #3f673c;
+  color: #e9e6b2;
+  border-radius: 12px;
+}
+
+.hci-scope .hcd-field-face {
+  border-radius: 18px;
+}
+
+.hci-scope .hcd-field-front {
+  border: 1.5px solid #94b985;
+}
+
+.hci-scope .hcd-field-card.primary .hcd-field-front {
+  background: #3f673c;
+  color: #ffffff;
+}
+
+.hci-scope .hcd-field-card.secondary .hcd-field-front {
+  background: #187347;
+  color: #ffffff;
+}
+
+.hci-scope .hcd-field-card.tertiary .hcd-field-front {
+  background: #284b26;
+  color: #e9e6b2;
+}
+
+.hci-scope .hcd-field-card.neutral .hcd-field-front {
+  background: #f6f4d8;
+  color: #202b20;
+}
+
+.hci-scope .hcd-field-back {
+  background: #ffffff;
+  border: 1.5px solid #3f673c;
+  color: #394838;
+}
+
+.hci-scope .hcd-quiz-box {
+  background: #ffffff;
+  border: 1.5px solid #94b985;
+  border-radius: 20px;
+  box-shadow: 0 10px 26px rgba(32, 43, 32, 0.06);
+}
+
+.hci-scope .hcd-quiz-progress-bar {
+  background: #edf4e8;
+  border-radius: 9999px;
+}
+
+.hci-scope .hcd-quiz-progress-bar span {
+  background: linear-gradient(to right, #3f673c, #187347);
+  border-radius: 9999px;
+}
+
+.hci-scope .hcd-option {
+  background: #ffffff;
+  border: 1.5px solid #b2c9a8;
+  border-radius: 12px;
+}
+
+.hci-scope .hcd-option:hover:not(:disabled) {
+  background: #fafdf8;
+  border-color: #3f673c;
+}
+
+.hci-scope .hcd-option.is-correct {
+  background: #edf4e8;
+  border-color: #187347;
+  color: #202b20;
+}
+
+.hci-scope .hcd-quiz-next,
+.hci-scope .hcd-quiz-restart {
+  border-radius: 9999px;
+  background: linear-gradient(to right, #3f673c, #187347);
+  border: 0;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.hci-scope .hcd-quiz-next:hover,
+.hci-scope .hcd-quiz-restart:hover {
+  filter: brightness(1.08);
+  color: #ffffff;
+}
+
+/* Ethics of Innovation & Principle Detail Pages */
+.hci-scope .eoi-sim-cta {
+  border-radius: 9999px;
+  background: linear-gradient(to right, #3f673c, #187347);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.hci-scope .eoi-sim-cta:hover {
+  background: linear-gradient(to right, #3f673c, #187347);
+  filter: brightness(1.08);
+  color: #ffffff;
+}
+
+.hci-scope .eoi-card {
+  background: #ffffff;
+  border: 1.5px solid #b2c9a8;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hci-scope .eoi-card:hover {
+  border-color: #3f673c;
+  background: #fafdf8;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(32, 43, 32, 0.08);
+}
+
+.hci-scope .eoi-card-footer {
+  color: #284b26;
+  font-weight: 600;
+}
+
+.hci-scope .eoi-detail-media {
+  border-radius: 18px;
+  border: 1.5px solid #b2c9a8;
+  overflow: hidden;
+}
+
+.hci-scope .eoi-checklist-item {
+  background: #ffffff;
+  border: 1.5px solid #b2c9a8;
+  border-radius: 14px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.hci-scope .eoi-checklist-item:hover {
+  border-color: #3f673c;
+  background: #fafdf8;
+}
+
+.hci-scope .eoi-checklist-item.is-checked {
+  background: #edf4e8;
+  border-color: #187347;
+}
+
+.hci-scope .eoi-check-box {
+  border-color: #94b985;
+  border-radius: 6px;
+}
+
+.hci-scope .eoi-checklist-item.is-checked .eoi-check-box {
+  background: #187347;
+  border-color: #187347;
+  color: #ffffff;
+}
+
+.hci-scope .eoi-checklist-reset {
+  border-radius: 9999px;
+  border: 1px solid #94b985;
+  background: #ffffff;
+  color: #284b26;
+}
+
+.hci-scope .eoi-checklist-reset:hover {
+  border-color: #3f673c;
+  background: #edf4e8;
+}
+
+.hci-scope .eoi-resource-item,
+.hci-scope .eoi-case-card,
+.hci-scope .eoi-pager-link {
+  background: #ffffff;
+  border: 1.5px solid #b2c9a8;
+  border-radius: 16px;
+}
+
+.hci-scope .eoi-resource-item:hover,
+.hci-scope .eoi-case-card:hover,
+.hci-scope .eoi-pager-link:hover {
+  border-color: #3f673c;
+  background: #fafdf8;
+}
+
+.hci-scope .eoi-resource-link,
+.hci-scope .eoi-pager-link strong,
+.hci-scope .eoi-case-source a {
+  color: #284b26;
+}
+
+.hci-scope .eoi-resource-link:hover,
+.hci-scope .eoi-case-source a:hover {
+  color: #187347;
+}
+

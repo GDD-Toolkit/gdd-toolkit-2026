@@ -23,7 +23,7 @@ function InfoSection({
 }) {
   if (!items || items.length === 0) return null;
   return (
-    <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+    <div className="bg-white rounded-xl p-4 shadow-xs border-[1.5px] border-[#B2C9A8]">
       <div className="flex items-center gap-2 mb-2">
         {icon}
         <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[#284B26]">{title}</h3>
@@ -80,10 +80,10 @@ export default function CaseStudyDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-sky-600"></div>
-          <p className="mt-4 text-gray-600">Loading case study...</p>
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-[#B2C9A8] border-t-[#187347]"></div>
+          <p className="mt-4 text-sm text-[#596556]">Loading case study...</p>
         </div>
       </div>
     );
@@ -91,12 +91,12 @@ export default function CaseStudyDetail() {
 
   if (error || !caseStudy) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-600 text-lg mb-4">{error || "Case study not found"}</p>
+          <p className="font-editorial text-[#9a2f26] text-lg font-semibold mb-4">{error || "Case study not found"}</p>
           <button
             onClick={() => navigate("/case-studies")}
-            className="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
+            className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#3F673C] to-[#187347] text-sm font-semibold text-white hover:brightness-110 transition-all"
           >
             Back to Case Studies
           </button>
@@ -145,14 +145,14 @@ export default function CaseStudyDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white text-[#202B20]">
       {/* Green Header */}
       <div className="bg-[#3F673C] text-white py-6 px-6 relative">
         <button
           onClick={() => navigate("/case-studies")}
-          className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5"
+          className="absolute top-4 left-4 rounded-full border border-[#9AB887] bg-[#2E502B] hover:bg-[#254223] text-[#EDF4E8] px-3.5 py-1.5 text-xs font-medium transition-colors flex items-center gap-1.5"
         >
-          <X className="w-4 h-4" />
+          <X className="w-3.5 h-3.5" />
           Back
         </button>
         <h2 className="font-editorial text-3xl font-semibold tracking-tight text-center pr-12">{caseStudy.name}</h2>
@@ -161,7 +161,7 @@ export default function CaseStudyDetail() {
       <div className="max-w-4xl mx-auto">
         <div className="overflow-y-auto">
           {/* Main Image */}
-          <div className="w-full bg-gray-100">
+          <div className="w-full bg-[#F2F6EF]">
             {imgUrl ? (
               <img
                 src={imgUrl}
@@ -172,8 +172,8 @@ export default function CaseStudyDetail() {
                 }}
               />
             ) : (
-              <div className="w-full h-80 bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center">
-                <div className="text-white text-6xl font-bold">
+              <div className="w-full h-80 bg-gradient-to-br from-[#3F673C] to-[#187347] flex items-center justify-center">
+                <div className="font-editorial text-[#E9E6B2] text-6xl font-semibold">
                   {caseStudy.name
                     ?.split(" ")
                     .map((w) => w[0])
@@ -186,25 +186,25 @@ export default function CaseStudyDetail() {
           </div>
 
           {/* Info Sections Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-gray-50 border-b">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-[#F2F6EF] border-y border-[#B2C9A8]">
             {Array.isArray(caseStudy.regions) && caseStudy.regions.length > 0 && (
               <InfoSection
-                icon={<MapPin className="w-5 h-5 text-emerald-600" />}
+                icon={<MapPin className="w-5 h-5 text-[#187347]" />}
                 title="Region"
                 items={caseStudy.regions as string[]}
               />
             )}
             {Array.isArray(caseStudy.values) && caseStudy.values.length > 0 && (
               <InfoSection
-                icon={<Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />}
+                icon={<Star className="w-5 h-5 text-[#3F673C] fill-[#E9E6B2]" />}
                 title="Values of Worthwhile Development"
                 items={caseStudy.values as string[]}
               />
             )}
             {Array.isArray(caseStudy.sdgs) && caseStudy.sdgs.length > 0 && (
-              <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+              <div className="bg-white rounded-xl p-4 shadow-xs border-[1.5px] border-[#B2C9A8]">
                 <div className="flex items-center gap-2 mb-2">
-                  <Target className="w-5 h-5 text-red-500" />
+                  <Target className="w-5 h-5 text-[#187347]" />
                   <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[#284B26]">Sustainable Development Goals</h3>
                 </div>
                 <div className="space-y-1">
@@ -216,7 +216,7 @@ export default function CaseStudyDetail() {
             )}
             {Array.isArray(caseStudy.keywords) && caseStudy.keywords.length > 0 && (
               <InfoSection
-                icon={<Key className="w-5 h-5 text-yellow-500" />}
+                icon={<Key className="w-5 h-5 text-[#187347]" />}
                 title="Keywords"
                 items={caseStudy.keywords as string[]}
               />
@@ -289,7 +289,7 @@ export default function CaseStudyDetail() {
                       return (
                         <div
                           key={key}
-                          className={`bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow ${
+                          className={`bg-white border-[1.5px] border-[#B2C9A8] rounded-xl p-5 shadow-xs hover:border-[#3F673C] hover:bg-[#FAFDF8] transition-all ${
                             shouldCenter ? 'md:col-span-2 md:max-w-2xl md:mx-auto' : ''
                           }`}
                         >
