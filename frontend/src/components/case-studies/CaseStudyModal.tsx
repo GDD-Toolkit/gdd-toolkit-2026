@@ -1,712 +1,354 @@
 /**
- * CaseStudyModal - Elevated editorial reader modal for displaying case study details.
- * Supports keyboard Escape close, background scroll locking, full-page deep link,
- * and structured ethical evaluation rubrics.
+ * CaseStudyModal - Modal component for displaying case study details
+ * Reusable modal that can be opened from the case studies page
  */
 
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import {
-  ArrowUpRight,
-  CheckCircle2,
-  ExternalLink,
-  HeartPulse,
-  Key,
-  Leaf,
-  MapPin,
-  Palette,
-  Scale,
-  ShieldCheck,
-  Star,
-  Target,
-  X,
-  Zap,
-} from "lucide-react";
-import type { CaseStudy, CaseStudySegment } from "@/types/caseStudies";
+import React from "react";
+import type { CaseStudy } from "@/types/caseStudies";
 import { s3UriToHttps } from "@/utils/s3";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
-  EDITORIAL_EASE,
-  EDITORIAL_SERIF_STYLE,
-} from "@/components/editorial/EditorialPagePrimitives";
+import { X, MapPin, Star, Target, Key, Zap, HeartPulse, ShieldCheck, Palette, Scale, CheckCircle2, Leaf } from "lucide-react";
+import { Card } from "../ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface CaseStudyModalProps {
-  caseStudy: (CaseStudy & { segment?: CaseStudySegment }) | null;
+  caseStudy: CaseStudy | null;
   isOpen: boolean;
   onClose: () => void;
 }
 
-function MetadataCard({
-  icon,
-  title,
-  items,
-  pillVariant = "sage",
-}: {
-  icon: React.ReactNode;
-  title: string;
-  items: string[];
-  pillVariant?: "sage" | "cream" | "plain";
+// Helper component for info sections
+function InfoSection({ 
+  icon, 
+  title, 
+  items 
+}: { 
+  icon: React.ReactNode; 
+  title: string; 
+  items: string[] 
 }) {
   if (!items || items.length === 0) return null;
+  return (
+    <Card className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+      <div className="flex items-center gap-2">
+        {icon}
+        <h3 className="font-semibold text-gray-900 text-sm">{title}</h3>
+      </div>
+      <div className="space-y-1">
+        {items.map((item, idx) => (
+          <p key={idx} className="text-sm text-gray-700">{item}</p>
+        ))}
+      </div>
+    </Card>
+  );
+}
+
+function extractUrl(text: string): string | null {
+    const match = text.match(/https?:\/\/\S+/i);
+    return match ? match[0] : null;
+  }  
+  
+export default function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudyModalProps) {
+  if (!isOpen || !caseStudy) return null;
+
+  // Convert S3 URI to HTTPS URL if needed
+  const rawImage = caseStudy.image;
+  const hasValidImage = rawImage && typeof rawImage === 'string' && rawImage.trim().length > 0;
+  const imgUrl = hasValidImage ? (s3UriToHttps(rawImage) || rawImage) : null;
+
+  // Score color mapping
+  const getScoreColor = (score: string) => {
+    switch (score.toUpperCase()) {
+      case 'A': return 'bg-green-100 text-green-800 border-green-300';
+      case 'B': return 'bg-blue-100 text-blue-800 border-blue-300';
+      case 'C': return 'bg-yellow-100 text-yellow-800 border-yellow-300';
+      case 'F': return 'bg-red-100 text-red-800 border-red-300';
+      default: return 'bg-gray-100 text-gray-800 border-gray-300';
+    }
+  };
+
+  // Get icon for each value type
+  const getIcon = (key: string) => {
+    const iconClass = "w-5 h-5";
+    switch (key.toLowerCase()) {
+      case 'empowerment': return <Zap className={`${iconClass} text-yellow-500`} />;
+      case 'well-being': case 'wellbeing': return <HeartPulse className={`${iconClass} text-red-500`} />;
+      case 'responsibility': return <CheckCircle2 className={`${iconClass} text-blue-500`} />;
+      case 'human rights': case 'human_rights': return <ShieldCheck className={`${iconClass} text-indigo-500`} />;
+      case 'cultural freedom': case 'cultural_freedom': return <Palette className={`${iconClass} text-purple-500`} />;
+      case 'equality': return <Scale className={`${iconClass} text-teal-500`} />;
+      case 'sustainability': return <Leaf className={`${iconClass} text-green-500`} />;
+      default: return <Star className={`${iconClass} text-gray-500`} />;
+    }
+  };
+
+  // Format key name (capitalize and add spaces)
+  const formatKey = (k: string) => {
+    return k
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
 
   return (
-    <div className="rounded-xl border-[1.5px] border-[#B2C9A8] bg-white p-4">
-      <div className="flex items-center gap-2">
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#EDF4E8] text-[#187347]">
-          {icon}
-        </span>
-        <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#284B26]">
-          {title}
-        </h3>
-      </div>
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {items.map((item, idx) => (
-          <span
-            key={`${item}-${idx}`}
-            className={
-              pillVariant === "cream"
-                ? "inline-flex items-center rounded-full border border-[#D6CE8A] bg-[#FAF8E4] px-2.5 py-0.5 font-mono text-[11px] font-medium text-[#5A5026]"
-                : pillVariant === "plain"
-                  ? "inline-flex items-center rounded-full border border-[#D5E3D9] bg-[#FAFDF8] px-2.5 py-0.5 text-xs text-[#394838]"
-                  : "inline-flex items-center rounded-full border border-[#B2C9A8]/80 bg-[#EDF4E8] px-2.5 py-0.5 text-xs font-medium text-[#284B26]"
-            }
+    <div
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-2xl max-w-4xl w-full my-8 shadow-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Green Header */}
+        <div className="bg-[#43673B] text-white py-6 px-6 relative">
+          <button
+            onClick={onClose}
+            className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
           >
-            {item}
-          </span>
-        ))}
+            <X className="w-4 h-4" />
+            Back
+          </button>
+          <h2 className="text-3xl font-bold text-center pr-12">{caseStudy.name}</h2>
+        </div>
+
+        <div className="overflow-y-auto max-h-[calc(100vh-12rem)]">
+          {/* Main Image */}
+          <div className="w-full bg-gray-100">
+            {imgUrl ? (
+              <img
+                src={imgUrl}
+                alt={caseStudy.name}
+                className="w-full h-80 object-cover"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+            ) : (
+              <div className="w-full h-80 bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center">
+                <div className="text-white text-6xl font-bold">
+                  {caseStudy.name
+                    ?.split(" ")
+                    .map((w) => w[0])
+                    .join("")
+                    .slice(0, 3)
+                    .toUpperCase() || "CS"}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Info Sections Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-gray-50 border-b">
+            {Array.isArray(caseStudy.regions) && caseStudy.regions.length > 0 && (
+              <InfoSection
+                icon={<MapPin className="w-5 h-5 text-emerald-600" />}
+                title="Region"
+                items={caseStudy.regions as string[]}
+              />
+            )}
+            {Array.isArray(caseStudy.values) && caseStudy.values.length > 0 && (
+              <InfoSection
+                icon={<Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />}
+                title="Values of Worthwhile Development"
+                items={caseStudy.values as string[]}
+              />
+            )}
+            {Array.isArray(caseStudy.sdgs) && caseStudy.sdgs.length > 0 && (
+              <Card className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                <div className="flex items-center gap-2">
+                  <Target className="w-5 h-5 text-red-500" />
+                  <h3 className="font-semibold text-gray-900 text-sm">Sustainable Development Goals</h3>
+                </div>
+                <div className="">
+                  {(caseStudy.sdgs as (string | number)[]).map((sdg, idx) => (
+                    <p key={idx} className="text-sm text-gray-700">SDG {sdg}</p>
+                  ))}
+                </div>
+              </Card>
+            )}
+            {Array.isArray(caseStudy.keywords) && caseStudy.keywords.length > 0 && (
+              <InfoSection
+                icon={<Key className="w-5 h-5 text-yellow-500" />}
+                title="Keywords"
+                items={caseStudy.keywords as string[]}
+              />
+            )}
+          </div>
+
+          {/* Description and Lessons Learned */}
+          <div className="p-6 space-y-6">
+            {caseStudy.description && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Description</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.description}</p>
+              </div>
+            )}
+
+            {caseStudy.lessons_learned && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Lessons Learned</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.lessons_learned}</p>
+              </div>
+            )}
+
+            {caseStudy.summary && typeof caseStudy.summary === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Summary</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.summary}</p>
+              </div>
+            )}
+
+            {caseStudy.issue && typeof caseStudy.issue === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Issue</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.issue}</p>
+              </div>
+            )}
+
+            {caseStudy.introduction && typeof caseStudy.introduction === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Introduction</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.introduction}</p>
+              </div>
+            )}
+
+            {caseStudy.goal && typeof caseStudy.goal === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Goal</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.goal}</p>
+              </div>
+            )}
+
+            {caseStudy.findings_implications && typeof caseStudy.findings_implications === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Findings and Implications</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.findings_implications}</p>
+              </div>
+            )}
+
+            {caseStudy.relation_sdgs_values && typeof caseStudy.relation_sdgs_values === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Relation to SDGs and Values</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.relation_sdgs_values}</p>
+              </div>
+            )}
+
+            {caseStudy.evaluation && typeof caseStudy.evaluation === 'object' && (() => {
+              const entries = Object.entries(caseStudy.evaluation as Record<string, any>)
+                .filter(([_, value]) => value && typeof value === 'object')
+                .map(([key, value]) => ({ key, value }));
+              
+              const totalEntries = entries.length;
+              const lastEntry = entries[totalEntries - 1];
+              const isLastSustainability = lastEntry && lastEntry.key.toLowerCase() === 'sustainability';
+              const shouldCenterLast = isLastSustainability && totalEntries % 2 === 1;
+
+              return (
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">Evaluation</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {entries.map(({ key, value }, index) => {
+                      const evaluationItem = value as { summary?: string; score?: string; indicators_checked?: string[] };
+                      const score = evaluationItem.score || 'N/A';
+                      const summary = evaluationItem.summary || '';
+                      const indicators = Array.isArray(evaluationItem.indicators_checked) ? evaluationItem.indicators_checked : [];
+                      const isLast = index === entries.length - 1;
+                      const shouldCenter = shouldCenterLast && isLast;
+
+                      return (
+                        <Card
+                          key={key}
+                          className={`bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow ${
+                            shouldCenter ? 'md:col-span-2 md:max-w-2xl md:mx-auto' : ''
+                          }`}
+                        >
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              {getIcon(key)}
+                              <h4 className="text-lg font-semibold text-gray-900">
+                                {formatKey(key)}
+                              </h4>
+                            </div>
+                            <span
+                              className={`px-3 py-1 rounded-full text-sm font-bold border ${getScoreColor(score)}`}
+                            >
+                              {score}
+                            </span>
+                          </div>
+                          
+                          {summary && (
+                            <p className="text-sm text-gray-700 mb-3 leading-relaxed">
+                              {summary}
+                            </p>
+                          )}
+                          
+                          {indicators.length > 0 && (
+                            <div className="mt-3 pt-3 border-t border-gray-200">
+                              <p className="text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
+                                Indicators Checked:
+                              </p>
+                              <ul className="space-y-1.5">
+                                {indicators.map((indicator, idx) => (
+                                  <li key={idx} className="text-xs text-gray-600 flex items-start gap-2">
+                                    <span className="text-[#6D83F2] mt-1">•</span>
+                                    <span>{indicator}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </Card>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {caseStudy.evaluation && typeof caseStudy.evaluation === 'string' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Evaluation</h3>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{caseStudy.evaluation}</p>
+              </div>
+            )}
+
+            {Array.isArray(caseStudy.references) && caseStudy.references.length > 0 && (
+            <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">References</h3>
+
+                <Card className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                <ul className="space-y-2">
+                <Accordion className="max-w-">
+                    {caseStudy.references.map((ref, idx) => {
+                    const url = extractUrl(ref);
+                    const before = url ? ref.split(url)[0] : ref;
+                    // const after = url ? ref.split(url)[1] : "";  // --- Not currently in use.
+
+                    return (
+                      <AccordionItem value={"ref_"+idx}>
+                        <AccordionTrigger className="text-sm text-gray-700 font-normal leading-relaxed flex gap-2"><span className="text-[#6D83F2] font-semibold">[{idx+1}] </span>{before}</AccordionTrigger>
+                        <AccordionContent>
+                          {url ? 
+                              <a 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-emerald-700 underline hover:text-emerald-800 break-all" 
+                                href={url}
+                              >{url}
+                              </a> : <span>Link not found</span>}
+                        </AccordionContent>
+                      </AccordionItem>
+                    );
+                  })}
+                </Accordion>
+                </ul>
+                </Card>
+            </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function ProseSection({
-  eyebrow,
-  title,
-  content,
-}: {
-  eyebrow?: string;
-  title: string;
-  content: string;
-}) {
-  return (
-    <section className="space-y-2.5">
-      <div>
-        {eyebrow && (
-          <p className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-[#187347]">
-            {eyebrow}
-          </p>
-        )}
-        <h3
-          className="mt-0.5 text-xl font-semibold text-[#202B20]"
-          style={EDITORIAL_SERIF_STYLE}
-        >
-          {title}
-        </h3>
-      </div>
-      <p className="whitespace-pre-wrap text-[15px] leading-[1.75] text-[#394838]">
-        {content}
-      </p>
-    </section>
-  );
-}
 
-function extractUrl(text: string): string | null {
-  const match = text.match(/https?:\/\/\S+/i);
-  return match ? match[0] : null;
-}
-
-function getScoreBadgeClass(score: string): string {
-  switch (score.toUpperCase()) {
-    case "A":
-      return "border-[#94B985] bg-[#EDF4E8] text-[#187347]";
-    case "B":
-      return "border-[#B2C9A8] bg-[#F2F6EF] text-[#284B26]";
-    case "C":
-      return "border-[#D6CE8A] bg-[#FAF8E4] text-[#6F4E37]";
-    case "F":
-      return "border-[#E3B5AD] bg-[#FDF1EE] text-[#9E3223]";
-    default:
-      return "border-[#D5E3D9] bg-[#FAFDF8] text-[#596556]";
-  }
-}
-
-function getValueIcon(key: string): React.ReactNode {
-  const iconClass = "h-4 w-4 text-[#187347]";
-  switch (key.toLowerCase()) {
-    case "empowerment":
-      return <Zap className={iconClass} aria-hidden="true" />;
-    case "well-being":
-    case "wellbeing":
-      return <HeartPulse className={iconClass} aria-hidden="true" />;
-    case "responsibility":
-      return <CheckCircle2 className={iconClass} aria-hidden="true" />;
-    case "human rights":
-    case "human_rights":
-      return <ShieldCheck className={iconClass} aria-hidden="true" />;
-    case "cultural freedom":
-    case "cultural_freedom":
-      return <Palette className={iconClass} aria-hidden="true" />;
-    case "equality":
-      return <Scale className={iconClass} aria-hidden="true" />;
-    case "sustainability":
-      return <Leaf className={iconClass} aria-hidden="true" />;
-    default:
-      return <Star className={iconClass} aria-hidden="true" />;
-  }
-}
-
-function formatKey(k: string): string {
-  return k
-    .split("_")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
-export default function CaseStudyModal({
-  caseStudy,
-  isOpen,
-  onClose,
-}: CaseStudyModalProps) {
-  const reduced = useReducedMotion();
-  const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
-
-  // Keyboard Escape handler & background scroll lock
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen, onClose]);
-
-  const rawImage = caseStudy?.image;
-  const hasValidImage =
-    typeof rawImage === "string" && rawImage.trim().length > 0;
-  const imgUrl = hasValidImage ? s3UriToHttps(rawImage) || rawImage : null;
-  const showImage = Boolean(imgUrl && failedImageUrl !== imgUrl);
-
-  const isMaldev = caseStudy?.segment === "maldevelopment";
-
-  const regions = Array.isArray(caseStudy?.regions)
-    ? (caseStudy.regions as string[])
-    : [];
-  const values = Array.isArray(caseStudy?.values)
-    ? (caseStudy.values as string[])
-    : [];
-  const sdgs = Array.isArray(caseStudy?.sdgs)
-    ? (caseStudy.sdgs as (string | number)[])
-    : [];
-  const keywords = Array.isArray(caseStudy?.keywords)
-    ? (caseStudy.keywords as string[])
-    : [];
-  const hasMetadata =
-    regions.length > 0 ||
-    values.length > 0 ||
-    sdgs.length > 0 ||
-    keywords.length > 0;
-
-  return (
-    <AnimatePresence>
-      {isOpen && caseStudy && (
-        <motion.div
-          key="case-study-modal-backdrop"
-          initial={reduced ? false : { opacity: 0 }}
-          animate={reduced ? undefined : { opacity: 1 }}
-          exit={reduced ? undefined : { opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#192419]/70 p-3 backdrop-blur-sm sm:p-6"
-          onClick={onClose}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="case-study-modal-title"
-        >
-          <motion.div
-            key={`case-study-modal-${caseStudy.id}`}
-            initial={reduced ? false : { opacity: 0, y: 20, scale: 0.98 }}
-            animate={reduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
-            exit={reduced ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
-            transition={{ duration: 0.28, ease: EDITORIAL_EASE }}
-            onClick={(e) => e.stopPropagation()}
-            className="flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border-[1.5px] border-[#94B985] bg-white shadow-2xl"
-          >
-            {/* Editorial Forest Header */}
-            <div className="relative shrink-0 overflow-hidden bg-[#3F673C] px-5 py-5 text-white sm:px-8 sm:py-6">
-              <div
-                aria-hidden="true"
-                className="editorial-grid-texture pointer-events-none absolute inset-0 opacity-60"
-              />
-
-              <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
-                <div className="flex flex-wrap items-center gap-2">
-                  {caseStudy.segment ? (
-                    <span
-                      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-wider ${
-                        isMaldev
-                          ? "border border-[#D6CE8A] bg-[#FAF8E4] text-[#6F4E37]"
-                          : "border border-[#D6CE8A]/70 bg-[#E9E6B2] text-[#202B20]"
-                      }`}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className={`h-1.5 w-1.5 rounded-full ${
-                          isMaldev ? "bg-[#A86B32]" : "bg-[#187347]"
-                        }`}
-                      />
-                      {isMaldev ? "Maldevelopment" : "Worthwhile Development"}
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center rounded-full border border-[#9AB887] bg-[#2E502B] px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-[#E9E6B2]">
-                      Global Case Study
-                    </span>
-                  )}
-
-                  {regions.length > 0 && (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-[#9AB887]/60 bg-[#355832] px-3 py-1 text-xs font-medium text-[#EDF4E8]">
-                      <MapPin
-                        className="h-3 w-3 text-[#E9E6B2]"
-                        aria-hidden="true"
-                      />
-                      {regions.join(" · ")}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Link
-                    to={`/case-studies/${caseStudy.id}`}
-                    onClick={onClose}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-[#9AB887]/70 bg-[#2E502B] px-3.5 py-1.5 text-xs font-medium text-[#EDF4E8] transition-colors hover:border-[#E9E6B2] hover:bg-[#254223] hover:text-[#E9E6B2]"
-                  >
-                    <span>Full Article</span>
-                    <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                  </Link>
-
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    aria-label="Close case study reader"
-                    className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-[#9AB887]/70 bg-[#2E502B] text-white transition-colors hover:border-[#E9E6B2] hover:bg-[#254223] hover:text-[#E9E6B2] focus:outline-none focus:ring-2 focus:ring-[#E9E6B2]"
-                  >
-                    <X className="h-4 w-4" aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
-
-              <h2
-                id="case-study-modal-title"
-                className="relative z-10 mt-4 text-2xl font-semibold leading-tight text-white sm:text-3xl"
-                style={EDITORIAL_SERIF_STYLE}
-              >
-                {caseStudy.name}
-              </h2>
-            </div>
-
-            {/* Scrollable Editorial Body */}
-            <div className="case-studies-scroll flex-1 overflow-y-auto">
-              {/* Hero Image Banner */}
-              <div className="relative w-full bg-[#202B20]">
-                {showImage && imgUrl ? (
-                  <div className="relative h-56 w-full overflow-hidden sm:h-72">
-                    <img
-                      src={imgUrl}
-                      alt={caseStudy.name}
-                      className="h-full w-full object-cover"
-                      onError={() => setFailedImageUrl(imgUrl)}
-                    />
-                    <div
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#192419]/35 via-transparent to-transparent"
-                    />
-                  </div>
-                ) : (
-                  <div className="relative flex h-44 w-full items-center justify-center overflow-hidden bg-gradient-to-br from-[#284B26] via-[#3F673C] to-[#187347]">
-                    <div
-                      aria-hidden="true"
-                      className="editorial-grid-texture pointer-events-none absolute inset-0 opacity-70"
-                    />
-                    <span
-                      aria-hidden="true"
-                      className="relative z-10 text-5xl font-semibold text-[#E9E6B2]/90"
-                      style={EDITORIAL_SERIF_STYLE}
-                    >
-                      {caseStudy.name
-                        ?.split(/\s+/)
-                        .filter(Boolean)
-                        .map((w) => w[0])
-                        .join("")
-                        .slice(0, 3)
-                        .toUpperCase() || "CS"}
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* Metadata Band */}
-              {hasMetadata && (
-                <div className="border-y border-[#B2C9A8] bg-[#F2F6EF] p-5 sm:p-6">
-                  <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
-                    <MetadataCard
-                      icon={<MapPin className="h-4 w-4" aria-hidden="true" />}
-                      title="Regions"
-                      items={regions}
-                      pillVariant="plain"
-                    />
-                    <MetadataCard
-                      icon={<Star className="h-4 w-4" aria-hidden="true" />}
-                      title="Values of Worthwhile Development"
-                      items={values}
-                      pillVariant="sage"
-                    />
-                    <MetadataCard
-                      icon={<Target className="h-4 w-4" aria-hidden="true" />}
-                      title="UN Sustainable Development Goals"
-                      items={sdgs.map((sdg) => `SDG ${sdg}`)}
-                      pillVariant="cream"
-                    />
-                    <MetadataCard
-                      icon={<Key className="h-4 w-4" aria-hidden="true" />}
-                      title="Keywords"
-                      items={keywords}
-                      pillVariant="plain"
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Prose & Evaluation Content */}
-              <div className="case-studies-prose space-y-8 p-6 sm:p-8">
-                {typeof caseStudy.description === "string" &&
-                  caseStudy.description.trim() && (
-                    <ProseSection
-                      eyebrow="Overview"
-                      title="Description"
-                      content={caseStudy.description}
-                    />
-                  )}
-
-                {typeof caseStudy.summary === "string" &&
-                  caseStudy.summary.trim() && (
-                    <ProseSection
-                      eyebrow="Executive Brief"
-                      title="Summary"
-                      content={caseStudy.summary}
-                    />
-                  )}
-
-                {typeof caseStudy.introduction === "string" &&
-                  caseStudy.introduction.trim() && (
-                    <ProseSection
-                      eyebrow="Context"
-                      title="Introduction"
-                      content={caseStudy.introduction}
-                    />
-                  )}
-
-                {typeof caseStudy.issue === "string" &&
-                  caseStudy.issue.trim() && (
-                    <ProseSection
-                      eyebrow="Core Challenge"
-                      title="Issue"
-                      content={caseStudy.issue}
-                    />
-                  )}
-
-                {typeof caseStudy.goal === "string" &&
-                  caseStudy.goal.trim() && (
-                    <ProseSection
-                      eyebrow="Objective"
-                      title="Goal"
-                      content={caseStudy.goal}
-                    />
-                  )}
-
-                {typeof caseStudy.methods === "string" &&
-                  caseStudy.methods.trim() && (
-                    <ProseSection
-                      eyebrow="Approach"
-                      title="Methods"
-                      content={caseStudy.methods}
-                    />
-                  )}
-
-                {typeof caseStudy.lessons_learned === "string" &&
-                  caseStudy.lessons_learned.trim() && (
-                    <div className="rounded-2xl border-[1.5px] border-[#B2C9A8] bg-[#FAFDF8] p-5 sm:p-6">
-                      <ProseSection
-                        eyebrow="Key Takeaways"
-                        title="Lessons Learned"
-                        content={caseStudy.lessons_learned}
-                      />
-                    </div>
-                  )}
-
-                {typeof caseStudy.findings_implications === "string" &&
-                  caseStudy.findings_implications.trim() && (
-                    <ProseSection
-                      eyebrow="Analysis"
-                      title="Findings and Implications"
-                      content={caseStudy.findings_implications}
-                    />
-                  )}
-
-                {typeof caseStudy.relation_sdgs_values === "string" &&
-                  caseStudy.relation_sdgs_values.trim() && (
-                    <ProseSection
-                      eyebrow="Ethical Alignment"
-                      title="Relation to SDGs and Values"
-                      content={caseStudy.relation_sdgs_values}
-                    />
-                  )}
-
-                {/* Structured Evaluation Object */}
-                {caseStudy.evaluation &&
-                  typeof caseStudy.evaluation === "object" &&
-                  (() => {
-                    const entries = Object.entries(
-                      caseStudy.evaluation as Record<string, unknown>,
-                    )
-                      .filter(
-                        ([, value]) =>
-                          value !== null && typeof value === "object",
-                      )
-                      .map(([key, value]) => ({ key, value }));
-
-                    if (entries.length === 0) return null;
-
-                    const totalEntries = entries.length;
-                    const lastEntry = entries[totalEntries - 1];
-                    const isLastSustainability =
-                      lastEntry &&
-                      lastEntry.key.toLowerCase() === "sustainability";
-                    const shouldCenterLast =
-                      isLastSustainability && totalEntries % 2 === 1;
-
-                    return (
-                      <section className="space-y-4">
-                        <div>
-                          <p className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-[#187347]">
-                            Values Rubric
-                          </p>
-                          <h3
-                            className="mt-0.5 text-xl font-semibold text-[#202B20]"
-                            style={EDITORIAL_SERIF_STYLE}
-                          >
-                            Ethical Evaluation
-                          </h3>
-                        </div>
-
-                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                          {entries.map(({ key, value }, index) => {
-                            const evaluationItem = value as {
-                              summary?: string;
-                              score?: string;
-                              indicators_checked?: string[];
-                            };
-                            const score = evaluationItem.score || "N/A";
-                            const summary = evaluationItem.summary || "";
-                            const indicators = Array.isArray(
-                              evaluationItem.indicators_checked,
-                            )
-                              ? evaluationItem.indicators_checked
-                              : [];
-                            const isLast = index === entries.length - 1;
-                            const shouldCenter = shouldCenterLast && isLast;
-
-                            return (
-                              <div
-                                key={key}
-                                className={`rounded-xl border-[1.5px] border-[#B2C9A8] bg-[#FAFDF8] p-5 transition-colors hover:border-[#3F673C] ${
-                                  shouldCenter
-                                    ? "md:col-span-2 md:mx-auto md:w-full md:max-w-2xl"
-                                    : ""
-                                }`}
-                              >
-                                <div className="flex items-start justify-between gap-3">
-                                  <div className="flex items-center gap-2.5">
-                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#B2C9A8]/80 bg-[#EDF4E8]">
-                                      {getValueIcon(key)}
-                                    </span>
-                                    <h4
-                                      className="text-base font-semibold text-[#202B20]"
-                                      style={EDITORIAL_SERIF_STYLE}
-                                    >
-                                      {formatKey(key)}
-                                    </h4>
-                                  </div>
-                                  <span
-                                    className={`shrink-0 rounded-full border px-3 py-0.5 font-mono text-xs font-bold ${getScoreBadgeClass(score)}`}
-                                  >
-                                    {score}
-                                  </span>
-                                </div>
-
-                                {summary && (
-                                  <p className="mt-3 text-sm leading-relaxed text-[#394838]">
-                                    {summary}
-                                  </p>
-                                )}
-
-                                {indicators.length > 0 && (
-                                  <div className="mt-4 border-t border-[#D5E3D9] pt-3">
-                                    <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#596556]">
-                                      Indicators Checked
-                                    </p>
-                                    <ul className="space-y-1.5">
-                                      {indicators.map((indicator, idx) => (
-                                        <li
-                                          key={idx}
-                                          className="flex items-start gap-2 text-xs leading-relaxed text-[#394838]"
-                                        >
-                                          <span
-                                            aria-hidden="true"
-                                            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#187347]"
-                                          />
-                                          <span>{indicator}</span>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </section>
-                    );
-                  })()}
-
-                {/* String Evaluation */}
-                {typeof caseStudy.evaluation === "string" &&
-                  caseStudy.evaluation.trim() && (
-                    <ProseSection
-                      eyebrow="Assessment"
-                      title="Evaluation"
-                      content={caseStudy.evaluation}
-                    />
-                  )}
-
-                {/* References (Array) */}
-                {Array.isArray(caseStudy.references) &&
-                  caseStudy.references.length > 0 && (
-                    <section className="space-y-3">
-                      <div>
-                        <p className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-[#187347]">
-                          Sources
-                        </p>
-                        <h3
-                          className="mt-0.5 text-xl font-semibold text-[#202B20]"
-                          style={EDITORIAL_SERIF_STYLE}
-                        >
-                          References
-                        </h3>
-                      </div>
-
-                      <div className="rounded-xl border-[1.5px] border-[#B2C9A8] bg-[#FAFDF8] px-4 py-2">
-                        <Accordion>
-                          {(caseStudy.references as string[]).map(
-                            (ref, idx) => {
-                              const url = extractUrl(ref);
-                              const before = url ? ref.split(url)[0] : ref;
-
-                              return (
-                                <AccordionItem
-                                  key={`ref_${idx}`}
-                                  value={`ref_${idx}`}
-                                  className="border-[#D5E3D9]"
-                                >
-                                  <AccordionTrigger className="gap-2.5 text-sm font-normal leading-relaxed text-[#394838] hover:text-[#187347]">
-                                    <span className="flex items-start gap-2 text-left">
-                                      <span className="shrink-0 font-mono text-xs font-semibold text-[#187347]">
-                                        [{idx + 1}]
-                                      </span>
-                                      <span>{before.trim() || ref}</span>
-                                    </span>
-                                  </AccordionTrigger>
-                                  <AccordionContent>
-                                    {url ? (
-                                      <a
-                                        href={url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1.5 break-all text-xs font-medium text-[#187347] underline underline-offset-4 hover:text-[#105C37]"
-                                      >
-                                        <span>{url}</span>
-                                        <ExternalLink
-                                          className="h-3 w-3 shrink-0"
-                                          aria-hidden="true"
-                                        />
-                                      </a>
-                                    ) : (
-                                      <span className="text-xs text-[#596556]">
-                                        No external link provided for this
-                                        citation.
-                                      </span>
-                                    )}
-                                  </AccordionContent>
-                                </AccordionItem>
-                              );
-                            },
-                          )}
-                        </Accordion>
-                      </div>
-                    </section>
-                  )}
-
-                {/* References (String fallback) */}
-                {typeof caseStudy.references === "string" &&
-                  caseStudy.references.trim() && (
-                    <ProseSection
-                      eyebrow="Sources"
-                      title="References"
-                      content={caseStudy.references}
-                    />
-                  )}
-              </div>
-            </div>
-
-            {/* Subtle Modal Footer */}
-            <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-[#D5E3D9] bg-[#F2F6EF] px-5 py-3.5 sm:px-8">
-              <p className="font-mono text-[11px] text-[#596556]">
-                Press <kbd className="rounded border border-[#B2C9A8] bg-white px-1.5 py-0.5 text-[10px] font-semibold text-[#284B26]">ESC</kbd> to return to library
-              </p>
-              <div className="flex items-center gap-2.5">
-                <Link
-                  to={`/case-studies/${caseStudy.id}`}
-                  onClick={onClose}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-[#B2C9A8] bg-white px-4 py-1.5 text-xs font-semibold text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#EDF4E8]"
-                >
-                  Open Dedicated Page
-                  <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                </Link>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="cursor-pointer rounded-full bg-[#3F673C] px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#284B26]"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}

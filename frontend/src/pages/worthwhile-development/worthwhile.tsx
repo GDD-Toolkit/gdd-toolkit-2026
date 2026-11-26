@@ -1,40 +1,6 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
-import {
-  EDITORIAL_EASE,
-  EDITORIAL_SERIF_STYLE,
-  EditorialPageHero,
-  EditorialSection,
-  EditorialSectionHeader,
-} from "@/components/editorial/EditorialPagePrimitives";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../development-ethics/humanCentredInnovation.css";
-
-function EditorialReveal({
-  children,
-  delay = 0,
-  className,
-}: {
-  children: ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reduced = useReducedMotion();
-  if (reduced || typeof IntersectionObserver === "undefined") {
-    return <div className={className}>{children}</div>;
-  }
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.12 }}
-      transition={{ duration: 0.45, delay, ease: EDITORIAL_EASE }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 const values = [
   {
@@ -81,6 +47,26 @@ const values = [
   },
 ] as const;
 
+function BackArrow() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19 12H6m5-6-6 6 6 6" />
+    </svg>
+  );
+}
+
+function CarouselArrow({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      {direction === "left" ? (
+        <path d="M19 12H5m6-6-6 6 6 6" />
+      ) : (
+        <path d="M5 12h14m-6-6 6 6-6 6" />
+      )}
+    </svg>
+  );
+}
+
 function ValueIcon({ name }: { name: (typeof values)[number]["icon"] }) {
   const common = {
     fill: "none",
@@ -91,12 +77,7 @@ function ValueIcon({ name }: { name: (typeof values)[number]["icon"] }) {
   };
 
   return (
-    <svg
-      viewBox="0 0 48 48"
-      aria-hidden="true"
-      className="h-12 w-12 sm:h-14 sm:w-14"
-      {...common}
-    >
+    <svg viewBox="0 0 48 48" aria-hidden="true" {...common}>
       {name === "wellbeing" && (
         <>
           <path d="M24 38S9 30 9 19c0-6 7-9 11-5l4 4 4-4c4-4 11-1 11 5 0 11-15 19-15 19Z" />
@@ -145,113 +126,51 @@ function ValueIcon({ name }: { name: (typeof values)[number]["icon"] }) {
 
 export default function Worthwhile() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState<1 | -1>(1);
-  const reduced = useReducedMotion();
   const activeValue = values[activeIndex];
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const move = (step: number) => {
-    setDirection(step >= 0 ? 1 : -1);
+  const move = (direction: number) => {
     setActiveIndex(
-      (current) => (current + step + values.length) % values.length,
+      (current) => (current + direction + values.length) % values.length,
     );
-  };
-
-  const jumpTo = (index: number) => {
-    if (index === activeIndex) return;
-    setDirection(index > activeIndex ? 1 : -1);
-    setActiveIndex(index);
   };
 
   return (
     <div className="hci-scope">
-
-      <EditorialPageHero
-        titleId="wd-title"
-        backLink={{
-          label: "Human Centred Innovation",
-          to: "/development-ethics",
-        }}
-        badges={[
-          { label: "01 · Core Framework", tone: "cream" },
-          { label: "7 Ethical Values", tone: "sage" },
-        ]}
-        title={
-          <>
-            Worthwhile{" "}
-            <em className="font-normal italic text-[#E9E6B2]">Development</em>
-          </>
-        }
-        subtitle="A people-centered approach to development that avoids disempowerment, reduces inequality, and strengthens communities — guided by seven key values."
-        footnote="Drawn from the Routledge Handbook of Development Ethics · Integrated across all seven GDD Toolkit instruments"
-        aside={
-          <div className="relative overflow-hidden rounded-2xl border-[1.5px] border-[#E9E6B2]/75 bg-[#2E502B]/90 p-6 shadow-xl">
-            <div className="flex items-center gap-5">
-              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#E9E6B2] bg-[#E9E6B2] text-[#202B20] shadow-md">
-                <span
-                  className="text-5xl font-semibold italic leading-none"
-                  style={EDITORIAL_SERIF_STYLE}
-                >
-                  7
-                </span>
-              </div>
-              <div>
-                <p className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-[#E9E6B2]">
-                  Ethical Compass
-                </p>
-                <p
-                  className="mt-1 text-xl font-semibold text-white"
-                  style={EDITORIAL_SERIF_STYLE}
-                >
-                  Core Values
-                </p>
-                <p className="mt-1 text-xs leading-relaxed text-[#EDF4E8]/85">
-                  Checkpoints to prevent maldevelopment and keep communities at
-                  the center.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-5 flex flex-wrap gap-1.5 border-t border-[#9AB887]/35 pt-4">
-              {values.map((val, idx) => (
-                <span
-                  key={val.title}
-                  className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-mono text-[10px] transition-colors ${
-                    idx === activeIndex
-                      ? "bg-[#E9E6B2] font-semibold text-[#202B20]"
-                      : "border border-[#9AB887]/50 bg-[#355832] text-[#EDF4E8]"
-                  }`}
-                >
-                  {String(idx + 1).padStart(2, "0")} {val.title}
-                </span>
-              ))}
-            </div>
+      <div className="wd-page">
+        <section className="wd-hero" aria-labelledby="wd-title">
+          <Link className="wd-back" to="/development-ethics">
+            <BackArrow />
+            Human Centred Innovation
+          </Link>
+          <div className="wd-hero-copy">
+            <h1 id="wd-title">
+              Worthwhile{" "}
+              <br />
+              <em>Development</em>
+            </h1>
           </div>
-        }
-      />
+          <div className="wd-hero-graphic" aria-hidden="true">
+            <span className="wd-ring wd-ring-one" />
+            <span className="wd-ring wd-ring-two" />
+            <span className="wd-hero-disc">7</span>
+            <span className="wd-hero-note">core values</span>
+          </div>
+        </section>
 
-      {/* Introduction Section */}
-      <EditorialSection tone="white" ariaLabel="About Worthwhile Development">
-        <EditorialReveal>
-          <EditorialSectionHeader
-            eyebrow="01 / Ethical Foundation"
-            title={
-              <>
-                Values That Guard Against{" "}
-                <em className="font-normal italic text-[#187347]">
-                  Maldevelopment
-                </em>
-              </>
-            }
-          />
-        </EditorialReveal>
-
-        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12">
-          <EditorialReveal className="space-y-5 lg:col-span-7">
-            <p className="text-base leading-relaxed text-[#394838] sm:text-[1.05rem]">
+        <section className="wd-introduction">
+          <div className="wd-intro-heading">
+            <h2>
+              A people-centered approach to development that avoids
+              disempowerment, reduces inequality, and strengthens communities —
+              guided by seven key values.
+            </h2>
+          </div>
+          <div className="wd-intro-copy">
+            <p>
               At the heart of the Development Ethics Toolkit are seven core
               values of worthwhile development, drawn from the Routledge
               Handbook of Development Ethics. These values guide every tool,
@@ -259,223 +178,97 @@ export default function Worthwhile() {
               ensuring that development efforts are not only effective but also
               equitable, human-centred, and ethically grounded.
             </p>
-            <p className="text-base leading-relaxed text-[#394838] sm:text-[1.05rem]">
+            <p>
               By centralizing these values, the Development Ethics Toolkit helps
               development practitioners, policymakers, and scholars navigate
               towards thoughtful decisions that prioritize human well-being and
               guard against the pitfalls of maldevelopment.
             </p>
-          </EditorialReveal>
+            <p>
+              When planning or evaluating development work, use these goals as
+              checkpoints. Each initiative should contribute measurably to at
+              least one goal while avoiding tradeoffs that undermine others.
+            </p>
+          </div>
+        </section>
 
-          <EditorialReveal delay={0.08} className="lg:col-span-5">
-            <div className="flex h-full flex-col justify-between rounded-2xl border-[1.5px] border-[#94B985] bg-[#F6F4D8] p-6 sm:p-7">
-              <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#94B985] bg-white px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-[#187347]">
-                  <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
-                  Practitioner Checkpoint
-                </div>
-                <p
-                  className="mt-4 text-lg font-medium leading-relaxed text-[#202B20]"
-                  style={EDITORIAL_SERIF_STYLE}
-                >
-                  When planning or evaluating development work, use these goals
-                  as checkpoints. Each initiative should contribute measurably
-                  to at least one goal while avoiding tradeoffs that undermine
-                  others.
-                </p>
-              </div>
-              <p className="mt-5 border-t border-[#D6CE8A] pt-3 font-mono text-[11px] uppercase tracking-wider text-[#596556]">
-                7 Values · Zero Unexamined Tradeoffs
-              </p>
-            </div>
-          </EditorialReveal>
-        </div>
-      </EditorialSection>
-
-      {/* Interactive 7 Values Carousel Section */}
-      <EditorialSection tone="sage" ariaLabelledBy="values-title">
-        <EditorialReveal>
-          <EditorialSectionHeader
-            eyebrow="02 / Interactive Explorer"
-            titleId="values-title"
-            align="center"
-            title={
-              <>
-                The Seven{" "}
-                <em className="font-normal italic text-[#187347]">Values</em>
-              </>
-            }
-            description="Select any value tab below, click the arrows, or use your keyboard arrow keys to explore all seven checkpoints."
-          />
-        </EditorialReveal>
-
-        {/* Pill Selector Strip (role="tablist" so dot pagination buttons keep unique accessible names) */}
-        <div
-          role="tablist"
-          aria-label="Worthwhile development value index"
-          className="mx-auto mt-8 flex max-w-5xl flex-wrap items-center justify-center gap-2"
-        >
-          {values.map((value, index) => {
-            const isActive = index === activeIndex;
-            return (
-              <button
-                key={value.title}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => jumpTo(index)}
-                className={`relative inline-flex cursor-pointer items-center gap-2 rounded-full border-[1.5px] px-4 py-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[#3F673C] focus:ring-offset-2 ${
-                  isActive
-                    ? "border-[#3F673C] bg-[#3F673C] text-white shadow-sm"
-                    : "border-[#B2C9A8] bg-white text-[#284B26] hover:border-[#3F673C] hover:bg-[#FAFDF8]"
-                }`}
-              >
-                <span
-                  className={`font-mono text-[10px] ${
-                    isActive ? "text-[#E9E6B2]" : "text-[#187347]"
-                  }`}
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span>{value.title}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Accessible Carousel Region */}
-        <div
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="Seven values of worthwhile development"
-          tabIndex={0}
-          onKeyDown={(event) => {
-            if (event.key === "ArrowLeft") {
-              event.preventDefault();
-              move(-1);
-            }
-            if (event.key === "ArrowRight") {
-              event.preventDefault();
-              move(1);
-            }
-          }}
-          className="mx-auto mt-8 grid max-w-5xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3F673C] focus-visible:ring-offset-4 sm:gap-5"
-        >
-          <button
-            type="button"
-            onClick={() => move(-1)}
-            aria-label="Show previous value"
-            className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-[1.5px] border-[#3F673C] bg-[#3F673C] text-[#E9E6B2] shadow-sm transition-all duration-200 hover:scale-105 hover:bg-[#187347] hover:border-[#187347] focus:outline-none focus:ring-2 focus:ring-[#3F673C] focus:ring-offset-2 sm:h-13 sm:w-13"
-          >
-            <ArrowLeft className="h-5 w-5" aria-hidden="true" />
-          </button>
-
-          <div className="relative overflow-hidden rounded-2xl border-[1.5px] border-[#3F673C] bg-white shadow-md">
-            <AnimatePresence mode="popLayout" initial={false} custom={direction}>
-              <motion.article
-                key={activeValue.title}
-                custom={direction}
-                aria-live="polite"
-                initial={
-                  reduced
-                    ? false
-                    : { opacity: 0, x: direction * 36 }
-                }
-                animate={{ opacity: 1, x: 0 }}
-                exit={
-                  reduced
-                    ? undefined
-                    : { opacity: 0, x: direction * -36 }
-                }
-                transition={{ duration: 0.32, ease: EDITORIAL_EASE }}
-                className="relative grid min-h-[19rem] grid-cols-1 items-center gap-7 p-7 sm:p-10 md:grid-cols-[auto_minmax(0,1fr)]"
-              >
-                {/* Subtle Watermark Numeral */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -bottom-6 right-5 select-none text-[8rem] font-semibold italic leading-none text-[#3F673C]/[0.06] sm:text-[10rem]"
-                  style={EDITORIAL_SERIF_STYLE}
-                >
-                  {String(activeIndex + 1).padStart(2, "0")}
-                </span>
-
-                {/* Medallion Icon */}
-                <div className="relative z-10 mx-auto flex h-28 w-28 shrink-0 items-center justify-center rounded-full border-2 border-[#E9E6B2] bg-[#3F673C] text-[#E9E6B2] shadow-md sm:h-32 sm:w-32 md:mx-0">
-                  <ValueIcon name={activeValue.icon} />
-                </div>
-
-                {/* Copy */}
-                <div className="relative z-10 text-center md:text-left">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#B2C9A8] bg-[#F2F6EF] px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider text-[#187347]">
-                    <span>
-                      {activeIndex + 1} of {values.length}
-                    </span>
-                  </div>
-                  <h3
-                    className="mt-4 text-3xl font-semibold tracking-tight text-[#202B20] sm:text-4xl"
-                    style={EDITORIAL_SERIF_STYLE}
-                  >
-                    {activeValue.title}
-                  </h3>
-                  <p className="mt-4 text-base leading-relaxed text-[#394838]">
-                    {activeValue.description}
-                  </p>
-                </div>
-              </motion.article>
-            </AnimatePresence>
-
-            {/* Bottom Progress Strip */}
-            <div className="grid grid-cols-7 gap-1 border-t border-[#D5E3D9] bg-[#FAFDF8] px-4 py-2.5">
-              {values.map((val, idx) => (
-                <div
-                  key={val.title}
-                  className={`h-1.5 rounded-full transition-colors duration-300 ${
-                    idx <= activeIndex ? "bg-[#187347]" : "bg-[#D5E3D9]"
-                  }`}
-                />
-              ))}
-            </div>
+        <section className="wd-values" aria-labelledby="values-title">
+          <div className="wd-section-heading">
+            <h2 id="values-title">
+              The Seven <em>Values</em>
+            </h2>
           </div>
 
-          <button
-            type="button"
-            onClick={() => move(1)}
-            aria-label="Show next value"
-            className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-[1.5px] border-[#3F673C] bg-[#3F673C] text-[#E9E6B2] shadow-sm transition-all duration-200 hover:scale-105 hover:bg-[#187347] hover:border-[#187347] focus:outline-none focus:ring-2 focus:ring-[#3F673C] focus:ring-offset-2 sm:h-13 sm:w-13"
+          <div
+            className="wd-carousel"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Seven values of worthwhile development"
+            tabIndex={0}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                move(-1);
+              }
+              if (event.key === "ArrowRight") {
+                event.preventDefault();
+                move(1);
+              }
+            }}
           >
-            <ArrowRight className="h-5 w-5" aria-hidden="true" />
-          </button>
-        </div>
+            <button
+              className="wd-carousel-button wd-previous"
+              type="button"
+              onClick={() => move(-1)}
+              aria-label="Show previous value"
+            >
+              <CarouselArrow direction="left" />
+            </button>
 
-        {/* Dot Pagination */}
-        <div
-          className="mt-7 flex items-center justify-center gap-2.5"
-          aria-label="Choose a value"
-        >
-          {values.map((value, index) => {
-            const isActive = index === activeIndex;
-            return (
+            <article
+              className="wd-value-card"
+              key={activeValue.title}
+              aria-live="polite"
+            >
+              <span className="wd-card-number">
+                {String(activeIndex + 1).padStart(2, "0")}
+              </span>
+              <div className="wd-icon">
+                <ValueIcon name={activeValue.icon} />
+              </div>
+              <div className="wd-value-copy">
+                <p>
+                  {activeIndex + 1} of {values.length}
+                </p>
+                <h3>{activeValue.title}</h3>
+                <p>{activeValue.description}</p>
+              </div>
+            </article>
+
+            <button
+              className="wd-carousel-button wd-next"
+              type="button"
+              onClick={() => move(1)}
+              aria-label="Show next value"
+            >
+              <CarouselArrow direction="right" />
+            </button>
+          </div>
+
+          <div className="wd-pagination" aria-label="Choose a value">
+            {values.map((value, index) => (
               <button
                 type="button"
                 key={value.title}
-                onClick={() => jumpTo(index)}
+                className={index === activeIndex ? "active" : ""}
+                onClick={() => setActiveIndex(index)}
                 aria-label={`Show ${value.title}`}
-                aria-current={isActive ? "true" : undefined}
-                className={`h-3 cursor-pointer rounded-full border-[1.5px] border-[#3F673C] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#3F673C] focus:ring-offset-2 ${
-                  isActive
-                    ? "w-8 bg-[#3F673C]"
-                    : "w-3 bg-white hover:bg-[#94B985]"
-                }`}
+                aria-current={index === activeIndex ? "true" : undefined}
               />
-            );
-          })}
-        </div>
-
-        <p className="mt-4 text-center font-mono text-[11px] uppercase tracking-wider text-[#596556]">
-          Tip: Focus the carousel and press &larr; / &rarr; arrow keys to step
-          through values
-        </p>
-      </EditorialSection>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
