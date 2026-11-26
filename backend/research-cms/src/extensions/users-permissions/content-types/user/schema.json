@@ -81,6 +81,10 @@
       "type": "string",
       "maxLength": 200
     },
+    "termsAccepted": {
+      "type": "boolean",
+      "default": false
+    },
     "bio": {
       "type": "text",
       "maxLength": 1000
@@ -95,10 +99,27 @@
       "relation": "manyToMany",
       "target": "api::ai-tool.ai-tool"
     },
-    "savedGrants": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::funding-resource.funding-resource"
+    "savedGrantIds": {
+      "type": "json"
+    },
+    "occupation": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "country": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "interests": {
+      "type": "json"
+    },
+    "language": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "onboardingComplete": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
