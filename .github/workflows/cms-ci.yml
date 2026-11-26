@@ -1,0 +1,61 @@
+# Checks every change to the Strapi CMS before it can reach master (and from there, prod).
+#
+# Runs on GitHub-hosted runners only, with no secrets: it never touches the EC2 box.
+# DATA_SOURCE=local only satisfies config/database.ts at load time; nothing here
+# connects to a database.
+
+name: CMS CI
+
+on:
+  pull_request:
+    paths:
+      - "backend/research-cms/**"
+      - ".github/workflows/cms-ci.yml"
+  push:
+    branches: [master]
+    paths:
+      - "backend/research-cms/**"
+      - ".github/workflows/cms-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend/research-cms
+    env:
+      DATA_SOURCE: local
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/research-cms/package-lock.json
+
+      # GitHub web merges have left this file as invalid JSON before; fail with a clear
+      # message instead of a confusing npm error.
+      - name: Check package-lock.json is valid JSON
+        run: |
+          node -e 'JSON.parse(require("fs").readFileSync("package-lock.json", "utf8"))' \
+            || { echo "::error::backend/research-cms/package-lock.json is not valid JSON (bad merge?). Run npm install and commit the result."; exit 1; }
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Schema JSON and types/generated must agree, or the admin and the API drift apart.
+      - name: Check generated types are up to date
+        run: |
+          npx strapi ts:generate-types
+          if [ -n "$(git status --porcelain -- types/generated)" ]; then
+            echo "::error::types/generated is stale. Run 'npx strapi ts:generate-types' in backend/research-cms and commit the result."
+            git diff -- types/generated
+            exit 1
+          fi
+
+      - name: Build admin panel
+        run: NODE_ENV=production npm run build

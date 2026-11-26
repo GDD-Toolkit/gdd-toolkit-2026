@@ -1,0 +1,67 @@
+# Ships backend/research-cms to production when it changes on master, after a human approves.
+#
+# Unlike the frontend, a CMS deploy runs repo code on the EC2 box (npm ci, strapi build,
+# pm2 restart), which can read production config from SSM. This repo is public and many
+# people can merge, so the job waits on the `cms-production` environment: a required
+# reviewer must click "Approve" in the Actions run before anything is pushed.
+#
+# On approval it does what used to be done by hand:
+#   git subtree push --prefix=backend/research-cms cms cms-deploy
+# The push to cms-deploy on GDD-Toolkit/gdd-cms triggers that repo's deploy.yml
+# (backend/research-cms/.github/workflows/deploy.yml here) on the box's cms-ec2 runner.
+#
+# Needs the CMS_DEPLOY_KEY secret (write deploy key on gdd-cms), shared with
+# deploy-frontend.yml. The push is never forced: if cms-deploy has moved in a way that is
+# not an ancestor of this commit, it fails rather than overwriting prod.
+
+name: Deploy CMS
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "backend/research-cms/**"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-cms
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  ship:
+    runs-on: ubuntu-latest
+    environment:
+      name: cms-production
+      url: https://cms.devethicstoolkit.umd.edu/admin
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # subtree split walks the whole history of backend/research-cms.
+          fetch-depth: 0
+
+      - name: Split backend/research-cms
+        id: split
+        run: |
+          sha=$(git subtree split --prefix=backend/research-cms "$GITHUB_SHA")
+          echo "Split $GITHUB_SHA -> $sha"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+
+      - name: Push to gdd-cms cms-deploy
+        env:
+          CMS_DEPLOY_KEY: ${{ secrets.CMS_DEPLOY_KEY }}
+          SPLIT_SHA: ${{ steps.split.outputs.sha }}
+        run: |
+          key=$(mktemp)
+          hosts=$(mktemp)
+          printf '%s\n' "$CMS_DEPLOY_KEY" > "$key"
+          # GitHub's published host key (https://api.github.com/meta), pinned so the push
+          # can't be redirected to an impostor.
+          echo "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl" > "$hosts"
+          export GIT_SSH_COMMAND="ssh -i $key -o IdentitiesOnly=yes -o UserKnownHostsFile=$hosts -o StrictHostKeyChecking=yes"
+
+          git push git@github.com:GDD-Toolkit/gdd-cms.git "$SPLIT_SHA:refs/heads/cms-deploy"
+          rm -f "$key" "$hosts"
+          echo "Pushed. Watch the box-side deploy: https://github.com/GDD-Toolkit/gdd-cms/actions"

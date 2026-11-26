@@ -1265,8 +1265,7 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.role'
     >;
     savedGrantIds: Schema.Attribute.JSON;
-    termsAccepted: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<false>;
+    termsAccepted: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
