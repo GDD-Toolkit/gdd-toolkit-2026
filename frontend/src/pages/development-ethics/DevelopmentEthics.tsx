@@ -1,488 +1,157 @@
-import { useRef } from "react";
-import { motion, easeOut } from "framer-motion";
-import "./DevelopmentEthics.css";
-import { AlertTriangle} from "lucide-react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./humanCentredInnovation.css";
 
-const DevelopmentEthics: React.FC = () => {
-    const bannerVariants = {
-        hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
-    };
+interface TopicArticle {
+  number: string;
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+  theme: "secondary" | "tertiary" | "neutral" | "primary";
+  to: string;
+}
 
-    const simulationRef = useRef<HTMLHeadingElement>(null);
+const articles: TopicArticle[] = [
+  {
+    number: "01",
+    title: "Worthwhile Development",
+    description:
+      "A people-centred approach that seeks to avoid disempowerment, reduce inequality, and strengthen communities. Its seven core values help keep development equitable, ethically grounded, and focused on human well-being.",
+    image:
+      "https://images.unsplash.com/photo-1557734864-c78b6dfef1b1?auto=format&fit=crop&w=1600&q=85",
+    alt: "A community group gathered around a table in conversation",
+    theme: "secondary",
+    to: "/worthwhile-development",
+  },
+  {
+    number: "02",
+    title: "The Capability Approach",
+    description:
+      "Developed in the 1980s, the capability approach offers a way to understand human development beyond economic measures. The work of Amartya Sen and Martha Nussbaum provides the foundation for this approach.",
+    image:
+      "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1600&q=85",
+    alt: "People exchanging ideas in a bright meeting room",
+    theme: "tertiary",
+    to: "/capability-approach",
+  },
+  {
+    number: "03",
+    title: "Ethics of Innovation",
+    description:
+      "Explore how the nine Principles of Digital Design can bring ethics into the way a project is planned and delivered. They cover designing with users, understanding existing ecosystems, sustainability, privacy, open standards, and collaboration.",
+    image:
+      "https://images.unsplash.com/photo-1623652554515-91c833e3080e?auto=format&fit=crop&w=1600&q=85",
+    alt: "Hands arranging notes during a collaborative design workshop",
+    theme: "neutral",
+    to: "/ethics-of-innovation",
+  },
+  {
+    number: "04",
+    title: "Human Centred Design",
+    description:
+      "Human-centred design begins by getting close to users and observing their activities. By prioritizing empathy, feedback, and collaboration, it helps designers consider functionality, usability, and the effects of their choices on all kinds of end users.",
+    image:
+      "https://images.unsplash.com/photo-1578401056371-96e0b72cffd5?auto=format&fit=crop&w=1600&q=85",
+    alt: "A designer sketching ideas and simple house shapes on paper",
+    theme: "primary",
+    to: "/human-centered-design",
+  },
+];
 
-    return (
-        <div className="page-container">
-            <header className="mission-banner">
-                <motion.h1
-                    className="mission-title"
-                    initial="hidden"
-                    animate="visible"
-                    variants={bannerVariants}
-                >
-                    Development Ethics
-                </motion.h1>
-                <br></br>
-                <motion.p
-                    initial="hidden"
-                    animate="visible"
-                    variants={bannerVariants}
-                >
-                    Designing social impact projects that are effective, inclusive, and ethical shouldn’t depend on where you live or the resources you have access to.
-                </motion.p>
-            </header>
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 12h13M13 6l6 6-6 6" />
+    </svg>
+  );
+}
 
-            {/* --- Section 1: Foundations --- */}
-            <section className="content-section">
-                <div className="content-card">
-                    <h2 ref={simulationRef} className="simulation-title">
-                        About the Development Ethics Toolkit
-                    </h2>
-                    <motion.p
-                        className="simulation-text"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, ease: easeOut }}
-                    >
-                    The First-Year Innovation & Research Experience stream Global Development & Design at the University of Maryland 
-                    brings together Global Development and Design Thinking to answer a pressing question: <i>What does sustainable worthwhile
-                    development really look like around the world, and how can we help practitioners address it ethically?</i> The field of 
-                    Development Ethics reminds us that development is never value-neutral. There are real differences between “good” 
-                    development that expands capabilities and opportunities, and maldevelopment that excludes, harms, or overlooks 
-                    the people it intends to serve. Yet, in practice, ethical considerations often appear as afterthoughts; acknowledged 
-                    verbally, but missing from the actual design of projects, programs and policies. The Development Ethics Toolkit is 
-                    being designed to fix this gap. 
-                    </motion.p>
-                </div>
-            </section>
+export default function DevelopmentEthics() {
+  useEffect(() => {
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
-            {/* --- Section 2: Seven Values --- */}
-            <section className="content-section">
-                <div className="content-card">
-                    <h2 ref={simulationRef} className="simulation-title">
-                        A Free, Open-Access Platform with Scalability for Ethical and Human-Centered Development
-                    </h2>
-                    <motion.p
-                        className="simulation-text"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, ease: easeOut }}
-                    >
-                    Through our partnership with the National Science Foundation's I-Corp program, this interactive, open-access online toolkit has been found to supports development practitioners, inter-governmental organizations, community-based organizations, NGOs, policy makers, academics and researchers who want to design projects, programs or policies that are not only efficient and effective, but also transformative, participatory, and ethical.
-                    <br></br><br></br>
-                    At its core, the toolkit embeds <b>ethical imperatives</b> and <b>human-centered design</b> into each stage of the design process, from understanding the people impacted to evaluating solutions around these opportunities. It provides:
-                    </motion.p>
-                    <ul className="checklist">
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p> <b>Values-driven design tools</b> inspired by leading ethicists from around the world. </p>
-                    </motion.li>
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p> <b>Project planning, monitoring, and evaluation resources</b> tailored for development practitioners.</p>
-                    </motion.li>
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p> <b>An AI-powered project-development assistant</b> that uses Agentic AI to help users craft ethical project proposals, programs, or policy ideas.</p>
-                    </motion.li>
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p> <b>A dashboard that evaluates and suggests AI tools through an AI Ethics len</b> based on a proven and tested methodology.</p>
-                    </motion.li>
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p> <b>Practical exercises and frameworks</b> that strengthen collaboration, creativity, and community participation.</p>
-                    </motion.li>
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p> <b>Accessible guidance</b> built for both seasoned practitioners and community organizations in the Global South who are too often excluded from high-cost design and innovation tools.</p>
-                    </motion.li>
-                    </ul>
-                </div>
-            </section>
+  const scrollToTopics = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    const target = document.getElementById("explore");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
-            <section className="content-section">
-                <div className="content-card">
-                    <h2 ref={simulationRef} className="simulation-title">
-                        Why This Toolkit Matters
-                    </h2>
-                    <motion.p
-                        className="simulation-text"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, ease: easeOut }}
-                    >
-                    Around the world, social impact planners face similar challenges:
-                    </motion.p>
-                    <ul className="checklist">
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Limited resources</p>
-                    </motion.li>
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Unequal access to technology</p>
-                    </motion.li>
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Insufficient time or training in human-centered design</p>
-                    </motion.li>
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Pressure to prioritize efficiency over equity</p>
-                    </motion.li>
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>A lack of guidance for mainstreaming ethics directly into project decisions</p>
-                    </motion.li>
-                    </ul>
-                    <br></br>
-                    <motion.p
-                        className="simulation-text"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, ease: easeOut }}
-                    >
-                    The Development Ethics Toolkit helps practitioners overcome these barriers. It makes it easier to design inclusive, participatory, and locally grounded programs that reflect the voices of communities, not just the assumptions of external actors.
-                    </motion.p>
-                </div>
-            </section>
+  return (
+    <div className="hci-scope">
+      <div className="site-shell">
+        <div id="top">
+          <section className="hero" aria-labelledby="page-title">
+            <div className="hero-copy">
+              <h1 id="page-title">
+                Human centred{" "}
+                <br />
+                <em>innovation</em>
+              </h1>
+              <p className="hero-intro">
+                A starting point for ideas that expand human freedom, honour
+                lived experience, and create change worth making.
+              </p>
+            </div>
 
-            {/* --- Section 2: Seven Values --- */}
-            <section className="content-section">
-                <div className="content-card">
-                    <h2 ref={simulationRef} className="simulation-title">
-                        Our Vision
-                    </h2>
-                    <motion.p
-                        className="simulation-text"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, ease: easeOut }}
-                    >
-                    We believe that ethical development should be assessable by everyone. Our vision is a world where every development project, program, or policy, whether launched by an intergovernmental organization like the United Nations or World Bank, a community organizer, an NGO, or a group of undergraduate research students advances the values of worthwhile development. 
-                    </motion.p>
-                </div>
-            </section>
+            <div className="hero-visual" aria-hidden="true">
+              <div className="orbit orbit-one" />
+              <div className="orbit orbit-two" />
+              <div className="hero-photo">
+                <img
+                  src="https://images.unsplash.com/photo-1560831340-b9679dc9e9f0?auto=format&fit=crop&w=1600&q=85"
+                  alt=""
+                />
+              </div>
+              <span className="visual-word word-one">people</span>
+              <span className="visual-word word-two">purpose</span>
+              <span className="visual-word word-three">possibility</span>
+            </div>
 
-            {/* --- Section 3: Maldevelopment Alert Box --- */}
-            <section className="content-section">
-                <div className="content-card alert-box">
-                    <div className="alert-header">
-                        <AlertTriangle size={32} className="alert-icon" />
-                        <h3>Maldevelopment Warning</h3>
-                    </div>
-
-                    <p className="alert-description">
-                        Failure to consider these determinants can therefore lead to development that harms the
-                        populations it is supposed to benefit, called “anti development” or “maldevelopment.”
-                        According to Goulet, anti-development destroys or harms cultures and individuals
-                        (Development Ethics a New Discipline, 1997, p. 9), and it can be the cause of “ecological
-                        disaster, which strips nature of its regenerative vitality” (International Ethics and Human
-                        Rights, 1992, p. 239). Additionally, anti development occurs in “the name of profit, some
-                        absolutized ideology, or a supposed efficiency imperative” (Goulet, 1997, p.9). Essentially,
-                        cases of anti-development involve projects that destroy cultures, people, or ecology for
-                        the sake of profit gain, ideological gain, or efficiency.
-                    </p>
-                </div>
-            </section>
-
-
-            {/* --- Section 4: Checklist --- */}
-            <section className="content-section checklist-section">
-                <div className="content-card">
-                    <h2 className="simulation-title">Embarking on a Development Project</h2>
-
-                    <ul className="checklist">
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p> Are there any basic human rights that are currently infringed upon before any intervention?	</p>
-                    </motion.li>
-
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1, duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Was development called upon by the population intended to be aided?</p>
-                    </motion.li>
-
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1, duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Are there any ulterior motives besides helping those in want and need?</p>
-                    </motion.li>
-
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1, duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Will development negatively impact the environment leading to possible deterioration of the land?</p>
-                    </motion.li>
-
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1, duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Will development play a role in the erasure of culture? (language, religion, etc.)</p>
-                    </motion.li>
-
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1, duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Will development create increased tensions (politically)?</p>
-                    </motion.li>
-
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1, duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Does completion of development require a pay back to the developers?	</p>
-                    </motion.li>
-
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1, duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Will development increase access to health care?</p>
-                    </motion.li>
-
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1, duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Will development improve the economic state of said nation?</p>
-                    </motion.li>
-
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1, duration: 0.4 }}
-                        className="checklist-item"
-                    >
-                        <span className="checkmark">✔</span>
-                        <p>Will development increase access to education for all?</p>
-                    </motion.li>
-                    </ul>
-                    <br></br>
-                    <motion.p
-                        className="simulation-text"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, ease: easeOut }}
-                    >
-                        The first question serves as the principal question that one must ask before embarking on a development project. If the answers to both the first and second questions are “No,” it is strongly encouraged that you reconsider pursuing development. If the answers to the third through seventh questions are “Yes,” it is also recommended to reconsider moving forward with development. However, if the answer to the first question is “Yes,” then regardless of whether the community explicitly called for development, it is encouraged to begin project planning and restore the basic rights they have been deprived of.
-                    </motion.p>
-                </div>
-            </section>
-
-            {/* --- Section 5: Related Readings --- */}
-            <section className="content-section">
-                <div className="content-card">
-                    <h2 ref={simulationRef} className="simulation-title">
-                        Related Readings
-                    </h2>
-                    <ol className="numbered-list">
-                        <motion.li
-                            className="numbered-item"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            The 1948 United Nations Universal Declaration of Human Rights, though it predates the field of development ethics, is an excellent guide to respecting human rights. It can be found easily online from the United Nations website. 
-                        </motion.li>
-
-                        <motion.li
-                            className="numbered-item"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            Another United Nations resource is the 2019 Human Development Report, "Beyond Income, Beyond Averages, Beyond Today: Inequalities in Human Development in the 21st Century", which contains detailed information about progress in development and is filled with informative and helpful graphs. It additionally provides a wealth of information regarding what still needs to be done to better development. 
-                        </motion.li>
-
-                        <motion.li
-                            className="numbered-item"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            Denis Goulet’s 1997 article Development Ethics, a new discipline, published in the International Journal of Social Economics, is an excellent explanation of the field of development ethics and the debates surrounding its goals.
-                        </motion.li>
-
-                        <motion.li
-                            className="numbered-item"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            Martha Nausbaum is another major contributor to the field of development ethics who expanded upon Sen’s capability approach. Her 2000 book, Women and Human Development, explores not only issues of feminism and development, but also of what capabilities everyone should have access to. (Nussbaum, 2000)
-                        </motion.li>
-                    </ol>
-                </div>
-            </section>
-
-            {/* --- Section 6: References --- */}
-<section className="content-section">
-    <div className="content-card">
-        <h2 ref={simulationRef} className="simulation-title">
-            References
-        </h2>
-
-        <ol className="numbered-list">
-
-            <motion.li
-                className="numbered-item"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
+            <a
+              className="scroll-cue"
+              href="#explore"
+              onClick={scrollToTopics}
             >
-                Deneulin, S. (2013). <i>Ethics and Development: An Introduction from the
-                Perspective of the Capability Approach.</i> Geography Compass, 217–227. <a
-                    href="https://doi.org/10.1111/gec3.12029"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#5B6FE0] underline"
-                >
-                    https://doi.org/10.1111/gec3.12029
-                </a>
-            </motion.li>
+              <span>Explore the four topics</span>
+              <span className="scroll-line" />
+            </a>
+          </section>
 
-            <motion.li
-                className="numbered-item"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
-            >
-                Gasper, D. (2006). Introduction: Working in Development Ethics – a tribute to Denis Goulet.
-                <i> Éthique Et économique</i>, 1–24. Retrieved December 11, 2020 from <a
-                    href="https://papyrus.bib.umontreal.ca/xmlui/handle/1866/3377"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#5B6FE0] underline"
-                >
-                    https://papyrus.bib.umontreal.ca/xmlui/handle/1866/3377
-                </a>
-            </motion.li>
-
-            <motion.li
-                className="numbered-item"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
-            >
-                Goulet, D. (1997). Development ethics: A new discipline.
-                <i> International Journal of Social Economics</i>, 24(11), 1160–1171. <a
-                    href="https://doi.org/10.1108/03068299710193543"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#5B6FE0] underline"
-                >
-                    https://doi.org/10.1108/03068299710193543
-                </a>
-            </motion.li>
-
-            <motion.li
-                className="numbered-item"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
-            >
-                Ross-Larson, B., & Hanlon, E. (Eds.). (1990). <i>UNDP Human Development Report 1990.</i> New York, NY: Oxford University Press.
-            </motion.li>
-
-        </ol>
-    </div>
-</section>
-
-            <br></br>
+          <section
+            className="articles"
+            id="explore"
+            aria-label="Development Ethics topics"
+          >
+            {articles.map((article) => (
+              <article
+                className={`article-card ${article.theme}`}
+                key={article.title}
+              >
+                <div className="article-image">
+                  <img src={article.image} alt={article.alt} />
+                  <span className="article-number">{article.number}</span>
+                </div>
+                <div className="article-copy">
+                  <h2>{article.title}</h2>
+                  <p className="article-description">{article.description}</p>
+                  <Link to={article.to} aria-label={`Read ${article.title}`}>
+                    <span>Read more</span>
+                    <span className="arrow-circle">
+                      <ArrowIcon />
+                    </span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </section>
         </div>
-    );
-};
-
-export default DevelopmentEthics;
+      </div>
+    </div>
+  );
+}

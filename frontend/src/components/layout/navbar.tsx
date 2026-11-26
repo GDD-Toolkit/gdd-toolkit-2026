@@ -1,25 +1,23 @@
 import { useState, useRef, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, AlertTriangle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/brand-button";
 import Logo from "@/components/Logo";
 import { AuthControls } from "@/components/auth/AuthControls";
+import { cn } from "@/lib/utils";
 
-type Menu = {
+type NavMenu = {
   label: string;
   href?: string;
-  items?: { label: string; href: string }[];
+  items?: { label: string; href: string; external?: boolean }[];
 };
 
-const MENUS: Menu[] = [
+const MENUS: NavMenu[] = [
   { label: "Home", href: "/" },
   {
-    label: "Development Ethics",
-    items: [
-      { label: "Development Ethics", href: "/development-ethics" },
-      { label: "Worthwhile Development", href: "/worthwhile-development" },
-      { label: "The Capability Approach", href: "/capability-approach" },
-    ],
+    label: "Human Centered Innovations",
+    href: "/development-ethics",
   },
   {
     label: "Tools",
@@ -27,12 +25,13 @@ const MENUS: Menu[] = [
       {
         label: "AI Business Ethics Canvas",
         href: "https://main.dn6y4rvhmhz3f.amplifyapp.com/",
+        external: true,
       },
       { label: "AI Ethics Dashboard", href: "/ai-ethics-dashboard" },
       { label: "Ethics of Innovation", href: "/ethics-of-innovation" },
-      { label: "Human Centered Design", href: "/human-centered-design" },
       { label: "Project Planning", href: "/project-planning" },
       { label: "Project Evaluation", href: "/project-evaluation" },
+      { label: "Geopolitical Analysis", href: "/geopolitical-analysis" },
     ],
   },
   {
@@ -50,10 +49,11 @@ const MENUS: Menu[] = [
 ];
 
 export default function Navbar() {
+  const { pathname } = useLocation();
   const [open, setOpen] = useState<number | null>(null);
   const [mobile, setMobile] = useState(false);
   const [mobileOpenMenu, setMobileOpenMenu] = useState<number | null>(null);
-  const [showMessage, setShowMessage] = useState(false); // toggle alert manually
+  const [showMessage, setShowMessage] = useState(false);
   const closeTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -76,36 +76,15 @@ export default function Navbar() {
   };
 
   const dropdownVariants = {
-    hidden: {
-      opacity: 0,
-      y: -8,
-      scale: 0.96,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-    },
-    exit: {
-      opacity: 0,
-      y: -8,
-      scale: 0.96,
-    },
+    hidden: { opacity: 0, y: -8, scale: 0.96 },
+    visible: { opacity: 1, y: 0, scale: 1 },
+    exit: { opacity: 0, y: -8, scale: 0.96 },
   };
 
   const mobileMenuVariants = {
-    hidden: {
-      height: 0,
-      opacity: 0,
-    },
-    visible: {
-      height: "auto",
-      opacity: 1,
-    },
-    exit: {
-      height: 0,
-      opacity: 0,
-    },
+    hidden: { height: 0, opacity: 0 },
+    visible: { height: "auto", opacity: 1 },
+    exit: { height: 0, opacity: 0 },
   };
 
   const itemVariants = {
@@ -113,38 +92,37 @@ export default function Navbar() {
     visible: (i: number) => ({
       opacity: 1,
       x: 0,
-      transition: {
-        delay: i * 0.04,
-        duration: 0.2,
-      },
+      transition: { delay: i * 0.04, duration: 0.2 },
     }),
   };
 
   return (
-    <motion.header data-site-header
-      className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/60 shadow-sm"
+    <motion.header
+      data-site-header
+      className="sticky top-0 z-50 border-b border-[#B2C9A8] bg-white/90 backdrop-blur-xl shadow-xs"
       initial={{ y: -12, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.33, duration: 0.4, ease: "easeOut" }}
     >
-      {/* Subtle gradient accent at top */}
-      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#A07CFF] via-[#6D83F2] to-[#A07CFF]" />
+      {/* Top forest-to-emerald accent hairline */}
+      <div className="pointer-events-none absolute left-0 right-0 top-0 h-0.5 bg-gradient-to-r from-[#3F673C] via-[#187347] to-[#94B985]" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between gap-4">
           {/* BRAND */}
-          <motion.a
-            href="/"
-            className="inline-flex items-center shrink-0 group"
+          <Link
+            to="/"
+            className="group inline-flex shrink-0 items-center transition-transform hover:scale-[1.02] active:scale-[0.98]"
             aria-label="GDD Home"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
           >
-            <Logo size="sm" />
-          </motion.a>
+            <Logo size="sm" className="text-[#284B26]" />
+          </Link>
 
           {/* DESKTOP NAV MENU */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav
+            aria-label="Primary navigation"
+            className="hidden items-center gap-2 lg:flex"
+          >
             {MENUS.map((m, i) =>
               m.items ? (
                 <div
@@ -153,24 +131,20 @@ export default function Navbar() {
                   onMouseEnter={() => openMenu(i)}
                   onMouseLeave={scheduleClose}
                 >
-                  <motion.div
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.04, duration: 0.3 }}
+                  <button
+                    type="button"
+                    onClick={() => setOpen(open === i ? null : i)}
+                    aria-expanded={open === i}
+                    className="group inline-flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border border-[#D5E3D9] bg-white px-4 py-2 text-sm font-medium text-[#284B26] transition-all duration-200 hover:border-[#3F673C] hover:bg-[#EDF4E8]"
                   >
-                    <Button className="!bg-white !text-slate-800 border-gray-200 shadow-sm group hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]">
-                      <span className="relative z-10">{m.label}</span>
-                      <motion.span
-                        className="relative z-10"
-                        animate={{ rotate: open === i ? 180 : 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <ChevronDown className="w-3.5 h-3.5 text-slate-500 group-hover:text-[#6D83F2]" />
-                      </motion.span>
-                    </Button>
-                  </motion.div>
+                    <span>{m.label}</span>
+                    <motion.span
+                      animate={{ rotate: open === i ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronDown className="h-3.5 w-3.5 text-[#596556] group-hover:text-[#187347]" />
+                    </motion.span>
+                  </button>
 
                   <AnimatePresence>
                     {open === i && (
@@ -179,78 +153,78 @@ export default function Navbar() {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        transition={{ duration: 0.2 }}
-                        className="absolute left-0 mt-2 w-72 rounded-xl bg-white shadow-xl border border-gray-200/80 overflow-hidden"
-                        style={{
-                          boxShadow: "0 10px 40px -10px rgba(0, 0, 0, 0.15)",
-                        }}
+                        transition={{ duration: 0.18 }}
+                        className="absolute left-0 mt-2 w-72 overflow-hidden rounded-xl border border-[#B2C9A8] bg-white shadow-xl"
                         onMouseEnter={() => openMenu(i)}
                         onMouseLeave={scheduleClose}
                       >
                         <div className="py-2">
-                          {m.items.map((it, idx) => (
-                            <motion.a
-                              key={it.href}
-                              href={it.href}
-                              className="relative block px-5 py-3 text-sm text-slate-700 hover:bg-[#A07CFF]/10 hover:!text-[#6D83F2] transition-colors duration-150 group/item"
-                              variants={itemVariants}
-                              initial="hidden"
-                              animate="visible"
-                              custom={idx}
-                              whileHover={{ x: 2 }}
-                            >
-                              <span className="flex items-center gap-3">
-                                <motion.span
-                                  className="w-1 h-1 rounded-full bg-[#A07CFF]/10"
-                                  initial={{ opacity: 0, scale: 0 }}
-                                  whileHover={{ opacity: 1, scale: 1 }}
-                                  transition={{ duration: 0.2 }}
-                                />
-                                <span className="flex-1">{it.label}</span>
-                              </span>
+                          {m.items.map((it, idx) =>
+                            it.external ? (
+                              <motion.a
+                                key={it.href}
+                                href={it.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block px-5 py-2.5 text-sm text-[#394838] transition-colors duration-150 hover:bg-[#EDF4E8] hover:text-[#187347]"
+                                variants={itemVariants}
+                                initial="hidden"
+                                animate="visible"
+                                custom={idx}
+                              >
+                                {it.label}
+                              </motion.a>
+                            ) : (
                               <motion.div
-                                className="absolute left-0 top-0 bottom-0 w-1 bg-[#A07CFF]/10"
-                                initial={{ scaleY: 0 }}
-                                whileHover={{ scaleY: 1 }}
-                                transition={{ duration: 0.2 }}
-                                style={{ originY: 0 }}
-                              />
-                            </motion.a>
-                          ))}
+                                key={it.href}
+                                variants={itemVariants}
+                                initial="hidden"
+                                animate="visible"
+                                custom={idx}
+                              >
+                                <Link
+                                  to={it.href}
+                                  onClick={() => setOpen(null)}
+                                  className="block px-5 py-2.5 text-sm text-[#394838] transition-colors duration-150 hover:bg-[#EDF4E8] hover:text-[#187347]"
+                                >
+                                  {it.label}
+                                </Link>
+                              </motion.div>
+                            ),
+                          )}
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
               ) : (
-                <motion.a
+                <Link
                   key={m.label}
-                  href={m.href}
-                  className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 px-5 py-2.5 bg-white !text-slate-800 border border-gray-200 shadow-sm hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2] hover:shadow-md cursor-pointer"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04, duration: 0.3 }}
+                  to={m.href || "/"}
+                  className={cn(
+                    "inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200",
+                    pathname === m.href
+                      ? "border-[#3F673C] bg-[#EDF4E8] font-semibold text-[#284B26]"
+                      : "border-[#D5E3D9] bg-white text-[#394838] hover:border-[#3F673C] hover:bg-[#EDF4E8] hover:text-[#284B26]",
+                  )}
                 >
                   {m.label}
-                </motion.a>
+                </Link>
               ),
             )}
 
-            {/* Triangle alert icon */}
-            <div className="relative ml-4">
+            {/* Prerelease info toggle */}
+            <div className="relative ml-2">
               <Button
                 size="icon"
                 variant="default"
                 onClick={() => setShowMessage((v) => !v)}
                 aria-label="Prerelease info"
-                className="hover:!bg-[#A07CFF]/10 hover:border-[#6D83F2] hover:!text-[#6D83F2]"
+                className="!rounded-full !border-[#D5E3D9] !bg-white hover:!border-[#3F673C] hover:!bg-[#EDF4E8]"
               >
-                <AlertTriangle className="w-5 h-5 text-red-600" />
+                <AlertTriangle className="h-4 w-4 text-amber-600" />
               </Button>
 
-              {/* Alert message below the icon */}
               <AnimatePresence>
                 {showMessage && (
                   <motion.div
@@ -258,13 +232,13 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 5 }}
                     exit={{ opacity: 0, y: -5 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full mt-2 right-0 w-64 bg-red-600 text-white p-3 rounded-lg shadow-lg z-50"
+                    className="absolute right-0 top-full z-50 mt-2 w-64 rounded-xl border border-[#94B985] bg-[#202B20] p-3.5 text-xs leading-relaxed text-[#E8F0E5] shadow-xl"
                   >
                     This is a prerelease version of our Development Ethics
                     Toolkit. For feedback and issues, please email{" "}
                     <a
                       href="mailto:gddfire@gmail.com"
-                      className="underline font-semibold"
+                      className="font-semibold text-[#E9E6B2] underline"
                     >
                       gddfire@gmail.com
                     </a>
@@ -275,8 +249,8 @@ export default function Navbar() {
             </div>
 
             {/* AUTH */}
-            <div className="ml-2">
-              <AuthControls />
+            <div className="ml-1">
+              <AuthControls tone="forest" />
             </div>
           </nav>
 
@@ -284,7 +258,7 @@ export default function Navbar() {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               size="icon"
-              className="!bg-white !text-slate-800 border-gray-200 shadow-sm lg:hidden"
+              className="!border-[#B2C9A8] !bg-white !text-[#284B26] shadow-xs lg:hidden"
               onClick={() => setMobile((v) => !v)}
               aria-label="Toggle menu"
             >
@@ -293,9 +267,9 @@ export default function Navbar() {
                 transition={{ duration: 0.3 }}
               >
                 {mobile ? (
-                  <X className="w-5 h-5" />
+                  <X className="h-5 w-5" />
                 ) : (
-                  <Menu className="w-5 h-5" />
+                  <Menu className="h-5 w-5" />
                 )}
               </motion.div>
             </Button>
@@ -312,27 +286,27 @@ export default function Navbar() {
             animate="visible"
             exit="exit"
             transition={{ duration: 0.25 }}
-            className="lg:hidden bg-white border-t border-gray-200/60 overflow-hidden"
+            className="overflow-hidden border-t border-[#B2C9A8] bg-white lg:hidden"
           >
-            <div className="px-4 py-3 space-y-2">
+            <div className="space-y-2 px-4 py-3">
               {MENUS.map((m, idx) =>
                 m.items ? (
                   <div key={m.label} className="space-y-2">
-                    <Button
-                      variant="default"
-                      className="w-full justify-between"
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between rounded-lg border border-[#B2C9A8] bg-white px-4 py-2.5 text-sm font-medium text-[#284B26]"
                       onClick={() =>
                         setMobileOpenMenu(mobileOpenMenu === idx ? null : idx)
                       }
                     >
                       <span>{m.label}</span>
-                      <motion.span
-                        animate={{ rotate: mobileOpenMenu === idx ? 180 : 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <ChevronDown className="w-4 h-4 text-slate-500" />
-                      </motion.span>
-                    </Button>
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 transition-transform",
+                          mobileOpenMenu === idx && "rotate-180",
+                        )}
+                      />
+                    </button>
                     <AnimatePresence>
                       {mobileOpenMenu === idx && (
                         <motion.ul
@@ -340,56 +314,49 @@ export default function Navbar() {
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.2 }}
-                          className="overflow-hidden pl-2 space-y-2"
+                          className="space-y-1.5 overflow-hidden pl-3"
                         >
-                          {m.items.map((it, itemIdx) => (
-                            <motion.li
-                              key={it.href}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: itemIdx * 0.03 }}
-                            >
-                              <Button
-                                variant="default"
-                                className="!bg-white !text-slate-800 border-gray-200 shadow-sm w-full justify-start ml-2"
-                                onClick={() => {
-                                  setMobile(false);
-                                  window.location.href = it.href;
-                                }}
-                              >
-                                <span className="w-1 h-1 rounded-full bg-[#A07CFF]/10 mr-2" />
-                                {it.label}
-                              </Button>
-                            </motion.li>
+                          {m.items.map((it) => (
+                            <li key={it.href}>
+                              {it.external ? (
+                                <a
+                                  href={it.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={() => setMobile(false)}
+                                  className="block rounded-lg bg-[#F2F6EF] px-4 py-2 text-sm text-[#284B26]"
+                                >
+                                  {it.label}
+                                </a>
+                              ) : (
+                                <Link
+                                  to={it.href}
+                                  onClick={() => setMobile(false)}
+                                  className="block rounded-lg bg-[#F2F6EF] px-4 py-2 text-sm text-[#284B26]"
+                                >
+                                  {it.label}
+                                </Link>
+                              )}
+                            </li>
                           ))}
                         </motion.ul>
                       )}
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <motion.div
+                  <Link
                     key={m.label}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.04 }}
+                    to={m.href || "/"}
+                    onClick={() => setMobile(false)}
+                    className="block w-full rounded-lg border border-[#B2C9A8] bg-white px-4 py-2.5 text-center text-sm font-medium text-[#284B26]"
                   >
-                    <Button
-                      variant="default"
-                      className="w-full"
-                      onClick={() => {
-                        setMobile(false);
-                        window.location.href = m.href || "/";
-                      }}
-                    >
-                      {m.label}
-                    </Button>
-                  </motion.div>
+                    {m.label}
+                  </Link>
                 ),
               )}
 
-              {/* AUTH */}
-              <div className="border-t border-gray-200/60 pt-3">
-                <AuthControls layout="stacked" />
+              <div className="border-t border-[#D5E3D9] pt-3">
+                <AuthControls layout="stacked" tone="forest" />
               </div>
             </div>
           </motion.div>

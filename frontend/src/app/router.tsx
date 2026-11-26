@@ -1,7 +1,7 @@
 import RootLayout from "@/app/layout/RootLayout";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { lazy } from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 const HomePage = lazy(() => import("@/pages/home"));
 const AIEthicsDashboard = lazy(() => import("@/pages/ai-ethics-dashboard"));
@@ -51,6 +51,9 @@ const HumanCenteredDesign = lazy(
 const ProjectPlanning = lazy(
   () => import("@/pages/project-planning/ProjectPlanning"),
 );
+const GeopoliticalAnalysis = lazy(
+  () => import("@/pages/geopolitcal-analysis/GeopoliticalAnalysis"),
+);
 const ProjectEvaluation = lazy(() => import("@/pages/tools/ProjectEvaluation"));
 const CaseStudies = lazy(() => import("@/pages/case-studies/CaseStudies"));
 const CaseStudyDetail = lazy(
@@ -63,6 +66,7 @@ const Acknowledgements = lazy(
 );
 const ApiTesting = lazy(() => import("@/pages/api_example/api_testing"));
 const AuthCallback = lazy(() => import("@/pages/auth/AuthCallback"));
+const ResetPassword = lazy(() => import("@/pages/auth/ResetPassword"));
 const EmailConfirmed = lazy(() => import("@/pages/auth/EmailConfirmed"));
 const AccountPage = lazy(() => import("@/pages/account/Account"));
 const TermsPage = lazy(() => import("@/pages/terms/Terms"));
@@ -79,6 +83,10 @@ const router = createBrowserRouter([
       { path: "api_testing", element: <ApiTesting /> },
       { path: "about", element: <AboutPage /> },
       { path: "development-ethics", element: <DevelopmentEthics /> },
+      {
+        path: "human-centred-innovation",
+        element: <Navigate to="/development-ethics" replace />,
+      },
       {
         path: "worthwhile-development",
         element: <WorthwhileDevelopmentPage />,
@@ -104,7 +112,12 @@ const router = createBrowserRouter([
         element: <Collaborative />,
       },
       { path: "human-centered-design", element: <HumanCenteredDesign /> },
+      {
+        path: "human-centred-design",
+        element: <Navigate to="/human-centered-design" replace />,
+      },
       { path: "project-planning", element: <ProjectPlanning /> },
+      { path: "geopolitical-analysis", element: <GeopoliticalAnalysis /> },
       { path: "project-evaluation", element: <ProjectEvaluation /> },
       { path: "case-studies", element: <CaseStudies /> },
       { path: "case-studies/:id", element: <CaseStudyDetail /> },
@@ -113,6 +126,7 @@ const router = createBrowserRouter([
       { path: "acknowledgements", element: <Acknowledgements /> },
       { path: "auth/callback/:provider", element: <AuthCallback /> },
       { path: "auth/confirmed", element: <EmailConfirmed /> },
+      { path: "auth/reset-password", element: <ResetPassword /> },
       {
         path: "account",
         element: (

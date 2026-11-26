@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_equalities",
+  "info": {
+    "displayName": "equality",
+    "icon": "thumbUp"
+  },
+  "options": {},
+  "attributes": {
+    "ethnic_diversity_rate": {
+      "type": "decimal"
+    },
+    "most_common_ethnic_group": {
+      "type": "string"
+    },
+    "female_literacy_rate": {
+      "type": "decimal"
+    },
+    "gender_pay_gap": {
+      "type": "decimal"
+    }
+  },
+  "config": {}
+}

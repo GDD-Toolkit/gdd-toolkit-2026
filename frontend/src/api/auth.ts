@@ -38,9 +38,11 @@ interface RequestOptions {
   method?: "GET" | "POST" | "PUT" | "DELETE";
   token?: string | null;
   body?: unknown;
+  /** Send the CMS session cookie, which holds the OAuth result after a provider sign-in. */
+  withCredentials?: boolean;
 }
 
-async function request<T>(path: string, { method = "GET", token, body }: RequestOptions = {}): Promise<T> {
+async function request<T>(path: string, { method = "GET", token, body, withCredentials }: RequestOptions = {}): Promise<T> {
   const headers: Record<string, string> = {};
   if (body !== undefined) headers["Content-Type"] = "application/json";
   if (token) headers.Authorization = `Bearer ${token}`;
@@ -49,6 +51,7 @@ async function request<T>(path: string, { method = "GET", token, body }: Request
     method,
     headers,
     body: body === undefined ? undefined : JSON.stringify(body),
+    credentials: withCredentials ? "include" : undefined,
   });
 
   const json = await response.json().catch(() => null);
@@ -105,8 +108,15 @@ export function providerConnectUrl(provider: string): string {
   return `${strapiApiBase()}/connect/${provider}`;
 }
 
-/** Exchanges the provider access token Strapi sent back for a Strapi JWT. */
-export function exchangeProviderToken(provider: string, accessToken: string): Promise<AuthResponse> {
+/**
+ * Exchanges the provider sign-in for a Strapi JWT. Strapi 5.5x keeps the provider
+ * result in its session cookie and redirects back with no token, so without an
+ * access token we send that cookie instead.
+ */
+export function exchangeProviderToken(provider: string, accessToken: string | null): Promise<AuthResponse> {
+  if (!accessToken) {
+    return request<AuthResponse>(`/auth/${provider}/callback`, { withCredentials: true });
+  }
   const query = new URLSearchParams({ access_token: accessToken });
   return request<AuthResponse>(`/auth/${provider}/callback?${query}`);
 }
@@ -115,17 +125,41 @@ export function updateProfile(token: string, payload: ProfileUpdatePayload): Pro
   return request<UserProfile>("/account/profile", { method: "PUT", token, body: payload });
 }
 
-export function addBookmark(token: string, kind: BookmarkKind, documentId: string): Promise<UserProfile> {
-  return request<UserProfile>(`/account/bookmarks/${kind}/${encodeURIComponent(documentId)}`, {
+/** `itemId` is a Strapi documentId for tools and a grant uuid for grants. */
+export function addBookmark(token: string, kind: BookmarkKind, itemId: string): Promise<UserProfile> {
+  return request<UserProfile>(`/account/bookmarks/${kind}/${encodeURIComponent(itemId)}`, {
     method: "POST",
     token,
   });
 }
 
-export function removeBookmark(token: string, kind: BookmarkKind, documentId: string): Promise<UserProfile> {
-  return request<UserProfile>(`/account/bookmarks/${kind}/${encodeURIComponent(documentId)}`, {
+export function removeBookmark(token: string, kind: BookmarkKind, itemId: string): Promise<UserProfile> {
+  return request<UserProfile>(`/account/bookmarks/${kind}/${encodeURIComponent(itemId)}`, {
     method: "DELETE",
     token,
+  });
+}
+
+/**
+ * Sends a password-reset email. Strapi answers the same for unknown addresses,
+ * so callers must not claim an account exists.
+ */
+export function forgotPassword(email: string): Promise<void> {
+  return request<void>("/auth/forgot-password", {
+    method: "POST",
+    body: { email: email.trim().toLowerCase() },
+  });
+}
+
+/** Completes a reset from the emailed link (/auth/reset-password?code=…). Returns a fresh session. */
+export function resetPassword(
+  code: string,
+  password: string,
+  passwordConfirmation: string,
+): Promise<AuthResponse> {
+  return request<AuthResponse>("/auth/reset-password", {
+    method: "POST",
+    body: { code, password, passwordConfirmation },
   });
 }
 

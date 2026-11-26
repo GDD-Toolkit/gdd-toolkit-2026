@@ -1,337 +1,274 @@
-import { useRef, useEffect, useState } from "react";
-import {
-  HeartPulse,
-  Scale,
-  Zap,
-  ShieldCheck,
-  Palette,
-  CheckCircle2,
-  Leaf,
-  ArrowUp,
-} from "lucide-react";
-import { motion, useInView, easeOut } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "../development-ethics/humanCentredInnovation.css";
 
-// Floating keyframes for icons
-const floating = {
-  animation: "floating 3.5s ease-in-out infinite",
-};
-
-// Add keyframes to global style
-const FloatingKeyframes = () => (
-    <style>{`
-    @keyframes floating {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-  
-    .gradient-text {
-      background: linear-gradient(
-        90deg,
-        #A07CFF,
-        #6D83F2,
-        #A07CFF
-      );
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-sweep 5s linear infinite;
-    }
-  
-    @keyframes gradient-sweep {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-  
-    .underline-grow {
-      position: relative;
-      overflow: hidden;
-    }
-  
-    .underline-grow::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      width: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #A07CFF, #6D83F2);
-      transition: width 0.5s cubic-bezier(.4,0,.2,1),
-                  left 0.5s cubic-bezier(.4,0,.2,1);
-      border-radius: 2px;
-      transform: translateX(-50%);
-    }
-  
-    .underline-grow.visible::after {
-      width: 80%;
-      left: 10%;
-    }
-  
-    .pulse-glow {
-      position: relative;
-    }
-  
-    .pulse-glow::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 120%;
-      height: 60px;
-      background: radial-gradient(
-        circle,
-        rgba(160,124,255,0.35) 0%,
-        transparent 70%
-      );
-      transform: translate(-50%, -50%);
-      filter: blur(14px);
-      animation: pulse-glow 2.5s ease-in-out infinite;
-      z-index: 0;
-    }
-  
-    @keyframes pulse-glow {
-      0%, 100% { opacity: 0.65; }
-      50% { opacity: 1; }
-    }
-  
-    .gradient-bg {
-      background: linear-gradient(
-        90deg,
-        rgba(160,124,255,0.12),
-        rgba(109,131,242,0.18),
-        rgba(160,124,255,0.12)
-      );
-      background-size: 200% 200%;
-      animation: gradient-bg-shift 8s linear infinite;
-    }
-  
-    @keyframes gradient-bg-shift {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-  `}</style>  
-);
-
-const goals = [
+const values = [
   {
     title: "Well-Being",
-    desc:
+    description:
       "Prioritize physical, mental, and social well-being. Programs should measurably improve quality of life, reduce preventable harm, and expand access to essential services such as healthcare, nutrition, and safe environments.",
-    icon: HeartPulse,
+    icon: "wellbeing",
   },
   {
     title: "Equality",
-    desc:
+    description:
       "Design and evaluate interventions to close gaps in outcomes and opportunity. Address structural barriers that disproportionately affect marginalized groups and track distributional effects—not only averages.",
-    icon: Scale,
+    icon: "equality",
   },
   {
     title: "Empowerment",
-    desc:
+    description:
       "Increase people’s ability to define priorities and influence decisions that affect their lives. Support local leadership, transparent information, and participatory processes rather than external control.",
-    icon: Zap,
+    icon: "empowerment",
   },
   {
     title: "Human Rights",
-    desc:
+    description:
       "Ensure all efforts respect and strengthen internationally recognized rights and dignities. Build safeguards against coercion, discrimination, and abuse, with clear accountability when harms occur.",
-    icon: ShieldCheck,
+    icon: "rights",
   },
   {
     title: "Cultural Freedom",
-    desc:
+    description:
       "Protect the ability of communities to sustain, adapt, and express their cultures. Development should never erase identity; it should resource local knowledge, languages, and practices.",
-    icon: Palette,
+    icon: "culture",
   },
   {
     title: "Responsibility",
-    desc:
+    description:
       "Act with integrity, transparency, and stewardship of resources. Establish clear governance, auditability, and feedback loops. Publish decisions and results. Admit and correct mistakes.",
-    icon: CheckCircle2,
+    icon: "responsibility",
   },
   {
     title: "Sustainability",
-    desc:
+    description:
       "Deliver benefits that last without degrading environmental or social systems. Plan for maintenance, financing, and local capacity. Reduce emissions and waste. Steward land, water, and biodiversity.",
-    icon: Leaf,
+    icon: "sustainability",
   },
-];
+] as const;
 
-export default function Worthwhile() {
-  // Scroll-to-top button
-  const [showScroll, setShowScroll] = useState(false);
-  useEffect(() => {
-    const onScroll = () => {
-      setShowScroll(window.scrollY > window.innerHeight * 0.5);
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+function BackArrow() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19 12H6m5-6-6 6 6 6" />
+    </svg>
+  );
+}
 
-  // Underline animation for Seven Goals
-  const sevenGoalsRef = useRef<HTMLHeadingElement>(null);
-  const [, setUnderlineVisible] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => {
-      if (sevenGoalsRef.current) {
-        const rect = sevenGoalsRef.current.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 80) {
-          setUnderlineVisible(true);
-        }
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+function CarouselArrow({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      {direction === "left" ? (
+        <path d="M19 12H5m6-6-6 6 6 6" />
+      ) : (
+        <path d="M5 12h14m-6-6 6 6-6 6" />
+      )}
+    </svg>
+  );
+}
 
-  // Framer Motion variants
-  const bannerVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
+function ValueIcon({ name }: { name: (typeof values)[number]["icon"] }) {
+  const common = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    strokeWidth: 1.7,
   };
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
-  };
-  const iconVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: easeOut } },
-  };
-  const calloutVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: easeOut } },
-  };
-
-  // InView hooks for sections
-  const cardsRef = useRef<HTMLDivElement>(null);
-  const cardsInView = useInView(cardsRef, { once: true, margin: "-100px" });
-  const calloutRef = useRef<HTMLDivElement>(null);
-  const calloutInView = useInView(calloutRef, { once: true, margin: "-80px" });
 
   return (
-    <div className="w-full bg-white text-gray-900 relative">
-      <FloatingKeyframes />
-      {/* ===== Header ===== */}
-      <section className="w-full bg-gradient-to-r from-[#A07CFF] to-[#6D83F2] py-14 text-center text-white">
-        <motion.h1
-          className="text-4xl md:text-5xl font-extrabold tracking-tight text-white"
-          initial="hidden"
-          animate="visible"
-          variants={bannerVariants}
-        >
-          Worthwhile Development
-        </motion.h1>
-        <motion.p
-          className="mx-auto mt-4 max-w-3xl text-base md:text-lg text-white/90 leading-relaxed"
-          initial="hidden"
-          animate="visible"
-          variants={bannerVariants}
-          transition={{ delay: 0.2, duration: 0.45, ease: easeOut }}
-        >
-          A people-centered approach to development that avoids disempowerment,
-          reduces inequality, and strengthens communities — guided by seven key values.
-        </motion.p>
-      </section>
-
-      {/* ===== Intro ===== */}
-      <section className="mx-auto max-w-6xl px-6">
-        <div className="relative -mt-8 rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100 md:p-8">
-          <h2
-            ref={sevenGoalsRef}
-            className="text-2xl md:text-3xl font-semibold text-[#6D83F2] text-center"
-          >
-            The Seven Values
-          </h2>
-          <motion.p
-            className="mt-3 text-gray-700 leading-relaxed text-[15px] md:text-base text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease: easeOut }}
-          >
-            At the heart of the Development Ethics Toolkit are seven core values of worthwhile development, drawn from the Routledge Handbook of Development Ethics. These values guide every tool, evaluation framework, and recommendation within this platform, ensuring that development efforts are not only effective but also equitable, human-centered, and ethically grounded. By centralizing these values, the Development Ethics Toolkit helps development practitioners, policymakers, and scholars navigate towards thoughtful decisions that prioritize human well-being and guard against the pitfalls of maldevelopment.
-          </motion.p>
-        </div>
-      </section>
-
-      {/* ===== Icon Cards ===== */}
-      <section className="mx-auto max-w-6xl px-6 py-12 md:py-16">
-        <div ref={cardsRef} className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {goals.map(({ title, desc, icon: Icon }, idx) => (
-            <motion.article
-              key={title}
-              initial="hidden"
-              animate={cardsInView ? "visible" : "hidden"}
-              variants={cardVariants}
-              transition={{ delay: idx * 0.09 + 0.1, duration: 0.45, ease: easeOut }}
-              className={`rounded-2xl border border-gray-200 bg-white p-8 shadow-sm
-                hover:shadow-[0_10px_30px_rgba(160,124,255,0.25)]
-                hover:scale-105 transition-all duration-300
-                flex flex-col items-center text-center
-                ${idx === 6 ? "md:col-span-2 md:mx-auto md:w-1/2" : ""}`}
-                whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 0 0 4px rgba(160,124,255,0.25)"
-                  }}
-                  
-            >
-              <motion.div
-                initial="hidden"
-                animate={cardsInView ? "visible" : "hidden"}
-                variants={iconVariants}
-                transition={{ delay: idx * 0.09 + 0.18, duration: 0.4, ease: easeOut }}
-                style={floating}
-                className="flex h-20 w-20 items-center justify-center rounded-full
-                bg-[#F1EEFF] mb-6 relative"
-                >
-                <Icon className="h-10 w-10 text-[#5B5FEF]" />
-              </motion.div>
-              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
-                {title}
-              </h3>
-              <p className="text-[15px] md:text-base leading-7 text-gray-700">
-                {desc}
-              </p>
-            </motion.article>
-          ))}
-        </div>
-      </section>
-
-      {/* ===== Centered Callout ===== */}
-      <section className="flex justify-center pb-20 px-6">
-        <motion.div
-          ref={calloutRef}
-          initial="hidden"
-          animate={calloutInView ? "visible" : "hidden"}
-          variants={calloutVariants}
-          className="max-w-3xl rounded-2xl gradient-bg
-            border border-[#E4E0FF]
-            p-8 text-center shadow-sm mx-auto"
-        >
-          <h4 className="text-black font-semibold text-lg mb-3 relative z-10">
-            Applying These Principles
-          </h4>
-          <p className="text-emerald-900 text-sm md:text-base leading-relaxed">
-            When planning or evaluating development work, use these goals as checkpoints.
-            Each initiative should contribute measurably to at least one goal while avoiding
-            tradeoffs that undermine others.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* ===== Scroll-to-Top Button ===== */}
-      {showScroll && (
-        <button
-          aria-label="Scroll to top"
-          className="fixed bottom-6 right-6 z-50
-            bg-[#6D83F2] hover:bg-[#5B5FEF]
-            text-white rounded-full p-3 shadow-lg
-            transition duration-300 flex items-center justify-center"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        >
-          <ArrowUp className="w-5 h-5" />
-        </button>
+    <svg viewBox="0 0 48 48" aria-hidden="true" {...common}>
+      {name === "wellbeing" && (
+        <>
+          <path d="M24 38S9 30 9 19c0-6 7-9 11-5l4 4 4-4c4-4 11-1 11 5 0 11-15 19-15 19Z" />
+          <path d="M15 25h6l3-6 4 11 3-5h4" />
+        </>
       )}
+      {name === "equality" && (
+        <>
+          <path d="M24 9v30M14 13h20M18 13l-7 15M30 13l7 15" />
+          <path d="M6 28h10c0 4-2 6-5 6s-5-2-5-6ZM32 28h10c0 4-2 6-5 6s-5-2-5-6ZM16 39h16" />
+        </>
+      )}
+      {name === "empowerment" && (
+        <path d="m28 6-16 22h12l-4 14 16-23H25l3-13Z" />
+      )}
+      {name === "rights" && (
+        <>
+          <path d="M24 6c5 4 10 5 15 6v10c0 10-6 17-15 21-9-4-15-11-15-21V12c5-1 10-2 15-6Z" />
+          <path d="m17 24 5 5 10-11" />
+        </>
+      )}
+      {name === "culture" && (
+        <>
+          <path d="M24 7a17 17 0 1 0 0 34h3c3 0 4-4 1-6l-1-1c-2-2-1-5 2-6h7c3 0 5-2 5-5A17 17 0 0 0 24 7Z" />
+          <circle cx="16" cy="19" r="1.5" />
+          <circle cx="22" cy="14" r="1.5" />
+          <circle cx="30" cy="16" r="1.5" />
+          <circle cx="33" cy="23" r="1.5" />
+        </>
+      )}
+      {name === "responsibility" && (
+        <>
+          <circle cx="24" cy="24" r="17" />
+          <path d="m16 24 5 5 11-12" />
+        </>
+      )}
+      {name === "sustainability" && (
+        <>
+          <path d="M11 34c2-17 12-23 27-24 0 15-6 25-21 25" />
+          <path d="M12 39c5-10 12-16 21-22" />
+        </>
+      )}
+    </svg>
+  );
+}
+
+export default function Worthwhile() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeValue = values[activeIndex];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const move = (direction: number) => {
+    setActiveIndex(
+      (current) => (current + direction + values.length) % values.length,
+    );
+  };
+
+  return (
+    <div className="hci-scope">
+      <div className="wd-page">
+        <section className="wd-hero" aria-labelledby="wd-title">
+          <Link className="wd-back" to="/development-ethics">
+            <BackArrow />
+            Human Centred Innovation
+          </Link>
+          <div className="wd-hero-copy">
+            <h1 id="wd-title">
+              Worthwhile{" "}
+              <br />
+              <em>Development</em>
+            </h1>
+          </div>
+          <div className="wd-hero-graphic" aria-hidden="true">
+            <span className="wd-ring wd-ring-one" />
+            <span className="wd-ring wd-ring-two" />
+            <span className="wd-hero-disc">7</span>
+            <span className="wd-hero-note">core values</span>
+          </div>
+        </section>
+
+        <section className="wd-introduction">
+          <div className="wd-intro-heading">
+            <h2>
+              A people-centered approach to development that avoids
+              disempowerment, reduces inequality, and strengthens communities —
+              guided by seven key values.
+            </h2>
+          </div>
+          <div className="wd-intro-copy">
+            <p>
+              At the heart of the Development Ethics Toolkit are seven core
+              values of worthwhile development, drawn from the Routledge
+              Handbook of Development Ethics. These values guide every tool,
+              evaluation framework, and recommendation within this platform,
+              ensuring that development efforts are not only effective but also
+              equitable, human-centred, and ethically grounded.
+            </p>
+            <p>
+              By centralizing these values, the Development Ethics Toolkit helps
+              development practitioners, policymakers, and scholars navigate
+              towards thoughtful decisions that prioritize human well-being and
+              guard against the pitfalls of maldevelopment.
+            </p>
+            <p>
+              When planning or evaluating development work, use these goals as
+              checkpoints. Each initiative should contribute measurably to at
+              least one goal while avoiding tradeoffs that undermine others.
+            </p>
+          </div>
+        </section>
+
+        <section className="wd-values" aria-labelledby="values-title">
+          <div className="wd-section-heading">
+            <h2 id="values-title">
+              The Seven <em>Values</em>
+            </h2>
+          </div>
+
+          <div
+            className="wd-carousel"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Seven values of worthwhile development"
+            tabIndex={0}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                move(-1);
+              }
+              if (event.key === "ArrowRight") {
+                event.preventDefault();
+                move(1);
+              }
+            }}
+          >
+            <button
+              className="wd-carousel-button wd-previous"
+              type="button"
+              onClick={() => move(-1)}
+              aria-label="Show previous value"
+            >
+              <CarouselArrow direction="left" />
+            </button>
+
+            <article
+              className="wd-value-card"
+              key={activeValue.title}
+              aria-live="polite"
+            >
+              <span className="wd-card-number">
+                {String(activeIndex + 1).padStart(2, "0")}
+              </span>
+              <div className="wd-icon">
+                <ValueIcon name={activeValue.icon} />
+              </div>
+              <div className="wd-value-copy">
+                <p>
+                  {activeIndex + 1} of {values.length}
+                </p>
+                <h3>{activeValue.title}</h3>
+                <p>{activeValue.description}</p>
+              </div>
+            </article>
+
+            <button
+              className="wd-carousel-button wd-next"
+              type="button"
+              onClick={() => move(1)}
+              aria-label="Show next value"
+            >
+              <CarouselArrow direction="right" />
+            </button>
+          </div>
+
+          <div className="wd-pagination" aria-label="Choose a value">
+            {values.map((value, index) => (
+              <button
+                type="button"
+                key={value.title}
+                className={index === activeIndex ? "active" : ""}
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Show ${value.title}`}
+                aria-current={index === activeIndex ? "true" : undefined}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

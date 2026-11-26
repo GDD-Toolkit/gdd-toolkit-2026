@@ -1,0 +1,38 @@
+{
+  "name": "grant-automation",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Ingests grant opportunities into the grants schema of the toolkit's Postgres and serves them over a small read API.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:db": "DB_TESTS=1 vitest run",
+    "test:live": "LIVE_TESTS=1 vitest run",
+    "db:bootstrap": "tsx scripts/bootstrap.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "api": "tsx src/api/server.ts",
+    "dev": "tsx watch src/api/server.ts",
+    "ingest": "tsx src/cli.ts ingest",
+    "seed:sample": "tsx scripts/seed-sample.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.6",
+    "drizzle-orm": "^0.45.4",
+    "entities": "^6.0.1",
+    "hono": "^4.13.16",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/pg": "^8.23.1",
+    "drizzle-kit": "^0.31.11",
+    "tsx": "^4.23.15",
+    "typescript": "~5.8.3",
+    "vitest": "^5.1.0"
+  }
+}

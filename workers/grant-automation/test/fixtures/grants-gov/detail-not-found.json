@@ -1,0 +1,20 @@
+{
+ "errorcode": 0,
+ "msg": "Webservice Succeeds",
+ "data": {
+  "revision": 0,
+  "flag2006": "N",
+  "cfdas": [],
+  "synopsisModifiedFields": [],
+  "forecastModifiedFields": [],
+  "errorMessages": [
+   "There is no record found for your search."
+  ],
+  "synPostDateInPast": false,
+  "forecastHistCount": 0,
+  "synopsisHistCount": 0,
+  "assistCompatible": false,
+  "assistURL": "",
+  "draftMode": "N"
+ }
+}
