@@ -20,6 +20,7 @@ import {
   EditorialSectionHeader,
 } from "@/components/editorial/EditorialPagePrimitives";
 import { getAITools } from "../../../api/strapi";
+import { getToolCategory } from "../data/toolCategories";
 
 type EthicalConsideration = {
   viability?: number;
@@ -399,6 +400,7 @@ export default function AIEthicsTool() {
   }
 
   const logoUrl = tool.logo?.[0]?.formats?.small?.url || tool.logo?.[0]?.url;
+  const toolCategory = getToolCategory(tool);
   const pricingUrl = tool.price?.url || tool.price_matrix_link;
   const considerations = tool.ethical_consideration ?? [];
 
@@ -440,11 +442,11 @@ export default function AIEthicsTool() {
       <EditorialPageHero
         titleId="tool-detail-heading"
         backLink={{
-          label: "Back to Tool Directory",
-          to: "/ai-ethics-dashboard/tools",
+          label: `Explore ${toolCategory}`,
+          to: `/ai-ethics-dashboard/tools?category=${encodeURIComponent(toolCategory)}`,
         }}
         badges={[
-          { label: "AI Ethics Evaluation", tone: "cream" },
+          { label: toolCategory, tone: "cream" },
           {
             label: `${availableConsiderations.length} Criteria Scored`,
             tone: "sage",

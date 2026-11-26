@@ -35,6 +35,7 @@ import {
   toolGroups,
   type SearchableAITool,
 } from "./data/searchTools";
+import { groupToolsByCategory } from "./data/toolCategories";
 import { getAITools } from "../../api/strapi";
 
 type CategoryMeta = {
@@ -164,6 +165,7 @@ export default function AIEthicsDashboard() {
   }, []);
 
   const searchResult = searchDashboard(search, tools);
+  const toolsByCategory = groupToolsByCategory(tools);
 
   const averageScore =
     tools.length > 0
@@ -492,6 +494,8 @@ export default function AIEthicsDashboard() {
               summary: "Explore evaluated AI tools in this category.",
             };
             const Icon = meta.Icon;
+            const categoryTools = toolsByCategory[group] ?? [];
+            const toolCount = categoryTools.length;
             const isHighlighted = highlightedCategory === group;
 
             return (
@@ -545,9 +549,15 @@ export default function AIEthicsDashboard() {
                           <Icon className="h-5 w-5" aria-hidden="true" />
                         </span>
 
-                        {isHighlighted && (
+                        {isHighlighted ? (
                           <span className="rounded-full bg-[#187347] px-2.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-white">
                             Search Match
+                          </span>
+                        ) : (
+                          <span className="rounded-full border border-[#D5E3D9] bg-[#F2F6EF] px-2.5 py-0.5 font-mono text-[11px] font-medium text-[#284B26]">
+                            {toolsLoading
+                              ? "…"
+                              : `${toolCount} ${toolCount === 1 ? "tool" : "tools"}`}
                           </span>
                         )}
                       </div>
@@ -562,10 +572,28 @@ export default function AIEthicsDashboard() {
                       <p className="mt-2 text-sm leading-relaxed text-[#596556]">
                         {meta.summary}
                       </p>
+
+                      {categoryTools.length > 0 && (
+                        <div className="mt-3.5 flex flex-wrap gap-1.5">
+                          {categoryTools.slice(0, 3).map((tool) => (
+                            <span
+                              key={tool.documentId || tool.id}
+                              className="rounded-full border border-[#D5E3D9] bg-[#FAFDF8] px-2.5 py-0.5 text-[11px] font-medium text-[#394838]"
+                            >
+                              {tool.name}
+                            </span>
+                          ))}
+                          {categoryTools.length > 3 && (
+                            <span className="rounded-full border border-[#D5E3D9] bg-[#F2F6EF] px-2 py-0.5 font-mono text-[10px] text-[#596556]">
+                              +{categoryTools.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
 
                     <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#3F673C] group-hover:text-[#187347]">
-                      <span>Browse category</span>
+                      <span>Explore category</span>
                       <ArrowRight
                         className="h-4 w-4 transition-transform group-hover:translate-x-1"
                         aria-hidden="true"
