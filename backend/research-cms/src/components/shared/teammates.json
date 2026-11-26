@@ -22,6 +22,9 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "linkedin_url": {
+      "type": "string"
     }
   },
   "config": {}
