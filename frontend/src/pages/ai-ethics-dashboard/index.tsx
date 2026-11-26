@@ -1,23 +1,24 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   BarChart3,
-  Boxes,
+  BookOpen,
   ChevronDown,
+  Compass,
   GraduationCap,
-  Image,
-  Layers,
+  HelpCircle,
+  Image as ImageIcon,
   Microscope,
   Palette,
   PenTool,
   ShieldCheck,
   Sparkles,
   Volume2,
-  type LucideIcon,
+  Wrench,
 } from "lucide-react";
-
+import type { LucideIcon } from "lucide-react";
 import {
   EDITORIAL_EASE,
   EDITORIAL_SERIF_STYLE,
@@ -29,62 +30,58 @@ import {
 import DashboardResources from "./DashboardResources";
 import ToolSearch from "../../components/ai-ethics-dashboard/ToolSearch";
 import SearchResults from "../../components/ai-ethics-dashboard/SearchResults";
-import { tools } from "./data/aiTools";
-import { searchDashboard, toolGroups } from "./data/searchTools";
+import {
+  searchDashboard,
+  toolGroups,
+  type SearchableAITool,
+} from "./data/searchTools";
+import { getAITools } from "../../api/strapi";
 
-const CATEGORY_META: Record<
-  string,
-  { Icon: LucideIcon; description: string }
-> = {
+type CategoryMeta = {
+  Icon: LucideIcon;
+  summary: string;
+};
+
+const CATEGORY_META: Record<string, CategoryMeta> = {
   "General Purpose": {
     Icon: Sparkles,
-    description:
-      "Versatile conversational assistants and multi-task AI platforms.",
+    summary: "Conversational assistants, reasoning models, and everyday AI.",
   },
   "Image and Video Generators": {
-    Icon: Image,
-    description:
-      "Visual synthesis tools evaluated for attribution, bias, and misuse risks.",
+    Icon: ImageIcon,
+    summary: "Visual synthesis tools evaluated for attribution and safety.",
   },
   "Audio Generators": {
     Icon: Volume2,
-    description:
-      "Voice, transcription, and audio synthesis tools assessed for consent safeguards.",
+    summary: "Voice synthesis, transcription, and multilingual audio workflows.",
   },
   Research: {
     Icon: Microscope,
-    description:
-      "Literature synthesis, citation verification, and scholarly inquiry tools.",
+    summary: "Literature search, citation synthesis, and academic analysis.",
   },
   "Writing and Text": {
     Icon: PenTool,
-    description:
-      "Drafting, editing, and translation tools reviewed for transparency.",
+    summary: "Drafting, editing, and structured communication assistants.",
   },
   "Another Topic": {
-    Icon: Layers,
-    description:
-      "Emerging domain-specific AI applications across interdisciplinary work.",
+    Icon: Compass,
+    summary: "Emerging specialized workflows and cross-disciplinary tools.",
   },
   "Data Analysis": {
     Icon: BarChart3,
-    description:
-      "Quantitative modeling, survey coding, and visual analytics assistants.",
+    summary: "Quantitative insight, visualization, and dataset exploration.",
   },
   Education: {
     Icon: GraduationCap,
-    description:
-      "Tutoring, curriculum design, and accessible student learning tools.",
+    summary: "Learning companions and equitable classroom support tools.",
   },
   "Design and Creativity": {
     Icon: Palette,
-    description:
-      "Prototyping, layout, and participatory ideation workflows.",
+    summary: "Ideation, prototyping, and accessible creative production.",
   },
   "Other Tools": {
-    Icon: Boxes,
-    description:
-      "Specialized utilities supporting ethical global development workflows.",
+    Icon: Wrench,
+    summary: "Additional platforms reviewed under the GDD ethics rubric.",
   },
 };
 
@@ -125,50 +122,64 @@ export default function AIEthicsDashboard() {
 
   const [search, setSearch] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
-
   const [highlightedCategory, setHighlightedCategory] = useState<string | null>(
     null,
   );
 
+  const [tools, setTools] = useState<SearchableAITool[]>([]);
+  const [toolsLoading, setToolsLoading] = useState(true);
+  const [toolsError, setToolsError] = useState("");
+
   const categoryRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   const searchContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const searchResult = searchDashboard(search);
+  useEffect(() => {
+    let cancelled = false;
 
-  const dashboardStats = useMemo(() => {
-    const totalTools = tools.length;
-    const avgScore =
-      totalTools > 0
-        ? Math.round(
-            tools.reduce((sum, item) => sum + item.score, 0) / totalTools,
-          )
-        : 0;
-    const highCount = tools.filter((t) => t.score >= 90).length;
-    const moderateCount = tools.filter(
-      (t) => t.score >= 70 && t.score <= 89,
-    ).length;
-    const cautionCount = tools.filter((t) => t.score < 70).length;
+    async function loadTools() {
+      try {
+        const data = await getAITools();
 
-    const countsByCategory: Record<string, number> = {};
-    for (const group of toolGroups) {
-      countsByCategory[group] = tools.filter(
-        (t) => t.category.trim().toLowerCase() === group.trim().toLowerCase(),
-      ).length;
+        if (!cancelled) {
+          setTools(data as SearchableAITool[]);
+        }
+      } catch (err) {
+        console.error("Failed to load AI tools:", err);
+
+        if (!cancelled) {
+          setToolsError("Unable to load AI tools.");
+        }
+      } finally {
+        if (!cancelled) {
+          setToolsLoading(false);
+        }
+      }
     }
 
-    return {
-      totalTools,
-      avgScore,
-      highCount,
-      moderateCount,
-      cautionCount,
-      countsByCategory,
+    loadTools();
+
+    return () => {
+      cancelled = true;
     };
   }, []);
 
-  /*
-   * Close the search preview when the user clicks outside it or presses Escape.
-   */
+  const searchResult = searchDashboard(search, tools);
+
+  const averageScore =
+    tools.length > 0
+      ? Math.round(
+          (tools.reduce((sum, tool) => sum + tool.total_score, 0) /
+            tools.length) *
+            10,
+        ) / 10
+      : null;
+
+  const highEthicsCount = tools.filter((t) => t.total_score >= 45).length;
+  const moderateEthicsCount = tools.filter(
+    (t) => t.total_score >= 35 && t.total_score < 45,
+  ).length;
+  const lowEthicsCount = tools.filter((t) => t.total_score < 35).length;
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -179,24 +190,12 @@ export default function AIEthicsDashboard() {
       }
     };
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setShowSearchResults(false);
-      }
-    };
-
     document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleKeyDown);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
-  /*
-   * Highlight a dashboard section for a few seconds.
-   */
   useEffect(() => {
     if (!highlightedCategory) {
       return;
@@ -204,7 +203,7 @@ export default function AIEthicsDashboard() {
 
     const timer = window.setTimeout(() => {
       setHighlightedCategory(null);
-    }, 3200);
+    }, 3000);
 
     return () => window.clearTimeout(timer);
   }, [highlightedCategory]);
@@ -215,68 +214,57 @@ export default function AIEthicsDashboard() {
     setHighlightedCategory(null);
   };
 
-  /*
-   * User clicks a matching dashboard section.
-   */
   const handleCategoryClick = () => {
     if (!searchResult.category) {
       return;
     }
 
     const category = searchResult.category;
-
     setShowSearchResults(false);
     setHighlightedCategory(category);
 
     const element = categoryRefs.current[category];
-
     if (element) {
       element.scrollIntoView({
-        behavior: reduced ? "auto" : "smooth",
+        behavior: "smooth",
         block: "center",
       });
     }
   };
 
-  /*
-   * User clicks an individual tool in the preview.
-   */
   const handleToolClick = (tool: { name: string }) => {
     setShowSearchResults(false);
     navigate(`/ai-ethics-dashboard/tool?name=${encodeURIComponent(tool.name)}`);
   };
 
-  /*
-   * User wants to see all matching tools.
-   */
   const handleViewAll = () => {
     const query = search.trim();
+    setShowSearchResults(false);
 
     if (!query) {
+      navigate("/ai-ethics-dashboard/tools");
       return;
     }
 
-    setShowSearchResults(false);
     navigate(`/ai-ethics-dashboard/tools?search=${encodeURIComponent(query)}`);
   };
 
   const scrollToCategories = () => {
     const el = document.getElementById("tool-categories");
     if (el) {
-      el.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+      el.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
-    <main className="min-h-screen w-full bg-white text-[#202B20]">
-
-      {/* Forest Green Editorial Hero with Integrated Search & Summary KPI Card */}
+    <div className="w-full bg-white text-[#202B20]">
+      {/* Forest Green Editorial Hero */}
       <EditorialPageHero
-        ariaLabel="AI Ethics Dashboard overview"
-        className="z-20 overflow-visible overflow-x-clip"
+        titleId="ai-ethics-hero-title"
+        className="overflow-visible overflow-x-clip"
         badges={[
           { label: "02 · Educational Tool", tone: "cream" },
-          { label: "Worthwhile Development Rubric", tone: "sage" },
+          { label: "50-Point Ethicality Rubric", tone: "sage" },
         ]}
         title={
           <>
@@ -284,7 +272,7 @@ export default function AIEthicsDashboard() {
             <em className="font-normal italic text-[#E9E6B2]">Dashboard</em>
           </>
         }
-        subtitle="Discover and explore AI tools for ethical research and project development—evaluated across bias mitigation, privacy, transparency, and low-tech readiness."
+        subtitle="Discover and explore AI tools for ethical research and project development—evaluated live across viability, bias mitigation, privacy, transparency, and low-tech readiness."
         actions={
           <div className="flex w-full max-w-2xl flex-col gap-4">
             {/* Live Search Bar + Animated Dropdown */}
@@ -301,6 +289,21 @@ export default function AIEthicsDashboard() {
                 }}
                 onClear={() => handleSearchChange("")}
               />
+
+              {toolsLoading && (
+                <p className="mt-2 font-mono text-[11px] text-[#E9E6B2]/90">
+                  Loading AI tools from CMS…
+                </p>
+              )}
+
+              {!toolsLoading && toolsError && (
+                <p
+                  role="alert"
+                  className="mt-2 rounded-lg border border-[#E2B4B0]/50 bg-[#2E502B] px-3 py-1.5 text-xs text-[#FADBD8]"
+                >
+                  {toolsError}
+                </p>
+              )}
 
               <AnimatePresence>
                 {showSearchResults && search.trim() && (
@@ -338,7 +341,7 @@ export default function AIEthicsDashboard() {
             </div>
           </div>
         }
-        footnote="Evaluated across 8 ethical dimensions · Search by tool name, domain, pricing tier, or ethicality score"
+        footnote="Live Strapi CMS evaluation data · 11 ethical criteria scored out of 50"
         aside={
           <div className="rounded-2xl border-[1.5px] border-[#E9E6B2]/85 bg-white p-6 text-[#202B20] shadow-xl">
             <div className="flex items-center justify-between gap-3 border-b border-[#D5E3D9] pb-4">
@@ -358,90 +361,101 @@ export default function AIEthicsDashboard() {
               </span>
             </div>
 
-            <div className="mt-5 grid grid-cols-2 gap-3.5">
-              {[
-                {
-                  value: String(dashboardStats.totalTools),
-                  label: "Evaluated Tools",
-                },
-                {
-                  value: String(toolGroups.length),
-                  label: "Tool Categories",
-                },
-                {
-                  value: "8",
-                  label: "Ethical Dimensions",
-                },
-                {
-                  value: `${dashboardStats.avgScore}`,
-                  label: "Avg. Ethicality Score",
-                },
-              ].map((kpi) => (
-                <div
-                  key={kpi.label}
-                  className="rounded-xl border border-[#D5E3D9] bg-[#F2F6EF] px-4 py-3.5"
+            <div className="mt-4 grid grid-cols-2 gap-3.5">
+              <div className="rounded-xl border border-[#D5E3D9] bg-[#F2F6EF] p-3.5">
+                <span
+                  className="text-2xl font-bold text-[#187347]"
+                  style={EDITORIAL_SERIF_STYLE}
                 >
-                  <p
-                    className="text-2xl font-bold leading-tight text-[#187347]"
-                    style={EDITORIAL_SERIF_STYLE}
-                  >
-                    {kpi.value}
-                  </p>
-                  <p className="mt-1 text-xs font-medium text-[#394838]">
-                    {kpi.label}
-                  </p>
-                </div>
-              ))}
+                  {toolsLoading ? "—" : tools.length}
+                </span>
+                <p className="mt-0.5 text-xs font-medium text-[#394838]">
+                  Evaluated Tools
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-[#D5E3D9] bg-[#F2F6EF] p-3.5">
+                <span
+                  className="text-2xl font-bold text-[#187347]"
+                  style={EDITORIAL_SERIF_STYLE}
+                >
+                  {toolGroups.length}
+                </span>
+                <p className="mt-0.5 text-xs font-medium text-[#394838]">
+                  Tool Categories
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-[#D5E3D9] bg-[#F2F6EF] p-3.5">
+                <span
+                  className="text-2xl font-bold text-[#187347]"
+                  style={EDITORIAL_SERIF_STYLE}
+                >
+                  11
+                </span>
+                <p className="mt-0.5 text-xs font-medium text-[#394838]">
+                  Ethical Criteria
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-[#D5E3D9] bg-[#F2F6EF] p-3.5">
+                <span
+                  className="text-2xl font-bold text-[#187347]"
+                  style={EDITORIAL_SERIF_STYLE}
+                >
+                  {averageScore !== null ? `${averageScore}/50` : "—"}
+                </span>
+                <p className="mt-0.5 text-xs font-medium text-[#394838]">
+                  Avg. Ethicality Score
+                </p>
+              </div>
             </div>
 
-            {/* Score Distribution Bar */}
+            {/* Score Distribution Mini Bar */}
             <div className="mt-5 border-t border-[#D5E3D9] pt-4">
-              <div className="flex items-center justify-between text-[11px] font-medium text-[#596556]">
-                <span className="font-mono uppercase tracking-wider text-[#284B26]">
-                  Score Distribution
-                </span>
-                <span>{dashboardStats.totalTools} tools</span>
+              <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-wider text-[#596556]">
+                <span>Score Distribution</span>
+                <span>{tools.length} tools</span>
               </div>
-
-              <div
-                className="mt-2 flex h-2.5 w-full overflow-hidden rounded-full bg-[#EDF4E8]"
-                aria-label="Ethicality score distribution"
-              >
-                <div
-                  style={{
-                    width: `${(dashboardStats.highCount / dashboardStats.totalTools) * 100}%`,
-                  }}
-                  className="bg-[#187347]"
-                  title={`90–100: ${dashboardStats.highCount} tools`}
-                />
-                <div
-                  style={{
-                    width: `${(dashboardStats.moderateCount / dashboardStats.totalTools) * 100}%`,
-                  }}
-                  className="bg-[#C9B349]"
-                  title={`70–89: ${dashboardStats.moderateCount} tools`}
-                />
-                <div
-                  style={{
-                    width: `${(dashboardStats.cautionCount / dashboardStats.totalTools) * 100}%`,
-                  }}
-                  className="bg-[#C96B5E]"
-                  title={`Below 70: ${dashboardStats.cautionCount} tools`}
-                />
+              <div className="mt-2 flex h-2 w-full overflow-hidden rounded-full bg-[#EDF4E8]">
+                {tools.length > 0 && (
+                  <>
+                    <div
+                      className="h-full bg-[#187347]"
+                      style={{
+                        width: `${(highEthicsCount / tools.length) * 100}%`,
+                      }}
+                      title={`45–50: ${highEthicsCount} tools`}
+                    />
+                    <div
+                      className="h-full bg-[#C8B24E]"
+                      style={{
+                        width: `${(moderateEthicsCount / tools.length) * 100}%`,
+                      }}
+                      title={`35–44: ${moderateEthicsCount} tools`}
+                    />
+                    <div
+                      className="h-full bg-[#C96B63]"
+                      style={{
+                        width: `${(lowEthicsCount / tools.length) * 100}%`,
+                      }}
+                      title={`Below 35: ${lowEthicsCount} tools`}
+                    />
+                  </>
+                )}
               </div>
-
-              <div className="mt-2.5 flex flex-wrap items-center gap-3 text-[11px] text-[#394838]">
+              <div className="mt-2 flex flex-wrap items-center gap-3 text-[11px] text-[#596556]">
                 <span className="inline-flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-[#187347]" />
-                  90–100 ({dashboardStats.highCount})
+                  45–50 ({highEthicsCount})
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-[#C9B349]" />
-                  70–89 ({dashboardStats.moderateCount})
+                  <span className="h-2 w-2 rounded-full bg-[#C8B24E]" />
+                  35–44 ({moderateEthicsCount})
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-[#C96B5E]" />
-                  &lt;70 ({dashboardStats.cautionCount})
+                  <span className="h-2 w-2 rounded-full bg-[#C96B63]" />
+                  &lt;35 ({lowEthicsCount})
                 </span>
               </div>
             </div>
@@ -449,145 +463,114 @@ export default function AIEthicsDashboard() {
         }
       />
 
-      {/* Section 01: Tool Categories */}
+      {/* 01 / Tool Categories */}
       <EditorialSection
         id="tool-categories"
         tone="white"
-        ariaLabelledBy="tool-categories-heading"
-        className="relative z-10"
+        ariaLabelledBy="categories-heading"
       >
-        <EditorialReveal>
-          <EditorialSectionHeader
-            eyebrow="01 / Tool Categories"
-            titleId="tool-categories-heading"
-            title="Explore AI Tools by Domain"
-            description="Browse curated tool groupings by workflow, or select a category match in the search bar to locate and spotlight it below."
-            action={
-              <Link
-                to="/ai-ethics-dashboard/tools"
-                className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#B2C9A8] bg-white px-5 py-2.5 text-sm font-semibold text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#FAFDF8]"
-              >
-                <span>View Full Directory</span>
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            }
-          />
-        </EditorialReveal>
+        <EditorialSectionHeader
+          eyebrow="01 / Tool Categories"
+          title="Explore AI Tools by Domain"
+          titleId="categories-heading"
+          description="Browse curated tool groupings by workflow, or select a category match in the search bar to locate and spotlight it below."
+          action={
+            <Link
+              to="/ai-ethics-dashboard/tools"
+              className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-[#3F673C] bg-white px-5 py-2.5 text-sm font-semibold text-[#284B26] transition-colors hover:bg-[#EDF4E8]"
+            >
+              <span>View Full Directory</span>
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          }
+        />
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {toolGroups.map((group, index) => {
-            const isHighlighted = highlightedCategory === group;
+          {toolGroups.map((group, idx) => {
             const meta = CATEGORY_META[group] ?? {
-              Icon: Boxes,
-              description: "Explore evaluated AI tools within this category.",
+              Icon: Sparkles,
+              summary: "Explore evaluated AI tools in this category.",
             };
             const Icon = meta.Icon;
-            const toolCount = dashboardStats.countsByCategory[group] ?? 0;
+            const isHighlighted = highlightedCategory === group;
 
             return (
               <EditorialReveal
                 key={group}
-                delay={Math.min(index * 0.04, 0.28)}
-                className="h-full"
+                delay={Math.min(idx * 0.04, 0.25)}
+                className="relative"
               >
-                <motion.div
-                  whileHover={reduced ? undefined : { y: -4 }}
-                  animate={
-                    isHighlighted && !reduced ? { scale: 1.02 } : { scale: 1 }
-                  }
-                  transition={{ duration: 0.22, ease: EDITORIAL_EASE }}
-                  className="relative h-full"
-                >
-                  {/* Animated Emerald Pulse Ring on Search Match */}
-                  <AnimatePresence>
-                    {isHighlighted && (
-                      <motion.span
-                        aria-hidden="true"
-                        initial={
-                          reduced
-                            ? { opacity: 0.7 }
-                            : { opacity: 0.9, scale: 0.98 }
-                        }
-                        animate={
-                          reduced
-                            ? { opacity: 0.7 }
-                            : {
-                                opacity: [0.95, 0.25, 0.95],
-                                scale: [1, 1.04, 1],
-                              }
-                        }
-                        exit={{ opacity: 0 }}
-                        transition={
-                          reduced
-                            ? { duration: 0.2 }
-                            : {
-                                duration: 1.15,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                              }
-                        }
-                        className="pointer-events-none absolute -inset-1.5 rounded-[1.2rem] border-2 border-[#187347] shadow-[0_0_0_4px_rgba(24,115,71,0.16)]"
-                      />
-                    )}
-                  </AnimatePresence>
-
-                  <Link
-                    ref={(element) => {
-                      categoryRefs.current[group] = element;
+                {isHighlighted && !reduced && (
+                  <motion.div
+                    aria-hidden="true"
+                    initial={{ opacity: 0.9, scale: 0.98 }}
+                    animate={{
+                      opacity: [0.9, 0.35, 0.9],
+                      scale: [0.99, 1.03, 0.99],
                     }}
-                    to={`/ai-ethics-dashboard/tools?category=${encodeURIComponent(
-                      group,
-                    )}`}
-                    className={`group relative flex h-full min-h-[210px] flex-col justify-between rounded-2xl border-[1.5px] p-6 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#3F673C] focus:ring-offset-2 ${
+                    transition={{
+                      duration: 1.1,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="pointer-events-none absolute -inset-1.5 rounded-[20px] border-2 border-[#187347] bg-[#187347]/10"
+                  />
+                )}
+
+                <motion.div
+                  whileHover={reduced ? undefined : { y: -3 }}
+                  transition={{ duration: 0.2, ease: EDITORIAL_EASE }}
+                  className="h-full"
+                >
+                  <Link
+                    ref={(el) => {
+                      categoryRefs.current[group] = el;
+                    }}
+                    to={`/ai-ethics-dashboard/tools?category=${encodeURIComponent(group)}`}
+                    className={`group relative flex h-full flex-col justify-between gap-4 rounded-2xl border-[1.5px] p-6 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#3F673C] ${
                       isHighlighted
-                        ? "border-[#187347] bg-[#EDF4E8] shadow-md"
-                        : "border-[#B2C9A8] bg-white hover:border-[#3F673C] hover:bg-[#FAFDF8] hover:shadow-sm"
+                        ? "border-[#187347] bg-[#EDF4E8] shadow-lg ring-4 ring-[#187347]/25"
+                        : "border-[#B2C9A8] bg-white hover:border-[#3F673C] hover:bg-[#FAFDF8]"
                     }`}
                   >
                     <div>
-                      <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center justify-between gap-2">
                         <span
-                          className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-colors ${
+                          className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-colors ${
                             isHighlighted
                               ? "border-[#187347] bg-[#187347] text-white"
-                              : "border-[#D5E3D9] bg-[#F2F6EF] text-[#3F673C] group-hover:border-[#94B985] group-hover:bg-[#EDF4E8]"
+                              : "border-[#D5E3D9] bg-[#F2F6EF] text-[#3F673C] group-hover:border-[#3F673C] group-hover:bg-[#3F673C] group-hover:text-white"
                           }`}
                         >
                           <Icon className="h-5 w-5" aria-hidden="true" />
                         </span>
 
-                        {isHighlighted ? (
-                          <span className="inline-flex items-center rounded-full bg-[#187347] px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-white shadow-xs">
+                        {isHighlighted && (
+                          <span className="rounded-full bg-[#187347] px-2.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-white">
                             Search Match
-                          </span>
-                        ) : (
-                          <span className="rounded-full border border-[#D5E3D9] bg-[#F2F6EF] px-2.5 py-0.5 font-mono text-[10px] font-medium text-[#284B26]">
-                            {toolCount === 0
-                              ? "Explore"
-                              : `${toolCount} ${toolCount === 1 ? "tool" : "tools"}`}
                           </span>
                         )}
                       </div>
 
                       <h3
-                        className="mt-4 text-lg font-semibold leading-snug text-[#202B20]"
+                        className="mt-4 text-xl font-semibold leading-snug text-[#202B20] group-hover:text-[#187347]"
                         style={EDITORIAL_SERIF_STYLE}
                       >
                         {group}
                       </h3>
 
-                      <p className="mt-2 text-xs leading-relaxed text-[#596556]">
-                        {meta.description}
+                      <p className="mt-2 text-sm leading-relaxed text-[#596556]">
+                        {meta.summary}
                       </p>
                     </div>
 
-                    <div className="mt-5 flex items-center justify-between border-t border-[#D5E3D9]/80 pt-3.5 text-xs font-semibold text-[#3F673C] transition-colors group-hover:text-[#187347]">
-                      <span>Explore category</span>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#3F673C] group-hover:text-[#187347]">
+                      <span>Browse category</span>
                       <ArrowRight
-                        className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                        className="h-4 w-4 transition-transform group-hover:translate-x-1"
                         aria-hidden="true"
                       />
-                    </div>
+                    </span>
                   </Link>
                 </motion.div>
               </EditorialReveal>
@@ -596,68 +579,59 @@ export default function AIEthicsDashboard() {
         </div>
       </EditorialSection>
 
-      {/* Section 02: Research & Methodology */}
-      <EditorialSection
-        id="methodology"
-        tone="sage"
-        ariaLabelledBy="methodology-heading"
-      >
-        <EditorialReveal>
-          <EditorialSectionHeader
-            eyebrow="02 / Research & Methodology"
-            titleId="methodology-heading"
-            title="Methodology & Community Resources"
-            description="Understand the ethical evaluation framework behind every score and access practitioner-ready visual guides."
-          />
-        </EditorialReveal>
+      {/* 02 / Research & Methodology */}
+      <EditorialSection tone="sage" ariaLabelledBy="resources-heading">
+        <EditorialSectionHeader
+          eyebrow="02 / Research & Methodology"
+          title="How Ethicality Scores Are Built"
+          titleId="resources-heading"
+          description="Every rating is grounded in the GDD Toolkit's student-led research rubric—openly documented for educators, researchers, and field practitioners."
+        />
 
-        <EditorialReveal delay={0.08} className="mt-10">
+        <div className="mt-10">
           <DashboardResources variant="cards" />
-        </EditorialReveal>
+        </div>
       </EditorialSection>
 
-      {/* Section 03: Frequently Asked Questions */}
-      <EditorialSection id="faq" tone="white" ariaLabelledBy="faq-heading">
-        <EditorialReveal>
+      {/* 03 / Frequently Asked Questions */}
+      <EditorialSection tone="white" ariaLabelledBy="faq-heading">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <EditorialSectionHeader
             eyebrow="03 / Frequently Asked Questions"
+            title="Using the AI Ethics Dashboard"
             titleId="faq-heading"
-            title="Understanding the Dashboard"
-            description="Answers to common questions about ethicality scores, evaluation methodology, searching, and bookmarking tools."
-            action={
-              <button
-                type="button"
-                onClick={() => setShowFaq((prev) => !prev)}
-                aria-expanded={showFaq}
-                aria-controls="dashboard-faq-panel"
-                className="inline-flex cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-[#B2C9A8] bg-white px-5 py-2.5 text-sm font-semibold text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#FAFDF8] focus:outline-none focus:ring-2 focus:ring-[#3F673C]"
-              >
-                <span>{showFaq ? "Hide FAQ" : "Show FAQ"}</span>
-                <ChevronDown
-                  className={`h-4 w-4 text-[#187347] transition-transform duration-200 ${
-                    showFaq ? "rotate-180" : ""
-                  }`}
-                  aria-hidden="true"
-                />
-              </button>
-            }
+            description="Quick answers on our evaluation criteria, scoring methodology, search tools, and saved bookmarks."
           />
-        </EditorialReveal>
+
+          <button
+            type="button"
+            onClick={() => setShowFaq((prev) => !prev)}
+            aria-expanded={showFaq}
+            className="inline-flex w-fit shrink-0 cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-[#94B985] bg-[#F2F6EF] px-5 py-2.5 text-sm font-semibold text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#EDF4E8] focus:outline-none focus:ring-2 focus:ring-[#3F673C]"
+          >
+            <HelpCircle className="h-4 w-4 text-[#187347]" aria-hidden="true" />
+            <span>{showFaq ? "Hide FAQ" : "Show FAQ"}</span>
+            <ChevronDown
+              className={`h-4 w-4 transition-transform duration-200 ${
+                showFaq ? "rotate-180" : ""
+              }`}
+              aria-hidden="true"
+            />
+          </button>
+        </div>
 
         <AnimatePresence initial={false}>
           {showFaq && (
             <motion.div
-              id="dashboard-faq-panel"
               initial={reduced ? false : { opacity: 0, height: 0 }}
               animate={reduced ? undefined : { opacity: 1, height: "auto" }}
               exit={reduced ? undefined : { opacity: 0, height: 0 }}
-              transition={{ duration: 0.28, ease: EDITORIAL_EASE }}
+              transition={{ duration: 0.25, ease: EDITORIAL_EASE }}
               className="overflow-hidden"
             >
-              <div className="mx-auto mt-10 max-w-4xl space-y-3.5">
+              <div className="mt-8 space-y-3.5">
                 {FAQS.map((faq, index) => {
                   const isOpen = openFaq === index;
-                  const answerId = `faq-answer-${index}`;
 
                   return (
                     <div
@@ -665,18 +639,17 @@ export default function AIEthicsDashboard() {
                       className={`overflow-hidden rounded-2xl border-[1.5px] transition-colors duration-200 ${
                         isOpen
                           ? "border-[#3F673C] bg-[#FAFDF8]"
-                          : "border-[#B2C9A8] bg-white hover:border-[#94B985]"
+                          : "border-[#B2C9A8] bg-white hover:border-[#3F673C]"
                       }`}
                     >
                       <button
                         type="button"
                         onClick={() => setOpenFaq(isOpen ? null : index)}
                         aria-expanded={isOpen}
-                        aria-controls={answerId}
-                        className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#3F673C] sm:px-6 sm:py-5"
+                        className="flex w-full cursor-pointer items-center justify-between gap-4 px-6 py-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3F673C]"
                       >
                         <div className="flex items-center gap-3.5">
-                          <span className="font-mono text-xs font-semibold text-[#187347]">
+                          <span className="font-mono text-xs font-medium text-[#187347]">
                             {String(index + 1).padStart(2, "0")}
                           </span>
                           <span
@@ -691,7 +664,7 @@ export default function AIEthicsDashboard() {
                           className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors ${
                             isOpen
                               ? "border-[#3F673C] bg-[#3F673C] text-white"
-                              : "border-[#D5E3D9] bg-[#F2F6EF] text-[#3F673C]"
+                              : "border-[#B2C9A8] bg-[#F2F6EF] text-[#284B26]"
                           }`}
                         >
                           <ChevronDown
@@ -706,7 +679,6 @@ export default function AIEthicsDashboard() {
                       <AnimatePresence initial={false}>
                         {isOpen && (
                           <motion.div
-                            id={answerId}
                             initial={reduced ? false : { opacity: 0, height: 0 }}
                             animate={
                               reduced
@@ -714,13 +686,10 @@ export default function AIEthicsDashboard() {
                                 : { opacity: 1, height: "auto" }
                             }
                             exit={reduced ? undefined : { opacity: 0, height: 0 }}
-                            transition={{
-                              duration: 0.22,
-                              ease: EDITORIAL_EASE,
-                            }}
+                            transition={{ duration: 0.22, ease: EDITORIAL_EASE }}
                             className="overflow-hidden"
                           >
-                            <div className="border-t border-[#D5E3D9] px-5 py-4 text-sm leading-relaxed text-[#394838] sm:px-6 sm:pl-14 sm:text-base">
+                            <div className="border-t border-[#D5E3D9] px-6 py-4 pl-14 text-sm leading-relaxed text-[#394838] sm:text-base">
                               {faq.answer}
                             </div>
                           </motion.div>
@@ -733,7 +702,36 @@ export default function AIEthicsDashboard() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Bottom CTA Strip */}
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 rounded-2xl border-[1.5px] border-[#94B985] bg-[#F2F6EF] p-6 sm:flex-row sm:items-center sm:p-8">
+          <div className="flex items-start gap-3.5">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#94B985] bg-white text-[#187347]">
+              <BookOpen className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div>
+              <h3
+                className="text-xl font-semibold text-[#202B20]"
+                style={EDITORIAL_SERIF_STYLE}
+              >
+                Ready to compare tools side by side?
+              </h3>
+              <p className="mt-1 text-sm text-[#596556]">
+                Filter evaluated platforms by ethicality score tier or keyword
+                in the interactive directory.
+              </p>
+            </div>
+          </div>
+
+          <Link
+            to="/ai-ethics-dashboard/tools"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#3F673C] to-[#187347] px-6 py-3 text-sm font-semibold text-white transition-all hover:brightness-110"
+          >
+            <span>Open Tool Directory</span>
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
       </EditorialSection>
-    </main>
+    </div>
   );
 }

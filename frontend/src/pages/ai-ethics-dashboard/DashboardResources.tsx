@@ -1,40 +1,28 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import {
-  ArrowRight,
-  BookOpen,
-  CheckCircle2,
-  FileText,
-  Layers,
-  Sparkles,
-  X,
-} from "lucide-react";
+import { ArrowRight, BookOpen, FileText, Layers, X } from "lucide-react";
 import {
   EDITORIAL_EASE,
   EDITORIAL_SERIF_STYLE,
 } from "@/components/editorial/EditorialPagePrimitives";
 
+/**
+ * TODO: Replace placeholder resource content with the
+ * final methodology document and infographics provided
+ * by the AI Ethics module.
+ *
+ * See README.md for additional handoff information.
+ */
 type DashboardResourcesProps = {
   variant?: "cards" | "compact";
 };
 
-const METHODOLOGY_DIMENSIONS = [
-  "Viability",
-  "Bias Mitigation",
-  "Transparency",
-  "Control & Oversight",
-  "Privacy & Data",
-  "Localization",
-  "Evidence of Impact",
-  "Low-tech Compatibility",
-];
-
 export default function DashboardResources({
   variant = "cards",
 }: DashboardResourcesProps) {
-  const reduced = useReducedMotion();
   const [showSupportingDocument, setShowSupportingDocument] = useState(false);
   const [showCommunityResource, setShowCommunityResource] = useState(false);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     if (!showSupportingDocument && !showCommunityResource) {
@@ -59,7 +47,7 @@ export default function DashboardResources({
           <button
             type="button"
             onClick={() => setShowSupportingDocument(true)}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-[#B2C9A8] bg-white px-4 py-2 text-xs font-semibold text-[#284B26] transition-all hover:border-[#3F673C] hover:bg-[#FAFDF8] focus:outline-none focus:ring-2 focus:ring-[#3F673C] sm:text-sm"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-[#B2C9A8] bg-white px-4 py-2 text-xs font-semibold text-[#284B26] transition-all duration-200 hover:border-[#3F673C] hover:bg-[#EDF4E8] focus:outline-none focus:ring-2 focus:ring-[#3F673C] sm:text-sm"
           >
             <BookOpen className="h-3.5 w-3.5 text-[#187347]" aria-hidden="true" />
             <span>Read our Methodology</span>
@@ -68,7 +56,7 @@ export default function DashboardResources({
           <button
             type="button"
             onClick={() => setShowCommunityResource(true)}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-[#B2C9A8] bg-white px-4 py-2 text-xs font-semibold text-[#284B26] transition-all hover:border-[#3F673C] hover:bg-[#FAFDF8] focus:outline-none focus:ring-2 focus:ring-[#3F673C] sm:text-sm"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-[#B2C9A8] bg-white px-4 py-2 text-xs font-semibold text-[#284B26] transition-all duration-200 hover:border-[#3F673C] hover:bg-[#EDF4E8] focus:outline-none focus:ring-2 focus:ring-[#3F673C] sm:text-sm"
           >
             <Layers className="h-3.5 w-3.5 text-[#187347]" aria-hidden="true" />
             <span>View our Infographics</span>
@@ -76,126 +64,85 @@ export default function DashboardResources({
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {/* Methodology Card */}
-          <motion.div
+          <motion.button
+            type="button"
+            onClick={() => setShowSupportingDocument(true)}
             whileHover={reduced ? undefined : { y: -3 }}
             transition={{ duration: 0.2, ease: EDITORIAL_EASE }}
-            className="flex flex-col justify-between gap-6 rounded-2xl border-[1.5px] border-[#B2C9A8] bg-white p-6 transition-colors hover:border-[#3F673C] hover:bg-[#FAFDF8] sm:p-7"
+            className="group flex cursor-pointer flex-col justify-between gap-5 rounded-2xl border-[1.5px] border-[#B2C9A8] bg-white p-7 text-left transition-colors duration-200 hover:border-[#3F673C] hover:bg-[#FAFDF8] focus:outline-none focus:ring-2 focus:ring-[#3F673C]"
           >
             <div>
               <div className="flex items-center justify-between gap-3">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D5E3D9] bg-[#EDF4E8] px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-[#187347]">
-                  <FileText className="h-3 w-3" aria-hidden="true" />
-                  01 &middot; Methodology
+                <span className="inline-flex items-center rounded-full border border-[#94B985] bg-[#EDF4E8] px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-[#187347]">
+                  Evaluation Framework
                 </span>
-                <BookOpen
-                  className="h-5 w-5 text-[#3F673C]"
-                  aria-hidden="true"
-                />
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#D5E3D9] bg-[#F2F6EF] text-[#3F673C] transition-colors group-hover:border-[#3F673C] group-hover:bg-[#3F673C] group-hover:text-white">
+                  <FileText className="h-5 w-5" aria-hidden="true" />
+                </span>
               </div>
 
               <h3
-                className="mt-4 text-xl font-semibold text-[#202B20] sm:text-2xl"
+                className="mt-4 text-2xl font-semibold text-[#202B20] group-hover:text-[#187347]"
                 style={EDITORIAL_SERIF_STYLE}
               >
-                Evaluation Rubric &amp; Supporting Document
+                Read our Methodology
               </h3>
 
-              <p className="mt-2.5 text-sm leading-relaxed text-[#596556]">
-                Review how each AI platform is scored across eight worthwhile
-                development dimensions—covering bias mitigation, data privacy,
-                transparency, and low-tech accessibility.
+              <p className="mt-2 text-sm leading-relaxed text-[#596556]">
+                Review how each AI platform is assessed across viability, bias
+                mitigation, transparency, privacy, low-tech compatibility, and
+                accountability on a 50-point ethicality scale.
               </p>
-
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {METHODOLOGY_DIMENSIONS.slice(0, 4).map((dim) => (
-                  <span
-                    key={dim}
-                    className="rounded-full border border-[#D5E3D9] bg-[#F2F6EF] px-2.5 py-0.5 text-[11px] font-medium text-[#284B26]"
-                  >
-                    {dim}
-                  </span>
-                ))}
-                <span className="rounded-full border border-[#D5E3D9] bg-[#F2F6EF] px-2.5 py-0.5 font-mono text-[11px] font-medium text-[#187347]">
-                  +4 more
-                </span>
-              </div>
             </div>
 
-            <div>
-              <button
-                type="button"
-                onClick={() => setShowSupportingDocument(true)}
-                className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#3F673C] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#187347] focus:outline-none focus:ring-2 focus:ring-[#3F673C] focus:ring-offset-2"
-              >
-                <span>Read our Methodology</span>
-                <ArrowRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
-              </button>
-            </div>
-          </motion.div>
+            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#3F673C] group-hover:text-[#187347]">
+              <span>Open Supporting Document</span>
+              <ArrowRight
+                className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </span>
+          </motion.button>
 
-          {/* Infographics / Community Resources Card */}
-          <motion.div
+          <motion.button
+            type="button"
+            onClick={() => setShowCommunityResource(true)}
             whileHover={reduced ? undefined : { y: -3 }}
             transition={{ duration: 0.2, ease: EDITORIAL_EASE }}
-            className="flex flex-col justify-between gap-6 rounded-2xl border-[1.5px] border-[#B2C9A8] bg-white p-6 transition-colors hover:border-[#3F673C] hover:bg-[#FAFDF8] sm:p-7"
+            className="group flex cursor-pointer flex-col justify-between gap-5 rounded-2xl border-[1.5px] border-[#B2C9A8] bg-white p-7 text-left transition-colors duration-200 hover:border-[#3F673C] hover:bg-[#FAFDF8] focus:outline-none focus:ring-2 focus:ring-[#3F673C]"
           >
             <div>
               <div className="flex items-center justify-between gap-3">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D5E3D9] bg-[#EDF4E8] px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-[#187347]">
-                  <Sparkles className="h-3 w-3" aria-hidden="true" />
-                  02 &middot; Community Resources
+                <span className="inline-flex items-center rounded-full border border-[#D6CE8A] bg-[#FAF8E4] px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-[#6F6057]">
+                  Visual Guides
                 </span>
-                <Layers
-                  className="h-5 w-5 text-[#3F673C]"
-                  aria-hidden="true"
-                />
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#D5E3D9] bg-[#F2F6EF] text-[#3F673C] transition-colors group-hover:border-[#3F673C] group-hover:bg-[#3F673C] group-hover:text-white">
+                  <Layers className="h-5 w-5" aria-hidden="true" />
+                </span>
               </div>
 
               <h3
-                className="mt-4 text-xl font-semibold text-[#202B20] sm:text-2xl"
+                className="mt-4 text-2xl font-semibold text-[#202B20] group-hover:text-[#187347]"
                 style={EDITORIAL_SERIF_STYLE}
               >
-                Practitioner Guides &amp; Infographics
+                View our Infographics
               </h3>
 
-              <p className="mt-2.5 text-sm leading-relaxed text-[#596556]">
-                Explore visual summaries, classroom handouts, and ethical AI
-                decision checklists crafted to help students and development
-                teams adopt AI tools responsibly.
+              <p className="mt-2 text-sm leading-relaxed text-[#596556]">
+                Explore visual summaries, quick-reference rubrics, and community
+                resources designed for practitioners and classrooms adopting AI
+                responsibly.
               </p>
-
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {["Scorecard Guides", "Field Checklists", "Workshop Visuals"].map(
-                  (tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-[#D5E3D9] bg-[#F2F6EF] px-2.5 py-0.5 text-[11px] font-medium text-[#284B26]"
-                    >
-                      {tag}
-                    </span>
-                  ),
-                )}
-              </div>
             </div>
 
-            <div>
-              <button
-                type="button"
-                onClick={() => setShowCommunityResource(true)}
-                className="group inline-flex cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-[#3F673C] bg-white px-5 py-2.5 text-sm font-semibold text-[#284B26] transition-colors hover:bg-[#EDF4E8] focus:outline-none focus:ring-2 focus:ring-[#3F673C] focus:ring-offset-2"
-              >
-                <span>View our Infographics</span>
-                <ArrowRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
-              </button>
-            </div>
-          </motion.div>
+            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#3F673C] group-hover:text-[#187347]">
+              <span>Explore Community Resources</span>
+              <ArrowRight
+                className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </span>
+          </motion.button>
         </div>
       )}
 
@@ -224,7 +171,7 @@ export default function DashboardResources({
               <div className="flex items-start justify-between gap-4 border-b border-[#D5E3D9] bg-[#3F673C] px-6 py-5 text-white">
                 <div>
                   <p className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-[#E9E6B2]">
-                    Methodology &amp; Rubric
+                    AI Ethics Evaluation Methodology
                   </p>
                   <h2
                     id="supporting-document-title"
@@ -251,22 +198,30 @@ export default function DashboardResources({
                   available here.
                 </p>
 
-                <div className="mt-5 rounded-xl border border-[#D5E3D9] bg-[#F2F6EF] p-4">
+                <div className="mt-5 rounded-xl border border-[#B2C9A8] bg-[#F2F6EF] p-4">
                   <p className="font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-[#187347]">
-                    Eight Evaluated Ethical Dimensions
+                    Rubric Criteria Covered (50-Point Scale)
                   </p>
-                  <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    {METHODOLOGY_DIMENSIONS.map((dimension) => (
-                      <div
-                        key={dimension}
-                        className="flex items-center gap-2 text-sm text-[#284B26]"
+                  <div className="mt-2.5 flex flex-wrap gap-2">
+                    {[
+                      "Viability",
+                      "Bias Mitigation",
+                      "Transparency",
+                      "Control & Oversight",
+                      "Privacy & Data Ethics",
+                      "Localization & Accessibility",
+                      "Evidence of Impact",
+                      "Low-Tech Compatibility",
+                      "Ethical Failsafes",
+                      "Accountability",
+                      "Documentation & Support",
+                    ].map((criterion) => (
+                      <span
+                        key={criterion}
+                        className="rounded-full border border-[#94B985] bg-white px-3 py-1 text-xs font-medium text-[#284B26]"
                       >
-                        <CheckCircle2
-                          className="h-4 w-4 shrink-0 text-[#187347]"
-                          aria-hidden="true"
-                        />
-                        <span>{dimension}</span>
-                      </div>
+                        {criterion}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -341,7 +296,7 @@ export default function DashboardResources({
                   {[
                     {
                       title: "Scorecard Guide",
-                      detail: "How to interpret 0–100 ethicality ratings.",
+                      detail: "How to interpret 0–50 ethicality ratings.",
                     },
                     {
                       title: "Field Checklist",

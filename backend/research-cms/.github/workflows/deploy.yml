@@ -76,7 +76,13 @@ jobs:
         run: npm ci
 
       - name: Build admin panel
-        run: node scripts/with-ssm-env.mjs npm run build
+        # strapi build does not delete compiled files whose source is gone, so a removed
+        # content type stays in dist/src and Strapi keeps loading it (funding-resource did,
+        # 2026-11-10 to 2026-11-25). Clear dist/src only: the running Strapi already loaded
+        # it, while dist/build still serves the admin panel until the build replaces it.
+        run: |
+          rm -rf dist/src
+          node scripts/with-ssm-env.mjs npm run build
 
       - name: Restart Strapi
         run: |

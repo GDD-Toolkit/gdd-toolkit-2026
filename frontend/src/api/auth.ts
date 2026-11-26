@@ -83,6 +83,7 @@ export function register(
     body: {
       username: email,
       email,
+      termsAccepted: true,
       password: payload.password,
       firstName: payload.firstName.trim(),
       lastName: payload.lastName.trim(),

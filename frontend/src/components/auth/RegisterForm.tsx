@@ -39,6 +39,7 @@ const EMPTY: RegisterPayload = {
 
 export function RegisterForm() {
   const { register } = useAuth();
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [values, setValues] = useState<RegisterPayload>(EMPTY);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [error, setError] = useState<string | null>(null);
@@ -52,6 +53,10 @@ export function RegisterForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!termsAccepted) {
+      setError("You must agree to the Terms of Use and Privacy Policy.");
+      return;
+    }
     const errors = validate(values);
     setFieldErrors(errors);
     if (Object.keys(errors).length > 0) return;
@@ -76,10 +81,10 @@ export function RegisterForm() {
     return (
       <div
         role="status"
-        className="space-y-3 rounded-xl border-[1.5px] border-[#94B985] bg-[#F2F6EF] p-5 text-sm"
+        className="space-y-2.5 rounded-2xl border-[1.5px] border-[#94B985] bg-[#F2F6EF] p-5 text-sm"
       >
         <div className="flex items-center gap-2.5">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#94B985] bg-white text-[#187347]">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#94B985] bg-white text-[#187347]">
             <MailCheck className="h-4 w-4" aria-hidden="true" />
           </span>
           <p
@@ -144,6 +149,39 @@ export function RegisterForm() {
         New accounts start with the Student role. An administrator can upgrade
         you to Researcher.
       </p>
+      <label className="flex cursor-pointer items-start gap-2.5 rounded-xl border border-[#D5E3D9] bg-[#FAFDF8] px-3.5 py-2.5 text-xs leading-relaxed text-[#394838]">
+        <input
+          type="checkbox"
+          checked={termsAccepted}
+          onChange={(event) => {
+            setTermsAccepted(event.target.checked);
+            if (event.target.checked) setError(null);
+          }}
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-[#94B985] accent-[#187347]"
+          required
+        />
+        <span>
+          I agree to the{" "}
+          <a
+            href="/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[#187347] underline underline-offset-2 hover:text-[#105C37]"
+          >
+            Terms of Use
+          </a>{" "}
+          and{" "}
+          <a
+            href="/Privacy_Statement.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[#187347] underline underline-offset-2 hover:text-[#105C37]"
+          >
+            Privacy Policy
+          </a>
+          .
+        </span>
+      </label>
       {error && (
         <p
           role="alert"
