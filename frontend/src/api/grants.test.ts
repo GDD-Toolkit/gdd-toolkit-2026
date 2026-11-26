@@ -74,6 +74,17 @@ describe("getGrants", () => {
     expect((error as GrantsApiError).message).toBe("Grant not found");
   });
 
+  it("treats a 200 that is not JSON (the site's index.html) as the API being unavailable", async () => {
+    fetchMock.mockResolvedValue(
+      new Response("<!doctype html><html></html>", { status: 200, headers: { "Content-Type": "text/html" } }),
+    );
+
+    const error = await getGrants({}).catch((cause: unknown) => cause);
+
+    expect(error).toBeInstanceOf(GrantsApiError);
+    expect((error as GrantsApiError).message).toBe("The grants API did not respond.");
+  });
+
   it("falls back to the HTTP status when the error body is not ours", async () => {
     fetchMock.mockResolvedValue(new Response("<html>bad gateway</html>", { status: 502, statusText: "Bad Gateway" }));
 

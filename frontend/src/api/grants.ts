@@ -46,6 +46,9 @@ async function request<T>(path: string, schema: ZodType<T>, init?: RequestInit):
       : `Grants API request failed: ${response.status} ${response.statusText}`;
     throw new GrantsApiError(message, response.status);
   }
+  // A 200 that is not JSON is the site's index.html: nginx serving the app shell
+  // because the API is not routed or not running.
+  if (json === null) throw new GrantsApiError("The grants API did not respond.", response.status);
 
   return schema.parse(json);
 }
