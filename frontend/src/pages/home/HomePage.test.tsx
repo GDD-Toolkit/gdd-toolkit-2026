@@ -239,31 +239,32 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
       });
       expect(track!.scrollLeft).toBeGreaterThan(0);
 
-      // Once user clicks a specific cohort year (2023), continuous auto-scroll stops
-      fireEvent.click(within(yearGroup).getByRole("button", { name: "2023" }));
+      // Once user clicks Next Team, continuous auto-scroll sleeps and stays off (no resume button)
+      fireEvent.click(scope.getByRole("button", { name: /next team/i }));
       expect(track).toHaveAttribute("data-auto-scrolling", "false");
       expect(carousel!.querySelector("[data-marquee-clone]")).toBeNull();
-      expect(scope.getByText(/01 \/ 07 modules/i)).toBeInTheDocument();
+      expect(
+        scope.queryByRole("button", { name: /resume auto-scroll/i }),
+      ).not.toBeInTheDocument();
 
-      const resumeButton = scope.getByRole("button", {
-        name: /resume auto-scroll/i,
+      // Let Next Team's one-shot scrollToCard settle, then verify advancing time does NOT move scrollLeft
+      act(() => {
+        vi.advanceTimersByTime(50);
       });
-      expect(resumeButton).toBeInTheDocument();
-
-      // Advancing time after interaction must NOT move scrollLeft
-      const frozenScrollLeft = track!.scrollLeft;
+      const settledScrollLeft = track!.scrollLeft;
       act(() => {
         vi.advanceTimersByTime(1000);
       });
-      expect(track!.scrollLeft).toBe(frozenScrollLeft);
+      expect(track!.scrollLeft).toBe(settledScrollLeft);
 
-      // Clicking Resume auto-scroll restarts continuous right-to-left scrolling
-      fireEvent.click(resumeButton);
-      expect(track).toHaveAttribute("data-auto-scrolling", "true");
+      // Clicking a cohort year switches cohorts cleanly while remaining paused
+      fireEvent.click(within(yearGroup).getByRole("button", { name: "2023" }));
+      expect(scope.getByText(/01 \/ 07 modules/i)).toBeInTheDocument();
+      expect(track).toHaveAttribute("data-auto-scrolling", "false");
       act(() => {
-        vi.advanceTimersByTime(500);
+        vi.advanceTimersByTime(1000);
       });
-      expect(track!.scrollLeft).toBeGreaterThan(frozenScrollLeft);
+      expect(track!.scrollLeft).toBe(0);
     } finally {
       vi.useRealTimers();
     }

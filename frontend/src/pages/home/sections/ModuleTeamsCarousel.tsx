@@ -14,7 +14,6 @@ import {
   Calendar,
   ExternalLink,
   GraduationCap,
-  Play,
   Users,
 } from "lucide-react";
 import { getCohortsWithTeams } from "@/api/strapi";
@@ -583,13 +582,6 @@ export default function ModuleTeamsCarousel() {
     handleGoTo(safeIndex + 1);
   }, [handleGoTo, safeIndex, total]);
 
-  const handleResumeAutoScroll = useCallback(() => {
-    if (trackRef.current) {
-      exactScrollRef.current = trackRef.current.scrollLeft;
-    }
-    setUserInteracted(false);
-  }, []);
-
   // Any manual horizontal wheel/touch/scroll immediately halts auto-scroll.
   const handleTrackWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
     if (Math.abs(e.deltaX) > 3 || e.shiftKey) {
@@ -711,22 +703,6 @@ export default function ModuleTeamsCarousel() {
               })}
             </div>
           </div>
-
-          {userInteracted && canAutoScroll && (
-            <div className="flex items-center justify-center gap-2">
-              <button
-                type="button"
-                onClick={handleResumeAutoScroll}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-[#94B985] bg-white px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#EDF4E8]"
-              >
-                <Play
-                  className="h-3 w-3 fill-current text-[#187347]"
-                  aria-hidden="true"
-                />
-                Resume auto-scroll
-              </button>
-            </div>
-          )}
         </div>
 
         {/* Module Selector Tabs for Active Cohort */}
