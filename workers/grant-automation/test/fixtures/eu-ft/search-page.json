@@ -1,5 +1,5 @@
 {
- "apiVersion": "2.157.1",
+ "apiVersion": "2.159",
  "terms": "***",
  "totalResults": 10,
  "pageNumber": 1,
@@ -7,7 +7,7 @@
  "sort": "[identifier:ASC]",
  "results": [
   {
-   "apiVersion": "2.157.1",
+   "apiVersion": "2.159",
    "reference": "45877948CERVLumpSumGrants1680566400000",
    "url": "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/CERV-2023-CITIZENS-CIV.json",
    "contentType": "text/plain",
@@ -122,7 +122,7 @@
    "citation": "Citizens’ engagement and participation. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/CERV-2023-CITIZENS-CIV.json"
   },
   {
-   "apiVersion": "2.157.1",
+   "apiVersion": "2.159",
    "reference": "52171134TOPICSen",
    "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CERV-2026-CITIZENS-REM-GENCRIME-1",
    "contentType": "text/plain",
@@ -331,7 +331,7 @@
    "citation": "Strengthening the remembrance of Roma victims. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CERV-2026-CITIZENS-REM-GENCRIME-1"
   },
   {
-   "apiVersion": "2.157.1",
+   "apiVersion": "2.159",
    "reference": "45497134HORIZONERCProofofConceptGrants1666224000000",
    "url": "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/ERC-2023-POC.json",
    "contentType": "text/plain",
@@ -449,7 +449,7 @@
    "citation": "ERC PROOF OF CONCEPT GRANTS. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/ERC-2023-POC.json"
   },
   {
-   "apiVersion": "2.157.1",
+   "apiVersion": "2.159",
    "reference": "172802PROSPECTSEN",
    "url": "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/172802EN",
    "contentType": "text/plain",
@@ -563,7 +563,7 @@
    "citation": "Support to the Ministry of Public Administration and Local Self-Government in modernizing the personnel planning procedure for State Administration and harmonizing the Catalogue of titles in State administration and Local Self-Governments. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/172802EN"
   },
   {
-   "apiVersion": "2.157.1",
+   "apiVersion": "2.159",
    "reference": "187757PROSPECTSEN",
    "url": "https://webgate.ec.europa.eu/prospect/external/publishedcalls.htm?callId=187757",
    "contentType": "text/plain",
@@ -578,7 +578,7 @@
    "checksum": "BE9F3C30FDE486F4DF815A7CDE3C391558FEC33CAABB17C1684BC185BB8379BA",
    "metadata": {
     "updateDate": [
-     "2026-10-21T10:53:51.000+0000"
+     "2026-11-26T07:18:05.000+0000"
     ],
     "es_SortDate": [
      "2026-10-22T04:00:57.000+0000"
@@ -640,10 +640,10 @@
      "2021 - 2027"
     ],
     "deadlineDate": [
-     "2026-12-11T10:00:42.000+0000"
+     "2026-12-11T10:00:26.000+0000"
     ],
     "esDA_IngestDate": [
-     "2026-10-22T06:01:00.441+0200"
+     "2026-11-26T10:01:05.919+0100"
     ],
     "url": [
      "https://webgate.ec.europa.eu/prospect/external/publishedcalls.htm?callId=187757"
@@ -655,7 +655,7 @@
      "https://webgate.ec.europa.eu/prospect/external/publishedcalls.htm?callId=187757"
     ],
     "esDA_QueueDate": [
-     "2026-10-22T06:01:00.435+0200"
+     "2026-11-26T10:01:05.911+0100"
     ],
     "programmeDivisionProspect": [
      "43072409"
@@ -676,7 +676,7 @@
    "citation": "Support to Civil Society Organisations (CSOs) and Support to Human Rights and Democracy (HR&D). Available at: https://webgate.ec.europa.eu/prospect/external/publishedcalls.htm?callId=187757"
   },
   {
-   "apiVersion": "2.157.1",
+   "apiVersion": "2.159",
    "reference": "50140817TOPICSen",
    "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage",
    "contentType": "text/plain",
@@ -837,7 +837,7 @@
    "citation": "Open topic on reinvigorating and shielding European democracy. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage"
   },
   {
-   "apiVersion": "2.157.1",
+   "apiVersion": "2.159",
    "reference": "50128010TOPICSen",
    "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02",
    "contentType": "text/plain",
@@ -987,7 +987,7 @@
    "citation": "Advanced manufacturing for key products (IA) (Made in Europe partnership). Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02"
   },
   {
-   "apiVersion": "2.157.1",
+   "apiVersion": "2.159",
    "reference": "50136868TOPICSen",
    "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2026-03-DISEASE-13",
    "contentType": "text/plain",
@@ -1162,7 +1162,7 @@
    "citation": "European Partnership for Pandemic Preparedness (Phase 2). Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2026-03-DISEASE-13"
   },
   {
-   "apiVersion": "2.157.1",
+   "apiVersion": "2.159",
    "reference": "50222141TOPICSen",
    "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2027-03-WIDENING-01",
    "contentType": "text/plain",
@@ -1310,7 +1310,7 @@
    "citation": "ERA Fellowships. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2027-03-WIDENING-01"
   },
   {
-   "apiVersion": "2.157.1",
+   "apiVersion": "2.159",
    "reference": "52616142TOPICSen",
    "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/NDICI-2026-MOBAF",
    "contentType": "text/plain",

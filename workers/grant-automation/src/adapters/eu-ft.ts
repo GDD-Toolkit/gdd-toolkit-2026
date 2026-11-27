@@ -22,8 +22,8 @@ import { fieldDefsFor } from "./field-defs.js";
 import type { SourceSeed } from "./index.js";
 
 const SEARCH = "https://api.tech.ec.europa.eu/search-api/prod/rest/search";
-/** The version the adapter was verified against (2026-11-05). A different value is a prompt to re-check, not an error. */
-export const EU_FT_API_VERSION = "2.157.1";
+/** The version the adapter was verified against (2.157.1 on 2026-11-05, re-checked 2026-11-26). A different value is a prompt to re-check, not an error. */
+export const EU_FT_API_VERSION = "2.159";
 const PAGE_SIZE = 100; // the API caps it here
 /** 1 = grant topics, 2 = external-action calls for proposals (EuropeAid / PROSPECT). 8 (cascade funding) is out of scope. */
 const TYPES = ["1", "2"];

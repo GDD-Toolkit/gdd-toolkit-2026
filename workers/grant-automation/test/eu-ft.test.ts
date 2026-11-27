@@ -19,7 +19,7 @@ const raw = (identifier: string): RawFetch => {
 };
 const normalize = (identifier: string) => adapter.normalize(raw(identifier)) as NormalizedGrant;
 
-describe("eu-ft contract (recorded 2026-11-05)", () => {
+describe("eu-ft contract (recorded 2026-11-05, re-recorded on 2.159 2026-11-26)", () => {
   it("is the API version the adapter was verified against", () => {
     expect(page.apiVersion).toBe(EU_FT_API_VERSION);
   });
