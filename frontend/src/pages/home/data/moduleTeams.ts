@@ -1,8 +1,23 @@
-import type { StrapiCohort, StrapiTeam } from "@/api/strapi";
+import {
+  resolveStrapiMediaUrl,
+  type StrapiCohort,
+  type StrapiMedia,
+  type StrapiTeam,
+  type StrapiTeammate,
+} from "@/api/strapi";
 
-export interface ModuleTeamLead {
+export interface ModuleTeamMember {
+  id: string;
   name: string;
   initials: string;
+  isPrm: boolean;
+  headshotUrl?: string;
+  headshotAlt?: string;
+  fullBodyPhotoUrl?: string;
+  linkedinUrl?: string;
+}
+
+export interface ModuleTeamLead extends ModuleTeamMember {
   focus: string;
 }
 
@@ -16,7 +31,8 @@ export interface ModuleTeam {
   cohortYear: number;
   purpose: string;
   prms: ModuleTeamLead[];
-  students: string[];
+  students: ModuleTeamMember[];
+  totalMembers: number;
 }
 
 export interface CohortGroup {
@@ -171,6 +187,42 @@ const MODULE_METADATA: Record<string, ModuleMetadata> = {
     prmFocus:
       "Guides workshop curriculum design, knowledge synthesis & training guides.",
   },
+  "geopolitical analysis": {
+    shortName: "Geopolitical Analysis",
+    toolName: "Geopolitical Analysis",
+    toolHref: "/geopolitical-analysis",
+    purpose:
+      "Maps country-level socio-economic indicators, World Bank datasets, and regional policy contexts to help practitioners plan grounded global interventions.",
+    prmFocus:
+      "Leads regional indicator modeling, policy synthesis & country brief research.",
+  },
+  "grants and customer discovery": {
+    shortName: "Grants & Discovery",
+    toolName: "Funding Sources & Grants",
+    toolHref: "/funding-sources",
+    purpose:
+      "Researches international grant ecosystems, conducts practitioner discovery interviews, and curates accessible funding pathways for ethical development teams.",
+    prmFocus:
+      "Guides grant discovery research, stakeholder interviews & funding curation.",
+  },
+  uxui: {
+    shortName: "UX/UI Design",
+    toolName: "Human Centered Design",
+    toolHref: "/human-centered-design",
+    purpose:
+      "Designs accessible interfaces, usability tests, and cohesive visual systems that make every development ethics tool intuitive for field practitioners.",
+    prmFocus:
+      "Mentors interface architecture, usability testing & visual design systems.",
+  },
+  "ux ui": {
+    shortName: "UX/UI Design",
+    toolName: "Human Centered Design",
+    toolHref: "/human-centered-design",
+    purpose:
+      "Designs accessible interfaces, usability tests, and cohesive visual systems that make every development ethics tool intuitive for field practitioners.",
+    prmFocus:
+      "Mentors interface architecture, usability testing & visual design systems.",
+  },
 };
 
 function normalizeKey(name: string): string {
@@ -199,6 +251,53 @@ function slugify(value: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
+function extractStrapiMedia(
+  media: StrapiMedia | null | undefined,
+  preferSize: "avatar" | "full",
+): { url?: string; alt?: string } {
+  if (!media) return {};
+  const source = media.data?.attributes ?? media;
+  const formats = source.formats;
+  const rawUrl =
+    preferSize === "avatar"
+      ? (formats?.small?.url ??
+        formats?.medium?.url ??
+        formats?.thumbnail?.url ??
+        source.url)
+      : (formats?.medium?.url ??
+        formats?.large?.url ??
+        source.url ??
+        formats?.small?.url);
+
+  return {
+    url: resolveStrapiMediaUrl(rawUrl),
+    alt: source.alternativeText?.trim() || undefined,
+  };
+}
+
+function normalizeLinkedinUrl(raw?: string | null): string | undefined {
+  const trimmed = raw?.trim();
+  if (!trimmed) return undefined;
+
+  const candidate = /^(https?:)?\/\//i.test(trimmed)
+    ? trimmed.startsWith("//")
+      ? `https:${trimmed}`
+      : trimmed
+    : /^(www\.)?linkedin\.com\//i.test(trimmed)
+      ? `https://${trimmed}`
+      : trimmed;
+
+  try {
+    const parsed = new URL(candidate);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return undefined;
+    }
+    return parsed.toString();
+  } catch {
+    return undefined;
+  }
+}
+
 function getMetadataForTeam(teamName: string): ModuleMetadata {
   const key = normalizeKey(teamName);
   if (MODULE_METADATA[key]) return MODULE_METADATA[key];
@@ -220,40 +319,73 @@ function getMetadataForTeam(teamName: string): ModuleMetadata {
   };
 }
 
+type RawMemberInput = string | StrapiTeammate;
+
 function buildTeamFromMembers(
   cohortYear: number,
   teamName: string,
-  memberNames: string[],
+  members: RawMemberInput[],
   overrides?: { id?: string; purpose?: string | null },
 ): ModuleTeam {
   const cleanName = teamName.trim() || "Research Module";
   const meta = getMetadataForTeam(cleanName);
+  const teamId = overrides?.id ?? `${cohortYear}-${slugify(cleanName)}`;
 
   const prms: ModuleTeamLead[] = [];
-  const students: string[] = [];
+  const students: ModuleTeamMember[] = [];
 
-  for (const raw of memberNames) {
-    const trimmed = raw.trim();
-    if (!trimmed) continue;
-    const prmMatch = trimmed.match(/^PRM\s*[:\-–]\s*(.+)$/i);
-    if (prmMatch && prmMatch[1]) {
-      const leadName = prmMatch[1].trim();
+  members.forEach((raw, idx) => {
+    const isString = typeof raw === "string";
+    const rawName = (isString ? raw : (raw?.member_name ?? "")).trim();
+    if (!rawName) return;
+
+    const prmMatch = rawName.match(/^PRM\s*[:\-–]\s*(.+)$/i);
+    const displayMemberName =
+      prmMatch && prmMatch[1] ? prmMatch[1].trim() : rawName;
+    const isPrm = isString
+      ? Boolean(prmMatch)
+      : raw?.is_prm === true || Boolean(prmMatch);
+
+    const headshotMedia = isString
+      ? {}
+      : extractStrapiMedia(raw?.headshot, "avatar");
+    const fullBodyMedia = isString
+      ? {}
+      : extractStrapiMedia(raw?.full_body_photo, "full");
+    const linkedinUrl = isString
+      ? undefined
+      : normalizeLinkedinUrl(raw?.linkedin_url);
+
+    const memberRecord: ModuleTeamMember = {
+      id:
+        !isString && raw?.id !== undefined
+          ? `${teamId}-m-${raw.id}`
+          : `${teamId}-m-${idx}-${slugify(displayMemberName)}`,
+      name: displayMemberName,
+      initials: initialsOf(displayMemberName),
+      isPrm,
+      headshotUrl: headshotMedia.url ?? fullBodyMedia.url,
+      headshotAlt: headshotMedia.alt ?? `${displayMemberName} headshot`,
+      fullBodyPhotoUrl: fullBodyMedia.url,
+      linkedinUrl,
+    };
+
+    if (isPrm) {
       prms.push({
-        name: leadName,
-        initials: initialsOf(leadName),
+        ...memberRecord,
         focus: meta.prmFocus,
       });
     } else {
-      students.push(trimmed);
+      students.push(memberRecord);
     }
-  }
+  });
 
   const displayName = /team$/i.test(cleanName)
     ? cleanName
     : `${cleanName} Module Team`;
 
   return {
-    id: overrides?.id ?? `${cohortYear}-${slugify(cleanName)}`,
+    id: teamId,
     shortName: meta.shortName ?? cleanName,
     name: displayName,
     toolName: meta.toolName,
@@ -263,6 +395,7 @@ function buildTeamFromMembers(
     purpose: overrides?.purpose?.trim() || meta.purpose,
     prms,
     students,
+    totalMembers: prms.length + students.length,
   };
 }
 
@@ -297,10 +430,8 @@ export function normalizeStrapiCohorts(rawCohorts: StrapiCohort[]): CohortGroup[
         if (!teamName) return null;
 
         const teammates = team.teammates ?? team.attributes?.teammates ?? [];
-        const memberNames = Array.isArray(teammates)
+        const rawMembers: StrapiTeammate[] = Array.isArray(teammates)
           ? teammates
-              .map((m) => (m?.member_name ?? "").trim())
-              .filter(Boolean)
           : [];
 
         const cmsPurpose =
@@ -314,7 +445,7 @@ export function normalizeStrapiCohorts(rawCohorts: StrapiCohort[]): CohortGroup[
           team.documentId ??
           (team.id !== undefined ? `${year}-team-${team.id}` : `${year}-${idx}`);
 
-        return buildTeamFromMembers(year, teamName, memberNames, {
+        return buildTeamFromMembers(year, teamName, rawMembers, {
           id,
           purpose: cmsPurpose,
         });

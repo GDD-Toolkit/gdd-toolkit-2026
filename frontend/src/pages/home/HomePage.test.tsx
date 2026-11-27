@@ -51,7 +51,7 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
     }
   });
 
-  it("pulls cohorts, module teams, and teammates from Strapi in descending year order", async () => {
+  it("pulls cohorts, module teams, headshots, PRM flags, and LinkedIn links from Strapi", async () => {
     vi.stubEnv("VITE_STRAPI_URL", "https://cms.example.test");
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
@@ -82,10 +82,36 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
                 id: 10,
                 documentId: "team-2026-ai",
                 Team_name: "AI Development",
+                purpose: "Custom team mission from Strapi CMS.",
                 teammates: [
-                  { id: 1, member_name: "PRM: Youssef Ali Ahmed" },
-                  { id: 2, member_name: "Maya Patel" },
-                  { id: 3, member_name: "Liam Chen" },
+                  {
+                    id: 1,
+                    member_name: "Youssef Ali Ahmed",
+                    is_prm: true,
+                    linkedin_url: "https://www.linkedin.com/in/youssefaliahmed/",
+                    headshot: {
+                      url: "/uploads/youssef-full.jpg",
+                      formats: {
+                        small: {
+                          url: "https://cdn.example.test/youssef-small.jpg",
+                        },
+                      },
+                    },
+                  },
+                  {
+                    id: 2,
+                    member_name: "Maya Patel",
+                    is_prm: false,
+                    linkedin_url: "www.linkedin.com/in/maya-patel",
+                    headshot: {
+                      url: "/uploads/maya-headshot.jpg",
+                    },
+                  },
+                  {
+                    id: 3,
+                    member_name: "Liam Chen",
+                    is_prm: false,
+                  },
                 ],
               },
               {
@@ -93,8 +119,8 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
                 documentId: "team-2026-eval",
                 Team_name: "Project Evaluation",
                 teammates: [
-                  { id: 4, member_name: "PRM: Avery Demarco" },
-                  { id: 5, member_name: "Nora Lin" },
+                  { id: 4, member_name: "Avery Demarco", is_prm: true },
+                  { id: 5, member_name: "Nora Lin", is_prm: false },
                 ],
               },
             ],
@@ -116,28 +142,67 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
     expect(await scope.findByText("Maya Patel")).toBeInTheDocument();
     expect(scope.getByText("Youssef Ali Ahmed")).toBeInTheDocument();
     expect(scope.getByText("Liam Chen")).toBeInTheDocument();
+    expect(
+      scope.getByText("Custom team mission from Strapi CMS."),
+    ).toBeInTheDocument();
+
+    // PRM detected from Strapi is_prm boolean without needing "PRM:" prefix
+    expect(scope.getByText("Peer Research Mentor")).toBeInTheDocument();
+
+    // Headshots resolve both absolute CDN URLs and relative Strapi /uploads URLs
+    const youssefPhotos = scope.getAllByAltText(/youssef ali ahmed headshot/i);
+    expect(youssefPhotos[0]).toHaveAttribute(
+      "src",
+      "https://cdn.example.test/youssef-small.jpg",
+    );
+    const mayaPhotos = scope.getAllByAltText(/maya patel headshot/i);
+    expect(mayaPhotos[0]).toHaveAttribute(
+      "src",
+      "https://cms.example.test/uploads/maya-headshot.jpg",
+    );
+
+    // LinkedIn links render with safe target/rel attributes and normalized URLs
+    const youssefLinkedin = scope.getByRole("link", {
+      name: /view youssef ali ahmed on linkedin/i,
+    });
+    expect(youssefLinkedin).toHaveAttribute(
+      "href",
+      "https://www.linkedin.com/in/youssefaliahmed/",
+    );
+    expect(youssefLinkedin).toHaveAttribute("target", "_blank");
+    expect(youssefLinkedin).toHaveAttribute("rel", "noopener noreferrer");
+
+    const mayaLinkedin = scope.getByRole("link", {
+      name: /view maya patel on linkedin/i,
+    });
+    expect(mayaLinkedin).toHaveAttribute(
+      "href",
+      "https://www.linkedin.com/in/maya-patel",
+    );
 
     const yearGroup = scope.getByRole("group", { name: /select cohort year/i });
     const yearButtons = within(yearGroup).getAllByRole("button");
     expect(yearButtons.map((b) => b.textContent)).toEqual(["2026", "2024"]);
     expect(yearButtons[0]).toHaveAttribute("aria-pressed", "true");
 
-    // Verify request hit Strapi's coherts endpoint with nested populate + descending sort
+    // Verify request hit Strapi's coherts endpoint with deep teammate media populate + descending sort
     expect(fetchMock).toHaveBeenCalledWith(
       expect.stringContaining("/api/coherts?"),
       expect.objectContaining({ method: "GET" }),
     );
     const requestedUrl = String(fetchMock.mock.calls[0][0]);
-    expect(requestedUrl).toContain("populate%5Bteams%5D%5Bpopulate%5D%5Bteammates%5D=true");
+    expect(requestedUrl).toContain(
+      "populate%5Bteams%5D%5Bpopulate%5D%5Bteammates%5D%5Bpopulate%5D=*",
+    );
     expect(requestedUrl).toContain("sort%5B0%5D=year%3Adesc");
 
-    // Switching to 2024 displays Cohort 2024's module team and teammates
+    // Switching to 2024 displays Cohort 2024's legacy PRM prefix and teammate
     await user.click(yearButtons[1]);
     expect(await scope.findByText("Khadija Wane")).toBeInTheDocument();
     expect(scope.getByText("Alyssa Moreno")).toBeInTheDocument();
   });
 
-  it("slowly auto-advances teams until the user interacts to view a specific cohort or module", () => {
+  it("auto-scrolls smoothly across teams and cohorts until the user interacts", () => {
     vi.useFakeTimers();
     try {
       renderHome();
@@ -153,27 +218,46 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
         .map((b) => b.textContent);
       expect(yearLabels).toEqual(["2025", "2024", "2023", "2022", "2021", "2020"]);
 
-      // Starts at module 01
+      // Starts at module 01 of Cohort 2025
       expect(scope.getByText(/01 \/ 10 modules/i)).toBeInTheDocument();
 
-      // Auto-advances slowly after AUTO_ADVANCE_MS without user interaction
+      // Auto-scrolls to module 02 after AUTO_ADVANCE_MS without user interaction
       act(() => {
         vi.advanceTimersByTime(AUTO_ADVANCE_MS);
       });
       expect(scope.getByText(/02 \/ 10 modules/i)).toBeInTheDocument();
 
-      // Once user clicks a specific cohort year (2023), auto-advance stops
+      // Continues auto-scrolling through the remaining modules and rolls into Cohort 2024
+      for (let step = 0; step < 9; step += 1) {
+        act(() => {
+          vi.advanceTimersByTime(AUTO_ADVANCE_MS);
+        });
+      }
+      expect(
+        within(yearGroup).getByRole("button", { name: "2024" }),
+      ).toHaveAttribute("aria-pressed", "true");
+      expect(scope.getByText(/01 \/ 08 modules/i)).toBeInTheDocument();
+
+      // Once user clicks a specific cohort year (2023), auto-scroll stops
       fireEvent.click(within(yearGroup).getByRole("button", { name: "2023" }));
       expect(scope.getByText(/01 \/ 07 modules/i)).toBeInTheDocument();
-      expect(
-        scope.getByRole("button", { name: /resume auto-scroll/i }),
-      ).toBeInTheDocument();
+      const resumeButton = scope.getByRole("button", {
+        name: /resume auto-scroll/i,
+      });
+      expect(resumeButton).toBeInTheDocument();
 
       // Advancing time well past AUTO_ADVANCE_MS must NOT move away from user's selection
       act(() => {
         vi.advanceTimersByTime(AUTO_ADVANCE_MS * 3);
       });
       expect(scope.getByText(/01 \/ 07 modules/i)).toBeInTheDocument();
+
+      // Clicking Resume auto-scroll restarts automatic progression
+      fireEvent.click(resumeButton);
+      act(() => {
+        vi.advanceTimersByTime(AUTO_ADVANCE_MS);
+      });
+      expect(scope.getByText(/02 \/ 07 modules/i)).toBeInTheDocument();
     } finally {
       vi.useRealTimers();
     }

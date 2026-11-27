@@ -38,10 +38,65 @@ function getStrapiBaseUrl(): string {
   return url.replace(/\/$/, "");
 }
 
+export type StrapiMediaFormat = {
+  url?: string | null;
+  width?: number | null;
+  height?: number | null;
+};
+
+export type StrapiMedia = {
+  id?: number;
+  documentId?: string;
+  url?: string | null;
+  alternativeText?: string | null;
+  width?: number | null;
+  height?: number | null;
+  formats?: {
+    thumbnail?: StrapiMediaFormat | null;
+    small?: StrapiMediaFormat | null;
+    medium?: StrapiMediaFormat | null;
+    large?: StrapiMediaFormat | null;
+  } | null;
+  data?: {
+    attributes?: {
+      url?: string | null;
+      alternativeText?: string | null;
+      formats?: {
+        thumbnail?: StrapiMediaFormat | null;
+        small?: StrapiMediaFormat | null;
+        medium?: StrapiMediaFormat | null;
+        large?: StrapiMediaFormat | null;
+      } | null;
+    };
+  } | null;
+};
+
 export type StrapiTeammate = {
   id?: number;
   member_name?: string | null;
+  is_prm?: boolean | null;
+  linkedin_url?: string | null;
+  headshot?: StrapiMedia | null;
+  full_body_photo?: StrapiMedia | null;
 };
+
+/**
+ * Resolves a Strapi media URL (absolute S3/CDN URL or relative `/uploads/...` path)
+ * into a browser-loadable URL.
+ */
+export function resolveStrapiMediaUrl(
+  url?: string | null,
+): string | undefined {
+  const trimmed = url?.trim();
+  if (!trimmed) return undefined;
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  if (!trimmed.startsWith("/")) return undefined;
+
+  const base = import.meta.env.VITE_STRAPI_URL?.replace(/\/$/, "");
+  if (!base) return trimmed;
+  const origin = base.endsWith("/api") ? base.slice(0, -4) : base;
+  return `${origin}${trimmed}`;
+}
 
 export type StrapiTeam = {
   id?: number;
@@ -78,11 +133,12 @@ function unwrapStrapiTeams(
 }
 
 /**
- * Fetch all published Cohorts from Strapi with nested Teams and Teammates,
- * sorted in descending year order (newest cohort first).
+ * Fetch all published Cohorts from Strapi with nested Teams, Teammates, and
+ * teammate media (`headshot`, `full_body_photo`), sorted newest cohort first.
  *
- * Uses deep populate (`populate[teams][populate][teammates]=true`) for Strapi v5,
- * and merges from `/api/teams?populate=*` if a Strapi instance omits nested teammates.
+ * Uses deep populate (`populate[teams][populate][teammates][populate]=*`) for Strapi v5,
+ * and merges from `/api/teams?populate[teammates][populate]=*` if a Strapi instance
+ * omits nested teammates.
  */
 export async function getCohortsWithTeams(
   signal?: AbortSignal,
@@ -96,7 +152,7 @@ export async function getCohortsWithTeams(
 
   do {
     const query = new URLSearchParams({
-      "populate[teams][populate][teammates]": "true",
+      "populate[teams][populate][teammates][populate]": "*",
       "sort[0]": "year:desc",
       "pagination[page]": String(page),
       "pagination[pageSize]": "100",
@@ -121,7 +177,7 @@ export async function getCohortsWithTeams(
     page += 1;
   } while (page <= pageCount);
 
-  // Check whether any team lacked nested teammates; if so, enrich from /api/teams?populate=*
+  // Check whether any team lacked nested teammates; if so, enrich from /api/teams
   const needsTeamHydration = cohorts.some((cohort) => {
     const teams = unwrapStrapiTeams(cohort.teams ?? cohort.attributes?.teams);
     return teams.some((team) => {
@@ -133,7 +189,7 @@ export async function getCohortsWithTeams(
   if (needsTeamHydration) {
     try {
       const teamQuery = new URLSearchParams({
-        populate: "*",
+        "populate[teammates][populate]": "*",
         "pagination[pageSize]": "100",
       });
       const teamRes = await fetch(`${apiBase}/teams?${teamQuery.toString()}`, {
@@ -169,6 +225,16 @@ export async function getCohortsWithTeams(
                 team.attributes?.Team_name ??
                 full.Team_name ??
                 full.attributes?.Team_name,
+              purpose:
+                team.purpose ??
+                team.attributes?.purpose ??
+                full.purpose ??
+                full.attributes?.purpose,
+              description:
+                team.description ??
+                team.attributes?.description ??
+                full.description ??
+                full.attributes?.description,
               teammates: full.teammates ?? full.attributes?.teammates ?? [],
             };
           });
