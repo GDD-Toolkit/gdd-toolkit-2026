@@ -6,15 +6,31 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import CaseStudiesGrid from "@/components/case-studies/CaseStudiesGrid";
 import CaseStudyModal from "@/components/case-studies/CaseStudyModal";
 import { fetchWorthwhile, fetchMaldevelopment } from "@/api/caseStudies";
-import type { CaseStudy } from "@/types/caseStudies";
+import type { CaseStudy, CaseStudySegment } from "@/types/caseStudies";
 import "./CaseStudies.css";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Button } from "@/components/ui/button";
+import CaseStudyFilters from "./CaseStudyFilters";
 
-const CASE_STUDIES_PER_PAGE = 8;
+const DESKTOP_QUERY = "(min-width: 1280px)";
+const DESKTOP_PAGE_SIZE = 9;
+const MOBILE_PAGE_SIZE = 6;
+
+function getPaginationItems(currentPage: number, totalPages: number): (number | "ellipsis")[] {
+  const pages = Array.from(new Set([1, totalPages, currentPage - 1, currentPage, currentPage + 1]))
+    .filter(page => page >= 1 && page <= totalPages)
+    .sort((a, b) => a - b);
+  const items: (number | "ellipsis")[] = [];
+  pages.forEach((page, index) => {
+    const previous = pages[index - 1];
+    if (previous !== undefined && page - previous === 2) items.push(previous + 1);
+    else if (previous !== undefined && page - previous > 2) items.push("ellipsis");
+    items.push(page);
+  });
+  return items;
+}
 
 // Extended CaseStudy type with segment label
 type CaseStudyWithSegment = CaseStudy & {
@@ -31,10 +47,23 @@ export default function CaseStudies() {
     const [selectedValues, setSelectedValues] = useState<string[]>([]);
     const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
     const [selectedSdgs, setSelectedSdgs] = useState<number[]>([]);
+    const [selectedSegment, setSelectedSegment] = useState<CaseStudySegment | "">("");
   
     const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [visibleCount, setVisibleCount] = useState(CASE_STUDIES_PER_PAGE);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isDesktop, setIsDesktop] = useState(() => window.matchMedia(DESKTOP_QUERY).matches);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(DESKTOP_QUERY);
+    const handleChange = (event: MediaQueryListEvent) => {
+      setIsDesktop(event.matches);
+      setCurrentPage(1);
+    };
+    setIsDesktop(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   // Fetch all case studies (both worthwhile and maldevelopment)
   useEffect(() => {
@@ -87,14 +116,15 @@ export default function CaseStudies() {
     selectedSdgs.length === 0 ||
     selectedSdgs.some(s => study.sdgs?.includes(s));
 
-    return matchesValues && matchesRegions && matchesSdgs;
+    return matchesValues && matchesRegions && matchesSdgs &&
+      (!selectedSegment || study.segment === selectedSegment);
   });
 
-  useEffect(() => {
-    setVisibleCount(CASE_STUDIES_PER_PAGE);
-  }, [searchQuery, selectedValues, selectedRegions, selectedSdgs]);
-
-  const visibleCaseStudies = filteredCaseStudies.slice(0, visibleCount);
+  const pageSize = isDesktop ? DESKTOP_PAGE_SIZE : MOBILE_PAGE_SIZE;
+  const totalPages = Math.ceil(filteredCaseStudies.length / pageSize);
+  const page = Math.min(currentPage, Math.max(totalPages, 1));
+  const startIndex = (page - 1) * pageSize;
+  const visibleCaseStudies = filteredCaseStudies.slice(startIndex, startIndex + pageSize);
   
   const allValues = Array.from(
     new Set(allCaseStudies.flatMap(cs => cs.values ?? []))
@@ -165,16 +195,54 @@ export default function CaseStudies() {
     }
 
     return (
-    <div className="flex flex-col gap-5 md:w-2/3 lg:w-2/3">
-      <span className="mx-auto font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#596556]">Showing {visibleCaseStudies.length} of {filteredCaseStudies.length} case studies</span>
-      <CaseStudiesGrid caseStudies={visibleCaseStudies} searchQuery={searchQuery} />
-      {visibleCount < filteredCaseStudies.length && (
-        <Button
-          className="self-center rounded-full bg-gradient-to-r from-[#3F673C] to-[#187347] px-7 text-sm font-semibold text-white hover:brightness-110"
-          onClick={() => setVisibleCount(count => count + CASE_STUDIES_PER_PAGE)}
-        >
-          Load more
-        </Button>
+    <div className="flex w-full flex-col gap-5">
+      <span aria-live="polite" className="mx-auto font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#596556]">
+        Showing {visibleCaseStudies.length ? `${startIndex + 1}–${startIndex + visibleCaseStudies.length}` : "0"} of {filteredCaseStudies.length} case studies
+      </span>
+      <CaseStudiesGrid
+        caseStudies={visibleCaseStudies}
+        searchQuery={searchQuery}
+        hasActiveFilters={Boolean(selectedValues.length || selectedRegions.length || selectedSdgs.length || selectedSegment)}
+      />
+      {totalPages > 1 && (
+        <nav aria-label="Case study pagination" className="mt-2 flex flex-wrap items-center justify-center gap-2">
+          <button
+            type="button"
+            aria-label="Previous page"
+            disabled={page === 1}
+            onClick={() => setCurrentPage(page - 1)}
+            className="flex size-11 items-center justify-center rounded-xl border border-[#B2C9A8] bg-white text-[#284B26] transition-colors hover:bg-[#F2F6EF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3F673C]/50 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <ChevronLeft className="size-5" aria-hidden="true" />
+          </button>
+          {getPaginationItems(page, totalPages).map((item, index) => item === "ellipsis" ? (
+            <span key={`ellipsis-${index}`} aria-hidden="true" className="flex size-8 items-center justify-center text-[#596556]">…</span>
+          ) : (
+            <button
+              key={item}
+              type="button"
+              aria-label={`Page ${item}`}
+              aria-current={page === item ? "page" : undefined}
+              onClick={() => setCurrentPage(item)}
+              className={`flex size-11 items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3F673C]/50 ${
+                page === item
+                  ? "border-[#3F673C] bg-[#3F673C] text-white"
+                  : "border-[#B2C9A8] bg-white text-[#284B26] hover:bg-[#F2F6EF]"
+              }`}
+            >
+              {item}
+            </button>
+          ))}
+          <button
+            type="button"
+            aria-label="Next page"
+            disabled={page === totalPages}
+            onClick={() => setCurrentPage(page + 1)}
+            className="flex size-11 items-center justify-center rounded-xl border border-[#B2C9A8] bg-white text-[#284B26] transition-colors hover:bg-[#F2F6EF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3F673C]/50 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <ChevronRight className="size-5" aria-hidden="true" />
+          </button>
+        </nav>
       )}
     </div>
     );
@@ -221,87 +289,30 @@ export default function CaseStudies() {
             </section>
         
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 flex flex-col md:flex-row lg:flex-row gap-6 md:gap-10 lg:gap-10">
-        {/* Search */}
-        <div className="flex flex-col gap-5 border-[1.5px] border-[#B2C9A8] bg-[#F2F6EF] p-6 z-10 md:sticky lg:sticky top-25 md:w-1/3 lg:w-1/3 h-fit rounded-2xl shadow-xs">
-          <h2 className="font-editorial text-xl font-semibold tracking-tight text-[#202B20]">Filter Case Studies</h2>
-          <ul className="flex flex-col gap-5">
-            <li>
-              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">Search</h3>
-              <input
-                type="text"
-                placeholder="Search by case study name…"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full max-w-xl rounded-full px-4 py-2
-                border-[1.5px] border-[#B2C9A8]
-                bg-white
-                text-sm text-[#202B20]
-                placeholder-[#596556]
-                focus:border-[#3F673C] focus:outline-none focus:ring-2 focus:ring-[#3F673C]/25"
-              />
-            </li>
-
-            <li>
-              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">Values</h3>
-              <ToggleGroup 
-                size="sm" 
-                variant="outline"
-                className="gap-2 p-1 rounded-lg flex-wrap"
-                multiple
-                onValueChange={(v) => {
-                if (v) {
-                  setSelectedValues(v);
-                }
-              }}
-              >
-                {allValues.map((v) => 
-                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="!rounded-full border border-[#94B985] bg-white px-3 text-xs font-medium text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#EDF4E8] aria-pressed:border-[#3F673C] aria-pressed:bg-[#3F673C] aria-pressed:text-white data-[state=on]:border-[#3F673C] data-[state=on]:bg-[#3F673C] data-[state=on]:text-white">{v}</ToggleGroupItem>
-                )}
-              </ToggleGroup>
-            </li>
-
-            <li>
-              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">Regions</h3>
-              <ToggleGroup 
-                size="sm" 
-                variant="outline"
-                className="gap-2 p-1 rounded-lg flex-wrap"
-                multiple
-                onValueChange={(v) => {
-                if (v) {
-                  setSelectedRegions(v);
-                }
-              }}
-              >
-                {allRegions.map((v) => 
-                  <ToggleGroupItem key={v} value={v} aria-label={"Toggle " + v} className="!rounded-full border border-[#94B985] bg-white px-3 text-xs font-medium text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#EDF4E8] aria-pressed:border-[#3F673C] aria-pressed:bg-[#3F673C] aria-pressed:text-white data-[state=on]:border-[#3F673C] data-[state=on]:bg-[#3F673C] data-[state=on]:text-white">{v}</ToggleGroupItem>
-                )}
-              </ToggleGroup>
-            </li>
-
-            <li>
-              <h3 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-[#187347]">SDGs</h3>
-              <ToggleGroup 
-                size="sm" 
-                variant="outline"
-                className="gap-2 p-1 rounded-lg flex-wrap"
-                multiple
-                onValueChange={(v) => {
-                if (v) {
-                  const sdgs = v.map((s) => Number(s));
-                  setSelectedSdgs(sdgs);
-                }
-              }}
-              >
-                {allSdgs.map((v) => 
-                  <ToggleGroupItem key={v} value={""+v} aria-label={"Toggle " + v} className="!rounded-full border border-[#94B985] bg-white px-3 text-xs font-medium text-[#284B26] transition-colors hover:border-[#3F673C] hover:bg-[#EDF4E8] aria-pressed:border-[#3F673C] aria-pressed:bg-[#3F673C] aria-pressed:text-white data-[state=on]:border-[#3F673C] data-[state=on]:bg-[#3F673C] data-[state=on]:text-white">{"SDG " + v}</ToggleGroupItem>
-                )}
-              </ToggleGroup>
-            </li>
-          </ul>
-        </div>
-
+      <main className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 flex flex-col gap-8">
+        <CaseStudyFilters
+          searchQuery={searchQuery}
+          onSearchChange={(query) => { setSearchQuery(query); setCurrentPage(1); }}
+          values={allValues}
+          selectedValues={selectedValues}
+          onValuesChange={(values) => { setSelectedValues(values); setCurrentPage(1); }}
+          regions={allRegions}
+          selectedRegions={selectedRegions}
+          onRegionsChange={(regions) => { setSelectedRegions(regions); setCurrentPage(1); }}
+          sdgs={allSdgs}
+          selectedSdgs={selectedSdgs}
+          onSdgsChange={(sdgs) => { setSelectedSdgs(sdgs); setCurrentPage(1); }}
+          segment={selectedSegment}
+          onSegmentChange={(segment) => { setSelectedSegment(segment); setCurrentPage(1); }}
+          onClear={() => {
+            setSearchQuery("");
+            setSelectedValues([]);
+            setSelectedRegions([]);
+            setSelectedSdgs([]);
+            setSelectedSegment("");
+            setCurrentPage(1);
+          }}
+        />
         {renderContent()}
       </main>
 

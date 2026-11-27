@@ -9,15 +9,16 @@ import type { CaseStudy } from "@/types/caseStudies";
 interface CaseStudiesGridProps {
   caseStudies: (CaseStudy & { segment?: "worthwhile" | "maldevelopment" })[];
   searchQuery?: string;
+  hasActiveFilters?: boolean;
 }
 
-export default function CaseStudiesGrid({ caseStudies, searchQuery }: CaseStudiesGridProps) {
+export default function CaseStudiesGrid({ caseStudies, searchQuery, hasActiveFilters }: CaseStudiesGridProps) {
   if (caseStudies.length === 0) {
     return (
       <div className="text-center py-12">
         <p className="text-gray-500 text-lg">
-          {searchQuery
-            ? "No case studies match your search."
+          {searchQuery || hasActiveFilters
+            ? "No case studies match your search or filters."
             : "No case studies available."}
         </p>
       </div>
@@ -25,11 +26,10 @@ export default function CaseStudiesGrid({ caseStudies, searchQuery }: CaseStudie
   }
 
   return (
-    <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-2">
+    <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
       {caseStudies.map((study) => (
         <CaseStudyCard key={study.id} caseStudy={study} />
       ))}
     </div>
   );
 }
-
