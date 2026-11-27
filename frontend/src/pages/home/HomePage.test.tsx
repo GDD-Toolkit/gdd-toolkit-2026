@@ -4,7 +4,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { describe, expect, it, vi } from "vitest";
 import RootLayout from "@/app/layout/RootLayout";
 import HomePage from "./index";
-import { AUTO_ADVANCE_MS } from "./sections/ModuleTeamsCarousel";
+import { AUTO_SCROLL_PX_PER_SEC } from "./sections/ModuleTeamsCarousel";
 
 function renderHome() {
   return render(
@@ -138,31 +138,37 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
     expect(carousel).not.toBeNull();
     const scope = within(carousel!);
 
-    // Wait for Strapi data to hydrate and mount Cohort 2026's card
-    expect(await scope.findByText("Maya Patel")).toBeInTheDocument();
-    expect(scope.getByText("Youssef Ali Ahmed")).toBeInTheDocument();
-    expect(scope.getByText("Liam Chen")).toBeInTheDocument();
+    // Wait for Strapi data to hydrate and mount Cohort 2026's cards
+    const primaryTrack = carousel!.querySelector("[data-marquee-primary]");
+    expect(primaryTrack).not.toBeNull();
+    const primaryScope = within(primaryTrack as HTMLElement);
+
+    expect(await primaryScope.findByText("Maya Patel")).toBeInTheDocument();
+    expect(primaryScope.getByText("Youssef Ali Ahmed")).toBeInTheDocument();
+    expect(primaryScope.getByText("Liam Chen")).toBeInTheDocument();
     expect(
-      scope.getByText("Custom team mission from Strapi CMS."),
+      primaryScope.getByText("Custom team mission from Strapi CMS."),
     ).toBeInTheDocument();
 
     // PRM detected from Strapi is_prm boolean without needing "PRM:" prefix
-    expect(scope.getByText("Peer Research Mentor")).toBeInTheDocument();
+    expect(
+      primaryScope.getAllByText("Peer Research Mentor").length,
+    ).toBeGreaterThanOrEqual(1);
 
     // Headshots resolve both absolute CDN URLs and relative Strapi /uploads URLs
-    const youssefPhotos = scope.getAllByAltText(/youssef ali ahmed headshot/i);
-    expect(youssefPhotos[0]).toHaveAttribute(
+    const youssefPhoto = primaryScope.getByAltText(/youssef ali ahmed headshot/i);
+    expect(youssefPhoto).toHaveAttribute(
       "src",
       "https://cdn.example.test/youssef-small.jpg",
     );
-    const mayaPhotos = scope.getAllByAltText(/maya patel headshot/i);
-    expect(mayaPhotos[0]).toHaveAttribute(
+    const mayaPhoto = primaryScope.getByAltText(/maya patel headshot/i);
+    expect(mayaPhoto).toHaveAttribute(
       "src",
       "https://cms.example.test/uploads/maya-headshot.jpg",
     );
 
     // LinkedIn links render with safe target/rel attributes and normalized URLs
-    const youssefLinkedin = scope.getByRole("link", {
+    const youssefLinkedin = primaryScope.getByRole("link", {
       name: /view youssef ali ahmed on linkedin/i,
     });
     expect(youssefLinkedin).toHaveAttribute(
@@ -172,7 +178,7 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
     expect(youssefLinkedin).toHaveAttribute("target", "_blank");
     expect(youssefLinkedin).toHaveAttribute("rel", "noopener noreferrer");
 
-    const mayaLinkedin = scope.getByRole("link", {
+    const mayaLinkedin = primaryScope.getByRole("link", {
       name: /view maya patel on linkedin/i,
     });
     expect(mayaLinkedin).toHaveAttribute(
@@ -202,7 +208,7 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
     expect(scope.getByText("Alyssa Moreno")).toBeInTheDocument();
   });
 
-  it("auto-scrolls smoothly across teams and cohorts until the user interacts", () => {
+  it("continuously auto-scrolls team cards right-to-left until the user interacts", () => {
     vi.useFakeTimers();
     try {
       renderHome();
@@ -218,46 +224,46 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
         .map((b) => b.textContent);
       expect(yearLabels).toEqual(["2025", "2024", "2023", "2022", "2021", "2020"]);
 
-      // Starts at module 01 of Cohort 2025
-      expect(scope.getByText(/01 \/ 10 modules/i)).toBeInTheDocument();
+      const track = carousel!.querySelector(
+        "[data-continuous-marquee-track]",
+      ) as HTMLDivElement | null;
+      expect(track).not.toBeNull();
+      expect(track).toHaveAttribute("data-auto-scrolling", "true");
+      expect(track).toHaveAttribute("data-scroll-direction", "right-to-left");
+      expect(carousel!.querySelector("[data-marquee-clone]")).not.toBeNull();
+      expect(AUTO_SCROLL_PX_PER_SEC).toBeGreaterThan(0);
 
-      // Auto-scrolls to module 02 after AUTO_ADVANCE_MS without user interaction
+      // Continuous RAF loop advances scrollLeft right-to-left automatically
       act(() => {
-        vi.advanceTimersByTime(AUTO_ADVANCE_MS);
+        vi.advanceTimersByTime(500);
       });
-      expect(scope.getByText(/02 \/ 10 modules/i)).toBeInTheDocument();
+      expect(track!.scrollLeft).toBeGreaterThan(0);
 
-      // Continues auto-scrolling through the remaining modules and rolls into Cohort 2024
-      for (let step = 0; step < 9; step += 1) {
-        act(() => {
-          vi.advanceTimersByTime(AUTO_ADVANCE_MS);
-        });
-      }
-      expect(
-        within(yearGroup).getByRole("button", { name: "2024" }),
-      ).toHaveAttribute("aria-pressed", "true");
-      expect(scope.getByText(/01 \/ 08 modules/i)).toBeInTheDocument();
-
-      // Once user clicks a specific cohort year (2023), auto-scroll stops
+      // Once user clicks a specific cohort year (2023), continuous auto-scroll stops
       fireEvent.click(within(yearGroup).getByRole("button", { name: "2023" }));
+      expect(track).toHaveAttribute("data-auto-scrolling", "false");
+      expect(carousel!.querySelector("[data-marquee-clone]")).toBeNull();
       expect(scope.getByText(/01 \/ 07 modules/i)).toBeInTheDocument();
+
       const resumeButton = scope.getByRole("button", {
         name: /resume auto-scroll/i,
       });
       expect(resumeButton).toBeInTheDocument();
 
-      // Advancing time well past AUTO_ADVANCE_MS must NOT move away from user's selection
+      // Advancing time after interaction must NOT move scrollLeft
+      const frozenScrollLeft = track!.scrollLeft;
       act(() => {
-        vi.advanceTimersByTime(AUTO_ADVANCE_MS * 3);
+        vi.advanceTimersByTime(1000);
       });
-      expect(scope.getByText(/01 \/ 07 modules/i)).toBeInTheDocument();
+      expect(track!.scrollLeft).toBe(frozenScrollLeft);
 
-      // Clicking Resume auto-scroll restarts automatic progression
+      // Clicking Resume auto-scroll restarts continuous right-to-left scrolling
       fireEvent.click(resumeButton);
+      expect(track).toHaveAttribute("data-auto-scrolling", "true");
       act(() => {
-        vi.advanceTimersByTime(AUTO_ADVANCE_MS);
+        vi.advanceTimersByTime(500);
       });
-      expect(scope.getByText(/02 \/ 07 modules/i)).toBeInTheDocument();
+      expect(track!.scrollLeft).toBeGreaterThan(frozenScrollLeft);
     } finally {
       vi.useRealTimers();
     }
