@@ -74,6 +74,19 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
             ],
           },
           {
+            id: 3,
+            documentId: "cohort-2025",
+            year: 2025,
+            teams: [
+              {
+                id: 30,
+                documentId: "team-2025-pp",
+                Team_name: "Project Planning",
+                teammates: [{ id: 1, member_name: "Ruth Whitehouse", is_prm: true }],
+              },
+            ],
+          },
+          {
             id: 1,
             documentId: "cohort-2026",
             year: 2026,
@@ -188,7 +201,7 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
 
     const yearGroup = scope.getByRole("group", { name: /select cohort year/i });
     const yearButtons = within(yearGroup).getAllByRole("button");
-    expect(yearButtons.map((b) => b.textContent)).toEqual(["2026", "2024"]);
+    expect(yearButtons.map((b) => b.textContent)).toEqual(["2026", "2025", "2024"]);
     expect(yearButtons[0]).toHaveAttribute("aria-pressed", "true");
 
     // Verify request hit Strapi's coherts endpoint with deep teammate media populate + descending sort
@@ -203,7 +216,7 @@ describe("HomePage (Concept 4 — Unified Forest & Sage Editorial)", () => {
     expect(requestedUrl).toContain("sort%5B0%5D=year%3Adesc");
 
     // Switching to 2024 displays Cohort 2024's legacy PRM prefix and teammate
-    await user.click(yearButtons[1]);
+    await user.click(yearButtons[2]);
     expect(await scope.findByText("Khadija Wane")).toBeInTheDocument();
     expect(scope.getByText("Alyssa Moreno")).toBeInTheDocument();
   });

@@ -366,9 +366,7 @@ export default function ModuleTeamsCarousel() {
   const reducedMotion = useReducedMotion();
 
   const [cohorts, setCohorts] = useState<CohortGroup[]>(FALLBACK_COHORTS);
-  const [selectedYear, setSelectedYear] = useState<number>(
-    FALLBACK_COHORTS[0]?.year ?? 2025,
-  );
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [userInteracted, setUserInteracted] = useState(false);
   const [isTrackHovered, setIsTrackHovered] = useState(false);
@@ -392,13 +390,12 @@ export default function ModuleTeamsCarousel() {
         const normalized = normalizeStrapiCohorts(raw);
         if (normalized.length > 0) {
           setCohorts(normalized);
-          const firstPopulated =
-            normalized.find((c) => c.teams.length > 0) ?? normalized[0];
           setSelectedYear((current) => {
+            if (current === null) return null;
             const existing = normalized.find(
               (c) => c.year === current && c.teams.length > 0,
             );
-            return existing ? current : firstPopulated.year;
+            return existing ? current : null;
           });
           setActiveIndex(0);
           exactScrollRef.current = 0;
@@ -414,10 +411,13 @@ export default function ModuleTeamsCarousel() {
     return () => controller.abort();
   }, []);
 
-  const activeCohort = useMemo(
-    () => cohorts.find((c) => c.year === selectedYear) ?? cohorts[0],
-    [cohorts, selectedYear],
-  );
+  const activeCohort = useMemo(() => {
+    if (selectedYear !== null) {
+      const picked = cohorts.find((c) => c.year === selectedYear);
+      if (picked) return picked;
+    }
+    return cohorts.find((c) => c.teams.length > 0) ?? cohorts[0];
+  }, [cohorts, selectedYear]);
   const teams = useMemo(() => activeCohort?.teams ?? [], [activeCohort]);
   const total = teams.length;
   const safeIndex = total > 0 ? activeIndex % total : 0;
