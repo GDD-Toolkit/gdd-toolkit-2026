@@ -1,14 +1,24 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowUpRight,
   Globe2,
   GraduationCap,
   Layers,
+  Loader2,
+  RefreshCw,
   Search,
   Users,
   X,
 } from "lucide-react";
+import {
+  getCohortsWithTeams,
+  resolveStrapiMediaUrl,
+  type StrapiCohort,
+  type StrapiMedia,
+  type StrapiTeam,
+  type StrapiTeammate,
+} from "@/api/strapi";
 import {
   EDITORIAL_EASE,
   EDITORIAL_SERIF_STYLE,
@@ -18,475 +28,183 @@ import {
   EditorialSectionHeader,
 } from "@/components/editorial/EditorialPagePrimitives";
 import { cn } from "@/lib/utils";
+import type {
+  AcknowledgementCohort,
+  AcknowledgementMember,
+  AcknowledgementModule,
+} from "@/types/acknowledgements";
 import "./Acknowledgements.css";
 
-type Module = {
-  name: string;
-  students: string[];
-};
+function unwrapStrapiTeams(
+  raw: StrapiTeam[] | { data?: StrapiTeam[] } | null | undefined,
+): StrapiTeam[] {
+  if (Array.isArray(raw)) return raw;
+  if (raw && Array.isArray(raw.data)) return raw.data;
+  return [];
+}
 
-const cohorts: Record<string, Module[]> = {
-  "Cohort 2020": [
-    { name: "Development Ethics", students: ["Vera Gbedemah", "Ethan Paul"] },
-    {
-      name: "Ethics of Innovation",
-      students: ["Ange Guianin", "Natasha Panduwawala", "Raya Seid"],
-    },
-    {
-      name: "Human Centered Design",
-      students: ["Amarachi Joe-Nweke", "Arrington Lancaster"],
-    },
-    {
-      name: "Human Rights and Capabilities",
-      students: ["Maria Castro-Rodriguez", "John Lin", "Roma Seth"],
-    },
-    {
-      name: "Infrastructure and Interface",
-      students: ["Manasvi Chegu", "Jalen Coles", "Shivasree Margam"],
-    },
-    {
-      name: "Marketing and Outreach",
-      students: [
-        "Connie Cheung",
-        "Madeline Merrill",
-        "Anna Patterson",
-        "Sofia Retamal",
-      ],
-    },
-    {
-      name: "Project Planning",
-      students: ["Mikhaela-Mari Cuadera", "Mahlet Dagne", "Rachel Silberg"],
-    },
-  ],
-  "Cohort 2021": [
-    {
-      name: "Development Ethics",
-      students: [
-        "PRM: Cameron Busser",
-        "Jessica Chernoff",
-        "Samira Mirza",
-        "Juliana Woods",
-        "Anastasia Katsafanas",
-        "Nadia Panni",
-        "Madeline Keen",
-        "Isaiah Winger",
-      ],
-    },
-    {
-      name: "Ethics of Innovation",
-      students: [
-        "PRM: Raya Seid",
-        "Ryan Bassett",
-        "Steven Berit",
-        "Mirabella Hitzges",
-        "Petra Zika",
-      ],
-    },
-    {
-      name: "Human Centered Design",
-      students: ["PRM: Courtney Davidson", "Tara Lui", "Madeline Omu-Ray"],
-    },
-    {
-      name: "Human Rights & Capabilities",
-      students: [
-        "PRM: Roma Sheth",
-        "Jeremy Christian Mccallum",
-        "Daniela Nemi",
-        "Jada Smallwood",
-        "Olivia Wolfson",
-      ],
-    },
-    {
-      name: "Infrastructure and Interface",
-      students: [
-        "PRM: Shivasree Margam",
-        "Brett Caplan",
-        "Blen Mulugeta",
-        "Sharon Zhang",
-      ],
-    },
-    {
-      name: "Marketing & Outreach",
-      students: [
-        "PRM: Madeline Merrill",
-        "Nikita Bandarupalli",
-        "Sophia Eitel",
-        "Ava Reiner",
-        "Alexandra Rogan",
-        "Khushi Shah",
-      ],
-    },
-    {
-      name: "Project Planning",
-      students: [
-        "PRM: Mikhaela Mari Cuadera",
-        "Emma Orange",
-        "Kelan Shah",
-        "Zoe Singer",
-        "Joseph Udovich",
-      ],
-    },
-  ],
-  "Cohort 2022": [
-    {
-      name: "Development Ethics",
-      students: [
-        "PRM: Zayna",
-        "Tomomi Hayashi",
-        "Andrew Wallen",
-        "Morgan Borders",
-        "Rohin Mishra",
-        "Juliette Corseri",
-      ],
-    },
-    {
-      name: "Ethics of Innovation",
-      students: [
-        "PRM: Steven",
-        "Henry Matthew Birger",
-        "Drew Roland Durst",
-        "Edward Rizkilla",
-        "Christopher Li",
-      ],
-    },
-    {
-      name: "Human Centered Design",
-      students: [
-        "PRM: Tara Lui",
-        "Ashley Chau",
-        "Jennifer Chiang",
-        "Jenna Nagie",
-        "Fe Eugenie Batoon",
-      ],
-    },
-    {
-      name: "Maldevelopment",
-      students: [
-        "PRM: Ethan",
-        "Bailey Sullivan",
-        "Frances Chen",
-        "Joseph Diaz",
-        "Sophie Garcia",
-      ],
-    },
-    {
-      name: "Infrastructure and Interface",
-      students: [
-        "PRM: Shiv",
-        "Jessica Nguyen",
-        "Zoe Cheng",
-        "Evan Hardy",
-        "Rory Rutledge",
-        "Joshua Gabriel Fitch",
-      ],
-    },
-    {
-      name: "Marketing & Outreach",
-      students: [
-        "PRM: Rylan",
-        "Ezinne Uzoho",
-        "Nick Murray",
-        "Emily Chung",
-        "Sarah Meklir",
-      ],
-    },
-    {
-      name: "Project Planning",
-      students: [
-        "PRM: Mikhaela",
-        "Sarah Dominguez",
-        "Haley Robinson",
-        "Jordan Snarski",
-      ],
-    },
-  ],
-  "Cohort 2023": [
-    {
-      name: "Development Ethics",
-      students: [
-        "PRM: Bailey Sullivan",
-        "Mayank Barnwal",
-        "Christian Galeano Ramos",
-        "Anderson Lemus-Del Cid",
-        "Ananya Malipeddi",
-      ],
-    },
-    {
-      name: "Operational Protocols",
-      students: [
-        "PRM: Miral Mohammed",
-        "Swaminathan Gayatri Lnu",
-        "Colin Freas",
-        "Alex Krucoff",
-        "Miguel Queen",
-      ],
-    },
-    {
-      name: "Human Centered Design",
-      students: [
-        "PRM: Ashley Chau",
-        "Wending Zhang",
-        "Rachel Odumade",
-        "Grace Liao",
-      ],
-    },
-    {
-      name: "Project Evaluation",
-      students: [
-        "PRM: Angie Nguyen",
-        "Emilia Guzman",
-        "Tobias West",
-        "Regina Noel Kelly Hrabinski",
-      ],
-    },
-    {
-      name: "Infrastructure and Interface",
-      students: [
-        "PRM: Jessica Nguyen",
-        "Oluwatobiloba Adegbaju",
-        "Ojie Okodogbe",
-        "Neha Veeragandham",
-        "Khardiatou Wane",
-        "Bodhi Getsug",
-      ],
-    },
-    {
-      name: "Marketing & Outreach",
-      students: [
-        "PRM: Emily Chung",
-        "Ozioma Farrah Chigbo",
-        "Lakayla James",
-        "Caroline Meury",
-        "Isaiah Ragsdale",
-      ],
-    },
-    {
-      name: "Project Planning",
-      students: [
-        "PRM: Quentin Hoglund",
-        "Amisiyas Seyoum",
-        "Niharika Sur",
-        "Guhan Pradeep",
-        "Julieanna Burke",
-        "Peter Delalio",
-      ],
-    },
-  ],
-  "Cohort 2024": [
-    {
-      name: "Development Ethics",
-      students: [
-        "PRM: Regina Hrabinski",
-        "Ishan Ho",
-        "Manuela Prieto",
-        "Rishit Roy",
-        "Sara Saleh",
-      ],
-    },
-    {
-      name: "Human Centered Design",
-      students: [
-        "PRM: Khadija Wane",
-        "Alyssa Moreno",
-        "Ariana Urbano Veliz",
-        "Ishani Ghosh",
-        "Maanya Upadhyay",
-        "Margaret Senturia",
-        "Ohan Semirjyan",
-        "Ruth Whitehous",
-        "Sarah Borgos",
-        "Tami Mumuney",
-      ],
-    },
-    {
-      name: "Infrastructure and Interface",
-      students: [
-        "PRM: Jessica Nguyen",
-        "PRM: Somil Varshney",
-        "Ainsley Jacobsen",
-        "Rohan Tadisetty",
-        "Saisidharth Seyyadri",
-        "Sarah King",
-        "Sequoia Santoro",
-      ],
-    },
-    {
-      name: "Operational Protocols",
-      students: [
-        "PRM: Gayatri Lnu",
-        "Milenko Stojkovic",
-        "Rowan Kuske",
-        "Stella Kahric",
-        "Timothy Fasold",
-      ],
-    },
-    {
-      name: "Project Evaluation",
-      students: [
-        "PRM: Emilia Guzman",
-        "Alexandra Jordan",
-        "Jiun Park",
-        "Miles Taylor",
-        "Riley Revilla",
-      ],
-    },
-    {
-      name: "Project Planning",
-      students: [
-        "PRM: Julie Burke",
-        "Jack Noyes",
-        "Krishnan Tholkappian",
-        "Lila Sheingate",
-        "Lilia Shahal",
-        "Sabeen Kirwi",
-      ],
-    },
-    {
-      name: "Public Policy",
-      students: [
-        "PRM: Alex Krucoff",
-        "Aryaan Ahmed",
-        "Cameron Deocampo",
-        "Eugene Choi",
-        "Gideon Eichenwald",
-        "Justin Jones",
-        "Natalie Shiloni",
-        "Shirin Saberi",
-        "Wallace Savoy",
-      ],
-    },
-    {
-      name: "Training and Knowledge Development",
-      students: [
-        "PRM: Rachel Odumade",
-        "Aidyn Phillips",
-        "Emanuella Chiemeka",
-        "Javon Lecky",
-      ],
-    },
-  ],
-  "Cohort 2025": [
-    {
-      name: "AI Development",
-      students: [
-        "PRM: Krishnan Tholkappian",
-        "Youssef Ali Ahmed",
-        "Nakshatra Hiray",
-        "Siddhant Jain",
-        "Richard Thomas",
-        "Esha Vigneswaran",
-      ],
-    },
-    {
-      name: "AI Ethics",
-      students: [
-        "PRM: Justin Jones",
-        "William Bachran",
-        "Zoey Katz",
-        "Ashlyn Wu",
-        "Anna Howell",
-      ],
-    },
-    {
-      name: "Human Centered Design",
-      students: [
-        "PRM: Rowan Kuske",
-        "Donovan Campos",
-        "Isabella Canlas",
-        "Sumer Elsalawi",
-        "Arvind Kakanavaram",
-        "Madeline Namias",
-      ],
-    },
-    {
-      name: "Infrastructure and Interface",
-      students: [
-        "PRM: Rohan Tadisetty",
-        "Saikousil Tirumalasetty",
-        "Inemesit Udo-Akang",
-        "Raymond Wu",
-      ],
-    },
-    {
-      name: "Maldevelopment",
-      students: [
-        "PRM: Eugene Choi",
-        "Emelia Adler",
-        "Lexi Bernstein",
-        "Daniella Hikin",
-        "Grace Wieber",
-      ],
-    },
-    {
-      name: "Marketing and Outreach",
-      students: [
-        "PRM: Sabeen Kirwi",
-        "Rory Gilmore",
-        "Nolan Rogalski",
-        "Darian Tamami",
-        "Sophia Tamayo",
-        "Nevan Vando",
-      ],
-    },
-    {
-      name: "Project Evaluation",
-      students: ["PRM: Jiun Park", "Avery Demarco", "Alia Mubagal"],
-    },
-    {
-      name: "Project Planning",
-      students: [
-        "PRM: Ruth Whitehouse",
-        "Jaspreet Sonu",
-        "Grace Wieber",
-        "Neeraja Yasam",
-      ],
-    },
-    {
-      name: "Pro Public Policy",
-      students: [
-        "PRM: Shirin Saberi",
-        "Antonella Almendariz",
-        "Mitchell Kuta",
-        "Lexi Schwartz",
-        "Nola Tischler",
-      ],
-    },
-    {
-      name: "Training and Knowledge Development",
-      students: [
-        "PRM: Javon Lecky",
-        "MeiMei Castranova",
-        "Nora Grennon",
-        "Eric Li",
-      ],
-    },
-  ],
-};
+function normalizeLinkedinUrl(raw?: string | null): string | undefined {
+  const trimmed = raw?.trim();
+  if (!trimmed) return undefined;
 
-const COHORT_KEYS = Object.keys(cohorts);
+  const candidate = /^(https?:)?\/\//i.test(trimmed)
+    ? trimmed.startsWith("//")
+      ? `https:${trimmed}`
+      : trimmed
+    : /^(www\.)?linkedin\.com\//i.test(trimmed)
+      ? `https://${trimmed}`
+      : trimmed;
 
-function partitionMembers(students: string[]) {
-  const prms: string[] = [];
-  const researchers: string[] = [];
-  for (const entry of students) {
-    if (/^PRM:\s*/i.test(entry)) {
-      prms.push(entry.replace(/^PRM:\s*/i, "").trim());
-    } else {
-      researchers.push(entry);
+  try {
+    const parsed = new URL(candidate);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return undefined;
     }
+    return parsed.toString();
+  } catch {
+    return undefined;
   }
-  return { prms, researchers };
+}
+
+function extractAvatarMedia(media: StrapiMedia | null | undefined): {
+  url?: string;
+  alt?: string;
+} {
+  if (!media) return {};
+  const source = media.data?.attributes ?? media;
+  const formats = source.formats;
+  const rawUrl =
+    formats?.thumbnail?.url ??
+    formats?.small?.url ??
+    formats?.medium?.url ??
+    source.url;
+
+  return {
+    url: resolveStrapiMediaUrl(rawUrl),
+    alt: source.alternativeText?.trim() || undefined,
+  };
+}
+
+function normalizeStrapiAcknowledgementCohorts(
+  rawCohorts: StrapiCohort[],
+): AcknowledgementCohort[] {
+  const result: AcknowledgementCohort[] = [];
+
+  for (const entry of rawCohorts) {
+    const rawYear = entry.year ?? entry.attributes?.year;
+    const year = typeof rawYear === "number" ? rawYear : Number(rawYear);
+    if (!Number.isFinite(year) || year <= 0) continue;
+
+    const rawTeams = unwrapStrapiTeams(entry.teams ?? entry.attributes?.teams);
+    const modules: AcknowledgementModule[] = [];
+
+    for (let teamIdx = 0; teamIdx < rawTeams.length; teamIdx += 1) {
+      const team = rawTeams[teamIdx];
+      const teamName = (
+        team.Team_name ??
+        team.attributes?.Team_name ??
+        ""
+      ).trim();
+      if (!teamName) continue;
+
+      const teamId =
+        team.documentId ??
+        (team.id !== undefined ? `${year}-team-${team.id}` : `${year}-${teamIdx}`);
+
+      const rawTeammates = team.teammates ?? team.attributes?.teammates;
+      const teammates: StrapiTeammate[] = Array.isArray(rawTeammates)
+        ? rawTeammates
+        : [];
+
+      const prms: AcknowledgementMember[] = [];
+      const researchers: AcknowledgementMember[] = [];
+
+      teammates.forEach((member, memberIdx) => {
+        const rawName = (member?.member_name ?? "").trim();
+        if (!rawName) return;
+
+        const prmMatch = rawName.match(/^PRM\s*[:\-–]\s*(.+)$/i);
+        const name = prmMatch && prmMatch[1] ? prmMatch[1].trim() : rawName;
+        const isPrm = member?.is_prm === true || Boolean(prmMatch);
+        const headshot = extractAvatarMedia(member?.headshot);
+        const fullBody = extractAvatarMedia(member?.full_body_photo);
+
+        const record: AcknowledgementMember = {
+          id:
+            member?.id !== undefined
+              ? `${teamId}-m-${member.id}`
+              : `${teamId}-m-${memberIdx}-${name}`,
+          name,
+          isPrm,
+          linkedinUrl: normalizeLinkedinUrl(member?.linkedin_url),
+          headshotUrl: headshot.url ?? fullBody.url,
+          headshotAlt: headshot.alt ?? `${name} headshot`,
+        };
+
+        if (isPrm) {
+          prms.push(record);
+        } else {
+          researchers.push(record);
+        }
+      });
+
+      modules.push({
+        id: teamId,
+        name: teamName,
+        prms,
+        researchers,
+        totalMembers: prms.length + researchers.length,
+      });
+    }
+
+    modules.sort((a, b) => a.name.localeCompare(b.name));
+
+    result.push({
+      id: entry.documentId ?? (entry.id !== undefined ? String(entry.id) : String(year)),
+      year,
+      label: `Cohort ${year}`,
+      modules,
+    });
+  }
+
+  return result.sort((a, b) => b.year - a.year);
+}
+
+function MemberThumb({ member }: { member: AcknowledgementMember }) {
+  const [failed, setFailed] = useState(false);
+  if (!member.headshotUrl || failed) return null;
+
+  return (
+    <img
+      src={member.headshotUrl}
+      alt={member.headshotAlt ?? `${member.name} headshot`}
+      decoding="async"
+      onError={() => setFailed(true)}
+      className="size-4 shrink-0 rounded-full object-cover ring-1 ring-[#94B985]"
+    />
+  );
+}
+
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" />
+    </svg>
+  );
 }
 
 function ModuleRosterCard({
   module,
   cohortLabel,
 }: {
-  module: Module;
+  module: AcknowledgementModule;
   cohortLabel?: string;
 }) {
-  const { prms, researchers } = partitionMembers(module.students);
-
   return (
     <article className="flex h-full flex-col justify-between rounded-2xl border-[1.5px] border-[#B2C9A8] bg-white p-5 transition-all duration-200 hover:border-[#3F673C] hover:bg-[#FAFDF8] hover:shadow-md sm:p-6">
       <div>
@@ -504,46 +222,83 @@ function ModuleRosterCard({
               </span>
             )}
             <span className="rounded-full border border-[#D5E3D9] bg-[#F2F6EF] px-2.5 py-0.5 font-mono text-[10px] font-medium text-[#596556] tabular-nums">
-              {module.students.length}{" "}
-              {module.students.length === 1 ? "member" : "members"}
+              {module.totalMembers}{" "}
+              {module.totalMembers === 1 ? "member" : "members"}
             </span>
           </div>
         </div>
 
         {/* PRM Lead Mentor Badges */}
-        {prms.length > 0 && (
+        {module.prms.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
-            {prms.map((prm) => (
-              <span
-                key={`prm-${prm}`}
-                className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#94B985] bg-[#F6F4D8] px-3 py-1 text-xs font-semibold text-[#284B26]"
-              >
-                <GraduationCap
-                  className="size-3.5 shrink-0 text-[#187347]"
-                  aria-hidden="true"
-                />
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[#187347]">
-                  PRM
+            {module.prms.map((prm) => {
+              const badgeContent = (
+                <>
+                  <MemberThumb member={prm} />
+                  <GraduationCap
+                    className="size-3.5 shrink-0 text-[#187347]"
+                    aria-hidden="true"
+                  />
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-[#187347]">
+                    PRM
+                  </span>
+                  <span>{prm.name}</span>
+                  {prm.linkedinUrl && (
+                    <LinkedInIcon className="size-3 shrink-0 text-[#187347]" />
+                  )}
+                </>
+              );
+
+              return prm.linkedinUrl ? (
+                <a
+                  key={prm.id}
+                  href={prm.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`PRM ${prm.name} on LinkedIn`}
+                  className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#94B985] bg-[#F6F4D8] px-3 py-1 text-xs font-semibold text-[#284B26] transition-colors hover:border-[#0A66C2] hover:bg-[#EEF6FD] hover:text-[#0A66C2]"
+                >
+                  {badgeContent}
+                </a>
+              ) : (
+                <span
+                  key={prm.id}
+                  className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#94B985] bg-[#F6F4D8] px-3 py-1 text-xs font-semibold text-[#284B26]"
+                >
+                  {badgeContent}
                 </span>
-                <span>{prm}</span>
-              </span>
-            ))}
+              );
+            })}
           </div>
         )}
 
         {/* Researching Students Pills */}
-        {researchers.length > 0 && (
+        {module.researchers.length > 0 && (
           <div className="mt-4">
             <p className="font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-[#596556]">
               Researching Students
             </p>
             <ul className="mt-2 flex flex-wrap gap-1.5">
-              {researchers.map((student, idx) => (
-                <li
-                  key={`${student}-${idx}`}
-                  className="rounded-full border border-[#B2C9A8] bg-white px-3 py-1 text-xs font-medium text-[#202B20]"
-                >
-                  {student}
+              {module.researchers.map((student) => (
+                <li key={student.id}>
+                  {student.linkedinUrl ? (
+                    <a
+                      href={student.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${student.name} on LinkedIn`}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-[#B2C9A8] bg-white px-3 py-1 text-xs font-medium text-[#202B20] transition-colors hover:border-[#0A66C2] hover:bg-[#EEF6FD] hover:text-[#0A66C2]"
+                    >
+                      <MemberThumb member={student} />
+                      <span>{student.name}</span>
+                      <LinkedInIcon className="size-3 shrink-0 text-[#187347]" />
+                    </a>
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[#B2C9A8] bg-white px-3 py-1 text-xs font-medium text-[#202B20]">
+                      <MemberThumb member={student} />
+                      <span>{student.name}</span>
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
@@ -556,63 +311,137 @@ function ModuleRosterCard({
 
 const Acknowledgements: React.FC = () => {
   const reduced = useReducedMotion();
-  const [selectedCohort, setSelectedCohort] = useState("Cohort 2025");
+  const [cohorts, setCohorts] = useState<AcknowledgementCohort[]>([]);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [retryCount, setRetryCount] = useState(0);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    let active = true;
+
+    async function loadCohorts() {
+      setLoading(true);
+      setError("");
+      try {
+        const raw = await getCohortsWithTeams(controller.signal);
+        if (!active || controller.signal.aborted) return;
+
+        const normalized = normalizeStrapiAcknowledgementCohorts(raw);
+        setCohorts(normalized);
+
+        const firstPopulated =
+          normalized.find((c) => c.modules.length > 0) ?? normalized[0] ?? null;
+        setSelectedYear((current) =>
+          current !== null && normalized.some((c) => c.year === current)
+            ? current
+            : (firstPopulated?.year ?? null),
+        );
+      } catch (err: unknown) {
+        if (!active || (err instanceof DOMException && err.name === "AbortError")) {
+          return;
+        }
+        setError("Unable to load cohorts and teams from the CMS. Please try again.");
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+
+    void loadCohorts();
+    return () => {
+      active = false;
+      controller.abort();
+    };
+  }, [retryCount]);
 
   const stats = useMemo(() => {
-    const allModules = Object.values(cohorts).flat();
+    const allModules = cohorts.flatMap((cohort) => cohort.modules);
     const totalStudents = allModules.reduce(
-      (sum, mod) => sum + mod.students.length,
+      (sum, mod) => sum + mod.totalMembers,
       0,
     );
-    const totalPrms = allModules.reduce(
-      (sum, mod) =>
-        sum + mod.students.filter((s) => /^PRM:\s*/i.test(s)).length,
-      0,
-    );
+    const totalPrms = allModules.reduce((sum, mod) => sum + mod.prms.length, 0);
+    const years = cohorts.map((cohort) => cohort.year);
+    const minYear = years.length > 0 ? Math.min(...years) : null;
+    const maxYear = years.length > 0 ? Math.max(...years) : null;
+    const yearRange =
+      minYear !== null && maxYear !== null
+        ? minYear === maxYear
+          ? String(maxYear)
+          : `${minYear}–${maxYear}`
+        : null;
+
     return {
-      cohortCount: COHORT_KEYS.length,
+      cohortCount: cohorts.length,
       moduleCount: allModules.length,
       studentCount: totalStudents,
       prmCount: totalPrms,
+      minYear,
+      maxYear,
+      yearRange,
     };
-  }, []);
+  }, [cohorts]);
 
   const trimmedQuery = searchQuery.trim().toLowerCase();
 
   const searchResults = useMemo(() => {
     if (!trimmedQuery) return [];
-    const results: Array<{ cohort: string; module: Module }> = [];
-    for (const [cohortName, mods] of Object.entries(cohorts)) {
-      for (const mod of mods) {
+    const results: Array<{ cohort: string; module: AcknowledgementModule }> = [];
+    for (const cohort of cohorts) {
+      for (const mod of cohort.modules) {
         const matchesModule = mod.name.toLowerCase().includes(trimmedQuery);
-        const matchesCohort = cohortName.toLowerCase().includes(trimmedQuery);
-        const matchesMember = mod.students.some((s) =>
-          s.toLowerCase().includes(trimmedQuery),
-        );
+        const matchesCohort = cohort.label.toLowerCase().includes(trimmedQuery);
+        const matchesMember =
+          mod.prms.some(
+            (m) =>
+              m.name.toLowerCase().includes(trimmedQuery) ||
+              `prm: ${m.name}`.toLowerCase().includes(trimmedQuery),
+          ) ||
+          mod.researchers.some((m) =>
+            m.name.toLowerCase().includes(trimmedQuery),
+          );
         if (matchesModule || matchesCohort || matchesMember) {
-          results.push({ cohort: cohortName, module: mod });
+          results.push({ cohort: cohort.label, module: mod });
         }
       }
     }
     return results;
-  }, [trimmedQuery]);
+  }, [cohorts, trimmedQuery]);
 
-  const activeCohortModules = cohorts[selectedCohort] ?? [];
+  const activeCohort = useMemo(
+    () => cohorts.find((cohort) => cohort.year === selectedYear) ?? cohorts[0] ?? null,
+    [cohorts, selectedYear],
+  );
+  const activeCohortModules = activeCohort?.modules ?? [];
   const activeCohortMemberCount = activeCohortModules.reduce(
-    (sum, mod) => sum + mod.students.length,
+    (sum, mod) => sum + mod.totalMembers,
     0,
   );
 
+  const heroBadges: Array<{ label: string; tone: "cream" | "sage" }> = [
+    {
+      label: stats.yearRange ? `UMD FIRE · ${stats.yearRange}` : "UMD FIRE",
+      tone: "cream",
+    },
+    ...(stats.cohortCount > 0
+      ? [
+          {
+            label: `${stats.cohortCount} Research ${
+              stats.cohortCount === 1 ? "Cohort" : "Cohorts"
+            }`,
+            tone: "sage" as const,
+          },
+        ]
+      : []),
+  ];
+
   return (
     <div className="acknowledgements-editorial-page min-h-screen bg-white text-[#202B20]">
-
       <EditorialPageHero
         ariaLabel="Community and Acknowledgements"
-        badges={[
-          { label: "UMD FIRE · 2020–2025", tone: "cream" },
-          { label: `${stats.cohortCount} Research Cohorts`, tone: "sage" },
-        ]}
+        badges={heroBadges}
         title={
           <>
             Community &amp;{" "}
@@ -621,7 +450,11 @@ const Acknowledgements: React.FC = () => {
             </em>
           </>
         }
-        subtitle="Celebrating the University of Maryland FIRE Global Development & Design student researchers, Peer Research Mentors, faculty leaders, and international partners who built this open-access toolkit across six cohorts."
+        subtitle={
+          stats.cohortCount > 0
+            ? `Celebrating the University of Maryland FIRE Global Development & Design student researchers, Peer Research Mentors, faculty leaders, and international partners who built this open-access toolkit across ${stats.cohortCount} ${stats.cohortCount === 1 ? "cohort" : "cohorts"}.`
+            : "Celebrating the University of Maryland FIRE Global Development & Design student researchers, Peer Research Mentors, faculty leaders, and international partners who built this open-access toolkit."
+        }
         footnote="University of Maryland FIRE · Dr. Ben Huffman & Dr. Stacy Kosko · DICT Philippines · OWLI Kenya"
         aside={
           <div className="rounded-2xl border-[1.5px] border-[#E9E6B2] bg-[#2E502B]/85 p-5 text-white shadow-xl backdrop-blur-sm sm:p-6">
@@ -634,10 +467,12 @@ const Acknowledgements: React.FC = () => {
                   className="text-2xl font-bold leading-none text-[#187347] tabular-nums"
                   style={EDITORIAL_SERIF_STYLE}
                 >
-                  {stats.cohortCount}
+                  {loading ? "…" : stats.cohortCount}
                 </p>
                 <p className="mt-1.5 text-[11px] font-medium text-[#394838]">
-                  FIRE Cohorts (2020–2025)
+                  {stats.yearRange
+                    ? `FIRE Cohorts (${stats.yearRange})`
+                    : "FIRE Cohorts"}
                 </p>
               </div>
               <div className="rounded-xl border border-[#D6CE8A] bg-[#FAF8E4] p-3.5 text-[#202B20]">
@@ -645,7 +480,7 @@ const Acknowledgements: React.FC = () => {
                   className="text-2xl font-bold leading-none text-[#284B26] tabular-nums"
                   style={EDITORIAL_SERIF_STYLE}
                 >
-                  {stats.studentCount}
+                  {loading ? "…" : stats.studentCount}
                 </p>
                 <p className="mt-1.5 text-[11px] font-medium text-[#394838]">
                   Student &amp; PRM Roles
@@ -656,7 +491,7 @@ const Acknowledgements: React.FC = () => {
                   className="text-2xl font-bold leading-none text-[#284B26] tabular-nums"
                   style={EDITORIAL_SERIF_STYLE}
                 >
-                  {stats.moduleCount}
+                  {loading ? "…" : stats.moduleCount}
                 </p>
                 <p className="mt-1.5 text-[11px] font-medium text-[#394838]">
                   Module Teams Built
@@ -846,7 +681,13 @@ const Acknowledgements: React.FC = () => {
           align="center"
           description={
             <>
-              Browse every UMD FIRE research cohort from 2020 to 2025, featuring{" "}
+              Browse every UMD FIRE research cohort
+              {stats.minYear !== null && stats.maxYear !== null
+                ? stats.minYear === stats.maxYear
+                  ? ` from ${stats.maxYear}`
+                  : ` from ${stats.minYear} to ${stats.maxYear}`
+                : ""}
+              , featuring{" "}
               <span className="font-semibold text-[#284B26]">
                 Peer Research Mentors (PRMs)
               </span>{" "}
@@ -859,156 +700,239 @@ const Acknowledgements: React.FC = () => {
           }
         />
 
-        {/* Cohort Selector Tabs + Quick Contributor Search */}
-        <div className="mt-8 flex flex-col items-center gap-4">
+        {loading && (
           <div
-            role="tablist"
-            aria-label="Select a research cohort"
-            className="flex flex-wrap items-center justify-center gap-2"
+            role="status"
+            className="mt-8 flex flex-col items-center justify-center gap-3 rounded-2xl border-[1.5px] border-[#B2C9A8] bg-white p-10 text-center"
           >
-            {COHORT_KEYS.map((cohort) => {
-              const isActive = !trimmedQuery && selectedCohort === cohort;
-              return (
-                <button
-                  key={cohort}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => {
-                    setSelectedCohort(cohort);
-                    if (trimmedQuery) setSearchQuery("");
-                  }}
-                  className={cn(
-                    "cursor-pointer rounded-full px-4 py-1.5 text-xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3F673C] focus-visible:ring-offset-2",
-                    isActive
-                      ? "bg-gradient-to-r from-[#3F673C] to-[#187347] font-semibold text-white shadow-sm"
-                      : "border border-[#94B985] bg-white font-medium text-[#284B26] hover:border-[#3F673C] hover:bg-[#EDF4E8]",
-                  )}
-                >
-                  {cohort}
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="relative w-full max-w-md">
-            <Search
+            <Loader2
+              className="size-6 animate-spin text-[#187347]"
               aria-hidden="true"
-              className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#596556]"
             />
-            <input
-              type="search"
-              aria-label="Search students, mentors, or modules across all cohorts"
-              placeholder="Search any student, PRM, or module across cohorts…"
-              value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
-              className="h-10 w-full rounded-full border-[1.5px] border-[#94B985] bg-white pr-9 pl-10 text-sm text-[#202B20] shadow-xs placeholder:text-[#596556] focus:border-[#3F673C] focus:outline-none focus:ring-2 focus:ring-[#3F673C]/25"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                aria-label="Clear search"
-                onClick={() => setSearchQuery("")}
-                className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer rounded-full p-1 text-[#596556] hover:bg-[#EDF4E8] hover:text-[#202B20]"
-              >
-                <X className="size-3.5" aria-hidden="true" />
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Cohort Header Strip or Search Results Header */}
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-b border-[#D5E3D9] pb-3.5">
-          {trimmedQuery ? (
-            <p className="text-sm text-[#394838]">
-              Found{" "}
-              <span className="font-semibold text-[#202B20] tabular-nums">
-                {searchResults.length}
-              </span>{" "}
-              matching {searchResults.length === 1 ? "module" : "modules"} for{" "}
-              <span className="font-semibold text-[#187347]">
-                &ldquo;{searchQuery.trim()}&rdquo;
-              </span>
+            <p className="text-sm font-medium text-[#394838]">
+              Loading research cohorts and module teams…
             </p>
-          ) : (
-            <div className="flex flex-wrap items-center gap-3">
-              <h3
-                className="text-2xl font-semibold text-[#202B20]"
-                style={EDITORIAL_SERIF_STYLE}
-              >
-                {selectedCohort}
-              </h3>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#94B985] bg-white px-3 py-1 font-mono text-[11px] font-medium text-[#284B26]">
-                <Layers className="size-3 text-[#187347]" aria-hidden="true" />
-                {activeCohortModules.length} Modules
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#94B985] bg-white px-3 py-1 font-mono text-[11px] font-medium text-[#284B26]">
-                <Users className="size-3 text-[#187347]" aria-hidden="true" />
-                {activeCohortMemberCount} Contributors
-              </span>
-            </div>
-          )}
-
-          <div className="flex items-center gap-2 text-xs text-[#596556]">
-            <span className="inline-flex items-center gap-1 rounded-full border border-[#94B985] bg-[#F6F4D8] px-2.5 py-0.5 font-mono text-[10px] font-semibold text-[#284B26]">
-              <GraduationCap className="size-3 text-[#187347]" aria-hidden="true" />
-              PRM = Peer Research Mentor
-            </span>
           </div>
-        </div>
+        )}
 
-        {/* Modules Grid with Smooth AnimatePresence */}
-        {trimmedQuery ? (
-          searchResults.length > 0 ? (
-            <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
-              {searchResults.map(({ cohort, module }, idx) => (
-                <ModuleRosterCard
-                  key={`${cohort}-${module.name}-${idx}`}
-                  module={module}
-                  cohortLabel={cohort}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="mt-6 rounded-2xl border-[1.5px] border-dashed border-[#94B985] bg-white p-10 text-center">
-              <p
-                className="text-lg font-semibold text-[#202B20]"
-                style={EDITORIAL_SERIF_STYLE}
-              >
-                No matching contributors or modules found.
-              </p>
-              <p className="mt-1.5 text-sm text-[#596556]">
-                Try searching by a first name, last name, or module title.
-              </p>
-              <button
-                type="button"
-                onClick={() => setSearchQuery("")}
-                className="mt-4 inline-flex cursor-pointer items-center gap-1.5 rounded-full border-[1.5px] border-[#3F673C] bg-white px-5 py-2 text-xs font-semibold text-[#284B26] hover:bg-[#EDF4E8]"
-              >
-                Clear search
-              </button>
-            </div>
-          )
-        ) : (
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={selectedCohort}
-              role="tabpanel"
-              aria-label={selectedCohort}
-              initial={reduced ? { opacity: 1 } : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduced ? { opacity: 1 } : { opacity: 0, y: -10 }}
-              transition={{ duration: 0.24, ease: EDITORIAL_EASE }}
-              className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2"
+        {!loading && error && (
+          <div
+            role="alert"
+            className="mt-8 rounded-2xl border-[1.5px] border-dashed border-[#B91C1C]/40 bg-white p-10 text-center"
+          >
+            <p
+              className="text-lg font-semibold text-[#202B20]"
+              style={EDITORIAL_SERIF_STYLE}
             >
-              {activeCohortModules.map((module, idx) => (
-                <ModuleRosterCard
-                  key={`${selectedCohort}-${module.name}-${idx}`}
-                  module={module}
+              Could not load cohorts
+            </p>
+            <p className="mt-1.5 text-sm text-[#596556]">{error}</p>
+            <button
+              type="button"
+              onClick={() => setRetryCount((count) => count + 1)}
+              className="mt-4 inline-flex cursor-pointer items-center gap-1.5 rounded-full border-[1.5px] border-[#3F673C] bg-white px-5 py-2 text-xs font-semibold text-[#284B26] hover:bg-[#EDF4E8]"
+            >
+              <RefreshCw className="size-3.5" aria-hidden="true" />
+              Try again
+            </button>
+          </div>
+        )}
+
+        {!loading && !error && cohorts.length === 0 && (
+          <div
+            role="status"
+            className="mt-8 rounded-2xl border-[1.5px] border-dashed border-[#94B985] bg-white p-10 text-center"
+          >
+            <p
+              className="text-lg font-semibold text-[#202B20]"
+              style={EDITORIAL_SERIF_STYLE}
+            >
+              No research cohorts available yet.
+            </p>
+            <p className="mt-1.5 text-sm text-[#596556]">
+              Cohort rosters will appear here once published in Strapi.
+            </p>
+          </div>
+        )}
+
+        {!loading && !error && activeCohort && (
+          <>
+            {/* Cohort Selector Tabs + Quick Contributor Search */}
+            <div className="mt-8 flex flex-col items-center gap-4">
+              <div
+                role="tablist"
+                aria-label="Select a research cohort"
+                className="flex flex-wrap items-center justify-center gap-2"
+              >
+                {cohorts.map((cohort) => {
+                  const isActive =
+                    !trimmedQuery && activeCohort.year === cohort.year;
+                  return (
+                    <button
+                      key={cohort.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      onClick={() => {
+                        setSelectedYear(cohort.year);
+                        if (trimmedQuery) setSearchQuery("");
+                      }}
+                      className={cn(
+                        "cursor-pointer rounded-full px-4 py-1.5 text-xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3F673C] focus-visible:ring-offset-2",
+                        isActive
+                          ? "bg-gradient-to-r from-[#3F673C] to-[#187347] font-semibold text-white shadow-sm"
+                          : "border border-[#94B985] bg-white font-medium text-[#284B26] hover:border-[#3F673C] hover:bg-[#EDF4E8]",
+                      )}
+                    >
+                      {cohort.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="relative w-full max-w-md">
+                <Search
+                  aria-hidden="true"
+                  className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#596556]"
                 />
-              ))}
-            </motion.div>
-          </AnimatePresence>
+                <input
+                  type="search"
+                  aria-label="Search students, mentors, or modules across all cohorts"
+                  placeholder="Search any student, PRM, or module across cohorts…"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  className="h-10 w-full rounded-full border-[1.5px] border-[#94B985] bg-white pr-9 pl-10 text-sm text-[#202B20] shadow-xs placeholder:text-[#596556] focus:border-[#3F673C] focus:outline-none focus:ring-2 focus:ring-[#3F673C]/25"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    aria-label="Clear search"
+                    onClick={() => setSearchQuery("")}
+                    className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer rounded-full p-1 text-[#596556] hover:bg-[#EDF4E8] hover:text-[#202B20]"
+                  >
+                    <X className="size-3.5" aria-hidden="true" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Cohort Header Strip or Search Results Header */}
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-b border-[#D5E3D9] pb-3.5">
+              {trimmedQuery ? (
+                <p className="text-sm text-[#394838]">
+                  Found{" "}
+                  <span className="font-semibold text-[#202B20] tabular-nums">
+                    {searchResults.length}
+                  </span>{" "}
+                  matching {searchResults.length === 1 ? "module" : "modules"}{" "}
+                  for{" "}
+                  <span className="font-semibold text-[#187347]">
+                    &ldquo;{searchQuery.trim()}&rdquo;
+                  </span>
+                </p>
+              ) : (
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3
+                    className="text-2xl font-semibold text-[#202B20]"
+                    style={EDITORIAL_SERIF_STYLE}
+                  >
+                    {activeCohort.label}
+                  </h3>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#94B985] bg-white px-3 py-1 font-mono text-[11px] font-medium text-[#284B26]">
+                    <Layers
+                      className="size-3 text-[#187347]"
+                      aria-hidden="true"
+                    />
+                    {activeCohortModules.length}{" "}
+                    {activeCohortModules.length === 1 ? "Module" : "Modules"}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#94B985] bg-white px-3 py-1 font-mono text-[11px] font-medium text-[#284B26]">
+                    <Users
+                      className="size-3 text-[#187347]"
+                      aria-hidden="true"
+                    />
+                    {activeCohortMemberCount}{" "}
+                    {activeCohortMemberCount === 1
+                      ? "Contributor"
+                      : "Contributors"}
+                  </span>
+                </div>
+              )}
+
+              <div className="flex items-center gap-2 text-xs text-[#596556]">
+                <span className="inline-flex items-center gap-1 rounded-full border border-[#94B985] bg-[#F6F4D8] px-2.5 py-0.5 font-mono text-[10px] font-semibold text-[#284B26]">
+                  <GraduationCap
+                    className="size-3 text-[#187347]"
+                    aria-hidden="true"
+                  />
+                  PRM = Peer Research Mentor
+                </span>
+              </div>
+            </div>
+
+            {/* Modules Grid with Smooth AnimatePresence */}
+            {trimmedQuery ? (
+              searchResults.length > 0 ? (
+                <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+                  {searchResults.map(({ cohort, module }) => (
+                    <ModuleRosterCard
+                      key={`${cohort}-${module.id}`}
+                      module={module}
+                      cohortLabel={cohort}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="mt-6 rounded-2xl border-[1.5px] border-dashed border-[#94B985] bg-white p-10 text-center">
+                  <p
+                    className="text-lg font-semibold text-[#202B20]"
+                    style={EDITORIAL_SERIF_STYLE}
+                  >
+                    No matching contributors or modules found.
+                  </p>
+                  <p className="mt-1.5 text-sm text-[#596556]">
+                    Try searching by a first name, last name, or module title.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    className="mt-4 inline-flex cursor-pointer items-center gap-1.5 rounded-full border-[1.5px] border-[#3F673C] bg-white px-5 py-2 text-xs font-semibold text-[#284B26] hover:bg-[#EDF4E8]"
+                  >
+                    Clear search
+                  </button>
+                </div>
+              )
+            ) : activeCohortModules.length > 0 ? (
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={activeCohort.label}
+                  role="tabpanel"
+                  aria-label={activeCohort.label}
+                  initial={reduced ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduced ? { opacity: 1 } : { opacity: 0, y: -10 }}
+                  transition={{ duration: 0.24, ease: EDITORIAL_EASE }}
+                  className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2"
+                >
+                  {activeCohortModules.map((module) => (
+                    <ModuleRosterCard key={module.id} module={module} />
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            ) : (
+              <div
+                role="status"
+                className="mt-6 rounded-2xl border-[1.5px] border-dashed border-[#94B985] bg-white p-10 text-center"
+              >
+                <p
+                  className="text-lg font-semibold text-[#202B20]"
+                  style={EDITORIAL_SERIF_STYLE}
+                >
+                  No module teams listed for {activeCohort.label} yet.
+                </p>
+              </div>
+            )}
+          </>
         )}
       </EditorialSection>
     </div>
